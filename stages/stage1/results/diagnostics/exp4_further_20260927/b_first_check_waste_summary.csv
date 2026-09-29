@@ -1,0 +1,9 @@
+group,action,branches,first_check_exists,first_FAIL,mean_precheck_new_generated_tokens,mean_precheck_new_eventually_discarded_tokens,mean_precheck_new_first_fail_discarded_tokens
+initial,now,60,60,3,0,0,0
+initial,delay1,60,60,12,57.65,18.566666666666666,17.966666666666665
+initial,delay2,60,60,17,108.56666666666666,40.18333333333333,39.78333333333333
+initial,endpoint_only,60,58,22,212.31666666666666,86.11666666666666,86.11666666666666
+historical_pass,now,36,36,9,0,0,0
+historical_pass,delay1,36,36,13,56.916666666666664,18.583333333333332,18.02777777777778
+historical_pass,delay2,36,36,16,95.05555555555556,37.05555555555556,36.94444444444444
+historical_pass,endpoint_only,36,35,16,128.02777777777777,62.388888888888886,62.388888888888886

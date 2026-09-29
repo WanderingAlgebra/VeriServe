@@ -1,0 +1,9 @@
+group,action,snapshots,snapshots_with_quality_seed_disagreement,mean_within_snapshot_cost_seed_sd
+initial,now,20,5,4.128383529967556
+initial,delay1,20,2,2.002276789270637
+initial,delay2,20,4,2.80305594044319
+initial,endpoint_only,20,5,5.447928858268537
+historical_pass,now,12,2,1.9634659818542348
+historical_pass,delay1,12,2,2.7999999161011933
+historical_pass,delay2,12,3,3.170179372011119
+historical_pass,endpoint_only,12,2,5.778652759402154

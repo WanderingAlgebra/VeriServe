@@ -1,0 +1,39 @@
+seed: 20260922
+generator:
+  id: Qwen/Qwen2.5-1.5B-Instruct
+  dtype: bfloat16
+verifier:
+  id: Qwen/Qwen2.5-7B-Instruct
+  quantization: nf4
+  compute_dtype: bfloat16
+fallback_verifier:
+  id: Qwen/Qwen2.5-3B-Instruct
+  quantization: nf4
+  compute_dtype: bfloat16
+context_limit: 2048
+expanded_context_limit: 3072
+minimum_context_limit: 1024
+gpu_headroom_gib: 0.5
+budget:
+  generated_tokens: 2048
+  verifier_calls: 6
+  verifier_output_tokens: 256
+  prefill_tokens: 16384
+generation:
+  temperature: 0.7
+  top_p: 0.95
+  max_step_tokens: 384
+  max_steps_without_check: 2
+diagnostic:
+  raw_cases: 60
+  error_cases: 50
+  clean_cases: 10
+  min_json_valid: 0.95
+  max_false_positive: 0.20
+  min_error_detection: 0.50
+experiment3:
+  max_fail_snapshots: 40
+  cache_snapshots: 10
+  greedy_tokens: 32
+  logit_max_abs_tolerance: 0.5
+  benchmark_repetitions: 5

@@ -1,0 +1,17 @@
+policy,termination,count
+unchecked,CONTEXT_LIMIT,1
+unchecked,EOS,7
+unchecked,FINAL_UNCHECKED,92
+endpoint,BUDGET_VERIFIER,9
+endpoint,CONTEXT_LIMIT,1
+endpoint,EOS,13
+endpoint,FINAL_PASS,75
+endpoint,GEN_BUDGET,2
+k4,BUDGET_VERIFIER,14
+k4,EOS,10
+k4,FINAL_PASS,73
+k4,FINAL_UNCERTAIN,3
+random,BUDGET_VERIFIER,17
+random,EOS,8
+random,FINAL_PASS,73
+random,FINAL_UNCERTAIN,2

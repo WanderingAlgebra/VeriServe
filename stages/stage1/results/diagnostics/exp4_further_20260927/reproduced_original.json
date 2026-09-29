@@ -1,0 +1,2623 @@
+{
+  "baselines": {
+    "endpoint": {
+      "checks": 191,
+      "correct": 65,
+      "count": 100,
+      "mean_service_seconds": 17.41169704457221,
+      "unfinished": 25
+    },
+    "k4": {
+      "checks": 248,
+      "correct": 62,
+      "count": 100,
+      "mean_service_seconds": 12.683938027589466,
+      "unfinished": 24
+    },
+    "random": {
+      "checks": 297,
+      "correct": 60,
+      "count": 100,
+      "mean_service_seconds": 12.131829554065625,
+      "unfinished": 25
+    },
+    "unchecked": {
+      "checks": 0,
+      "correct": 49,
+      "count": 100,
+      "mean_service_seconds": 9.229797694552108,
+      "unfinished": 8
+    }
+  },
+  "paired": [
+    {
+      "a_only_correct": 14,
+      "accuracy_difference": 0.13,
+      "b_only_correct": 1,
+      "bootstrap_95_interval": [
+        0.06,
+        0.2
+      ],
+      "policy_a": "k4",
+      "policy_b": "unchecked"
+    },
+    {
+      "a_only_correct": 1,
+      "accuracy_difference": -0.03,
+      "b_only_correct": 4,
+      "bootstrap_95_interval": [
+        -0.07,
+        0.01
+      ],
+      "policy_a": "k4",
+      "policy_b": "endpoint"
+    },
+    {
+      "a_only_correct": 5,
+      "accuracy_difference": -0.02,
+      "b_only_correct": 7,
+      "bootstrap_95_interval": [
+        -0.08,
+        0.05
+      ],
+      "policy_a": "random",
+      "policy_b": "k4"
+    }
+  ],
+  "oracle": {
+    "comparisons": [
+      {
+        "group": "initial",
+        "lambda": 0,
+        "count": 20,
+        "oracle_correct": 13,
+        "uniform_action": "delay2",
+        "uniform_correct": 15,
+        "utility_gap": -0.1,
+        "bootstrap_95_interval": [
+          -0.25,
+          0.0
+        ],
+        "oracle_mean_suffix_seconds": 13.39760057575404,
+        "uniform_mean_suffix_seconds": 9.310312501901354
+      },
+      {
+        "group": "initial",
+        "lambda": 0.05,
+        "count": 20,
+        "oracle_correct": 13,
+        "uniform_action": "delay2",
+        "uniform_correct": 15,
+        "utility_gap": -0.10434560943892231,
+        "bootstrap_95_interval": [
+          -0.2585,
+          0.0117
+        ],
+        "oracle_mean_suffix_seconds": 9.983726181252132,
+        "uniform_mean_suffix_seconds": 9.310312501901354
+      },
+      {
+        "group": "initial",
+        "lambda": 0.1,
+        "count": 20,
+        "oracle_correct": 13,
+        "uniform_action": "delay1",
+        "uniform_correct": 13,
+        "utility_gap": -0.03442019885949364,
+        "bootstrap_95_interval": [
+          -0.0999,
+          0.0139
+        ],
+        "oracle_mean_suffix_seconds": 9.983726181252132,
+        "uniform_mean_suffix_seconds": 7.31677772629555
+      },
+      {
+        "group": "initial",
+        "lambda": 0.2,
+        "count": 20,
+        "oracle_correct": 13,
+        "uniform_action": "delay1",
+        "uniform_correct": 13,
+        "utility_gap": -0.02271541183997495,
+        "bootstrap_95_interval": [
+          -0.1042,
+          0.0348
+        ],
+        "oracle_mean_suffix_seconds": 8.19679635660068,
+        "uniform_mean_suffix_seconds": 7.31677772629555
+      },
+      {
+        "group": "initial",
+        "lambda": 0.5,
+        "count": 20,
+        "oracle_correct": 13,
+        "uniform_action": "delay1",
+        "uniform_correct": 13,
+        "utility_gap": -0.056788529599937354,
+        "bootstrap_95_interval": [
+          -0.2604,
+          0.0869
+        ],
+        "oracle_mean_suffix_seconds": 8.19679635660068,
+        "uniform_mean_suffix_seconds": 7.31677772629555
+      },
+      {
+        "group": "initial",
+        "lambda": 1,
+        "count": 20,
+        "oracle_correct": 13,
+        "uniform_action": "delay1",
+        "uniform_correct": 13,
+        "utility_gap": -0.1106797199912412,
+        "bootstrap_95_interval": [
+          -0.5209,
+          0.1738
+        ],
+        "oracle_mean_suffix_seconds": 8.17434717100041,
+        "uniform_mean_suffix_seconds": 7.31677772629555
+      },
+      {
+        "group": "historical_pass",
+        "lambda": 0,
+        "count": 12,
+        "oracle_correct": 5,
+        "uniform_action": "now",
+        "uniform_correct": 5,
+        "utility_gap": 0.0,
+        "bootstrap_95_interval": [
+          0.0,
+          0.0
+        ],
+        "oracle_mean_suffix_seconds": 6.97697927042221,
+        "uniform_mean_suffix_seconds": 6.97697927042221
+      },
+      {
+        "group": "historical_pass",
+        "lambda": 0.05,
+        "count": 12,
+        "oracle_correct": 6,
+        "uniform_action": "now",
+        "uniform_correct": 5,
+        "utility_gap": 0.08462733460667049,
+        "bootstrap_95_interval": [
+          0.0003,
+          0.2527
+        ],
+        "oracle_mean_suffix_seconds": 6.776455461090033,
+        "uniform_mean_suffix_seconds": 6.97697927042221
+      },
+      {
+        "group": "historical_pass",
+        "lambda": 0.1,
+        "count": 12,
+        "oracle_correct": 6,
+        "uniform_action": "now",
+        "uniform_correct": 5,
+        "utility_gap": 0.08592133588000762,
+        "bootstrap_95_interval": [
+          0.0006,
+          0.2553
+        ],
+        "oracle_mean_suffix_seconds": 6.776455461090033,
+        "uniform_mean_suffix_seconds": 6.97697927042221
+      },
+      {
+        "group": "historical_pass",
+        "lambda": 0.2,
+        "count": 12,
+        "oracle_correct": 6,
+        "uniform_action": "now",
+        "uniform_correct": 5,
+        "utility_gap": 0.08850933842668192,
+        "bootstrap_95_interval": [
+          0.0013,
+          0.2606
+        ],
+        "oracle_mean_suffix_seconds": 6.776455461090033,
+        "uniform_mean_suffix_seconds": 6.97697927042221
+      },
+      {
+        "group": "historical_pass",
+        "lambda": 0.5,
+        "count": 12,
+        "oracle_correct": 6,
+        "uniform_action": "now",
+        "uniform_correct": 5,
+        "utility_gap": 0.09627334606670489,
+        "bootstrap_95_interval": [
+          0.0032,
+          0.2765
+        ],
+        "oracle_mean_suffix_seconds": 6.776455461090033,
+        "uniform_mean_suffix_seconds": 6.97697927042221
+      },
+      {
+        "group": "historical_pass",
+        "lambda": 1,
+        "count": 12,
+        "oracle_correct": 6,
+        "uniform_action": "now",
+        "uniform_correct": 5,
+        "utility_gap": 0.10921335880007636,
+        "bootstrap_95_interval": [
+          0.0064,
+          0.3031
+        ],
+        "oracle_mean_suffix_seconds": 6.776455461090033,
+        "uniform_mean_suffix_seconds": 6.97697927042221
+      }
+    ],
+    "selections": [
+      {
+        "snapshot_id": "initial/test-1149",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1155",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-135",
+        "lambda": 0,
+        "chosen_action": "delay1",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-159",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-179",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-208",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-210",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 0.5,
+          "delay2": 0.5,
+          "endpoint_only": 0.5
+        }
+      },
+      {
+        "snapshot_id": "initial/test-23",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-365",
+        "lambda": 0,
+        "chosen_action": "delay1",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.5,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-392",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 0.5
+        }
+      },
+      {
+        "snapshot_id": "initial/test-42",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-450",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-489",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-518",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-788",
+        "lambda": 0,
+        "chosen_action": "delay2",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.5,
+          "endpoint_only": 0.5
+        }
+      },
+      {
+        "snapshot_id": "initial/test-80",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-903",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-916",
+        "lambda": 0,
+        "chosen_action": "delay1",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.5,
+          "delay2": 0.5,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-979",
+        "lambda": 0,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.5
+        }
+      },
+      {
+        "snapshot_id": "initial/test-984",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1149",
+        "lambda": 0.05,
+        "chosen_action": "delay1",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9833925620056151,
+          "delay1": 0.9847307741792432,
+          "delay2": 0.9840459994976856,
+          "endpoint_only": 0.9844555219058944
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1155",
+        "lambda": 0.05,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9871060472989165,
+          "delay1": 0.9882505491679616,
+          "delay2": 0.9882582826339723,
+          "endpoint_only": 0.9883486866362177
+        }
+      },
+      {
+        "snapshot_id": "initial/test-135",
+        "lambda": 0.05,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": -0.10538388837303883,
+          "delay1": 0.9470490629036818,
+          "delay2": 0.9475329205300951,
+          "endpoint_only": 0.9477521550027597
+        }
+      },
+      {
+        "snapshot_id": "initial/test-159",
+        "lambda": 0.05,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": -0.019192766918539862,
+          "delay1": -0.0182442520259592,
+          "delay2": -0.017324966883834406,
+          "endpoint_only": -0.017108451572438656
+        }
+      },
+      {
+        "snapshot_id": "initial/test-179",
+        "lambda": 0.05,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9788659329187217,
+          "delay1": 0.9787400193069651,
+          "delay2": 0.9801835779097475,
+          "endpoint_only": 0.9802770206890747
+        }
+      },
+      {
+        "snapshot_id": "initial/test-208",
+        "lambda": 0.05,
+        "chosen_action": "delay2",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9797315706499337,
+          "delay1": 0.9792085985933421,
+          "delay2": 0.9811733941321066,
+          "endpoint_only": 0.9808913488649884
+        }
+      },
+      {
+        "snapshot_id": "initial/test-210",
+        "lambda": 0.05,
+        "chosen_action": "now",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9104526674313421,
+          "delay1": 0.42149385300044745,
+          "delay2": 0.37566379626884294,
+          "endpoint_only": 0.3460496103698919
+        }
+      },
+      {
+        "snapshot_id": "initial/test-23",
+        "lambda": 0.05,
+        "chosen_action": "delay1",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9804543413871707,
+          "delay1": 0.9841638976136282,
+          "delay2": 0.9812071855021771,
+          "endpoint_only": 0.9816756249819287
+        }
+      },
+      {
+        "snapshot_id": "initial/test-365",
+        "lambda": 0.05,
+        "chosen_action": "delay2",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.45921435438587244,
+          "delay1": 0.9722730111862623,
+          "delay2": 0.9814411694505056,
+          "endpoint_only": 0.9812661257243648
+        }
+      },
+      {
+        "snapshot_id": "initial/test-392",
+        "lambda": 0.05,
+        "chosen_action": "delay1",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9332588236830037,
+          "delay1": 0.95503171061764,
+          "delay2": 0.918267897305065,
+          "endpoint_only": 0.4193178138597843
+        }
+      },
+      {
+        "snapshot_id": "initial/test-42",
+        "lambda": 0.05,
+        "chosen_action": "delay2",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9818352603929373,
+          "delay1": 0.9818017054484844,
+          "delay2": 0.9830775693441745,
+          "endpoint_only": 0.9829775459332933
+        }
+      },
+      {
+        "snapshot_id": "initial/test-450",
+        "lambda": 0.05,
+        "chosen_action": "delay1",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": -0.21052554874565402,
+          "delay1": -0.15797527626392488,
+          "delay2": -0.19309545756818905,
+          "endpoint_only": -0.18091485230864085
+        }
+      },
+      {
+        "snapshot_id": "initial/test-489",
+        "lambda": 0.05,
+        "chosen_action": "delay1",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9638059316490004,
+          "delay1": 0.9710098779415436,
+          "delay2": 0.9454973486188235,
+          "endpoint_only": 0.9500430699763287
+        }
+      },
+      {
+        "snapshot_id": "initial/test-518",
+        "lambda": 0.05,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9528671834427211,
+          "delay1": 0.9523658010471665,
+          "delay2": 0.9536597327893679,
+          "endpoint_only": 0.9553383112994052
+        }
+      },
+      {
+        "snapshot_id": "initial/test-788",
+        "lambda": 0.05,
+        "chosen_action": "delay2",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": -0.025973050012840584,
+          "delay1": -0.07165604864226248,
+          "delay2": 0.43422220785314164,
+          "endpoint_only": 0.43396793084412966
+        }
+      },
+      {
+        "snapshot_id": "initial/test-80",
+        "lambda": 0.05,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": -0.020439862534844873,
+          "delay1": -0.023487520015571688,
+          "delay2": -0.020495467307909722,
+          "endpoint_only": -0.019836146061587512
+        }
+      },
+      {
+        "snapshot_id": "initial/test-903",
+        "lambda": 0.05,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": 0.9350046430575072,
+          "delay1": 0.9345294183858986,
+          "delay2": 0.9348556750040442,
+          "endpoint_only": 0.9367097218804679
+        }
+      },
+      {
+        "snapshot_id": "initial/test-916",
+        "lambda": 0.05,
+        "chosen_action": "delay2",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": -0.1556523621344564,
+          "delay1": 0.4010886934754508,
+          "delay2": 0.4016230291506854,
+          "endpoint_only": -0.21193169646719404
+        }
+      },
+      {
+        "snapshot_id": "initial/test-979",
+        "lambda": 0.05,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": -0.29828069442890287,
+          "delay1": -0.10809819986997701,
+          "delay2": -0.13449524530639517,
+          "endpoint_only": 0.2285841814978537
+        }
+      },
+      {
+        "snapshot_id": "initial/test-984",
+        "lambda": 0.05,
+        "chosen_action": "delay1",
+        "uniform_action": "delay2",
+        "selection_seed_estimates": {
+          "now": -0.199717558623486,
+          "delay1": -0.14523982882539593,
+          "delay2": -0.27041201198300757,
+          "endpoint_only": -0.2053868333530972
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1149",
+        "lambda": 0.1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9667851240112302,
+          "delay1": 0.9694615483584863,
+          "delay2": 0.9680919989953711,
+          "endpoint_only": 0.9689110438117889
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1155",
+        "lambda": 0.1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.974212094597833,
+          "delay1": 0.9765010983359232,
+          "delay2": 0.9765165652679446,
+          "endpoint_only": 0.9766973732724353
+        }
+      },
+      {
+        "snapshot_id": "initial/test-135",
+        "lambda": 0.1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.21076777674607766,
+          "delay1": 0.8940981258073637,
+          "delay2": 0.89506584106019,
+          "endpoint_only": 0.8955043100055193
+        }
+      },
+      {
+        "snapshot_id": "initial/test-159",
+        "lambda": 0.1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.038385533837079724,
+          "delay1": -0.0364885040519184,
+          "delay2": -0.03464993376766881,
+          "endpoint_only": -0.03421690314487731
+        }
+      },
+      {
+        "snapshot_id": "initial/test-179",
+        "lambda": 0.1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9577318658374433,
+          "delay1": 0.9574800386139302,
+          "delay2": 0.960367155819495,
+          "endpoint_only": 0.9605540413781493
+        }
+      },
+      {
+        "snapshot_id": "initial/test-208",
+        "lambda": 0.1,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9594631412998673,
+          "delay1": 0.9584171971866842,
+          "delay2": 0.9623467882642134,
+          "endpoint_only": 0.9617826977299767
+        }
+      },
+      {
+        "snapshot_id": "initial/test-210",
+        "lambda": 0.1,
+        "chosen_action": "now",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.8209053348626842,
+          "delay1": 0.3429877060008949,
+          "delay2": 0.2513275925376859,
+          "endpoint_only": 0.19209922073978386
+        }
+      },
+      {
+        "snapshot_id": "initial/test-23",
+        "lambda": 0.1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9609086827743415,
+          "delay1": 0.9683277952272564,
+          "delay2": 0.9624143710043542,
+          "endpoint_only": 0.9633512499638575
+        }
+      },
+      {
+        "snapshot_id": "initial/test-365",
+        "lambda": 0.1,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.4184287087717449,
+          "delay1": 0.9445460223725246,
+          "delay2": 0.9628823389010113,
+          "endpoint_only": 0.9625322514487296
+        }
+      },
+      {
+        "snapshot_id": "initial/test-392",
+        "lambda": 0.1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.8665176473660073,
+          "delay1": 0.9100634212352801,
+          "delay2": 0.83653579461013,
+          "endpoint_only": 0.3386356277195685
+        }
+      },
+      {
+        "snapshot_id": "initial/test-42",
+        "lambda": 0.1,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9636705207858747,
+          "delay1": 0.9636034108969689,
+          "delay2": 0.9661551386883489,
+          "endpoint_only": 0.9659550918665867
+        }
+      },
+      {
+        "snapshot_id": "initial/test-450",
+        "lambda": 0.1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.42105109749130804,
+          "delay1": -0.31595055252784976,
+          "delay2": -0.3861909151363781,
+          "endpoint_only": -0.3618297046172817
+        }
+      },
+      {
+        "snapshot_id": "initial/test-489",
+        "lambda": 0.1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9276118632980008,
+          "delay1": 0.9420197558830872,
+          "delay2": 0.890994697237647,
+          "endpoint_only": 0.9000861399526574
+        }
+      },
+      {
+        "snapshot_id": "initial/test-518",
+        "lambda": 0.1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9057343668854422,
+          "delay1": 0.904731602094333,
+          "delay2": 0.9073194655787358,
+          "endpoint_only": 0.9106766225988103
+        }
+      },
+      {
+        "snapshot_id": "initial/test-788",
+        "lambda": 0.1,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.05194610002568117,
+          "delay1": -0.14331209728452496,
+          "delay2": 0.3684444157062833,
+          "endpoint_only": 0.36793586168825937
+        }
+      },
+      {
+        "snapshot_id": "initial/test-80",
+        "lambda": 0.1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.040879725069689746,
+          "delay1": -0.046975040031143375,
+          "delay2": -0.040990934615819444,
+          "endpoint_only": -0.039672292123175024
+        }
+      },
+      {
+        "snapshot_id": "initial/test-903",
+        "lambda": 0.1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.8700092861150144,
+          "delay1": 0.8690588367717973,
+          "delay2": 0.8697113500080884,
+          "endpoint_only": 0.8734194437609357
+        }
+      },
+      {
+        "snapshot_id": "initial/test-916",
+        "lambda": 0.1,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.3113047242689128,
+          "delay1": 0.30217738695090157,
+          "delay2": 0.3032460583013708,
+          "endpoint_only": -0.4238633929343881
+        }
+      },
+      {
+        "snapshot_id": "initial/test-979",
+        "lambda": 0.1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.5965613888578057,
+          "delay1": -0.21619639973995403,
+          "delay2": -0.26899049061279035,
+          "endpoint_only": -0.0428316370042926
+        }
+      },
+      {
+        "snapshot_id": "initial/test-984",
+        "lambda": 0.1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.399435117246972,
+          "delay1": -0.29047965765079187,
+          "delay2": -0.5408240239660151,
+          "endpoint_only": -0.4107736667061944
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1149",
+        "lambda": 0.2,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9335702480224604,
+          "delay1": 0.9389230967169726,
+          "delay2": 0.9361839979907424,
+          "endpoint_only": 0.9378220876235777
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1155",
+        "lambda": 0.2,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9484241891956658,
+          "delay1": 0.9530021966718465,
+          "delay2": 0.9530331305358893,
+          "endpoint_only": 0.9533947465448706
+        }
+      },
+      {
+        "snapshot_id": "initial/test-135",
+        "lambda": 0.2,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.4215355534921553,
+          "delay1": 0.7881962516147274,
+          "delay2": 0.7901316821203801,
+          "endpoint_only": 0.7910086200110384
+        }
+      },
+      {
+        "snapshot_id": "initial/test-159",
+        "lambda": 0.2,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.07677106767415945,
+          "delay1": -0.0729770081038368,
+          "delay2": -0.06929986753533762,
+          "endpoint_only": -0.06843380628975462
+        }
+      },
+      {
+        "snapshot_id": "initial/test-179",
+        "lambda": 0.2,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9154637316748866,
+          "delay1": 0.9149600772278602,
+          "delay2": 0.92073431163899,
+          "endpoint_only": 0.9211080827562987
+        }
+      },
+      {
+        "snapshot_id": "initial/test-208",
+        "lambda": 0.2,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9189262825997349,
+          "delay1": 0.9168343943733683,
+          "delay2": 0.9246935765284267,
+          "endpoint_only": 0.9235653954599534
+        }
+      },
+      {
+        "snapshot_id": "initial/test-210",
+        "lambda": 0.2,
+        "chosen_action": "now",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.6418106697253685,
+          "delay1": 0.18597541200178977,
+          "delay2": 0.0026551850753718242,
+          "endpoint_only": -0.11580155852043228
+        }
+      },
+      {
+        "snapshot_id": "initial/test-23",
+        "lambda": 0.2,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.921817365548683,
+          "delay1": 0.9366555904545129,
+          "delay2": 0.9248287420087085,
+          "endpoint_only": 0.9267024999277147
+        }
+      },
+      {
+        "snapshot_id": "initial/test-365",
+        "lambda": 0.2,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.33685741754348975,
+          "delay1": 0.8890920447450494,
+          "delay2": 0.9257646778020228,
+          "endpoint_only": 0.925064502897459
+        }
+      },
+      {
+        "snapshot_id": "initial/test-392",
+        "lambda": 0.2,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.7330352947320147,
+          "delay1": 0.8201268424705601,
+          "delay2": 0.6730715892202598,
+          "endpoint_only": 0.177271255439137
+        }
+      },
+      {
+        "snapshot_id": "initial/test-42",
+        "lambda": 0.2,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.9273410415717492,
+          "delay1": 0.9272068217939378,
+          "delay2": 0.9323102773766978,
+          "endpoint_only": 0.9319101837331735
+        }
+      },
+      {
+        "snapshot_id": "initial/test-450",
+        "lambda": 0.2,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.8421021949826161,
+          "delay1": -0.6319011050556995,
+          "delay2": -0.7723818302727562,
+          "endpoint_only": -0.7236594092345634
+        }
+      },
+      {
+        "snapshot_id": "initial/test-489",
+        "lambda": 0.2,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.8552237265960017,
+          "delay1": 0.8840395117661741,
+          "delay2": 0.781989394475294,
+          "endpoint_only": 0.8001722799053147
+        }
+      },
+      {
+        "snapshot_id": "initial/test-518",
+        "lambda": 0.2,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.8114687337708844,
+          "delay1": 0.8094632041886659,
+          "delay2": 0.8146389311574715,
+          "endpoint_only": 0.8213532451976204
+        }
+      },
+      {
+        "snapshot_id": "initial/test-788",
+        "lambda": 0.2,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.10389220005136234,
+          "delay1": -0.2866241945690499,
+          "delay2": 0.23688883141256656,
+          "endpoint_only": 0.2358717233765187
+        }
+      },
+      {
+        "snapshot_id": "initial/test-80",
+        "lambda": 0.2,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.08175945013937949,
+          "delay1": -0.09395008006228675,
+          "delay2": -0.08198186923163889,
+          "endpoint_only": -0.07934458424635005
+        }
+      },
+      {
+        "snapshot_id": "initial/test-903",
+        "lambda": 0.2,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.7400185722300288,
+          "delay1": 0.7381176735435946,
+          "delay2": 0.7394227000161769,
+          "endpoint_only": 0.7468388875218714
+        }
+      },
+      {
+        "snapshot_id": "initial/test-916",
+        "lambda": 0.2,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.6226094485378256,
+          "delay1": 0.10435477390180309,
+          "delay2": 0.10649211660274158,
+          "endpoint_only": -0.8477267858687761
+        }
+      },
+      {
+        "snapshot_id": "initial/test-979",
+        "lambda": 0.2,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -1.1931227777156115,
+          "delay1": -0.43239279947990805,
+          "delay2": -0.5379809812255807,
+          "endpoint_only": -0.5856632740085852
+        }
+      },
+      {
+        "snapshot_id": "initial/test-984",
+        "lambda": 0.2,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.798870234493944,
+          "delay1": -0.5809593153015837,
+          "delay2": -1.0816480479320303,
+          "endpoint_only": -0.8215473334123888
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1149",
+        "lambda": 0.5,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.833925620056151,
+          "delay1": 0.8473077417924314,
+          "delay2": 0.840459994976856,
+          "endpoint_only": 0.8445552190589443
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1155",
+        "lambda": 0.5,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.8710604729891647,
+          "delay1": 0.8825054916796162,
+          "delay2": 0.8825828263397235,
+          "endpoint_only": 0.8834868663621764
+        }
+      },
+      {
+        "snapshot_id": "initial/test-135",
+        "lambda": 0.5,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -1.0538388837303883,
+          "delay1": 0.47049062903681865,
+          "delay2": 0.47532920530095013,
+          "endpoint_only": 0.47752155002759633
+        }
+      },
+      {
+        "snapshot_id": "initial/test-159",
+        "lambda": 0.5,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.1919276691853986,
+          "delay1": -0.18244252025959198,
+          "delay2": -0.17324966883834403,
+          "endpoint_only": -0.17108451572438654
+        }
+      },
+      {
+        "snapshot_id": "initial/test-179",
+        "lambda": 0.5,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.7886593291872166,
+          "delay1": 0.7874001930696506,
+          "delay2": 0.801835779097475,
+          "endpoint_only": 0.8027702068907467
+        }
+      },
+      {
+        "snapshot_id": "initial/test-208",
+        "lambda": 0.5,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.7973157064993369,
+          "delay1": 0.7920859859334207,
+          "delay2": 0.8117339413210667,
+          "endpoint_only": 0.8089134886498835
+        }
+      },
+      {
+        "snapshot_id": "initial/test-210",
+        "lambda": 0.5,
+        "chosen_action": "now",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.10452667431342116,
+          "delay1": -0.2850614699955255,
+          "delay2": -0.7433620373115705,
+          "endpoint_only": -1.0395038963010808
+        }
+      },
+      {
+        "snapshot_id": "initial/test-23",
+        "lambda": 0.5,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.8045434138717074,
+          "delay1": 0.8416389761362821,
+          "delay2": 0.8120718550217714,
+          "endpoint_only": 0.816756249819287
+        }
+      },
+      {
+        "snapshot_id": "initial/test-365",
+        "lambda": 0.5,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.09214354385872436,
+          "delay1": 0.7227301118626235,
+          "delay2": 0.8144116945050567,
+          "endpoint_only": 0.8126612572436476
+        }
+      },
+      {
+        "snapshot_id": "initial/test-392",
+        "lambda": 0.5,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.33258823683003674,
+          "delay1": 0.5503171061764004,
+          "delay2": 0.18267897305064945,
+          "endpoint_only": -0.3068218614021575
+        }
+      },
+      {
+        "snapshot_id": "initial/test-42",
+        "lambda": 0.5,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.8183526039293731,
+          "delay1": 0.8180170544848442,
+          "delay2": 0.8307756934417445,
+          "endpoint_only": 0.8297754593329336
+        }
+      },
+      {
+        "snapshot_id": "initial/test-450",
+        "lambda": 0.5,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -2.1052554874565406,
+          "delay1": -1.5797527626392487,
+          "delay2": -1.9309545756818904,
+          "endpoint_only": -1.8091485230864084
+        }
+      },
+      {
+        "snapshot_id": "initial/test-489",
+        "lambda": 0.5,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.6380593164900041,
+          "delay1": 0.7100987794154355,
+          "delay2": 0.45497348618823513,
+          "endpoint_only": 0.5004306997632868
+        }
+      },
+      {
+        "snapshot_id": "initial/test-518",
+        "lambda": 0.5,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.528671834427211,
+          "delay1": 0.5236580104716648,
+          "delay2": 0.536597327893679,
+          "endpoint_only": 0.5533831129940513
+        }
+      },
+      {
+        "snapshot_id": "initial/test-788",
+        "lambda": 0.5,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.2597305001284058,
+          "delay1": -0.7165604864226247,
+          "delay2": -0.15777792146858355,
+          "endpoint_only": -0.16032069155870315
+        }
+      },
+      {
+        "snapshot_id": "initial/test-80",
+        "lambda": 0.5,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.20439862534844871,
+          "delay1": -0.23487520015571686,
+          "delay2": -0.20495467307909718,
+          "endpoint_only": -0.1983614606158751
+        }
+      },
+      {
+        "snapshot_id": "initial/test-903",
+        "lambda": 0.5,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.3500464305750718,
+          "delay1": 0.34529418385898647,
+          "delay2": 0.3485567500404423,
+          "endpoint_only": 0.3670972188046784
+        }
+      },
+      {
+        "snapshot_id": "initial/test-916",
+        "lambda": 0.5,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -1.556523621344564,
+          "delay1": -0.48911306524549225,
+          "delay2": -0.483769708493146,
+          "endpoint_only": -2.11931696467194
+        }
+      },
+      {
+        "snapshot_id": "initial/test-979",
+        "lambda": 0.5,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -2.9828069442890284,
+          "delay1": -1.0809819986997702,
+          "delay2": -1.3449524530639516,
+          "endpoint_only": -2.214158185021463
+        }
+      },
+      {
+        "snapshot_id": "initial/test-984",
+        "lambda": 0.5,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -1.9971755862348601,
+          "delay1": -1.452398288253959,
+          "delay2": -2.7041201198300757,
+          "endpoint_only": -2.0538683335309718
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1149",
+        "lambda": 1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.667851240112302,
+          "delay1": 0.6946154835848628,
+          "delay2": 0.680919989953712,
+          "endpoint_only": 0.6891104381178886
+        }
+      },
+      {
+        "snapshot_id": "initial/test-1155",
+        "lambda": 1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.7421209459783294,
+          "delay1": 0.7650109833592325,
+          "delay2": 0.7651656526794469,
+          "endpoint_only": 0.7669737327243529
+        }
+      },
+      {
+        "snapshot_id": "initial/test-135",
+        "lambda": 1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -2.1076777674607765,
+          "delay1": -0.059018741926362694,
+          "delay2": -0.04934158939809974,
+          "endpoint_only": -0.04495689994480734
+        }
+      },
+      {
+        "snapshot_id": "initial/test-159",
+        "lambda": 1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.3838553383707972,
+          "delay1": -0.36488504051918397,
+          "delay2": -0.34649933767668806,
+          "endpoint_only": -0.3421690314487731
+        }
+      },
+      {
+        "snapshot_id": "initial/test-179",
+        "lambda": 1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.5773186583744331,
+          "delay1": 0.5748003861393012,
+          "delay2": 0.6036715581949501,
+          "endpoint_only": 0.6055404137814934
+        }
+      },
+      {
+        "snapshot_id": "initial/test-208",
+        "lambda": 1,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.5946314129986738,
+          "delay1": 0.5841719718668414,
+          "delay2": 0.6234678826421334,
+          "endpoint_only": 0.6178269772997671
+        }
+      },
+      {
+        "snapshot_id": "initial/test-210",
+        "lambda": 1,
+        "chosen_action": "now",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.7909466513731577,
+          "delay1": -1.070122939991051,
+          "delay2": -1.986724074623141,
+          "endpoint_only": -2.5790077926021615
+        }
+      },
+      {
+        "snapshot_id": "initial/test-23",
+        "lambda": 1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.6090868277434149,
+          "delay1": 0.6832779522725644,
+          "delay2": 0.6241437100435425,
+          "endpoint_only": 0.6335124996385739
+        }
+      },
+      {
+        "snapshot_id": "initial/test-365",
+        "lambda": 1,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.3157129122825513,
+          "delay1": 0.4454602237252471,
+          "delay2": 0.6288233890101134,
+          "endpoint_only": 0.625322514487295
+        }
+      },
+      {
+        "snapshot_id": "initial/test-392",
+        "lambda": 1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.33482352633992646,
+          "delay1": 0.10063421235280079,
+          "delay2": -0.6346420538987011,
+          "endpoint_only": -1.113643722804315
+        }
+      },
+      {
+        "snapshot_id": "initial/test-42",
+        "lambda": 1,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.6367052078587463,
+          "delay1": 0.6360341089696885,
+          "delay2": 0.661551386883489,
+          "endpoint_only": 0.6595509186658672
+        }
+      },
+      {
+        "snapshot_id": "initial/test-450",
+        "lambda": 1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -4.210510974913081,
+          "delay1": -3.1595055252784974,
+          "delay2": -3.861909151363781,
+          "endpoint_only": -3.6182970461728168
+        }
+      },
+      {
+        "snapshot_id": "initial/test-489",
+        "lambda": 1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.27611863298000816,
+          "delay1": 0.420197558830871,
+          "delay2": -0.09005302762352974,
+          "endpoint_only": 0.000861399526573603
+        }
+      },
+      {
+        "snapshot_id": "initial/test-518",
+        "lambda": 1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": 0.057343668854421936,
+          "delay1": 0.04731602094332965,
+          "delay2": 0.07319465578735795,
+          "endpoint_only": 0.10676622598810254
+        }
+      },
+      {
+        "snapshot_id": "initial/test-788",
+        "lambda": 1,
+        "chosen_action": "now",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.5194610002568116,
+          "delay1": -1.4331209728452494,
+          "delay2": -0.8155558429371671,
+          "endpoint_only": -0.8206413831174063
+        }
+      },
+      {
+        "snapshot_id": "initial/test-80",
+        "lambda": 1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.40879725069689743,
+          "delay1": -0.4697504003114337,
+          "delay2": -0.40990934615819435,
+          "endpoint_only": -0.3967229212317502
+        }
+      },
+      {
+        "snapshot_id": "initial/test-903",
+        "lambda": 1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -0.2999071388498564,
+          "delay1": -0.30941163228202706,
+          "delay2": -0.3028864999191154,
+          "endpoint_only": -0.26580556239064324
+        }
+      },
+      {
+        "snapshot_id": "initial/test-916",
+        "lambda": 1,
+        "chosen_action": "delay2",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -3.113047242689128,
+          "delay1": -1.4782261304909845,
+          "delay2": -1.467539416986292,
+          "endpoint_only": -4.23863392934388
+        }
+      },
+      {
+        "snapshot_id": "initial/test-979",
+        "lambda": 1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -5.965613888578057,
+          "delay1": -2.1619639973995404,
+          "delay2": -2.6899049061279032,
+          "endpoint_only": -4.928316370042926
+        }
+      },
+      {
+        "snapshot_id": "initial/test-984",
+        "lambda": 1,
+        "chosen_action": "delay1",
+        "uniform_action": "delay1",
+        "selection_seed_estimates": {
+          "now": -3.9943511724697203,
+          "delay1": -2.904796576507918,
+          "delay2": -5.408240239660151,
+          "endpoint_only": -4.1077366670619435
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-135",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-159",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-210",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-365",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-392",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-450",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 0.5,
+          "delay2": 0.5,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-518",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-80",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-903",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 1.0,
+          "delay1": 1.0,
+          "delay2": 1.0,
+          "endpoint_only": 1.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-916",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.5,
+          "delay1": 0.0,
+          "delay2": 0.5,
+          "endpoint_only": 0.5
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-979",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-984",
+        "lambda": 0,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.0,
+          "delay1": 0.0,
+          "delay2": 0.0,
+          "endpoint_only": 0.0
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-135",
+        "lambda": 0.05,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.027793054996738998,
+          "delay1": -0.05009683434562441,
+          "delay2": -0.035999984230913856,
+          "endpoint_only": -0.07581262884081526
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-159",
+        "lambda": 0.05,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.029242008782786967,
+          "delay1": -0.0453096704953941,
+          "delay2": -0.0452575059436086,
+          "endpoint_only": -0.044550266995319165
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-210",
+        "lambda": 0.05,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.10216444371247402,
+          "delay1": -0.09773220797644835,
+          "delay2": -0.1332218427281187,
+          "endpoint_only": -0.14443651591501788
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-365",
+        "lambda": 0.05,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9857626440504079,
+          "delay1": 0.9867483986106885,
+          "delay2": 0.9869172456940281,
+          "endpoint_only": 0.9867719902121508
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-392",
+        "lambda": 0.05,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.980753725977358,
+          "delay1": 0.9809014622976293,
+          "delay2": 0.9791682094487888,
+          "endpoint_only": 0.9805530002436899
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-450",
+        "lambda": 0.05,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9340581448313996,
+          "delay1": 0.4046208573164679,
+          "delay2": 0.40317447788377475,
+          "endpoint_only": 0.8782939029459991
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-518",
+        "lambda": 0.05,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9701378634095323,
+          "delay1": 0.9701876090277104,
+          "delay2": 0.972313911891071,
+          "endpoint_only": 0.9720952526226633
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-80",
+        "lambda": 0.05,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.012414074798448586,
+          "delay1": -0.010523087678441026,
+          "delay2": -0.010533331415268276,
+          "endpoint_only": -0.010455097427696017
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-903",
+        "lambda": 0.05,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9637895791249576,
+          "delay1": 0.964289363273498,
+          "delay2": 0.9666877448989687,
+          "endpoint_only": 0.9661690353571528
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-916",
+        "lambda": 0.05,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.45036453291460576,
+          "delay1": -0.08042977931510722,
+          "delay2": 0.3978428483416159,
+          "endpoint_only": 0.35034566061859385
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-979",
+        "lambda": 0.05,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.08234879911183796,
+          "delay1": -0.09374648870778676,
+          "delay2": -0.11666055223273114,
+          "endpoint_only": -0.16070365597591504
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-984",
+        "lambda": 0.05,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.018559561896097934,
+          "delay1": -0.048234348804351665,
+          "delay2": -0.04890878478540096,
+          "endpoint_only": -0.11874841519245372
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-135",
+        "lambda": 0.1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.055586109993477996,
+          "delay1": -0.10019366869124882,
+          "delay2": -0.07199996846182771,
+          "endpoint_only": -0.15162525768163052
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-159",
+        "lambda": 0.1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.058484017565573934,
+          "delay1": -0.0906193409907882,
+          "delay2": -0.0905150118872172,
+          "endpoint_only": -0.08910053399063833
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-210",
+        "lambda": 0.1,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.20432888742494804,
+          "delay1": -0.1954644159528967,
+          "delay2": -0.2664436854562374,
+          "endpoint_only": -0.28887303183003576
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-365",
+        "lambda": 0.1,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9715252881008158,
+          "delay1": 0.973496797221377,
+          "delay2": 0.9738344913880561,
+          "endpoint_only": 0.9735439804243015
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-392",
+        "lambda": 0.1,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9615074519547161,
+          "delay1": 0.9618029245952584,
+          "delay2": 0.9583364188975775,
+          "endpoint_only": 0.9611060004873797
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-450",
+        "lambda": 0.1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.8681162896627992,
+          "delay1": 0.3092417146329359,
+          "delay2": 0.3063489557675495,
+          "endpoint_only": 0.7565878058919981
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-518",
+        "lambda": 0.1,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9402757268190647,
+          "delay1": 0.9403752180554208,
+          "delay2": 0.9446278237821419,
+          "endpoint_only": 0.9441905052453266
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-80",
+        "lambda": 0.1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.02482814959689717,
+          "delay1": -0.021046175356882052,
+          "delay2": -0.021066662830536553,
+          "endpoint_only": -0.020910194855392035
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-903",
+        "lambda": 0.1,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9275791582499151,
+          "delay1": 0.928578726546996,
+          "delay2": 0.9333754897979374,
+          "endpoint_only": 0.9323380707143056
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-916",
+        "lambda": 0.1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.40072906582921164,
+          "delay1": -0.16085955863021445,
+          "delay2": 0.29568569668323175,
+          "endpoint_only": 0.2006913212371877
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-979",
+        "lambda": 0.1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.1646975982236759,
+          "delay1": -0.18749297741557353,
+          "delay2": -0.23332110446546228,
+          "endpoint_only": -0.3214073119518301
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-984",
+        "lambda": 0.1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.03711912379219587,
+          "delay1": -0.09646869760870333,
+          "delay2": -0.09781756957080193,
+          "endpoint_only": -0.23749683038490743
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-135",
+        "lambda": 0.2,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.11117221998695599,
+          "delay1": -0.20038733738249764,
+          "delay2": -0.14399993692365542,
+          "endpoint_only": -0.30325051536326103
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-159",
+        "lambda": 0.2,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.11696803513114787,
+          "delay1": -0.1812386819815764,
+          "delay2": -0.1810300237744344,
+          "endpoint_only": -0.17820106798127666
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-210",
+        "lambda": 0.2,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.40865777484989607,
+          "delay1": -0.3909288319057934,
+          "delay2": -0.5328873709124748,
+          "endpoint_only": -0.5777460636600715
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-365",
+        "lambda": 0.2,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9430505762016317,
+          "delay1": 0.9469935944427541,
+          "delay2": 0.9476689827761123,
+          "endpoint_only": 0.9470879608486029
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-392",
+        "lambda": 0.2,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.9230149039094322,
+          "delay1": 0.9236058491905168,
+          "delay2": 0.916672837795155,
+          "endpoint_only": 0.9222120009747594
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-450",
+        "lambda": 0.2,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.7362325793255985,
+          "delay1": 0.11848342926587185,
+          "delay2": 0.11269791153509906,
+          "endpoint_only": 0.5131756117839963
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-518",
+        "lambda": 0.2,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.8805514536381294,
+          "delay1": 0.8807504361108416,
+          "delay2": 0.8892556475642838,
+          "endpoint_only": 0.8883810104906532
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-80",
+        "lambda": 0.2,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.04965629919379434,
+          "delay1": -0.042092350713764104,
+          "delay2": -0.042133325661073105,
+          "endpoint_only": -0.04182038971078407
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-903",
+        "lambda": 0.2,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.8551583164998302,
+          "delay1": 0.857157453093992,
+          "delay2": 0.8667509795958748,
+          "endpoint_only": 0.8646761414286112
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-916",
+        "lambda": 0.2,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.3014581316584233,
+          "delay1": -0.3217191172604289,
+          "delay2": 0.09137139336646355,
+          "endpoint_only": -0.09861735752562462
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-979",
+        "lambda": 0.2,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.3293951964473518,
+          "delay1": -0.37498595483114705,
+          "delay2": -0.46664220893092456,
+          "endpoint_only": -0.6428146239036602
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-984",
+        "lambda": 0.2,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.07423824758439174,
+          "delay1": -0.19293739521740666,
+          "delay2": -0.19563513914160385,
+          "endpoint_only": -0.47499366076981486
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-135",
+        "lambda": 0.5,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.27793054996739,
+          "delay1": -0.5009683434562442,
+          "delay2": -0.3599998423091386,
+          "endpoint_only": -0.7581262884081524
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-159",
+        "lambda": 0.5,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.2924200878278696,
+          "delay1": -0.45309670495394094,
+          "delay2": -0.452575059436086,
+          "endpoint_only": -0.44550266995319165
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-210",
+        "lambda": 0.5,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -1.0216444371247402,
+          "delay1": -0.9773220797644837,
+          "delay2": -1.3322184272811872,
+          "endpoint_only": -1.444365159150179
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-365",
+        "lambda": 0.5,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.8576264405040792,
+          "delay1": 0.8674839861068853,
+          "delay2": 0.8691724569402808,
+          "endpoint_only": 0.8677199021215073
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-392",
+        "lambda": 0.5,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.8075372597735804,
+          "delay1": 0.8090146229762922,
+          "delay2": 0.7916820944878874,
+          "endpoint_only": 0.8055300024368988
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-450",
+        "lambda": 0.5,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.34058144831399617,
+          "delay1": -0.45379142683532037,
+          "delay2": -0.46825522116225227,
+          "endpoint_only": -0.21706097054000917
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-518",
+        "lambda": 0.5,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.7013786340953232,
+          "delay1": 0.701876090277104,
+          "delay2": 0.7231391189107095,
+          "endpoint_only": 0.720952526226633
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-80",
+        "lambda": 0.5,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.12414074798448584,
+          "delay1": -0.10523087678441025,
+          "delay2": -0.10533331415268277,
+          "endpoint_only": -0.10455097427696017
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-903",
+        "lambda": 0.5,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.6378957912495754,
+          "delay1": 0.6428936327349802,
+          "delay2": 0.6668774489896867,
+          "endpoint_only": 0.661690353571528
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-916",
+        "lambda": 0.5,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.0036453291460581405,
+          "delay1": -0.8042977931510721,
+          "delay2": -0.5215715165838412,
+          "endpoint_only": -0.9965433938140614
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-979",
+        "lambda": 0.5,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.8234879911183794,
+          "delay1": -0.9374648870778677,
+          "delay2": -1.1666055223273113,
+          "endpoint_only": -1.6070365597591505
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-984",
+        "lambda": 0.5,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.18559561896097931,
+          "delay1": -0.48234348804351657,
+          "delay2": -0.48908784785400966,
+          "endpoint_only": -1.1874841519245372
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-135",
+        "lambda": 1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.55586109993478,
+          "delay1": -1.0019366869124884,
+          "delay2": -0.7199996846182772,
+          "endpoint_only": -1.5162525768163049
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-159",
+        "lambda": 1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.5848401756557392,
+          "delay1": -0.9061934099078819,
+          "delay2": -0.905150118872172,
+          "endpoint_only": -0.8910053399063833
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-210",
+        "lambda": 1,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -2.0432888742494804,
+          "delay1": -1.9546441595289674,
+          "delay2": -2.6644368545623744,
+          "endpoint_only": -2.888730318300358
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-365",
+        "lambda": 1,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.7152528810081585,
+          "delay1": 0.7349679722137705,
+          "delay2": 0.7383449138805617,
+          "endpoint_only": 0.7354398042430146
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-392",
+        "lambda": 1,
+        "chosen_action": "delay1",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.6150745195471607,
+          "delay1": 0.6180292459525843,
+          "delay2": 0.5833641889757748,
+          "endpoint_only": 0.6110600048737975
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-450",
+        "lambda": 1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.3188371033720077,
+          "delay1": -1.4075828536706407,
+          "delay2": -1.4365104423245045,
+          "endpoint_only": -1.4341219410800183
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-518",
+        "lambda": 1,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.4027572681906465,
+          "delay1": 0.40375218055420786,
+          "delay2": 0.4462782378214191,
+          "endpoint_only": 0.4419050524532659
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-80",
+        "lambda": 1,
+        "chosen_action": "endpoint_only",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.24828149596897167,
+          "delay1": -0.2104617535688205,
+          "delay2": -0.21066662830536553,
+          "endpoint_only": -0.20910194855392034
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-903",
+        "lambda": 1,
+        "chosen_action": "delay2",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": 0.2757915824991508,
+          "delay1": 0.2857872654699606,
+          "delay2": 0.3337548979793734,
+          "endpoint_only": 0.32338070714305583
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-916",
+        "lambda": 1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.49270934170788366,
+          "delay1": -1.6085955863021442,
+          "delay2": -1.5431430331676823,
+          "endpoint_only": -2.4930867876281226
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-979",
+        "lambda": 1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -1.646975982236759,
+          "delay1": -1.8749297741557354,
+          "delay2": -2.3332110446546226,
+          "endpoint_only": -3.214073119518301
+        }
+      },
+      {
+        "snapshot_id": "historical_pass/test-984",
+        "lambda": 1,
+        "chosen_action": "now",
+        "uniform_action": "now",
+        "selection_seed_estimates": {
+          "now": -0.37119123792195863,
+          "delay1": -0.9646869760870331,
+          "delay2": -0.9781756957080193,
+          "endpoint_only": -2.3749683038490743
+        }
+      }
+    ],
+    "held_seed_actions": [
+      {
+        "group": "initial",
+        "action": "now",
+        "count": 20,
+        "correct": 12,
+        "unfinished": 6,
+        "mean_suffix_seconds": 12.94325355070323
+      },
+      {
+        "group": "initial",
+        "action": "delay1",
+        "count": 20,
+        "correct": 13,
+        "unfinished": 4,
+        "mean_suffix_seconds": 7.31677772629555
+      },
+      {
+        "group": "initial",
+        "action": "delay2",
+        "count": 20,
+        "correct": 15,
+        "unfinished": 3,
+        "mean_suffix_seconds": 9.310312501901354
+      },
+      {
+        "group": "initial",
+        "action": "endpoint_only",
+        "count": 20,
+        "correct": 13,
+        "unfinished": 5,
+        "mean_suffix_seconds": 12.082599488551205
+      },
+      {
+        "group": "historical_pass",
+        "action": "now",
+        "count": 12,
+        "correct": 5,
+        "unfinished": 1,
+        "mean_suffix_seconds": 6.97697927042221
+      },
+      {
+        "group": "historical_pass",
+        "action": "delay1",
+        "count": 12,
+        "correct": 6,
+        "unfinished": 3,
+        "mean_suffix_seconds": 7.46400128774864
+      },
+      {
+        "group": "historical_pass",
+        "action": "delay2",
+        "count": 12,
+        "correct": 5,
+        "unfinished": 2,
+        "mean_suffix_seconds": 7.411434292913327
+      },
+      {
+        "group": "historical_pass",
+        "action": "endpoint_only",
+        "count": 12,
+        "correct": 5,
+        "unfinished": 1,
+        "mean_suffix_seconds": 6.181880027425602
+      }
+    ]
+  }
+}

@@ -1,0 +1,407 @@
+{
+  "label": "DIAGNOSTIC_ONLY",
+  "question_id": "test-525",
+  "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+  "torch": "2.9.1+cu128",
+  "attention": "sdpa",
+  "original_case": {
+    "a_restore_feedback_seconds": 0.04894306499045342,
+    "b_recompute_seconds": 0.06500059500103816,
+    "cropped_length": 255,
+    "feedback_tokens": 61,
+    "greedy_equal": false,
+    "logit_max_abs_difference": 0.28125,
+    "next_token_a": 8304,
+    "next_token_b": 8304,
+    "offline_rebuild_seconds": 0.065619564964436,
+    "passed": false,
+    "prefix_tokens": 255,
+    "rejected_tokens": 94,
+    "reserved_after_crop": 3862953984,
+    "reserved_before_crop": 3862953984
+  },
+  "repeat_original": {
+    "passed": false,
+    "prefix_tokens": 255,
+    "rejected_tokens": 94,
+    "feedback_tokens": 61,
+    "cropped_length": 255,
+    "logit_max_abs_difference": 0.28125,
+    "next_token_a": 8304,
+    "next_token_b": 8304,
+    "greedy_equal": false,
+    "offline_rebuild_seconds": 2.2011207589966943,
+    "a_restore_feedback_seconds": 0.47900232399842935,
+    "b_recompute_seconds": 0.12861662000068463,
+    "reserved_before_crop": 3256877056,
+    "reserved_after_crop": 3261071360
+  },
+  "bf16": {
+    "dtype": "torch.bfloat16",
+    "lengths": {
+      "prefix": 255,
+      "rejected": 94,
+      "feedback": 61
+    },
+    "crop_exactly_kept_prefix_tensors": true,
+    "cropped_vs_fresh_prefix_key_max_abs": 1.0,
+    "initial_logit_differences": {
+      "AB": 0.28125,
+      "DB": 0.375,
+      "AD": 0.3125
+    },
+    "first_divergence": {
+      "AB": {
+        "token_number": 17,
+        "max_abs_logit_difference": 0.375,
+        "A": {
+          "chosen": 1416,
+          "chosen_text": " If",
+          "top3": [
+            {
+              "id": 2932,
+              "text": " She",
+              "score": 22.625
+            },
+            {
+              "id": 1416,
+              "text": " If",
+              "score": 22.625
+            },
+            {
+              "id": 2014,
+              "text": " To",
+              "score": 22.375
+            }
+          ],
+          "top1_top2_margin": 0.0
+        },
+        "B": {
+          "chosen": 2932,
+          "chosen_text": " She",
+          "top3": [
+            {
+              "id": 2932,
+              "text": " She",
+              "score": 22.625
+            },
+            {
+              "id": 1416,
+              "text": " If",
+              "score": 22.5
+            },
+            {
+              "id": 2014,
+              "text": " To",
+              "score": 22.25
+            }
+          ],
+          "top1_top2_margin": 0.125
+        }
+      },
+      "AD": {
+        "token_number": 17,
+        "max_abs_logit_difference": 0.75,
+        "A": {
+          "chosen": 1416,
+          "chosen_text": " If",
+          "top3": [
+            {
+              "id": 2932,
+              "text": " She",
+              "score": 22.625
+            },
+            {
+              "id": 1416,
+              "text": " If",
+              "score": 22.625
+            },
+            {
+              "id": 2014,
+              "text": " To",
+              "score": 22.375
+            }
+          ],
+          "top1_top2_margin": 0.0
+        },
+        "D": {
+          "chosen": 2932,
+          "chosen_text": " She",
+          "top3": [
+            {
+              "id": 2932,
+              "text": " She",
+              "score": 22.625
+            },
+            {
+              "id": 1416,
+              "text": " If",
+              "score": 22.5
+            },
+            {
+              "id": 2014,
+              "text": " To",
+              "score": 22.25
+            }
+          ],
+          "top1_top2_margin": 0.125
+        }
+      }
+    },
+    "tokens": {
+      "A": [
+        8304,
+        220,
+        18,
+        25,
+        46263,
+        702,
+        220,
+        17,
+        22,
+        25374,
+        315,
+        6369,
+        1330,
+        304,
+        2790,
+        13,
+        1416,
+        1340,
+        64828,
+        1105,
+        18308,
+        4221,
+        71654,
+        41780,
+        8279,
+        11,
+        15732,
+        7924,
+        11,
+        323,
+        39359,
+        6514
+      ],
+      "D": [
+        8304,
+        220,
+        18,
+        25,
+        46263,
+        702,
+        220,
+        17,
+        22,
+        25374,
+        315,
+        6369,
+        1330,
+        304,
+        2790,
+        13,
+        2932,
+        6801,
+        311,
+        21749,
+        1105,
+        18308,
+        4221,
+        71654,
+        41780,
+        8279,
+        11,
+        15732,
+        7924,
+        11,
+        323,
+        39359
+      ],
+      "B": [
+        8304,
+        220,
+        18,
+        25,
+        46263,
+        702,
+        220,
+        17,
+        22,
+        25374,
+        315,
+        6369,
+        1330,
+        304,
+        2790,
+        13,
+        2932,
+        6801,
+        311,
+        21749,
+        1105,
+        18308,
+        4221,
+        71654,
+        41780,
+        8279,
+        11,
+        15732,
+        7924,
+        11,
+        323,
+        39359
+      ]
+    },
+    "decoded": {
+      "A": "Step 3: Heather has 27 cups of raisins in total. If she divides them equally among oatmeal cookies, granola, and snack mix",
+      "D": "Step 3: Heather has 27 cups of raisins in total. She wants to divide them equally among oatmeal cookies, granola, and snack",
+      "B": "Step 3: Heather has 27 cups of raisins in total. She wants to divide them equally among oatmeal cookies, granola, and snack"
+    },
+    "greedy_equal": {
+      "AB": false,
+      "DB": true,
+      "AD": false
+    }
+  },
+  "fp32": {
+    "dtype": "torch.float32",
+    "lengths": {
+      "prefix": 255,
+      "rejected": 94,
+      "feedback": 61
+    },
+    "crop_exactly_kept_prefix_tensors": true,
+    "cropped_vs_fresh_prefix_key_max_abs": 3.731250762939453e-05,
+    "initial_logit_differences": {
+      "AB": 4.863739013671875e-05,
+      "DB": 6.29425048828125e-05,
+      "AD": 3.0517578125e-05
+    },
+    "first_divergence": {},
+    "tokens": {
+      "A": [
+        8304,
+        220,
+        18,
+        25,
+        46263,
+        702,
+        220,
+        17,
+        22,
+        25374,
+        315,
+        6369,
+        1330,
+        304,
+        2790,
+        13,
+        2932,
+        6801,
+        311,
+        21749,
+        1105,
+        18308,
+        4221,
+        71654,
+        41780,
+        8279,
+        11,
+        15732,
+        7924,
+        11,
+        323,
+        39359
+      ],
+      "D": [
+        8304,
+        220,
+        18,
+        25,
+        46263,
+        702,
+        220,
+        17,
+        22,
+        25374,
+        315,
+        6369,
+        1330,
+        304,
+        2790,
+        13,
+        2932,
+        6801,
+        311,
+        21749,
+        1105,
+        18308,
+        4221,
+        71654,
+        41780,
+        8279,
+        11,
+        15732,
+        7924,
+        11,
+        323,
+        39359
+      ],
+      "B": [
+        8304,
+        220,
+        18,
+        25,
+        46263,
+        702,
+        220,
+        17,
+        22,
+        25374,
+        315,
+        6369,
+        1330,
+        304,
+        2790,
+        13,
+        2932,
+        6801,
+        311,
+        21749,
+        1105,
+        18308,
+        4221,
+        71654,
+        41780,
+        8279,
+        11,
+        15732,
+        7924,
+        11,
+        323,
+        39359
+      ]
+    },
+    "decoded": {
+      "A": "Step 3: Heather has 27 cups of raisins in total. She wants to divide them equally among oatmeal cookies, granola, and snack",
+      "D": "Step 3: Heather has 27 cups of raisins in total. She wants to divide them equally among oatmeal cookies, granola, and snack",
+      "B": "Step 3: Heather has 27 cups of raisins in total. She wants to divide them equally among oatmeal cookies, granola, and snack"
+    },
+    "greedy_equal": {
+      "AB": true,
+      "DB": true,
+      "AD": true
+    }
+  },
+  "recorded_at": "2026-09-27T15:51:20.315487+08:00",
+  "source_run": "3660363ff392fea6",
+  "transformers": "4.57.3",
+  "source_state_sha256": "5cada8633c98017e1e48250166842527889d33b89dc9acb967aa7b23d7283ead",
+  "config_sha256": "5eeaa9c253c12ae5350f39d4afcf0bca8bc60756643e8c7beaf4316f1492fe64",
+  "control_definitions": {
+    "A": "prefill(prefix + rejected), crop rejected, append feedback",
+    "B": "prefill(prefix + feedback)",
+    "D": "prefill(prefix), append feedback without any crop",
+    "fp32": "Cast the same loaded BF16 model weights to FP32; change calculation precision only for diagnosis."
+  }
+}

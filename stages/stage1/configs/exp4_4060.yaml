@@ -1,0 +1,11 @@
+source_run: runs/3660363ff392fea6
+seed: 20260922
+history_questions: 20
+history_policy: k2
+selection_seeds: [17, 29]
+evaluation_seed: 43
+cost_weights: [0, 0.05, 0.1, 0.2, 0.5, 1]
+fixed_selection: highest_dev_accuracy_then_lowest_service_cost
+random_probability: inverse_selected_fixed_interval
+snapshot_groups: [initial, historical_pass]
+actions: [now, delay1, delay2, endpoint_only]

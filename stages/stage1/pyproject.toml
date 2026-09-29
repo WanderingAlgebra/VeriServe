@@ -1,0 +1,29 @@
+[project]
+name = "veriserve"
+version = "0.1.0"
+description = "Reproducible local experiments for staged verification"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "accelerate>=1.0,<2",
+    "bitsandbytes>=0.47,<0.50",
+    "datasets>=3.0,<5",
+    "huggingface-hub>=0.34,<1",
+    "matplotlib>=3.8,<4",
+    "numpy>=1.26,<3",
+    "psutil>=7,<8",
+    "pyyaml>=6,<7",
+    "safetensors>=0.6,<1",
+    "torch==2.9.1+cu128",
+    "transformers==4.57.3",
+]
+
+[dependency-groups]
+dev = ["pytest>=9,<10"]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
