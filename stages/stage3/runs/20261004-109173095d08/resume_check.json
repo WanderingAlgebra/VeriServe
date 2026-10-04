@@ -1,12 +1,6 @@
 {
-  "free_total_bytes": [
-    27809218560,
-    50866487296
-  ],
-  "generator_context_tokens": 8192,
-  "peak_allocated_bytes": 21543493120,
-  "prm_input_tokens": 8192,
-  "simultaneous_residency": true,
+  "created": "2026-10-04T16:51:02.483692+00:00",
+  "independent_process": true,
   "source_hashes": {
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
     "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
@@ -20,5 +14,10 @@
     "stages/stage3/storage.py": "c536e673e3b8ebeaa14f8a9b11522bdb4247e368747140e4c3f4991f0d5c017c"
   },
   "status": "PASS",
-  "warmup_capacity_seconds": 1.9926004949957132
+  "verified_hashes": {
+    "arms/9752291fe1302ac010a0.DELAY_2.json": "c5c08db4840ba5e642d9483bf4416e5177598e4af73b8ac38863ac5242a43652",
+    "arms/9752291fe1302ac010a0.NOW.json": "f4fac44776261a6706fa899c59b191c6404326db1f6777d068ae046017868d47",
+    "snapshots/9752291fe1302ac010a0.json": "9030f8288b6bd4b1cbd2701e995ca91c1f983c91f2c2c25255791e3b05d67100",
+    "snapshots/9752291fe1302ac010a0.npz": "46f93607d956c977fc4f99e3dc3b9d32ad9efd743f4870a318fdb616ced9f631"
+  }
 }
