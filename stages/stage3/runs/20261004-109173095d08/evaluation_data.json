@@ -71,13 +71,22 @@
   "test/counting_and_probability/51.json": {
     "status": "VALID"
   },
+  "test/counting_and_probability/525.json": {
+    "status": "VALID"
+  },
   "test/counting_and_probability/731.json": {
+    "status": "VALID"
+  },
+  "test/counting_and_probability/761.json": {
     "status": "VALID"
   },
   "test/counting_and_probability/913.json": {
     "status": "VALID"
   },
   "test/geometry/172.json": {
+    "status": "VALID"
+  },
+  "test/geometry/229.json": {
     "status": "VALID"
   },
   "test/geometry/248.json": {
@@ -101,6 +110,9 @@
   "test/geometry/817.json": {
     "status": "VALID"
   },
+  "test/intermediate_algebra/101.json": {
+    "status": "VALID"
+  },
   "test/intermediate_algebra/1166.json": {
     "status": "VALID"
   },
@@ -110,7 +122,13 @@
   "test/intermediate_algebra/121.json": {
     "status": "VALID"
   },
+  "test/intermediate_algebra/1350.json": {
+    "status": "VALID"
+  },
   "test/intermediate_algebra/1454.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/1508.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/1714.json": {
@@ -125,6 +143,9 @@
   "test/intermediate_algebra/1806.json": {
     "status": "VALID"
   },
+  "test/intermediate_algebra/190.json": {
+    "status": "VALID"
+  },
   "test/intermediate_algebra/199.json": {
     "status": "VALID"
   },
@@ -137,7 +158,16 @@
   "test/intermediate_algebra/2022.json": {
     "status": "VALID"
   },
+  "test/intermediate_algebra/232.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/446.json": {
+    "status": "VALID"
+  },
   "test/intermediate_algebra/834.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/894.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/960.json": {
