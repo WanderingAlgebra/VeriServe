@@ -2,3 +2,4 @@
 {"error": "fatal: could not read Username for '[redacted URL] terminal prompts disabled\nGit credentials for [redacted URL] not found.\n", "event": "BACKUP_FAILED", "time": "2026-10-04T12:31:22.501173+00:00", "unconfirmed_features": []}
 {"error": "fatal: could not read Username for '[redacted URL] terminal prompts disabled\n", "event": "BACKUP_FAILED", "time": "2026-10-04T12:33:20.088518+00:00", "unconfirmed_features": []}
 {"error": "Backup failed; local files retained, collection stopped: fatal: could not read Username for '[redacted URL] terminal prompts disabled\n", "event": "STOPPED", "exception_type": "RuntimeError", "time": "2026-10-04T12:33:20.091110+00:00"}
+{"error": "", "event": "STOPPED", "exception_type": "KeyboardInterrupt", "time": "2026-10-04T12:41:39.394822+00:00"}

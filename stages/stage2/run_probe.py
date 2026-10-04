@@ -363,8 +363,15 @@ def valid_features(path, record):
 
 
 def read_record(path, run):
+    if not path.exists():
+        return None
     try:
         value = read_json(path)
+        if (not isinstance(value, dict) or not {"prompt_ids", "generated_ids", "token_sha256", "stage"} <= value.keys()
+                or any(not isinstance(value[key], list) or not value[key]
+                       or any(type(token) is not int or token < 0 for token in value[key])
+                       for key in ("prompt_ids", "generated_ids"))):
+            raise ValueError("Invalid original token record structure")
     except (ValueError, OSError) as exc:
         # Never replace original tokens or good features because a JSON became unreadable.
         event(run, "CORRUPT_JSON", path=str(path.relative_to(run)), error=safe_error(exc))
@@ -1087,6 +1094,15 @@ def self_check(cfg):
             check("unrecoverable JSON never triggers regeneration", True)
         else:
             check("unrecoverable JSON never triggers regeneration", False)
+        for invalid in ({}, [], None, False, 0):
+            atomic_json(path, invalid)
+            try:
+                read_record(path, folder)
+            except ValueError:
+                pass
+            else:
+                raise AssertionError("Existing invalid JSON must never be treated as a missing record")
+        check("valid JSON with invalid structure is preserved and rejected", True)
         check("no-step causal check is not a failure", causal_check(None, {"boundaries": {"steps": []}}, cfg)["passed"] is None)
     result = {"passed": True, "checked_at": now(), "checks": checks, "environment": environment(),
               "script_sha256": digest(__file__),

@@ -1,6 +1,6 @@
 # 第二阶段：逐步 hidden 最终答错风险探针
 
-运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T12:33:20.096299+00:00。
+运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T20:41:39.406944+08:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途步骤；不是局部错误标签。
 
@@ -47,18 +47,45 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
 ```json
 {
   "train": {
+    "generated": 0,
+    "completed": 0,
+    "correct": 0,
+    "wrong": 0,
+    "truncated": 0,
+    "unscorable": 0,
+    "no_steps": 0,
+    "format_error_trajectories": 0,
+    "features_missing_or_corrupt": 0,
     "planned": 100,
     "not_generated": 100,
     "analyzable_end": 0,
     "analyzable_intermediate": 0
   },
   "test": {
+    "generated": 0,
+    "completed": 0,
+    "correct": 0,
+    "wrong": 0,
+    "truncated": 0,
+    "unscorable": 0,
+    "no_steps": 0,
+    "format_error_trajectories": 0,
+    "features_missing_or_corrupt": 0,
     "planned": 200,
     "not_generated": 200,
     "analyzable_end": 0,
     "analyzable_intermediate": 0
   },
   "smoke": {
+    "generated": 0,
+    "completed": 0,
+    "correct": 0,
+    "wrong": 0,
+    "truncated": 0,
+    "unscorable": 0,
+    "no_steps": 0,
+    "format_error_trajectories": 0,
+    "features_missing_or_corrupt": 0,
     "planned": 10,
     "not_generated": 10,
     "analyzable_end": 0,
@@ -67,15 +94,12 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
 }
 ```
 
-未完成原因：Backup failed; local files retained, collection stopped: fatal: could not read Username for '[redacted URL] terminal prompts disabled
-
-
 ## 自检与备份
 
 ```json
 {
   "cpu_self_check": {
-    "checked_at": "2026-10-04T12:33:04.626353+00:00",
+    "checked_at": "2026-10-04T12:39:54.262871+00:00",
     "checks": [
       "grade \\frac{1}{2} vs 0.5",
       "grade \\sqrt{8} vs 2\\sqrt{2}",
@@ -101,7 +125,9 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
       "weighted evaluation and paired bootstrap",
       "single-class bootstrap reports NA",
       "resume skips complete JSON and NPZ without generation",
-      "damaged NPZ detected"
+      "damaged NPZ detected",
+      "unrecoverable JSON never triggers regeneration",
+      "no-step causal check is not a failure"
     ],
     "environment": {
       "executable": "/root/miniconda3/bin/python",
@@ -122,7 +148,7 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
     },
     "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke",
     "passed": true,
-    "script_sha256": "866da90db05d1d5467e16b2834b7fb6ff03fdfc63872a65caa0aad0f8081f745"
+    "script_sha256": "4719975530b8db4f420f0b62ab6b2f12f4088d102db73e8de012e806da6c0031"
   },
   "additional_implementation_checks": {
     "checked_at": "2026-10-04T12:33:07.087305+00:00",
@@ -172,9 +198,10 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
   "smoke": null,
   "resume": null,
   "backup": {
-    "error": "fatal: could not read Username for '[redacted URL] terminal prompts disabled\n",
-    "status": "FAILED",
-    "time": "2026-10-04T12:33:20.090253+00:00"
+    "commit": "e721101e58afd9487ba047fd034c49e644400ac8",
+    "feature_remote_verification": null,
+    "pushed_at": "2026-10-04T12:40:32.250531+00:00",
+    "status": "PUSHED"
   }
 }
 ```
@@ -193,7 +220,7 @@ hidden_states[1..L] 排除 embedding，Qwen2 的索引 L 含最终 norm；轨迹
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`3f0077e029ce1d88cd784b7f8a0668b2ff3f633b`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`e721101e58afd9487ba047fd034c49e644400ac8`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 
