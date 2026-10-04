@@ -1,64 +1,379 @@
 {
-  "counts": {
-    "smoke": {
-      "analyzable_end": 0,
-      "analyzable_intermediate": 0,
-      "not_generated": 10,
-      "planned": 10
-    },
-    "test": {
-      "analyzable_end": 0,
-      "analyzable_intermediate": 0,
-      "not_generated": 200,
-      "planned": 200
-    },
-    "train": {
-      "analyzable_end": 0,
-      "analyzable_intermediate": 0,
-      "not_generated": 100,
-      "planned": 100
+  "analysis_environment": {
+    "executable": "/root/miniconda3/bin/python",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "python": "3.12.3",
+    "versions": {
+      "antlr4-python3-runtime": "4.13.2",
+      "datasets": "4.8.5",
+      "huggingface-hub": "0.36.2",
+      "latex2sympy2-extended": "1.11.0",
+      "math-verify": "0.9.0",
+      "matplotlib": "3.10.5",
+      "numpy": "2.3.2",
+      "scikit-learn": "1.9.1",
+      "torch": "2.8.0+cu128",
+      "transformers": "4.57.3"
     }
   },
+  "counts": {
+    "test": {
+      "FINAL_FORMAT_ERROR": 1,
+      "LENGTH_TRUNCATED": 2,
+      "MISSING_OR_INCOMPLETE_BOXED": 1,
+      "analyzable_end": 196,
+      "analyzable_intermediate": 191,
+      "completed": 198,
+      "correct": 142,
+      "features_missing_or_corrupt": 0,
+      "format_error_trajectories": 5,
+      "generated": 200,
+      "no_steps": 5,
+      "planned": 200,
+      "truncated": 2,
+      "unscorable": 4,
+      "wrong": 54
+    },
+    "train": {
+      "LENGTH_TRUNCATED": 1,
+      "MISSING_OR_INCOMPLETE_BOXED": 1,
+      "PREDICTION_UNPARSEABLE": 1,
+      "analyzable_end": 97,
+      "analyzable_intermediate": 96,
+      "completed": 99,
+      "correct": 70,
+      "features_missing_or_corrupt": 0,
+      "format_error_trajectories": 1,
+      "generated": 100,
+      "no_steps": 1,
+      "planned": 100,
+      "truncated": 1,
+      "unscorable": 3,
+      "wrong": 27
+    }
+  },
+  "failures": {},
   "full_trajectory_end": {
-    "correct": 0,
-    "methods": {},
-    "paired": {},
-    "positions": 0,
-    "questions": 0,
-    "wrong": 0
+    "correct": 142,
+    "methods": {
+      "A": {
+        "auroc": 0.8466353677621283,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.784775351978691,
+          0.8976860502912419
+        ]
+      },
+      "B": {
+        "auroc": 0.7687793427230047,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.6842506121814146,
+          0.8469628635515225
+        ]
+      }
+    },
+    "paired": {
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.1439995329425477,
+          -0.01933123697976094
+        ],
+        "difference": -0.07785602503912359
+      }
+    },
+    "positions": 196,
+    "questions": 196,
+    "wrong": 54
   },
   "intermediate_all": {
-    "correct": 0,
-    "methods": {},
-    "paired": {},
-    "positions": 0,
-    "questions": 0,
-    "wrong": 0
+    "correct": 137,
+    "methods": {
+      "A": {
+        "auroc": 0.6633175548018371,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.6106371048916605,
+          0.7134621603292342
+        ]
+      },
+      "B": {
+        "auroc": 0.7338539585674774,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.6657305676562789,
+          0.7953710207387839
+        ]
+      },
+      "C": {
+        "auroc": 0.5828041390862689,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.527321174524132,
+          0.6357320912220166
+        ]
+      }
+    },
+    "paired": {
+      "A-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.013997491783005684,
+          0.1468836366480921
+        ],
+        "difference": 0.08051341571556814
+      },
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.019473853845975275,
+          0.12304833141814721
+        ],
+        "difference": 0.0705364037656403
+      },
+      "B-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.09512196451356028,
+          0.20724018347401965
+        ],
+        "difference": 0.15104981948120844
+      }
+    },
+    "positions": 1247,
+    "questions": 191,
+    "wrong": 54
   },
-  "reason": "Fewer than five training questions in either class; no test data borrowed",
-  "status": "INSUFFICIENT_TRAINING",
+  "scoring_seconds": {
+    "A": 0.009302100166678429,
+    "B": 0.007744418457150459,
+    "C": 0.0009200926870107651
+  },
+  "selected_layers": {
+    "A": 19,
+    "B": 19,
+    "C": null
+  },
+  "status": "COMPLETE",
   "step_1": {
-    "correct": 0,
-    "methods": {},
-    "paired": {},
-    "positions": 0,
-    "questions": 0,
-    "wrong": 0
+    "correct": 137,
+    "methods": {
+      "A": {
+        "auroc": 0.564882400648824,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.4790072587934021,
+          0.6531636491402116
+        ]
+      },
+      "B": {
+        "auroc": 0.6408488780751554,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.5517052914915966,
+          0.722042748917749
+        ]
+      },
+      "C": {
+        "auroc": 0.56772100567721,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.47608181981218206,
+          0.6564338567548466
+        ]
+      }
+    },
+    "paired": {
+      "A-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.1306958943184646,
+          0.13513037491115845
+        ],
+        "difference": -0.0028386050283859543
+      },
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.01954706016536944,
+          0.16930893740522537
+        ],
+        "difference": 0.07596647742633145
+      },
+      "B-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.04241209169333465,
+          0.18665478967220797
+        ],
+        "difference": 0.07312787239794549
+      }
+    },
+    "positions": 191,
+    "questions": 191,
+    "wrong": 54
   },
   "step_2": {
-    "correct": 0,
-    "methods": {},
-    "paired": {},
-    "positions": 0,
-    "questions": 0,
-    "wrong": 0
+    "correct": 137,
+    "methods": {
+      "A": {
+        "auroc": 0.6265206812652069,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.541571761986767,
+          0.7072738008598703
+        ]
+      },
+      "B": {
+        "auroc": 0.7123546904568803,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.6287711809202351,
+          0.7896936892066097
+        ]
+      },
+      "C": {
+        "auroc": 0.5475804271424709,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.450915494699545,
+          0.6366282609925681
+        ]
+      }
+    },
+    "paired": {
+      "A-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.048657631399980604,
+          0.2026469700735796
+        ],
+        "difference": 0.07894025412273598
+      },
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.015022169887932394,
+          0.16032766653188057
+        ],
+        "difference": 0.08583400919167339
+      },
+      "B-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.04943623202362604,
+          0.27708011480673694
+        ],
+        "difference": 0.16477426331440936
+      }
+    },
+    "positions": 191,
+    "questions": 191,
+    "wrong": 54
   },
   "step_3": {
-    "correct": 0,
-    "methods": {},
-    "paired": {},
-    "positions": 0,
-    "questions": 0,
-    "wrong": 0
+    "correct": 135,
+    "methods": {
+      "A": {
+        "auroc": 0.646639231824417,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.5535371618078385,
+          0.7379375597406288
+        ]
+      },
+      "B": {
+        "auroc": 0.7403292181069959,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.6560960785204545,
+          0.8223971016532262
+        ]
+      },
+      "C": {
+        "auroc": 0.5962962962962962,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.5058488733564882,
+          0.6881223785360342
+        ]
+      }
+    },
+    "paired": {
+      "A-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.08007848159023567,
+          0.17301331968227873
+        ],
+        "difference": 0.05034293552812075
+      },
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.014882176467565077,
+          0.17435883028668464
+        ],
+        "difference": 0.09368998628257896
+      },
+      "B-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.04079954350161132,
+          0.24858243801915786
+        ],
+        "difference": 0.1440329218106997
+      }
+    },
+    "positions": 189,
+    "questions": 189,
+    "wrong": 54
+  },
+  "test_common_questions": 191,
+  "test_excluded_from_common": 9,
+  "training_coverage": {
+    "A": {
+      "correct": 70,
+      "questions": 97,
+      "wrong": 27
+    },
+    "B": {
+      "correct": 69,
+      "questions": 96,
+      "wrong": 27
+    },
+    "C": {
+      "correct": 69,
+      "questions": 96,
+      "wrong": 27
+    }
   }
 }

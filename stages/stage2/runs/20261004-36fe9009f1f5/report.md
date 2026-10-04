@@ -1,6 +1,6 @@
 # 第二阶段：逐步 hidden 最终答错风险探针
 
-运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T21:36:26.519939+08:00。
+运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T22:39:03.148867+08:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途步骤；不是局部错误标签。
 
@@ -50,27 +50,42 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
 
 ```json
 {
-  "smoke": {
-    "generated": 10,
-    "completed": 10,
-    "correct": 6,
-    "wrong": 3,
-    "truncated": 0,
-    "unscorable": 1,
-    "no_steps": 0,
-    "format_error_trajectories": 0,
+  "train": {
+    "generated": 100,
+    "completed": 99,
+    "correct": 70,
+    "wrong": 27,
+    "truncated": 1,
+    "unscorable": 3,
+    "no_steps": 1,
+    "format_error_trajectories": 1,
     "features_missing_or_corrupt": 0,
-    "planned": 10,
+    "planned": 100,
+    "PREDICTION_UNPARSEABLE": 1,
     "MISSING_OR_INCOMPLETE_BOXED": 1,
-    "analyzable_end": 9,
-    "analyzable_intermediate": 9
+    "LENGTH_TRUNCATED": 1,
+    "analyzable_end": 97,
+    "analyzable_intermediate": 96
   },
-  "formal_generated": 0,
-  "formal_planned": 300
+  "test": {
+    "generated": 200,
+    "completed": 198,
+    "correct": 142,
+    "wrong": 54,
+    "truncated": 2,
+    "unscorable": 4,
+    "no_steps": 5,
+    "format_error_trajectories": 5,
+    "features_missing_or_corrupt": 0,
+    "planned": 200,
+    "LENGTH_TRUNCATED": 2,
+    "MISSING_OR_INCOMPLETE_BOXED": 1,
+    "FINAL_FORMAT_ERROR": 1,
+    "analyzable_end": 196,
+    "analyzable_intermediate": 191
+  }
 }
 ```
-
-未完成原因：Smoke complete; formal collection pending
 
 ## 自检与备份
 
@@ -2089,20 +2104,169 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
     "unchanged_files": 2
   },
   "backup": {
-    "commit": "25564344ac9b10bbd77d79bd580a5909053c153f",
+    "commit": "98e59ac9c3e7e82fe8769e4b4b864824f0c378d1",
     "feature_remote_verification": {
       "path": "stages/stage2/runs/20261004-36fe9009f1f5/records/smoke/360ab3e1d67a68508365.features-88c305b432bb.npz",
       "remote_commit": "739cd145e3d4d65b24b0c6a3481c68077938448b",
       "sha256": "427fbfbdfde52a7aa66807ebb3aa04437e97311e8e89a87493a543e6e2935521",
       "verified_at": "2026-10-04T13:31:45.866687+00:00"
     },
-    "pushed_at": "2026-10-04T13:35:04.155154+00:00",
+    "pushed_at": "2026-10-04T14:38:15.768460+00:00",
     "status": "PUSHED"
   }
 }
 ```
 
-AUROC / CI / 所选层：NA；正式数据不足或未采集，不能回答是否存在信号。
+## 独立测试
+
+选层（A/B 独立选择）：`{'A': 19, 'B': 19, 'C': None}`。
+训练覆盖：`{'A': {'questions': 97, 'correct': 70, 'wrong': 27}, 'B': {'questions': 96, 'correct': 69, 'wrong': 27}, 'C': {'questions': 96, 'correct': 69, 'wrong': 27}}`；失败：`{}`。
+
+| 位置 | 题数（正确/错误） | A AUROC [95% CI] | B AUROC [95% CI] | C AUROC [95% CI] |
+|---|---|---|---|---|
+| step_1 | 191 (137/54) | 0.5649 [0.4790, 0.6532] | 0.6408 [0.5517, 0.7220] | 0.5677 [0.4761, 0.6564] |
+| step_2 | 191 (137/54) | 0.6265 [0.5416, 0.7073] | 0.7124 [0.6288, 0.7897] | 0.5476 [0.4509, 0.6366] |
+| step_3 | 189 (135/54) | 0.6466 [0.5535, 0.7379] | 0.7403 [0.6561, 0.8224] | 0.5963 [0.5058, 0.6881] |
+| intermediate_all | 191 (137/54) | 0.6633 [0.6106, 0.7135] | 0.7339 [0.6657, 0.7954] | 0.5828 [0.5273, 0.6357] |
+| full_trajectory_end | 196 (142/54) | 0.8466 [0.7848, 0.8977] | 0.7688 [0.6843, 0.8470] | NA |
+
+C 不用于完整轨迹末尾对照；A/B 末尾单独报告。所有中途比较使用共同有效位置。
+
+每题总权重为 1；bootstrap 按题重抽 1000 次，整题全部步骤随同抽取，单类重复样本跳过。有效次数与 paired AUROC 差及其 CI 见 metrics.json。
+
+```json
+{
+  "step_1": {
+    "A-C": {
+      "difference": -0.0028386050283859543,
+      "ci95": [
+        -0.1306958943184646,
+        0.13513037491115845
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-C": {
+      "difference": 0.07312787239794549,
+      "ci95": [
+        -0.04241209169333465,
+        0.18665478967220797
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-A": {
+      "difference": 0.07596647742633145,
+      "ci95": [
+        -0.01954706016536944,
+        0.16930893740522537
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    }
+  },
+  "step_2": {
+    "A-C": {
+      "difference": 0.07894025412273598,
+      "ci95": [
+        -0.048657631399980604,
+        0.2026469700735796
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-C": {
+      "difference": 0.16477426331440936,
+      "ci95": [
+        0.04943623202362604,
+        0.27708011480673694
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-A": {
+      "difference": 0.08583400919167339,
+      "ci95": [
+        0.015022169887932394,
+        0.16032766653188057
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    }
+  },
+  "step_3": {
+    "A-C": {
+      "difference": 0.05034293552812075,
+      "ci95": [
+        -0.08007848159023567,
+        0.17301331968227873
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-C": {
+      "difference": 0.1440329218106997,
+      "ci95": [
+        0.04079954350161132,
+        0.24858243801915786
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-A": {
+      "difference": 0.09368998628257896,
+      "ci95": [
+        0.014882176467565077,
+        0.17435883028668464
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    }
+  },
+  "intermediate_all": {
+    "A-C": {
+      "difference": 0.08051341571556814,
+      "ci95": [
+        0.013997491783005684,
+        0.1468836366480921
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-C": {
+      "difference": 0.15104981948120844,
+      "ci95": [
+        0.09512196451356028,
+        0.20724018347401965
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-A": {
+      "difference": 0.0705364037656403,
+      "ci95": [
+        0.019473853845975275,
+        0.12304833141814721
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    }
+  }
+}
+```
+
+![前 3 个有效中途步骤](step_auroc.png)
+
+## 代表性风险轨迹
+
+- `test/algebra/109.json`，最终标签 0，B 的逐步风险：1:0.000, 2:0.000, 3:0.006, 4:0.001, 5:0.001。
+- `test/counting_and_probability/134.json`，最终标签 0，B 的逐步风险：1:0.995, 2:0.941, 3:0.099, 4:0.937。
+- `test/number_theory/533.json`，最终标签 1，B 的逐步风险：1:0.002, 2:0.003, 3:0.001, 4:0.001, 5:0.098, 6:0.093, 7:0.280, 8:0.019。
+- `test/intermediate_algebra/2196.json`，最终标签 1，B 的逐步风险：1:0.997, 2:0.746, 3:0.970, 4:0.974, 5:0.869, 6:0.433, 7:0.576, 8:0.617, 9:0.696, 10:0.812, 11:0.879。
+
+## 结论
+
+此设置下，B 在全部中途位置提供了超过随机与简单进度基线的最终答错风险信号（两项 bootstrap CI 均支持）。
 
 这项实验不能识别首个错误步骤、判断当前检查是否值得、证明降低完成时间或推广到其他模型。
 离线重前向耗时不代表在线提取成本；生成、重前向与探针评分耗时分别记录。
@@ -2116,7 +2280,7 @@ hidden_states[1..L] 排除 embedding，Qwen2 的索引 L 含最终 norm；轨迹
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`25564344ac9b10bbd77d79bd580a5909053c153f`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`98e59ac9c3e7e82fe8769e4b4b864824f0c378d1`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 

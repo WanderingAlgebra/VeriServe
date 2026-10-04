@@ -1,0 +1,27 @@
+{
+  "config_hash": "36fe9009f1f5639726a7a3ed8f9761be68999a7c295271d68254ded8a38c42cd",
+  "coverage": {
+    "A": {
+      "correct": 70,
+      "questions": 97,
+      "wrong": 27
+    },
+    "B": {
+      "correct": 69,
+      "questions": 96,
+      "wrong": 27
+    },
+    "C": {
+      "correct": 69,
+      "questions": 96,
+      "wrong": 27
+    }
+  },
+  "failures": {},
+  "frozen_at": "2026-10-04T14:38:43.695089+00:00",
+  "selected": {
+    "A": 19,
+    "B": 19,
+    "C": null
+  }
+}
