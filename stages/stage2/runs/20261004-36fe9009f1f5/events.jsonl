@@ -1,1 +1,2 @@
 {"event": "PREPARED", "sizes": {"smoke": 10, "test": 200, "train": 100}, "time": "2026-10-04T12:31:11.891210+00:00"}
+{"error": "fatal: could not read Username for '[redacted URL] terminal prompts disabled\nGit credentials for [redacted URL] not found.\n", "event": "BACKUP_FAILED", "time": "2026-10-04T12:31:22.501173+00:00", "unconfirmed_features": []}

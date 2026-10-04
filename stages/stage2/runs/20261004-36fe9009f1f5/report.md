@@ -1,6 +1,6 @@
 # 第二阶段：逐步 hidden 最终答错风险探针
 
-运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T12:31:11.892217+00:00。
+运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T12:33:03.020949+00:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途步骤；不是局部错误标签。
 
@@ -15,30 +15,30 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
 
 ```json
 {
-  "python": "3.12.3",
-  "executable": "/root/miniconda3/bin/python",
-  "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
-  "versions": {
-    "torch": "2.8.0+cu128",
-    "transformers": "4.57.3",
-    "datasets": "4.8.5",
-    "numpy": "2.3.2",
-    "scikit-learn": "1.9.1",
-    "math-verify": "0.9.0",
-    "antlr4-python3-runtime": "4.13.2",
-    "latex2sympy2-extended": "1.11.0",
-    "huggingface-hub": "0.36.2",
-    "matplotlib": "3.10.5"
-  },
-  "cuda_build": "12.8",
-  "cuda_available": true,
-  "nvidia_smi": "NVIDIA GeForce RTX 4090, 49140 MiB, 48507 MiB, 595.58.03",
-  "bf16_supported": true,
   "bf16_sdpa_forward": true,
+  "bf16_supported": true,
+  "cuda_available": true,
+  "cuda_build": "12.8",
+  "executable": "/root/miniconda3/bin/python",
   "free_total_bytes": [
     50353602560,
     50866487296
-  ]
+  ],
+  "nvidia_smi": "NVIDIA GeForce RTX 4090, 49140 MiB, 48507 MiB, 595.58.03",
+  "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+  "python": "3.12.3",
+  "versions": {
+    "antlr4-python3-runtime": "4.13.2",
+    "datasets": "4.8.5",
+    "huggingface-hub": "0.36.2",
+    "latex2sympy2-extended": "1.11.0",
+    "math-verify": "0.9.0",
+    "matplotlib": "3.10.5",
+    "numpy": "2.3.2",
+    "scikit-learn": "1.9.1",
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.3"
+  }
 }
 ```
 
@@ -46,12 +46,30 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
 
 ```json
 {
-  "formal_planned": 300,
-  "formal_generated": 0
+  "train": {
+    "planned": 100,
+    "not_generated": 100,
+    "analyzable_end": 0,
+    "analyzable_intermediate": 0
+  },
+  "test": {
+    "planned": 200,
+    "not_generated": 200,
+    "analyzable_end": 0,
+    "analyzable_intermediate": 0
+  },
+  "smoke": {
+    "planned": 10,
+    "not_generated": 10,
+    "analyzable_end": 0,
+    "analyzable_intermediate": 0
+  }
 }
 ```
 
-未完成原因：Prepared; collection and remote backup have not yet been verified
+未完成原因：Fewer than five training questions in either class; no test data borrowed; origin backup failed: fatal: could not read Username for '[redacted URL] terminal prompts disabled
+Git credentials for [redacted URL] not found.
+
 
 ## 自检与备份
 
@@ -106,9 +124,14 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
     "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke",
     "passed": true
   },
+  "additional_implementation_checks": null,
   "smoke": null,
   "resume": null,
-  "backup": null
+  "backup": {
+    "error": "fatal: could not read Username for '[redacted URL] terminal prompts disabled\nGit credentials for [redacted URL] not found.\n",
+    "status": "FAILED",
+    "time": "2026-10-04T12:31:22.501905+00:00"
+  }
 }
 ```
 
@@ -126,7 +149,7 @@ hidden_states[1..L] 排除 embedding，Qwen2 的索引 L 含最终 norm；轨迹
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`b43e384e2b9505740631aaab27ce68fed7a29681`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`b88e66a0b96e870cb5b2e7e48741fe43ce91b8c0`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 

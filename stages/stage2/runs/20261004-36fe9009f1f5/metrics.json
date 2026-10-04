@@ -1,0 +1,64 @@
+{
+  "counts": {
+    "smoke": {
+      "analyzable_end": 0,
+      "analyzable_intermediate": 0,
+      "not_generated": 10,
+      "planned": 10
+    },
+    "test": {
+      "analyzable_end": 0,
+      "analyzable_intermediate": 0,
+      "not_generated": 200,
+      "planned": 200
+    },
+    "train": {
+      "analyzable_end": 0,
+      "analyzable_intermediate": 0,
+      "not_generated": 100,
+      "planned": 100
+    }
+  },
+  "full_trajectory_end": {
+    "correct": 0,
+    "methods": {},
+    "paired": {},
+    "positions": 0,
+    "questions": 0,
+    "wrong": 0
+  },
+  "intermediate_all": {
+    "correct": 0,
+    "methods": {},
+    "paired": {},
+    "positions": 0,
+    "questions": 0,
+    "wrong": 0
+  },
+  "reason": "Fewer than five training questions in either class; no test data borrowed",
+  "status": "INSUFFICIENT_TRAINING",
+  "step_1": {
+    "correct": 0,
+    "methods": {},
+    "paired": {},
+    "positions": 0,
+    "questions": 0,
+    "wrong": 0
+  },
+  "step_2": {
+    "correct": 0,
+    "methods": {},
+    "paired": {},
+    "positions": 0,
+    "questions": 0,
+    "wrong": 0
+  },
+  "step_3": {
+    "correct": 0,
+    "methods": {},
+    "paired": {},
+    "positions": 0,
+    "questions": 0,
+    "wrong": 0
+  }
+}

@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-import bisect
 import csv
 import gc
 import hashlib
@@ -484,14 +483,17 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware):
     torch.cuda.synchronize()
     record["timings"]["reforward_seconds"] = time.perf_counter() - start
     record["reforward_peak_bytes"] = torch.cuda.max_memory_allocated()
+    previous_features = {f["name"]: f["sha256"] for f in record.get("feature_files", [])}
     record["feature_files"] = []
     # ponytail: shard only beyond 40 MiB raw; layer shards keep each compressed file below 50 MiB.
     layers_per_file = max(1, (40 * 1024 * 1024) // hidden[0].nbytes)
     for lo in range(0, len(hidden), layers_per_file):
         hi = min(lo + layers_per_file, len(hidden))
         feature_path = path.with_suffix(".npz") if len(hidden) <= layers_per_file else path.with_suffix(f".layers{lo + 1}-{hi}.npz")
-        save_npz(feature_path, hidden=hidden[lo:hi], layers=np.arange(lo + 1, hi + 1),
-                 positions=np.asarray(positions, dtype=np.int64))
+        preserved = feature_path.exists() and digest(feature_path) == previous_features.get(feature_path.name)
+        if not preserved:
+            save_npz(feature_path, hidden=hidden[lo:hi], layers=np.arange(lo + 1, hi + 1),
+                     positions=np.asarray(positions, dtype=np.int64))
         if feature_path.stat().st_size > 50 * 1024 * 1024:
             raise RuntimeError("Single feature shard exceeds 50 MiB; reduce layer shard size")
         record["feature_files"].append({"name": feature_path.name, "sha256": digest(feature_path)})
@@ -550,7 +552,8 @@ def backup(run, message):
             # --only avoids committing unrelated changes already staged by the user.
             git("commit", "--only", "-m", message, "--", *paths)
         commit = git("rev-parse", "HEAD")
-        git("lfs", "push", "origin", "HEAD", env=env)
+        if list(run.glob("records/**/*.npz")):
+            git("lfs", "push", "origin", "HEAD", env=env)
         git("push", "--porcelain", "origin", f"HEAD:refs/heads/{BRANCH}", env=env)
         remote = git("ls-remote", "origin", f"refs/heads/{BRANCH}", env=env).split()
         if not remote or remote[0] != commit:
@@ -572,8 +575,13 @@ def backup(run, message):
 
 
 def snapshot_hashes(run, split):
-    return {str(p.relative_to(run)): digest(p) for p in sorted((run / "records" / split).glob("*"))
-            if p.suffix in {".json", ".npz"}}
+    hashes = {}
+    for path in sorted((run / "records" / split).glob("*.json")):
+        record = read_record(path, run)
+        if record and record.get("stage") == "FEATURES" and valid_features(path, record):
+            for p in [path, *[path.parent / f["name"] for f in record["feature_files"]]]:
+                hashes[str(p.relative_to(run))] = digest(p)
+    return hashes
 
 
 def load_examples(run, manifest, split):
@@ -882,6 +890,7 @@ def report(run, manifest, counts, metrics=None, rows=None, coverage=None, failur
         lines += [f"未完成原因：{reason}", ""]
     lines += ["## 自检与备份", "", "```json", json.dumps({
         "cpu_self_check": read_json(HERE / "self_check.json"),
+        "additional_implementation_checks": read_json(HERE / "implementation_checks.json"),
         "smoke": read_json(run / "smoke_checks.json"), "resume": read_json(run / "resume_check.json"),
         "backup": read_json(run / "backup.json")}, ensure_ascii=False, indent=2), "```", ""]
     if metrics:
@@ -942,15 +951,25 @@ def fit_only(cfg, run, manifest):
     except (ValueError, Warning) as exc:
         # Save honest NA results without ever loading a generator or borrowing test data.
         _, counts["test"] = load_examples(run, manifest, "test")
-        metrics = {"status": "INSUFFICIENT_TRAINING", "reason": str(exc), "counts": counts}
+        _, counts["smoke"] = load_examples(run, manifest, "smoke")
+        metrics = {"status": "INSUFFICIENT_TRAINING", "reason": str(exc), "counts": counts,
+                   **{k: bootstrap_metrics([], cfg) for k in
+                      ("step_1", "step_2", "step_3", "intermediate_all", "full_trajectory_end")}}
+        write_csv(run / "cv_scores.csv", [], ["method", "layer", "fold", "auroc", "error"])
+        write_csv(run / "test_predictions.csv", [], ["id", "label", "effective_step", "step_number", "prefix_token_count", "near_end", "A", "B", "C"])
+        plot_metrics(metrics, run)
         atomic_json(run / "metrics.json", metrics)
-        report(run, manifest, counts, reason=str(exc))
+        reason = str(exc)
+        if read_json(run / "backup.json", {}).get("status") == "FAILED":
+            reason += "; origin backup failed: " + read_json(run / "backup.json")["error"]
+        report(run, manifest, counts, reason=reason)
         print(str(exc), flush=True)
         return
     test, counts["test"] = load_examples(run, manifest, "test")
     with threadpool_limits(limits=1):
         metrics, rows = evaluate(test, probes, cfg, run)
-    metrics.update(status="COMPLETE" if len(probes) == 3 else "METHOD_FAILURE",
+    complete = all(counts[split].get("generated", 0) == cfg["split_sizes"][split] for split in ("train", "test"))
+    metrics.update(status=("COMPLETE" if complete else "PARTIAL_COLLECTION") if len(probes) == 3 else "METHOD_FAILURE",
                    counts=counts, selected_layers={m: p["layer"] for m, p in probes.items()},
                    training_coverage=coverage, failures=failures, analysis_environment=environment())
     atomic_json(run / "metrics.json", metrics)
@@ -1037,6 +1056,7 @@ def self_check(cfg):
         atomic_bytes(feature, b"damaged")
         check("damaged NPZ detected", not valid_features(path, record))
     result = {"passed": True, "checked_at": now(), "checks": checks, "environment": environment(),
+              "script_sha256": digest(__file__),
               "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke"}
     atomic_json(HERE / "self_check.json", result)
     print(f"SELF_CHECK passed ({len(checks)} checks)", flush=True)

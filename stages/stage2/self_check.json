@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-04T12:30:09.524635+00:00",
+  "checked_at": "2026-10-04T12:33:04.626353+00:00",
   "checks": [
     "grade \\frac{1}{2} vs 0.5",
     "grade \\sqrt{8} vs 2\\sqrt{2}",
@@ -45,5 +45,6 @@
     }
   },
   "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke",
-  "passed": true
+  "passed": true,
+  "script_sha256": "866da90db05d1d5467e16b2834b7fb6ff03fdfc63872a65caa0aad0f8081f745"
 }
