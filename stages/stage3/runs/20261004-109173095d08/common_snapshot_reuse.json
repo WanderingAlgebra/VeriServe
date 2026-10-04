@@ -1,0 +1,29 @@
+{
+  "copied_all_finished_public_snapshots": true,
+  "created": "2026-10-04T16:44:59.393714+00:00",
+  "original_snapshot_source_hashes_retained": true,
+  "prm_input_correction_only": true,
+  "raw_bytes_unchanged": [
+    {
+      "from": "stages/stage3/runs/20261004-bcab71671427/snapshots/9752291fe1302ac010a0.json",
+      "sha256": "9030f8288b6bd4b1cbd2701e995ca91c1f983c91f2c2c25255791e3b05d67100",
+      "to": "stages/stage3/runs/20261004-109173095d08/snapshots/9752291fe1302ac010a0.json"
+    },
+    {
+      "from": "stages/stage3/runs/20261004-bcab71671427/snapshots/9752291fe1302ac010a0.npz",
+      "sha256": "46f93607d956c977fc4f99e3dc3b9d32ad9efd743f4870a318fdb616ced9f631",
+      "to": "stages/stage3/runs/20261004-109173095d08/snapshots/9752291fe1302ac010a0.npz"
+    }
+  ],
+  "selection": "all finished public snapshots; no selection by outcomes or scores",
+  "source_commit": "0242cc5558f1db60a27d80ad63f73ed805a10fd6",
+  "source_run": "stages/stage3/runs/20261004-bcab71671427",
+  "unchanged_generation_feature_functions_ast": [
+    "key",
+    "Session",
+    "generator_limit",
+    "initial_snapshot",
+    "feature",
+    "score_snapshot"
+  ]
+}

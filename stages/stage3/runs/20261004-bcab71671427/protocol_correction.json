@@ -1,0 +1,17 @@
+{
+  "created": "2026-10-04T16:42:17.968408+00:00",
+  "new_config_hash": "109173095d08eef1316a08995ffdfe9825c0b69c52d929bc4c7b34e851363971",
+  "old_source_commit": "0242cc5558f1db60a27d80ad63f73ed805a10fd6",
+  "original_results_preserved": true,
+  "public_snapshot_semantics_unchanged": {
+    "Session": true,
+    "feature": true,
+    "generator_limit": true,
+    "initial_snapshot": true,
+    "key": true,
+    "score_snapshot": true
+  },
+  "reason": "Stage1 split_steps dropped the unmarked pending Step2 suffix before next Step marker. New stage3 wrapper retains it; accepted-step conflicts remain UNCERTAIN.",
+  "status": "SUPERSEDED_PILOT_PROTOCOL",
+  "superseded_by": "stages/stage3/runs/20261004-109173095d08"
+}

@@ -102,12 +102,23 @@ class Session:
 def load_resident(cfg, run):
     import torch
     from huggingface_hub import snapshot_download
-    from stages.stage1.veriserve.prm import ProcessRewardModel
+    from stages.stage1.veriserve.prm import ProcessRewardModel,SYSTEM
+    class ResidentPRM(ProcessRewardModel):
+        def input_ids(self,question,accepted,new):
+            steps,prior=protocol.prm_steps(accepted,new)
+            if not steps:
+                return [],[],0
+            messages=[{'role':'system','content':SYSTEM},{'role':'user','content':question},
+                      {'role':'assistant','content':'<extra_0>'.join(body for _,body in steps)+'<extra_0>'}]
+            ids=self.tokenizer.apply_chat_template(messages,tokenize=True,add_generation_prompt=False)
+            if sum(t==self.separator_id for t in ids)!=len(steps):
+                raise RuntimeError('PRM separator/step count mismatch')
+            return ids,[n for n,_ in steps],prior
     if not torch.cuda.is_available() or not torch.cuda.is_bf16_supported():
         raise RuntimeError('Required BF16 CUDA unavailable; no model/precision substitution')
     generator, tokenizer = old.load_model(cfg)
     path = snapshot_download(cfg['verifier']['id'], revision=cfg['revisions']['verifier'])
-    verifier = ProcessRewardModel(path, threshold=cfg['verifier']['threshold'])
+    verifier = ResidentPRM(path, threshold=cfg['verifier']['threshold'])
     if verifier.tokenizer.name_or_path != path:
         raise RuntimeError('Verifier tokenizer revision not fixed')
     start = clock()
@@ -132,6 +143,7 @@ def load_resident(cfg, run):
                 'generator_context_tokens': cfg['max_total_tokens'],
                 'prm_input_tokens': cfg['max_prm_input_tokens'],
                 'simultaneous_residency': True, 'source_hashes': storage.source_hashes()}
+    storage.archive_diagnostic(run, 'capacity_check.json')
     atomic_json(run / 'capacity_check.json', capacity)
     del big, output, prm_ids
     gc.collect()
@@ -717,7 +729,10 @@ def run_phase(cfg,run,manifest,phase,stop_after=None):
     if not check or check['status']!='PASS' or check['source_hashes']!=storage.source_hashes():
         raise RuntimeError('Current implementation requires passing CPU self-check')
     backup=storage.safe_read_json(run/'backup.json',{})
-    if backup.get('status')!='PUSHED' or backup.get('source_hashes')!=storage.source_hashes():
+    current_counts=storage.completed_problems(run)
+    backed_counts=backup.get('completed_problems',{})
+    if (backup.get('status')!='PUSHED' or backup.get('source_hashes')!=storage.source_hashes()
+            or any(current_counts[p]!=backed_counts.get(p,0) for p in current_counts)):
         storage.backup(run,'resume pending stage3 backup before generation')
     if phase in ('dev','test'):
         pilot=storage.safe_read_json(run/'pilot_checks.json',{})
@@ -775,6 +790,7 @@ def run_phase(cfg,run,manifest,phase,stop_after=None):
              'uuid':str(torch.cuda.get_device_properties(0).uuid),'implementation':cfg['cache_backend']}
     model,tokenizer,verifier=load_resident(cfg,run)
     probes=probe_files(cfg)
+    storage.archive_diagnostic(run, 'runtime_environment.json')
     atomic_json(run/'runtime_environment.json',{'environment':hardware,'bitsandbytes':__import__('importlib.metadata',fromlist=['version']).version('bitsandbytes'),
                 'backend':backend,'effective_generation_config':{**model.generation_config.to_dict(),'do_sample':False},
                 'model_config_sha256':old.digest(Path(model.config._name_or_path)/'config.json') if Path(model.config._name_or_path).is_dir() else None,

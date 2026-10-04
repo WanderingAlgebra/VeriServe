@@ -4,6 +4,9 @@
 20 道 pilot、40 道 dev、130 道 test 上执行 Step 2 公共快照的 NOW / DELAY_2 配对。
 B 表示未经干预完整轨迹最终答错风险；每个合格快照均执行两个动作。
 PRM 沿用第一阶段 NF4 / BF16 compute / double quant 与确定性通用反馈，阈值固定 0.35。
+第三阶段薄包装保留跨原始 token 边界落在 pending 中的步骤尾部，
+将其归回已接受步骤；旧前缀低分仍为 UNCERTAIN，Final answer 纳入验证。
+checkpoint=0 的反馈只将原 Steps 1–0 说明替换为重新从 Step 1 开始。
 
 在仓库根目录使用已有 Python：
 

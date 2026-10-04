@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -87,6 +88,21 @@ def event(run, kind, **values):
 
 def save_json(path, value):
     atomic_json(Path(path), value)
+
+
+def archive_diagnostic(run, name):
+    """Keep prior hardware/resource diagnostics before a later session replaces them."""
+    if name not in ("runtime_environment.json", "capacity_check.json"):
+        raise ValueError("Only session diagnostic files can be archived here")
+    run = Path(run)
+    path = run / name
+    if not path.exists():
+        return None
+    archive = run / "session_checks" / f"{time.time_ns()}-{name}"
+    atomic_bytes(archive, path.read_bytes())
+    event(run, "SESSION_DIAGNOSTIC_ARCHIVED", original=name,
+          archive=str(archive.relative_to(run)), sha256=digest(archive))
+    return archive
 
 
 def safe_read_json(path, default=None):
@@ -454,6 +470,13 @@ def self_check():
         assert path.read_text() == "{broken"
         assert len(list(path.parent.glob("record.json.corrupt-*"))) == 1
         run = path.parent / "run"
+        diagnostic = run / "runtime_environment.json"
+        original_bytes = b'{ "gpu": "earlier GPU", "session": 1 }\n'
+        atomic_bytes(diagnostic, original_bytes)
+        archive = archive_diagnostic(run, diagnostic.name)
+        assert diagnostic.read_bytes() == archive.read_bytes() == original_bytes
+        save_json(diagnostic, {"gpu": "later GPU", "session": 2})
+        assert archive.read_bytes() == original_bytes
         save_json(run / "dev_groups.json", {"B": [1, 2], "C": [1, 2]})
         frozen = {"dev_groups_sha256": digest(run / "dev_groups.json"), "source_hashes": {"code.py": "hash"}}
         save_json(run / "protocol_frozen.json", frozen)
@@ -479,7 +502,8 @@ def self_check():
     assert len(ids) == len(set(ids)) == 190
     assert not set(ids) & {r["unique_id"] for rows in original["splits"].values() for r in rows}
     return {"status": "PASSED", "checks": ["atomic_roundtrip", "corruption_preserved",
-            "fixed_probe_metadata_weights", "190_original_unused_ids_disjoint", "frozen_backup_interrupt_retry"]}
+            "fixed_probe_metadata_weights", "190_original_unused_ids_disjoint", "frozen_backup_interrupt_retry",
+            "session_diagnostics_archived_byte_exact"]}
 
 
 if __name__ == "__main__":

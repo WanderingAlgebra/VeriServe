@@ -1,0 +1,87 @@
+{
+  "actual_check_state_transitions": true,
+  "budget_rejected_answer_not_submitted": true,
+  "created": "2026-10-04T16:46:10.845708+00:00",
+  "environment": {
+    "executable": "/root/miniconda3/bin/python",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "python": "3.12.3",
+    "versions": {
+      "antlr4-python3-runtime": "4.13.2",
+      "datasets": "4.8.5",
+      "huggingface-hub": "0.36.2",
+      "latex2sympy2-extended": "1.11.0",
+      "math-verify": "0.9.0",
+      "matplotlib": "3.10.5",
+      "numpy": "2.3.2",
+      "scikit-learn": "1.9.1",
+      "torch": "2.8.0+cu128",
+      "transformers": "4.57.3"
+    }
+  },
+  "independent_arm_state": true,
+  "math_expression_equivalence": true,
+  "probe_B_layer": 19,
+  "probe_predictions_agree": true,
+  "protocol": {
+    "checks": [
+      "unfinished Step 2 is not closed",
+      "Step 2 original prefix and pending are separated",
+      "Step 1 cross-marker token aligns backward",
+      "Step 2 crossing token remains pending",
+      "Unicode boundary keeps every byte of complete content",
+      "early endpoint anchor retained",
+      "incomplete boxed cannot terminate",
+      "complete box waits for EOS",
+      "complete final retained before EOS",
+      "partial next header is pending until colon",
+      "DELAY closes fourth ordinary step",
+      "DELAY skips boxed Step 3 and waits for two ordinary steps",
+      "DELAY second ordinary step can close at Final marker",
+      "anchor eligibility only excludes boxed in Step 2",
+      "illegal and boxed anchors excluded",
+      "post-final reasoning is format failure",
+      "feedback removal preserves reasoning chunk boundaries",
+      "initial feedback explicitly restarts Step 1",
+      "PRM retains final and excludes feedback",
+      "final-only new segment receives a PRM step",
+      "cross-boundary math tail is retained in accepted Step 2",
+      "continued accepted step still gives prefix conflict",
+      "math tail before markerless Final stays separate from final virtual step",
+      "initial unmarked reasoning preamble is retained",
+      "accepted prefix conflict preserves raw FAIL and effective UNCERTAIN",
+      "threshold equality passes",
+      "new low score returns deterministic FAIL",
+      "exact budget permits necessary terminal verification",
+      "lookahead and revoked tokens cannot be refunded",
+      "FAIL with exhausted rollback budget cannot retry",
+      "PRM length has independent tokenizer budget"
+    ],
+    "count": 31,
+    "passed": true
+  },
+  "source_hashes": {
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "stages/stage2/config.json": "ebde4a2f85e9829af1d272ef277164af617dab221741abab8e02f3f9a90fd73d",
+    "stages/stage2/run_probe.py": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa",
+    "stages/stage3/analyze.py": "8c074cf2088ade317f8f2e587e92b0b4f4d2e8771f234ea659dc3c893480a872",
+    "stages/stage3/protocol.py": "b8ea8e5e0a437974a74802cefab029ef2c49b474f99b56ac8e66a74a49d05680",
+    "stages/stage3/run_timing.py": "b32b8471bc9791a0eada2b699abde5d5d2c064337f86ae5bf2b5826607bcf938",
+    "stages/stage3/storage.py": "c536e673e3b8ebeaa14f8a9b11522bdb4247e368747140e4c3f4991f0d5c017c"
+  },
+  "status": "PASS",
+  "storage": {
+    "checks": [
+      "atomic_roundtrip",
+      "corruption_preserved",
+      "fixed_probe_metadata_weights",
+      "190_original_unused_ids_disjoint",
+      "frozen_backup_interrupt_retry",
+      "session_diagnostics_archived_byte_exact"
+    ],
+    "status": "PASSED"
+  }
+}

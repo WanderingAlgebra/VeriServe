@@ -120,10 +120,27 @@ _FEEDBACK = re.compile(
 
 
 def prm_steps(accepted, new):
-    """Use stage1's step adapter, retaining Final answer and excluding its feedback wrapper."""
-    from stages.stage1.veriserve.prm import split_steps
-    previous = split_steps(_FEEDBACK.sub("", accepted))
-    following = split_steps(_FEEDBACK.sub("", new), start=previous[-1][0] + 1 if previous else 1)
+    """Keep raw-token boundary tails, Final answer and reasoning; exclude feedback."""
+    from stages.stage1.veriserve.prm import STEP_RE, split_steps
+    accepted, new = _FEEDBACK.sub("", accepted), _FEEDBACK.sub("", new)
+    def split(text, start=1):
+        steps = split_steps(text, start=start)
+        first = STEP_RE.search(text)
+        if steps and first and text[:first.start()].strip():
+            number, body = steps[0]
+            steps[0] = number, text[:first.start()].rstrip() + "\n" + body
+        return steps
+    previous = split(accepted)
+    markers = [match.start() for pattern in (STEP_RE, FINAL) if (match := pattern.search(new))]
+    tail_end = min(markers) if markers else len(new)
+    tail = new[:tail_end]
+    if previous and tail.strip():
+        # A token crossing the checkpoint boundary can finish the accepted
+        # step's math. Keep its old number so a low score remains a conflict.
+        number, body = previous[-1]
+        previous[-1] = number, body + accepted[len(accepted.rstrip()):] + tail.rstrip()
+        new = new[tail_end:]
+    following = split(new, start=previous[-1][0] + 1 if previous else 1)
     return previous + following, len(previous)
 
 
@@ -260,6 +277,19 @@ def self_check():
           and r"Final answer: \boxed{2}" in steps[-1][1] and all("diagnosis" not in body for _, body in steps))
     steps, prior = prm_steps("Step 1: accepted\nStep 2: accepted", r"Final answer: \boxed{2}")
     check("final-only new segment receives a PRM step", prior == 2 and steps[-1] == (3, r"Final answer: \boxed{2}"))
+    steps, prior = prm_steps("Step 1: accepted\nStep 2: The radius is \\(\\sqrt{2}\\",
+                             ").\n\nStep 3: next\nFinal answer: \\boxed{2}")
+    check("cross-boundary math tail is retained in accepted Step 2",
+          prior == 2 and steps[1] == (2, r"The radius is \(\sqrt{2}\).")
+          and steps[2] == (3, "next\nFinal answer: \\boxed{2}"))
+    tail_conflict = verdict_from_scores([.9, .1, .9], [number for number, _ in steps], prior)
+    check("continued accepted step still gives prefix conflict",
+          tail_conflict["raw_verdict"] == "FAIL" and tail_conflict["effective_verdict"] == "UNCERTAIN")
+    steps, prior = prm_steps("Step 1: accepted\nStep 2: value \\(2\\", ").\nFinal answer: \\boxed{2}")
+    check("math tail before markerless Final stays separate from final virtual step",
+          prior == 2 and steps[1][1] == r"value \(2\)." and steps[2] == (3, r"Final answer: \boxed{2}"))
+    steps, _ = prm_steps("", "First consider the problem.\nStep 1: work\nFinal answer: \\boxed{2}")
+    check("initial unmarked reasoning preamble is retained", "First consider the problem." in steps[0][1])
     conflict = verdict_from_scores([.1, .9], [1, 2], 1)
     check("accepted prefix conflict preserves raw FAIL and effective UNCERTAIN",
           conflict["raw_verdict"] == "FAIL" and conflict["effective_verdict"] == "UNCERTAIN"

@@ -24,3 +24,4 @@
 {"Y": 0, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 37.39912284165621, "termination": "BUDGET_ROLLBACKS", "time": "2026-10-04T16:38:51.666089+00:00", "unique_id": "test/intermediate_algebra/1779.json"}
 {"completed_this_process": 1, "event": "PROBLEM_COMPLETED", "phase": "pilot", "time": "2026-10-04T16:38:51.911799+00:00", "unique_id": "test/intermediate_algebra/1779.json"}
 {"event": "BACKUP_PENDING", "last_successful_commit": "b064f8a29b49f79ae849dabb6a56df5dd8945c4c", "reason": "pilot stop-after 1, resume checkpoint", "time": "2026-10-04T16:38:52.204233+00:00"}
+{"commit": "0242cc5558f1db60a27d80ad63f73ed805a10fd6", "event": "BACKUP_SUCCEEDED", "reason": "pilot stop-after 1, resume checkpoint", "remote_verified": true, "time": "2026-10-04T16:39:57.792116+00:00"}

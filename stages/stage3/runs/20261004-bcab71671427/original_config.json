@@ -29,7 +29,6 @@
     "verifier": "0610740060112df12585d00a1c5f4624d2f59051",
     "verifier_tokenizer": "0610740060112df12585d00a1c5f4624d2f59051"
   },
-  "run_note": "pilot protocol fix: retain cross-boundary pending reasoning suffix in PRM input; legacy pilot run preserved",
   "score_timeout_seconds": 5,
   "seed": 20261004,
   "split_sizes": {
@@ -44,15 +43,5 @@
     "id": "Qwen/Qwen2.5-Math-PRM-7B",
     "quantization": "nf4",
     "threshold": 0.35
-  },
-  "verifier_revision_source": {
-    "config_file_mtime_utc": "2026-10-04T15:52:48.103904+00:00",
-    "method": "hub_model_info",
-    "persisted_before_download": true,
-    "repo": "Qwen/Qwen2.5-Math-PRM-7B",
-    "revisioned_local_cache_found": false,
-    "sha": "0610740060112df12585d00a1c5f4624d2f59051",
-    "stage1_recorded_revision_found": false,
-    "timestamp_basis": "observed persisted config mtime; exact Hub response timestamp was not recorded"
   }
 }

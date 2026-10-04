@@ -112,6 +112,20 @@ def checks(arm):
     return arm.get("checks") or [e for e in arm.get("events", []) if e.get("kind") == "CHECK"]
 
 
+def failure_category(arm):
+    termination = arm.get("termination") or ""
+    reason = (arm.get("grading") or {}).get("exclusion") or ""
+    if "BUDGET" in termination or "LIMIT" in termination:
+        return "BUDGET_OR_INPUT_LIMIT"
+    if "FORMAT" in termination or reason in {"NO_FINAL_ANSWER", "FINAL_FORMAT_ERROR", "MISSING_OR_INCOMPLETE_BOXED", "PREDICTION_UNPARSEABLE", "PREDICTION_ERROR"}:
+        return "FORMAT_OR_PREDICTION_PARSE"
+    if exclusion(arm) is not None:
+        return "EVALUATION_UNAVAILABLE"
+    if arm.get("Y") == 1:
+        return "CORRECT"
+    return "WRONG_SUBMITTED" if arm.get("submitted_reasoning_ids") is not None or termination in ("FINAL_PASS", "FINAL_UNCERTAIN", "EOS") else "OTHER_ALGORITHM_FAILURE"
+
+
 def arm_summary(rows, name):
     records = [r["arms"][name] for r in rows if r["eligible"] and r["arms"][name]]
     terminal = [a for a in records if a.get("status") == "COMPLETE"]
@@ -128,6 +142,7 @@ def arm_summary(rows, name):
     return {"recorded": len(records), "complete": len(terminal), "quality_n": len(quality),
             "correct": sum(quality), "accuracy": float(np.mean(quality)) if quality else None,
             "time_seconds": distribution(times), "budget": budget,
+            "outcome_categories": dict(Counter(failure_category(a) for a in terminal)),
             "termination_counts": dict(Counter(a.get("termination", "UNKNOWN") for a in terminal)),
             "grading_exclusion_counts": dict(Counter((a.get("grading") or {}).get("exclusion") or "NONE" for a in terminal)),
             "status_counts": dict(Counter(a.get("status", "UNKNOWN") for a in records)),
@@ -277,6 +292,14 @@ def effect(value):
     return f"{number(value.get('estimate'))} [{number(ci[0])}, {number(ci[1])}]" if ci else f"NA（{value.get('reason') or '未执行'}）"
 
 
+def bootstrap_count(value, total):
+    return f"{value.get('bootstrap_valid', 0)}/{total}"
+
+
+def mechanism_text(arms, key, fields):
+    return "; ".join(f"{name}:" + "/".join(number(arms[name][key][field]["mean"]) for field in fields) for name in ARMS)
+
+
 def interpretation(value):
     ci = value.get("ci95")
     if ci is None:
@@ -307,10 +330,21 @@ def report(run, manifest, metrics):
         table = [("总体", total)] + [(f"{method} {g}", data["risk"][method]["groups"][g]) for method in ("B", "C") for g in GROUPS]
         for label, stat in table:
             lines.append(f"| {label} | {stat['eligible']} | {stat['quality_pairs']} | {number(stat['arms']['NOW']['accuracy'])} | {number(stat['arms']['DELAY_2']['accuracy'])} | {effect(stat['delta_Y'])} | {effect(stat['delta_T_seconds'])} | {stat['wrong_to_correct']} | {stat['correct_to_wrong']} | {number(stat['prefix_tokens']['mean'])} |")
-        lines += ["", f"总体质量：{interpretation(total['delta_Y'])} 总体时间：{interpretation(total['delta_T_seconds'])}", ""]
+        lines += ["", f"总体质量：{interpretation(total['delta_Y'])} 总体时间：{interpretation(total['delta_T_seconds'])}",
+                  f"总体 ΔY/ΔT 有效 bootstrap 次数：{bootstrap_count(total['delta_Y'], metrics['bootstrap'])}/{bootstrap_count(total['delta_T_seconds'], metrics['bootstrap'])}。", "",
+                  "| 范围 | NOW 时间均值/中位秒 | DELAY_2 时间均值/中位秒 | 检查/回滚均值 | 生成/撤销 token 均值 | 首检 FAIL/UNCERTAIN 比例 | 结果分类次数 | ΔY;ΔT 有效 bootstrap |",
+                  "| --- | --- | --- | --- | --- | --- | --- | --- |"]
+        for label, stat in table:
+            arms = stat["arms"]
+            times = ["/".join(number(arms[a]["time_seconds"][v]) for v in ("mean", "median")) for a in ARMS]
+            fractions = "; ".join(f"{a}:{number(arms[a]['first_check']['FAIL_fraction'])}/{number(arms[a]['first_check']['UNCERTAIN_fraction'])}" for a in ARMS)
+            failures = "; ".join(f"{a}:`{json.dumps(arms[a]['outcome_categories'], ensure_ascii=False, sort_keys=True)}`" for a in ARMS)
+            lines.append(f"| {label} | {times[0]} | {times[1]} | {mechanism_text(arms, 'budget', ('prm_calls', 'rollbacks'))} | {mechanism_text(arms, 'budget', ('generated_tokens', 'revoked_tokens'))} | {fractions} | {failures} | {bootstrap_count(stat['delta_Y'], metrics['bootstrap'])};{bootstrap_count(stat['delta_T_seconds'], metrics['bootstrap'])} |")
+        lines += ["", "结果分类：CORRECT=判对；WRONG_SUBMITTED=已提交答错；FORMAT_OR_PREDICTION_PARSE=格式/预测解析失败；BUDGET_OR_INPUT_LIMIT=预算/输入上限；OTHER_ALGORITHM_FAILURE=其他算法终止；EVALUATION_UNAVAILABLE=评估错误。精确终止原因、评分错误和基础设施状态另存 metrics.json。", ""]
         for method in ("B", "C"):
             risk = data["risk"][method]
             lines += [f"{method} 高风险减低风险的收益差：ΔY {effect(risk['high_minus_low_delta_Y'])}；ΔT 秒 {effect(risk['high_minus_low_delta_T_seconds'])}。",
+                      f"高低差 ΔY/ΔT 有效 bootstrap 次数：{bootstrap_count(risk['high_minus_low_delta_Y'], metrics['bootstrap'])}/{bootstrap_count(risk['high_minus_low_delta_T_seconds'], metrics['bootstrap'])}。",
                       f"质量异质性：{interpretation(risk['high_minus_low_delta_Y'])} 时间异质性：{interpretation(risk['high_minus_low_delta_T_seconds'])}", ""]
         for name in ARMS:
             arm = total["arms"][name]
@@ -331,9 +365,21 @@ def report(run, manifest, metrics):
     test_complete = not test["pending_anchors"] and not test["pending_pairs"] and not test["infrastructure_interrupted_pairs"]
     support = test_complete and any(v.get("ci95") and v["ci95"][0] > 0 and min(v.get("low_questions", 0), v.get("high_questions", 0)) > 1
                                    for v in (b["high_minus_low_delta_Y"], b["high_minus_low_delta_T_seconds"]))
+    direction = []
+    for key, label in (("high_minus_low_delta_Y", "质量"), ("high_minus_low_delta_T_seconds", "时间")):
+        bv, cv = b[key].get("estimate"), c[key].get("estimate")
+        relation = "NA" if not finite(bv) or not finite(cv) else "同向" if np.sign(bv) == np.sign(cv) else "不同向"
+        direction.append(f"{label}高低收益差点估计 {relation}")
+    lengths = "; ".join(f"{m} 低/高组前缀均值 {number(test['risk'][m]['groups']['low']['prefix_tokens']['mean'])}/{number(test['risk'][m]['groups']['high']['prefix_tokens']['mean'])} token" for m in ("B", "C"))
+    total = test["overall"]
+    arms = total["arms"]
+    mechanism = f"正式配对中立即检查修复 {total['wrong_to_correct']} 题、破坏 {total['correct_to_wrong']} 题；"
+    mechanism += "; ".join(f"{a} 检查/回滚合计 {number(arms[a]['budget']['prm_calls']['sum'])}/{number(arms[a]['budget']['rollbacks']['sum'])}、撤销 token {number(arms[a]['budget']['revoked_tokens']['sum'])}" for a in ARMS) + "。"
     lines += ["## 解释与后续", "",
               "B 预测未经干预的整条轨迹最终答错风险，不是当前步错误概率或检查收益概率。B 高低组配对收益差才检验“高风险是否更值得立即检查”；首次检查失败率本身不能回答该问题。C 是仅有步骤/长度的对照，固定第二步仍留下前缀长度差异；若 B 与 C 的收益模式相似，长度可能解释部分效果。B 在 stage2 的 AUROC 较高不构成本轮检查时机收益证据。",
               f"正式 B 异质性质量/时间：{effect(b['high_minus_low_delta_Y'])} / {effect(b['high_minus_low_delta_T_seconds'])}；C：{effect(c['high_minus_low_delta_Y'])} / {effect(c['high_minus_low_delta_T_seconds'])}。",
+              f"实际长度与对照：{lengths}；{'；'.join(direction)}。同向时长度信号与 B 收益模式相容，但这不证明长度完全解释 B；不同向也不能证明 B 有独立作用，本轮没有做长度调整。",
+              mechanism,
               "修复/破坏次数、首次检查 PASS/FAIL/UNCERTAIN、返工次数和撤销 token 可描述收益与成本的机制，但没有额外随机化，不能把它们直接解释为因果中介。格式失败和预算耗尽保持在算法失败分母，所有排除均保留记录。",
               "反馈是 PRM 分数驱动的确定性通用 diagnosis/hint 模板；本轮只覆盖无历史 PASS 的普通 Step 2，不能直接推广到多位置或已有 PASS 状态。q 的独立前缀特征提取与探针时间属于离线诊断开销。小组 p95 仅为描述，分组样本过少、CI 跨零和 BF16 数值/运行后端差异都限制结论。",
               ("至少一项正式 B 高低组收益差的 CI 支持正向异质性，可为下一阶段阈值策略提供初步依据；仍须联合评估质量、时间与 C/长度解释，当前不设 λ、不从 test 搜索阈值。" if support else "当前没有足够正式证据支持推进风险阈值策略；结果为 NA 或 CI 跨零时如实保留，不调整 test 寻找正结果。"), "",
@@ -455,6 +501,9 @@ def self_check():
     assert exclusion({"status": "COMPLETE", "Y": 0, "grading": {"exclusion": "PREDICTION_UNPARSEABLE"}}) is None
     assert exclusion({"status": "COMPLETE", "Y": 0, "grading": {"exclusion": "PREDICTION_ERROR"}}) is None
     assert exclusion({"status": "COMPLETE", "Y": 0, "grading": {"exclusion": "FINAL_FORMAT_ERROR"}}) is None
+    assert failure_category({"status": "COMPLETE", "Y": 0, "termination": "BUDGET_ROLLBACKS"}) == "BUDGET_OR_INPUT_LIMIT"
+    assert failure_category({"status": "COMPLETE", "Y": 0, "termination": "EOS_FORMAT_FAILURE"}) == "FORMAT_OR_PREDICTION_PARSE"
+    assert failure_category({"status": "COMPLETE", "Y": 0, "termination": "FINAL_PASS", "grading": {"exclusion": None}}) == "WRONG_SUBMITTED"
     assert group(.2, [.2, .5]) == "low" and group(.5, [.2, .5]) == "mid"
     rows[1]["backend"] = "other_gpu"
     assert paired_effect(rows, "T", cfg)["reason"] == "MIXED_BACKENDS_SEE_BY_BACKEND"
