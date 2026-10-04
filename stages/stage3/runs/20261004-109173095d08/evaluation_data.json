@@ -53,6 +53,9 @@
   "test/algebra/2257.json": {
     "status": "VALID"
   },
+  "test/algebra/24.json": {
+    "status": "VALID"
+  },
   "test/algebra/2427.json": {
     "status": "VALID"
   },
@@ -63,6 +66,9 @@
     "status": "VALID"
   },
   "test/algebra/2517.json": {
+    "status": "VALID"
+  },
+  "test/algebra/2570.json": {
     "status": "VALID"
   },
   "test/algebra/2584.json": {
@@ -90,6 +96,9 @@
     "status": "VALID"
   },
   "test/algebra/686.json": {
+    "status": "VALID"
+  },
+  "test/algebra/722.json": {
     "status": "VALID"
   },
   "test/algebra/733.json": {
@@ -191,6 +200,9 @@
   "test/geometry/538.json": {
     "status": "VALID"
   },
+  "test/geometry/547.json": {
+    "status": "VALID"
+  },
   "test/geometry/627.json": {
     "status": "VALID"
   },
@@ -246,6 +258,9 @@
     "status": "VALID"
   },
   "test/intermediate_algebra/1508.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/1555.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/1714.json": {
@@ -308,6 +323,9 @@
   "test/number_theory/1055.json": {
     "status": "VALID"
   },
+  "test/number_theory/109.json": {
+    "status": "VALID"
+  },
   "test/number_theory/1090.json": {
     "status": "VALID"
   },
@@ -368,6 +386,9 @@
   "test/number_theory/627.json": {
     "status": "VALID"
   },
+  "test/number_theory/631.json": {
+    "status": "VALID"
+  },
   "test/number_theory/686.json": {
     "status": "VALID"
   },
@@ -381,6 +402,9 @@
     "status": "VALID"
   },
   "test/number_theory/931.json": {
+    "status": "VALID"
+  },
+  "test/number_theory/978.json": {
     "status": "VALID"
   },
   "test/prealgebra/1003.json": {
@@ -494,6 +518,9 @@
   "test/precalculus/697.json": {
     "status": "VALID"
   },
+  "test/precalculus/703.json": {
+    "status": "VALID"
+  },
   "test/precalculus/742.json": {
     "status": "VALID"
   },
@@ -507,6 +534,9 @@
     "status": "VALID"
   },
   "test/precalculus/920.json": {
+    "status": "VALID"
+  },
+  "test/precalculus/927.json": {
     "status": "VALID"
   }
 }

@@ -1679,3 +1679,105 @@
 {"error": "Post \"[redacted URL] read tcp 127.0.0.1:39490->127.0.0.1:17897: i/o timeout\n", "event": "BACKUP_FAILED", "last_successful_commit": "f144b59be60538c3b24522dd30866bce1c62072b", "time": "2026-10-04T18:08:44.857402+00:00"}
 {"error": "Backup failed; retained local data, stop before next batch: Post \"[redacted URL] read tcp 127.0.0.1:39490->127.0.0.1:17897: i/o timeout\n", "event": "PHASE_INTERRUPTED", "phase": "dev", "time": "2026-10-04T18:08:45.389809+00:00"}
 {"event": "BACKUP_PENDING", "last_successful_commit": "f144b59be60538c3b24522dd30866bce1c62072b", "reason": "stage3 code and experiment artifacts", "time": "2026-10-04T19:35:46.551244+00:00"}
+{"commit": "e173565a816d75ab6ed77fa48ac4177e2aba1c0d", "event": "BACKUP_SUCCEEDED", "reason": "stage3 code and experiment artifacts", "remote_verified": true, "time": "2026-10-04T19:36:30.217819+00:00"}
+{"archive": "session_checks/1791148832656194450-capacity_check.json", "event": "SESSION_DIAGNOSTIC_ARCHIVED", "original": "capacity_check.json", "sha256": "90fc728f1ab161ded7a66ee768e6258f96b7d4f94caa0681a0565de63aff18f7", "time": "2026-10-04T21:20:32.657294+00:00"}
+{"archive": "session_checks/1791148832816194592-runtime_environment.json", "event": "SESSION_DIAGNOSTIC_ARCHIVED", "original": "runtime_environment.json", "sha256": "7e4389ae9663a584227324f2eea4a32590c0efacaea37aac342c0e8f8b36eeea", "time": "2026-10-04T21:20:32.817050+00:00"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:20:34.314577+00:00", "unique_id": "test/algebra/722.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.460720382979226, "q_C": 0.2130150518852052, "time": "2026-10-04T21:20:34.346437+00:00", "unique_id": "test/algebra/722.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:20:34.437415+00:00", "unique_id": "test/algebra/722.json", "verdict": "FAIL"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:20:38.939214+00:00", "unique_id": "test/algebra/722.json", "verdict": "PASS"}
+{"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 4.561995401978493, "termination": "FINAL_PASS", "time": "2026-10-04T21:20:38.974779+00:00", "unique_id": "test/algebra/722.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:20:40.053378+00:00", "unique_id": "test/algebra/722.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:20:44.129954+00:00", "unique_id": "test/algebra/722.json", "verdict": "PASS"}
+{"Y": 1, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 4.9779897425323725, "termination": "FINAL_PASS", "time": "2026-10-04T21:20:44.132547+00:00", "unique_id": "test/algebra/722.json"}
+{"completed_this_process": 1, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:20:44.283635+00:00", "unique_id": "test/algebra/722.json"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:20:45.826183+00:00", "unique_id": "test/geometry/547.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.4730647180403541, "q_C": 0.21116672062590236, "time": "2026-10-04T21:20:45.868918+00:00", "unique_id": "test/geometry/547.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:20:48.130741+00:00", "unique_id": "test/geometry/547.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:20:54.663414+00:00", "unique_id": "test/geometry/547.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 3, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:01.773699+00:00", "unique_id": "test/geometry/547.json", "verdict": "FAIL"}
+{"Y": 0, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 15.865048011764884, "termination": "BUDGET_ROLLBACKS", "time": "2026-10-04T21:21:01.781111+00:00", "unique_id": "test/geometry/547.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:02.063481+00:00", "unique_id": "test/geometry/547.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:05.706331+00:00", "unique_id": "test/geometry/547.json", "verdict": "FAIL"}
+{"arm": "NOW", "check": 3, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:08.786781+00:00", "unique_id": "test/geometry/547.json", "verdict": "PASS"}
+{"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 6.774651037529111, "termination": "FINAL_PASS", "time": "2026-10-04T21:21:08.792618+00:00", "unique_id": "test/geometry/547.json"}
+{"completed_this_process": 2, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:21:08.947024+00:00", "unique_id": "test/geometry/547.json"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:21:12.071894+00:00", "unique_id": "test/number_theory/109.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.008841603620420295, "q_C": 0.2394526003401766, "time": "2026-10-04T21:21:12.114671+00:00", "unique_id": "test/number_theory/109.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:12.208002+00:00", "unique_id": "test/number_theory/109.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:15.024175+00:00", "unique_id": "test/number_theory/109.json", "verdict": "PASS"}
+{"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 2.8672459106892347, "termination": "FINAL_PASS", "time": "2026-10-04T21:21:15.028522+00:00", "unique_id": "test/number_theory/109.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:17.950439+00:00", "unique_id": "test/number_theory/109.json", "verdict": "PASS"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:18.123863+00:00", "unique_id": "test/number_theory/109.json", "verdict": "PASS"}
+{"Y": 1, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 2.9015364926308393, "termination": "FINAL_PASS", "time": "2026-10-04T21:21:18.126726+00:00", "unique_id": "test/number_theory/109.json"}
+{"completed_this_process": 3, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:21:18.278192+00:00", "unique_id": "test/number_theory/109.json"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:21:25.803413+00:00", "unique_id": "test/precalculus/927.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.025692370768455843, "q_C": 0.33010210536564644, "time": "2026-10-04T21:21:25.866739+00:00", "unique_id": "test/precalculus/927.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:35.725316+00:00", "unique_id": "test/precalculus/927.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:21:54.906480+00:00", "unique_id": "test/precalculus/927.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 3, "event": "CHECK_SAVED", "time": "2026-10-04T21:22:15.746170+00:00", "unique_id": "test/precalculus/927.json", "verdict": "FAIL"}
+{"Y": 0, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 49.81144554540515, "termination": "BUDGET_ROLLBACKS", "time": "2026-10-04T21:22:15.751403+00:00", "unique_id": "test/precalculus/927.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:22:16.083272+00:00", "unique_id": "test/precalculus/927.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:22:28.231949+00:00", "unique_id": "test/precalculus/927.json", "verdict": "FAIL"}
+{"arm": "NOW", "check": 3, "event": "CHECK_SAVED", "time": "2026-10-04T21:22:33.990262+00:00", "unique_id": "test/precalculus/927.json", "verdict": "PASS"}
+{"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 17.983519956469536, "termination": "FINAL_PASS", "time": "2026-10-04T21:22:34.002019+00:00", "unique_id": "test/precalculus/927.json"}
+{"completed_this_process": 4, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:22:34.179951+00:00", "unique_id": "test/precalculus/927.json"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:22:37.023694+00:00", "unique_id": "test/precalculus/703.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.5636343052626328, "q_C": 0.23412241318824145, "time": "2026-10-04T21:22:37.070144+00:00", "unique_id": "test/precalculus/703.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:22:37.169500+00:00", "unique_id": "test/precalculus/703.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:22:44.087863+00:00", "unique_id": "test/precalculus/703.json", "verdict": "PASS"}
+{"Y": 0, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 6.970902975648642, "termination": "FINAL_PASS", "time": "2026-10-04T21:22:44.174232+00:00", "unique_id": "test/precalculus/703.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:22:47.114538+00:00", "unique_id": "test/precalculus/703.json", "verdict": "PASS"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:22:51.340043+00:00", "unique_id": "test/precalculus/703.json", "verdict": "PASS"}
+{"Y": 0, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 6.961769407615066, "termination": "FINAL_PASS", "time": "2026-10-04T21:22:51.344678+00:00", "unique_id": "test/precalculus/703.json"}
+{"completed_this_process": 5, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:22:51.497039+00:00", "unique_id": "test/precalculus/703.json"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:22:52.493636+00:00", "unique_id": "test/algebra/2570.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.474337389363855, "q_C": 0.20210160679105998, "time": "2026-10-04T21:22:52.522943+00:00", "unique_id": "test/algebra/2570.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:22:59.665612+00:00", "unique_id": "test/algebra/2570.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:10.084688+00:00", "unique_id": "test/algebra/2570.json", "verdict": "PASS"}
+{"Y": 0, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 17.533162811771035, "termination": "FINAL_PASS", "time": "2026-10-04T21:23:10.090869+00:00", "unique_id": "test/algebra/2570.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:10.307519+00:00", "unique_id": "test/algebra/2570.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:17.525286+00:00", "unique_id": "test/algebra/2570.json", "verdict": "PASS"}
+{"Y": 0, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 7.25453632697463, "termination": "FINAL_PASS", "time": "2026-10-04T21:23:17.528577+00:00", "unique_id": "test/algebra/2570.json"}
+{"completed_this_process": 6, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:23:17.698702+00:00", "unique_id": "test/algebra/2570.json"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:23:20.414036+00:00", "unique_id": "test/intermediate_algebra/1555.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.1967665067709018, "q_C": 0.23181651814440987, "time": "2026-10-04T21:23:20.457109+00:00", "unique_id": "test/intermediate_algebra/1555.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:20.550746+00:00", "unique_id": "test/intermediate_algebra/1555.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:24.385550+00:00", "unique_id": "test/intermediate_algebra/1555.json", "verdict": "PASS"}
+{"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 3.885905906558037, "termination": "FINAL_PASS", "time": "2026-10-04T21:23:24.389958+00:00", "unique_id": "test/intermediate_algebra/1555.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:28.338508+00:00", "unique_id": "test/intermediate_algebra/1555.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:36.279414+00:00", "unique_id": "test/intermediate_algebra/1555.json", "verdict": "PASS"}
+{"Y": 1, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 11.698924615979195, "termination": "FINAL_PASS", "time": "2026-10-04T21:23:36.283554+00:00", "unique_id": "test/intermediate_algebra/1555.json"}
+{"completed_this_process": 7, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:23:36.444071+00:00", "unique_id": "test/intermediate_algebra/1555.json"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:23:37.965837+00:00", "unique_id": "test/algebra/24.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.0003970994778791099, "q_C": 0.21085980992363962, "time": "2026-10-04T21:23:37.998312+00:00", "unique_id": "test/algebra/24.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:39.290854+00:00", "unique_id": "test/algebra/24.json", "verdict": "PASS"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:39.502655+00:00", "unique_id": "test/algebra/24.json", "verdict": "PASS"}
+{"Y": 1, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 1.4724316652864218, "termination": "FINAL_PASS", "time": "2026-10-04T21:23:39.505599+00:00", "unique_id": "test/algebra/24.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:39.734753+00:00", "unique_id": "test/algebra/24.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:41.189117+00:00", "unique_id": "test/algebra/24.json", "verdict": "PASS"}
+{"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 1.4999466594308615, "termination": "FINAL_PASS", "time": "2026-10-04T21:23:41.191354+00:00", "unique_id": "test/algebra/24.json"}
+{"completed_this_process": 8, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:23:41.341162+00:00", "unique_id": "test/algebra/24.json"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:23:43.053177+00:00", "unique_id": "test/number_theory/631.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.08447096229561568, "q_C": 0.21394363189431811, "time": "2026-10-04T21:23:43.086924+00:00", "unique_id": "test/number_theory/631.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:43.169544+00:00", "unique_id": "test/number_theory/631.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:51.256899+00:00", "unique_id": "test/number_theory/631.json", "verdict": "FAIL"}
+{"arm": "NOW", "check": 3, "event": "CHECK_SAVED", "time": "2026-10-04T21:23:57.976760+00:00", "unique_id": "test/number_theory/631.json", "verdict": "FAIL"}
+{"arm": "NOW", "check": 4, "event": "CHECK_SAVED", "time": "2026-10-04T21:24:04.324471+00:00", "unique_id": "test/number_theory/631.json", "verdict": "PASS"}
+{"Y": 0, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 21.2043123152107, "termination": "FINAL_PASS", "time": "2026-10-04T21:24:04.330574+00:00", "unique_id": "test/number_theory/631.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:24:06.378164+00:00", "unique_id": "test/number_theory/631.json", "verdict": "PASS"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:24:12.766050+00:00", "unique_id": "test/number_theory/631.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 3, "event": "CHECK_SAVED", "time": "2026-10-04T21:24:17.104246+00:00", "unique_id": "test/number_theory/631.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 4, "event": "CHECK_SAVED", "time": "2026-10-04T21:24:23.279051+00:00", "unique_id": "test/number_theory/631.json", "verdict": "FAIL"}
+{"Y": 0, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 18.769759038463235, "termination": "BUDGET_ROLLBACKS", "time": "2026-10-04T21:24:23.282965+00:00", "unique_id": "test/number_theory/631.json"}
+{"completed_this_process": 9, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:24:23.463663+00:00", "unique_id": "test/number_theory/631.json"}
+{"event": "SNAPSHOT_COMPLETED", "reason": null, "status": "ELIGIBLE", "time": "2026-10-04T21:24:25.675137+00:00", "unique_id": "test/number_theory/978.json"}
+{"event": "SNAPSHOT_SCORED", "q_B": 0.9476829691693142, "q_C": 0.22275221727604397, "time": "2026-10-04T21:24:25.708442+00:00", "unique_id": "test/number_theory/978.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:24:28.032805+00:00", "unique_id": "test/number_theory/978.json", "verdict": "PASS"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:24:30.318507+00:00", "unique_id": "test/number_theory/978.json", "verdict": "PASS"}
+{"Y": 1, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 4.577048365026712, "termination": "FINAL_PASS", "time": "2026-10-04T21:24:30.322829+00:00", "unique_id": "test/number_theory/978.json"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T21:24:30.557752+00:00", "unique_id": "test/number_theory/978.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T21:24:35.045532+00:00", "unique_id": "test/number_theory/978.json", "verdict": "PASS"}
+{"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 4.537460519000888, "termination": "FINAL_PASS", "time": "2026-10-04T21:24:35.048366+00:00", "unique_id": "test/number_theory/978.json"}
+{"completed_this_process": 10, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:24:35.201601+00:00", "unique_id": "test/number_theory/978.json"}
+{"event": "BACKUP_PENDING", "last_successful_commit": "e173565a816d75ab6ed77fa48ac4177e2aba1c0d", "reason": "test progress 10 new problems", "time": "2026-10-04T21:24:36.983549+00:00"}
