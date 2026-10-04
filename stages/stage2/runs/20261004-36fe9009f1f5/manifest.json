@@ -1,5 +1,5 @@
 {
-  "code_commit": "b43e384e2b9505740631aaab27ce68fed7a29681",
+  "code_commit": "7f71a8bcd69f23b1af10c240cfc82561fedc1c7c",
   "common_sha256": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
   "config": {
     "C": 0.1,
@@ -61,6 +61,11 @@
     }
   },
   "feature_extraction": "independent_original_prefixes; BF16 SDPA use_cache=False",
+  "formal_frozen_at": "2026-10-04T13:39:18.154260+00:00",
+  "formal_frozen_code": {
+    "common_sha256": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "script_sha256": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa"
+  },
   "grading": {
     "extraction": "last complete boxed on separate Final answer line",
     "gold_wrapper": "$...$",
@@ -75,7 +80,7 @@
     "tokenizer": "a09a35458c702b33eeacc393d103063234e8bc28"
   },
   "run_id": "20261004-36fe9009f1f5",
-  "script_sha256": "23e0ec52637579319ee57c816618e8cd9c373abeed2639fae71c1722cbdfed8d",
+  "script_sha256": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa",
   "splits": {
     "smoke": [
       {
