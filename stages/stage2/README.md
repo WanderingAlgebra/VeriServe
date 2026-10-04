@@ -33,7 +33,9 @@ uv pip install --python /path/to/python 'transformers==4.57.3' 'datasets==4.8.5'
 /root/miniconda3/bin/python -m stages.stage2.run_probe --config stages/stage2/config.json --resume
 ```
 
-`--stop-after 1` 在第一道 smoke 持久化后暂停；独立进程恢复，校验已完成 JSON/NPZ 哈希不变并跳过生成。也可完整 smoke 后再次执行 `--smoke --resume` 验证 10 题全部跳过。正式启动要求 10 题 causal 检查和恢复检查通过、已从远端取回 NPZ 核对哈希。causal 检查逐层记录后续 token 替换和独立前缀重前向的实际 max_abs/RMS；固定 BF16 容差 1/32 绝对误差 + 一个 BF16 相对 ULP（0.008），不因结果修改容差。
+`--stop-after 1` 在第一道 smoke 持久化后暂停；独立进程恢复，校验已完成 JSON/NPZ 哈希不变并跳过生成。也可完整 smoke 后再次执行 `--smoke --resume` 验证 10 题全部跳过。正式启动要求 10 题逐前缀提取检查和恢复检查通过、已从远端取回 NPZ 核对哈希。检查逐层记录后续 token 替换、独立 decoder 最后位置及错一 token 负对照的实际 max_abs/RMS；固定 BF16 容差 1/32 绝对误差 + 一个 BF16 相对 ULP（0.008），不因结果修改容差。
+
+真实 smoke 的首次单次整段重前向与独立前缀比较失败（最大逐坐标误差 1.0、RMS 0.03251）；同长度未来内容替换误差为 0。原生 SDPA 后端及 GEMM 精度诊断仍未通过逐坐标容差，结果保存在 `single_full_forward_failed_smoke.json` / `extraction_diagnostics.json`，不称通过。正式特征改为**每个端点独立重前向其原始 token 前缀**，仍使用 BF16、SDPA、`use_cache=False`，不重分词、不补 token、不改变生成配置。它避免未来长度改变 BF16 计算形状，代价是重复前向；首次 9 个端点实测约 0.99 秒。当前流水线与另一次独立 decoder 的末尾向量比较；原单次整段比较继续作为非门控诊断保留，不冒充已通过该旧检查。
 
 无 GPU 的 CPU 拟合/重评估不会加载生成模型：
 

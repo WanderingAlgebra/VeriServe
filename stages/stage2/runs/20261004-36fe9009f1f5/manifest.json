@@ -60,6 +60,7 @@
       "transformers": "4.57.3"
     }
   },
+  "feature_extraction": "independent_original_prefixes; BF16 SDPA use_cache=False",
   "grading": {
     "extraction": "last complete boxed on separate Final answer line",
     "gold_wrapper": "$...$",

@@ -1,6 +1,11 @@
 {
-  "commit": "fe6ffa85333f1e9e4f516ad1e05088f5a2f56f4c",
-  "feature_remote_verification": null,
-  "pushed_at": "2026-10-04T12:42:58.677256+00:00",
+  "commit": "739cd145e3d4d65b24b0c6a3481c68077938448b",
+  "feature_remote_verification": {
+    "path": "stages/stage2/runs/20261004-36fe9009f1f5/records/smoke/360ab3e1d67a68508365.features-88c305b432bb.npz",
+    "remote_commit": "739cd145e3d4d65b24b0c6a3481c68077938448b",
+    "sha256": "427fbfbdfde52a7aa66807ebb3aa04437e97311e8e89a87493a543e6e2935521",
+    "verified_at": "2026-10-04T13:31:45.866687+00:00"
+  },
+  "pushed_at": "2026-10-04T13:31:45.880968+00:00",
   "status": "PUSHED"
 }

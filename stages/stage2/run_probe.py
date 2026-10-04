@@ -418,7 +418,7 @@ def load_model(cfg):
     return model, tokenizer
 
 
-def extract(model, ids, positions):
+def full_forward(model, ids, positions):
     import torch
     with torch.inference_mode():
         inputs = torch.tensor([ids], device="cuda:0")
@@ -426,6 +426,12 @@ def extract(model, ids, positions):
                           use_cache=False, output_hidden_states=True, return_dict=True)
         hidden = np.stack([h[0, positions].float().cpu().numpy() for h in out.hidden_states[1:]])
     return hidden
+
+
+def extract(model, ids, positions):
+    # BF16 kernels depend on total sequence shape. Re-forward each original prefix
+    # so the saved endpoint has the same computation as an independent prefix.
+    return np.stack([full_forward(model, ids[:p + 1], [p])[:, 0] for p in positions], axis=1)
 
 
 def causal_check(model, record, cfg):
@@ -438,15 +444,35 @@ def causal_check(model, record, cfg):
     original = extract(model, ids, [position])
     changed = ids[:position + 1] + [model.config.vocab_size // 2] * (len(ids) - position - 1)
     future = extract(model, changed, [position])
-    prefix = extract(model, ids[:position + 1], [position])
+    # Independent decoder call and explicit last-token indexing catch offset bugs.
+    with torch.inference_mode():
+        inputs = torch.tensor([ids[:position + 1]], device="cuda:0")
+        reference = model.model(input_ids=inputs, attention_mask=torch.ones_like(inputs),
+                                use_cache=False, output_hidden_states=True, return_dict=True)
+        prefix = np.stack([h[0, -1:].float().cpu().numpy() for h in reference.hidden_states[1:]])
+        previous = np.stack([h[0, -2:-1].float().cpu().numpy() for h in reference.hidden_states[1:]])
+    del inputs, reference
+    single_full = full_forward(model, ids, [position])
+    single_future = full_forward(model, changed, [position])
     checks = {}
-    for name, other in (("changed_future", future), ("independent_prefix", prefix)):
-        diff = np.abs(original - other)
+    for name, left, other in (("changed_future", original, future),
+                               ("independent_prefix", original, prefix),
+                               ("single_full_changed_future", single_full, single_future),
+                               ("single_full_vs_prefix_diagnostic", single_full, prefix),
+                               ("previous_token_negative_control", original, previous)):
+        diff = np.abs(left - other)
         checks[name] = {"max_abs": float(diff.max()), "rms": float(np.sqrt(np.mean(diff ** 2))),
                         "max_abs_per_layer": diff.max(axis=(1, 2)).tolist(),
-                        "passed": bool(np.allclose(original, other, atol=cfg["causal_atol"],
+                        "passed": bool(np.allclose(left, other, atol=cfg["causal_atol"],
                                                    rtol=cfg["causal_rtol"]))}
-    checks.update(passed=all(v["passed"] for v in checks.values()), applicable=True, position=position,
+    checks["single_full_vs_prefix_diagnostic"].update(
+        gating=False, used_for_features=False,
+        note="Retained full-once BF16 shape discrepancy; features use independent original prefixes")
+    checks["previous_token_negative_control"]["detected"] = not checks["previous_token_negative_control"]["passed"]
+    checks.update(passed=all(checks[k]["passed"] for k in (
+                      "changed_future", "independent_prefix", "single_full_changed_future"))
+                  and checks["previous_token_negative_control"]["detected"],
+                  applicable=True, position=position, extraction="independent_original_prefixes",
                   atol=cfg["causal_atol"], rtol=cfg["causal_rtol"],
                   tolerance_note="BF16 rounding: atol=1/32, rtol=one BF16 relative ULP; report raw errors")
     torch.cuda.empty_cache()
@@ -532,6 +558,7 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware):
     record["stage"] = "FEATURES"
     record["feature_hardware"] = hardware
     record["feature_source_code"] = code
+    record["feature_extraction"] = "independent_original_prefixes; BF16 decoder use_cache=False"
     atomic_json(path, record)
     print(f"DONE {split} {row['unique_id']} label={record['label']} exclusion={record['exclusion']} "
           f"steps={len(bounds['steps'])} tokens={len(record['generated_ids'])}", flush=True)
@@ -552,7 +579,7 @@ def remote_feature_check(run):
             env["GIT_SSH_COMMAND"] = ssh.stdout.strip()
         git("init", cwd=folder)
         git("remote", "add", "origin", git("remote", "get-url", "origin"), cwd=folder)
-        git("fetch", "--depth=1", "--filter=blob:none", "origin", BRANCH, cwd=folder, env=env)
+        git("fetch", "--depth=1", "origin", BRANCH, cwd=folder, env=env)
         pointer = git("show", f"FETCH_HEAD:{relative}", cwd=folder, env=env)
         if not pointer.startswith("version https://git-lfs.github.com/spec/v1"):
             raise RuntimeError("Remote feature is not a native Git LFS pointer")
@@ -924,6 +951,9 @@ def report(run, manifest, counts, metrics=None, rows=None, coverage=None, failur
              f"按 unique_id 排序后用种子 {cfg['seed']} 洗牌：100 train / 200 test / 10 smoke，剩余 190 不使用；原始字段见 manifest.json。",
              "BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.1、max_iter=2000；所有 Transformer 层分别做训练内五折选层。", "",
              "这是采用逐步训练、题目权重、明确 Step 标记和独立测试的适配实验，不宣称完全复现论文。", "",
+             "特征逐个端点重前向其原始 token 前缀，保持 BF16 / SDPA / use_cache=False。",
+             "原单次整段重前向与独立前缀的逐坐标比较在 smoke 中失败；诊断原样保留，不称通过，正式特征不采用该方式。",
+             "逐前缀提取另与独立 decoder 的最后位置比较，并检验同长度未来替换及错一 token 的负对照；容差未扩大。", "",
              "## 实际环境", "", "```json", json.dumps(manifest["environment"], ensure_ascii=False, indent=2), "```", "",
              "## 采集与排除", "", "```json", json.dumps(counts, ensure_ascii=False, indent=2), "```", ""]
     if reason:
