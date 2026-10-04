@@ -5,6 +5,7 @@
 ## 从哪里开始看
 
 - [第一阶段说明](stages/stage1/README.md)：方案、代码和运行方法。
+- [第二阶段：逐步 hidden 最终答错风险探针](stages/stage2/README.md)：采集、恢复、CPU 拟合与结果。
 - [当前正式结果](stages/stage1/results/current/report.md)：实验一至三的总报告。
 - [结果目录索引](stages/stage1/results/README.md)：正式结果与历史试跑的区别。
 

@@ -1,0 +1,31 @@
+{
+  "C": 0.1,
+  "attention": "sdpa",
+  "backup_every": 25,
+  "batch_size": 1,
+  "bootstrap": 1000,
+  "causal_atol": 0.03125,
+  "causal_rtol": 0.008,
+  "dataset": "HuggingFaceH4/MATH-500",
+  "dataset_split": "test",
+  "do_sample": false,
+  "dtype": "bfloat16",
+  "folds": 5,
+  "max_iter": 2000,
+  "max_new_tokens": 4096,
+  "max_total_tokens": 8192,
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "prompt": "Solve the following math problem step by step.\nWrite each reasoning step as \"Step 1:\", \"Step 2:\", and so on.\nSeparate steps with a blank line.\nDo not put intermediate results in a boxed expression.\nEnd with a separate line: Final answer: \\boxed{your final answer}\nDo not write more reasoning after the final answer.\n\nProblem:\n{problem}",
+  "revisions": {
+    "dataset": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+    "model": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "tokenizer": "a09a35458c702b33eeacc393d103063234e8bc28"
+  },
+  "score_timeout_seconds": 5,
+  "seed": 20261004,
+  "split_sizes": {
+    "smoke": 10,
+    "test": 200,
+    "train": 100
+  }
+}

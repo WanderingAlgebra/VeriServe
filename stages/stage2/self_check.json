@@ -1,0 +1,49 @@
+{
+  "checked_at": "2026-10-04T12:30:09.524635+00:00",
+  "checks": [
+    "grade \\frac{1}{2} vs 0.5",
+    "grade \\sqrt{8} vs 2\\sqrt{2}",
+    "grade x+x vs 2x",
+    "grade 2 vs 3",
+    "missing boxed",
+    "incomplete boxed",
+    "last complete nested box",
+    "only final line graded",
+    "truncation excluded",
+    "post-final text excluded",
+    "cross-boundary token aligned backward",
+    "second-step original token index",
+    "answer step excluded",
+    "last content token before EOS",
+    "near-end retained",
+    "anomalous numbering not guessed",
+    "incomplete Unicode endpoint excluded",
+    "each question total weight one",
+    "weighted scaler",
+    "A/B/C fitting and grouped CV",
+    "layer tie chooses smaller index",
+    "weighted evaluation and paired bootstrap",
+    "single-class bootstrap reports NA",
+    "resume skips complete JSON and NPZ without generation",
+    "damaged NPZ detected"
+  ],
+  "environment": {
+    "executable": "/root/miniconda3/bin/python",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "python": "3.12.3",
+    "versions": {
+      "antlr4-python3-runtime": "4.13.2",
+      "datasets": "4.8.5",
+      "huggingface-hub": "0.36.2",
+      "latex2sympy2-extended": "1.11.0",
+      "math-verify": "0.9.0",
+      "matplotlib": "3.10.5",
+      "numpy": "2.3.2",
+      "scikit-learn": "1.9.1",
+      "torch": "2.8.0+cu128",
+      "transformers": "4.57.3"
+    }
+  },
+  "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke",
+  "passed": true
+}
