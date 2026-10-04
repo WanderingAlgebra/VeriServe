@@ -1,6 +1,6 @@
 {
   "free_total_bytes": [
-    27807121408,
+    27809218560,
     50866487296
   ],
   "generator_context_tokens": 8192,
@@ -20,5 +20,5 @@
     "stages/stage3/storage.py": "c536e673e3b8ebeaa14f8a9b11522bdb4247e368747140e4c3f4991f0d5c017c"
   },
   "status": "PASS",
-  "warmup_capacity_seconds": 2.000951739028096
+  "warmup_capacity_seconds": 1.9541940949857235
 }

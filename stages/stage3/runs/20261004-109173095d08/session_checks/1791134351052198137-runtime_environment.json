@@ -6,7 +6,7 @@
     "uuid": "25e77621-43ff-c8a0-6924-2394046aa091"
   },
   "bitsandbytes": "0.50.2",
-  "created": "2026-10-04T17:19:11.054291+00:00",
+  "created": "2026-10-04T16:58:30.296438+00:00",
   "effective_generation_config": {
     "_from_model_config": false,
     "assistant_confidence_threshold": 0.4,
@@ -86,10 +86,10 @@
     "cuda_build": "12.8",
     "executable": "/root/miniconda3/bin/python",
     "free_total_bytes": [
-      50345213952,
+      50353602560,
       50866487296
     ],
-    "nvidia_smi": "NVIDIA GeForce RTX 4090, 49140 MiB, 48013 MiB, 595.58.03",
+    "nvidia_smi": "NVIDIA GeForce RTX 4090, 49140 MiB, 48507 MiB, 595.58.03",
     "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
     "python": "3.12.3",
     "versions": {
