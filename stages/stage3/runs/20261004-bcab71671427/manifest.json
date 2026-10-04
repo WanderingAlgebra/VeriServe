@@ -1,5 +1,5 @@
 {
-  "code_commit": "14068982f91e2e1924c9031ac43dfb8ef8ec2775",
+  "code_commit": "b064f8a29b49f79ae849dabb6a56df5dd8945c4c",
   "config": {
     "anchor_step": 2,
     "attention": "sdpa",
@@ -1846,11 +1846,9 @@
     "timestamp_basis": "observed persisted config mtime; exact Hub response timestamp was not recorded"
   },
   "workingtree": {
-    "head_commit": "14068982f91e2e1924c9031ac43dfb8ef8ec2775",
+    "head_commit": "b064f8a29b49f79ae849dabb6a56df5dd8945c4c",
     "scope": "source files, config, documentation and LFS metadata; excludes run artifacts",
-    "source_clean": false,
-    "source_status": [
-      "M stages/stage3/storage.py"
-    ]
+    "source_clean": true,
+    "source_status": []
   }
 }

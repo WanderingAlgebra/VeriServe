@@ -1,16 +1,12 @@
 {
-  "commit": "b064f8a29b49f79ae849dabb6a56df5dd8945c4c",
-  "completed_problems": {
-    "dev": 0,
-    "pilot": 0,
-    "test": 0
-  },
-  "dev_groups_sha256": null,
-  "last_successful_commit": "b064f8a29b49f79ae849dabb6a56df5dd8945c4c",
-  "protocol_frozen_sha256": null,
-  "pushed_at": "2026-10-04T16:37:12.066866+00:00",
-  "reason": "pilot stop-after 1, resume checkpoint",
-  "remote_verification": null,
+  "free_total_bytes": [
+    27809218560,
+    50866487296
+  ],
+  "generator_context_tokens": 8192,
+  "peak_allocated_bytes": 21543493120,
+  "prm_input_tokens": 8192,
+  "simultaneous_residency": true,
   "source_hashes": {
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
     "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
@@ -23,7 +19,6 @@
     "stages/stage3/run_timing.py": "3e5a36dcf5a22ea982a1cfeb7d22121de66fc2b6a24563fc572635c5688f1db2",
     "stages/stage3/storage.py": "e9020d4f9bc2743b9c33b0df228f8bf8bdca4556b8ed4ff251dfe9a24942825d"
   },
-  "stage3_source_commit": "b064f8a29b49f79ae849dabb6a56df5dd8945c4c",
-  "status": "PENDING",
-  "time": "2026-10-04T16:38:52.203491+00:00"
+  "status": "PASS",
+  "warmup_capacity_seconds": 1.9593563806265593
 }

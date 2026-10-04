@@ -1,5 +1,5 @@
 unique_id,phase,snapshot_status,anchor_reason,q_B,q_C,prefix_length,near_end,group_B,group_C,valid_quality_pair,valid_time_pair,backend,NOW_status,NOW_Y,NOW_termination,NOW_exclusion,NOW_T_postfork_wall,NOW_generated_tokens,NOW_revoked_tokens,NOW_prm_calls,NOW_rollbacks,NOW_forward_tokens,NOW_feedback_tokens,DELAY_2_status,DELAY_2_Y,DELAY_2_termination,DELAY_2_exclusion,DELAY_2_T_postfork_wall,DELAY_2_generated_tokens,DELAY_2_revoked_tokens,DELAY_2_prm_calls,DELAY_2_rollbacks,DELAY_2_forward_tokens,DELAY_2_feedback_tokens,delta_Y,delta_T_seconds
-test/intermediate_algebra/1779.json,pilot,,,,,,,,,False,False,,,,,PENDING,,,,,,,,,,,PENDING,,,,,,,,,
+test/intermediate_algebra/1779.json,pilot,ELIGIBLE,,0.8535655637326832,0.22116047522631296,103,False,,,True,True,"{""gpu"": ""NVIDIA GeForce RTX 4090"", ""implementation"": ""dynamic_cache_crop"", ""total_memory"": 50866487296, ""uuid"": ""25e77621-43ff-c8a0-6924-2394046aa091""}",COMPLETE,0,BUDGET_ROLLBACKS,,32.78808011300862,1895,1351,4,2,3654,122,COMPLETE,0,BUDGET_ROLLBACKS,,37.39912284165621,2147,1305,4,2,4195,122,0,4.61104272864759
 test/number_theory/234.json,pilot,,,,,,,,,False,False,,,,,PENDING,,,,,,,,,,,PENDING,,,,,,,,,
 test/algebra/2176.json,pilot,,,,,,,,,False,False,,,,,PENDING,,,,,,,,,,,PENDING,,,,,,,,,
 test/geometry/795.json,pilot,,,,,,,,,False,False,,,,,PENDING,,,,,,,,,,,PENDING,,,,,,,,,

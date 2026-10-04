@@ -1,0 +1,11 @@
+{
+  "created": "2026-10-04T16:38:52.202837+00:00",
+  "hashes": {
+    "arms/9752291fe1302ac010a0.DELAY_2.json": "2150b64456cee2fc21cadd1185d0b69bd5b692cfba02f275affedf0d8c44376d",
+    "arms/9752291fe1302ac010a0.NOW.json": "3e6b48a10d87f8a8720f8a47400b2ddcabd1b049a7cb9d805f06f03c268d8499",
+    "snapshots/9752291fe1302ac010a0.json": "9030f8288b6bd4b1cbd2701e995ca91c1f983c91f2c2c25255791e3b05d67100",
+    "snapshots/9752291fe1302ac010a0.npz": "46f93607d956c977fc4f99e3dc3b9d32ad9efd743f4870a318fdb616ced9f631"
+  },
+  "phase": "pilot",
+  "pid": 58311
+}

@@ -9,12 +9,12 @@
 
 ## pilot
 
-计划 20 题；已保存锚点状态 0 题；合格 0 题（覆盖率 0.0000）；完整配对 0，有效质量配对 0，有效时间配对 0。
-锚点不合格原因：`{}`；未执行/待恢复锚点：`{"MISSING_SNAPSHOT": 20}`；待完成配对 0；基础设施中断配对 0；质量评估排除：`{}`。
+计划 20 题；已保存锚点状态 1 题；合格 1 题（覆盖率 0.0500）；完整配对 1，有效质量配对 1，有效时间配对 1。
+锚点不合格原因：`{}`；未执行/待恢复锚点：`{"MISSING_SNAPSHOT": 19}`；待完成配对 0；基础设施中断配对 0；质量评估排除：`{}`。
 
 | 范围 | 合格题数 | 质量配对 | NOW 正确率 | DELAY_2 正确率 | ΔY [95% CI] | ΔT 秒 [95% CI] | 错→对 | 对→错 | 前缀 token 均值 |
 | --- | ---: | ---: | ---: | ---: | --- | --- | ---: | ---: | ---: |
-| 总体 | 0 | 0 | NA | NA | NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 | NA |
+| 总体 | 1 | 1 | 0.0000 | 0.0000 | 0.0000 [0.0000, 0.0000] | 4.6110 [4.6110, 4.6110] | 0 | 0 | 103.0000 |
 | B low | 0 | 0 | NA | NA | NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 | NA |
 | B mid | 0 | 0 | NA | NA | NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 | NA |
 | B high | 0 | 0 | NA | NA | NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 | NA |
@@ -22,7 +22,7 @@
 | C mid | 0 | 0 | NA | NA | NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 | NA |
 | C high | 0 | 0 | NA | NA | NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 | NA |
 
-总体质量：NA：尚无可评估证据。 总体时间：NA：尚无可评估证据。
+总体质量：仅一个有效配对或高/低组仅一题，bootstrap 区间可能退化，不足以支持推广结论。 总体时间：仅一个有效配对或高/低组仅一题，bootstrap 区间可能退化，不足以支持推广结论。
 
 B 高风险减低风险的收益差：ΔY NA（EMPTY_LOW_OR_HIGH_GROUP）；ΔT 秒 NA（EMPTY_LOW_OR_HIGH_GROUP）。
 质量异质性：NA：尚无可评估证据。 时间异质性：NA：尚无可评估证据。
@@ -30,13 +30,13 @@ B 高风险减低风险的收益差：ΔY NA（EMPTY_LOW_OR_HIGH_GROUP）；ΔT 
 C 高风险减低风险的收益差：ΔY NA（EMPTY_LOW_OR_HIGH_GROUP）；ΔT 秒 NA（EMPTY_LOW_OR_HIGH_GROUP）。
 质量异质性：NA：尚无可评估证据。 时间异质性：NA：尚无可评估证据。
 
-NOW 后续时间均值/中位数/p95（描述性）：NA/NA/NA 秒；PRM 调用/回滚均值 NA/NA；生成/撤销 token 合计 NA/NA。
-首次检查判决次数：`{}`；FAIL/UNCERTAIN 比例：NA/NA（有首次检查记录 0 臂）；提前终点 0 臂；累计非 decode 前向/反馈 token 均值 NA/NA。
-终止原因：`{}`；评分排除：`{}`；保存状态：`{}`。
+NOW 后续时间均值/中位数/p95（描述性）：32.7881/32.7881/32.7881 秒；PRM 调用/回滚均值 4.0000/2.0000；生成/撤销 token 合计 1895.0000/1351.0000。
+首次检查判决次数：`{"PASS": 1}`；FAIL/UNCERTAIN 比例：0.0000/0.0000（有首次检查记录 1 臂）；提前终点 0 臂；累计非 decode 前向/反馈 token 均值 3654.0000/122.0000。
+终止原因：`{"BUDGET_ROLLBACKS": 1}`；评分排除：`{"BUDGET_ROLLBACKS": 1}`；保存状态：`{"COMPLETE": 1}`。
 
-DELAY_2 后续时间均值/中位数/p95（描述性）：NA/NA/NA 秒；PRM 调用/回滚均值 NA/NA；生成/撤销 token 合计 NA/NA。
-首次检查判决次数：`{}`；FAIL/UNCERTAIN 比例：NA/NA（有首次检查记录 0 臂）；提前终点 0 臂；累计非 decode 前向/反馈 token 均值 NA/NA。
-终止原因：`{}`；评分排除：`{}`；保存状态：`{}`。
+DELAY_2 后续时间均值/中位数/p95（描述性）：37.3991/37.3991/37.3991 秒；PRM 调用/回滚均值 4.0000/2.0000；生成/撤销 token 合计 2147.0000/1305.0000。
+首次检查判决次数：`{"PASS": 1}`；FAIL/UNCERTAIN 比例：0.0000/0.0000（有首次检查记录 1 臂）；提前终点 0 臂；累计非 decode 前向/反馈 token 均值 4195.0000/122.0000。
+终止原因：`{"BUDGET_ROLLBACKS": 1}`；评分排除：`{"BUDGET_ROLLBACKS": 1}`；保存状态：`{"COMPLETE": 1}`。
 
 公共快照 near_end 0 题；DELAY_2 delay_collapsed 0 题；两臂后端不一致 0 题。各组检查/回滚、失败分类、时间分布、有效 bootstrap 次数及分后端结果详见 metrics.json。
 
@@ -118,6 +118,6 @@ pilot/dev/test 分开报告；未执行指标均为 NA。离线诊断和公共�
 
 | 阶段 | 公共生成秒均值 | 离线特征秒均值 | 探针秒均值 | 实验快照恢复秒均值 |
 | --- | ---: | ---: | ---: | ---: |
-| pilot | NA | NA | NA | NA |
+| pilot | 1.9776 | 0.0518 | 0.0001 | 0.0533 |
 | dev | NA | NA | NA | NA |
 | test | NA | NA | NA | NA |

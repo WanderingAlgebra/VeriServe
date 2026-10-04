@@ -35,32 +35,32 @@
     },
     "pilot": {
       "T_common_generation": {
-        "mean": null,
-        "median": null,
-        "n": 0,
-        "p95_descriptive": null,
-        "sum": null
+        "mean": 1.9775942359119654,
+        "median": 1.9775942359119654,
+        "n": 1,
+        "p95_descriptive": 1.9775942359119654,
+        "sum": 1.9775942359119654
       },
       "T_offline_feature": {
-        "mean": null,
-        "median": null,
-        "n": 0,
-        "p95_descriptive": null,
-        "sum": null
+        "mean": 0.051781926304101944,
+        "median": 0.051781926304101944,
+        "n": 1,
+        "p95_descriptive": 0.051781926304101944,
+        "sum": 0.051781926304101944
       },
       "T_probe": {
-        "mean": null,
-        "median": null,
-        "n": 0,
-        "p95_descriptive": null,
-        "sum": null
+        "mean": 0.00013307109475135803,
+        "median": 0.00013307109475135803,
+        "n": 1,
+        "p95_descriptive": 0.00013307109475135803,
+        "sum": 0.00013307109475135803
       },
       "T_snapshot_restore": {
-        "mean": null,
-        "median": null,
-        "n": 0,
-        "p95_descriptive": null,
-        "sum": null
+        "mean": 0.05327779520303011,
+        "median": 0.05327779520303011,
+        "n": 2,
+        "p95_descriptive": 0.05359544837847352,
+        "sum": 0.10655559040606022
       }
     },
     "test": {
@@ -1547,210 +1547,457 @@
     "pilot": {
       "anchor_exclusions": {},
       "different_backend_pairs": 0,
-      "eligible": 0,
-      "eligible_coverage": 0.0,
+      "eligible": 1,
+      "eligible_coverage": 0.05,
       "infrastructure_interrupted_pairs": 0,
       "overall": {
         "arms": {
           "DELAY_2": {
-            "accuracy": null,
+            "accuracy": 0.0,
             "budget": {
               "feedback_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 122.0,
+                "median": 122.0,
+                "n": 1,
+                "p95_descriptive": 122.0,
+                "sum": 122.0
               },
               "forward_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 4195.0,
+                "median": 4195.0,
+                "n": 1,
+                "p95_descriptive": 4195.0,
+                "sum": 4195.0
               },
               "generated_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 2147.0,
+                "median": 2147.0,
+                "n": 1,
+                "p95_descriptive": 2147.0,
+                "sum": 2147.0
               },
               "prm_calls": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 4.0,
+                "median": 4.0,
+                "n": 1,
+                "p95_descriptive": 4.0,
+                "sum": 4.0
               },
               "revoked_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 1305.0,
+                "median": 1305.0,
+                "n": 1,
+                "p95_descriptive": 1305.0,
+                "sum": 1305.0
               },
               "rollbacks": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 2.0,
+                "median": 2.0,
+                "n": 1,
+                "p95_descriptive": 2.0,
+                "sum": 2.0
               }
             },
-            "complete": 0,
+            "complete": 1,
             "correct": 0,
             "early_endpoint": 0,
             "first_check": {
-              "FAIL_fraction": null,
-              "UNCERTAIN_fraction": null,
-              "effective_verdict_counts": {},
-              "n": 0
+              "FAIL_fraction": 0.0,
+              "UNCERTAIN_fraction": 0.0,
+              "effective_verdict_counts": {
+                "PASS": 1
+              },
+              "n": 1
             },
             "first_check_extra_steps": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 2.0,
+              "median": 2.0,
+              "n": 1,
+              "p95_descriptive": 2.0,
+              "sum": 2.0
             },
             "first_check_input_tokens": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 454.0,
+              "median": 454.0,
+              "n": 1,
+              "p95_descriptive": 454.0,
+              "sum": 454.0
             },
-            "grading_exclusion_counts": {},
-            "quality_n": 0,
-            "recorded": 0,
-            "status_counts": {},
-            "termination_counts": {},
+            "grading_exclusion_counts": {
+              "BUDGET_ROLLBACKS": 1
+            },
+            "quality_n": 1,
+            "recorded": 1,
+            "status_counts": {
+              "COMPLETE": 1
+            },
+            "termination_counts": {
+              "BUDGET_ROLLBACKS": 1
+            },
             "time_seconds": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 37.39912284165621,
+              "median": 37.39912284165621,
+              "n": 1,
+              "p95_descriptive": 37.39912284165621,
+              "sum": 37.39912284165621
             }
           },
           "NOW": {
-            "accuracy": null,
+            "accuracy": 0.0,
             "budget": {
               "feedback_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 122.0,
+                "median": 122.0,
+                "n": 1,
+                "p95_descriptive": 122.0,
+                "sum": 122.0
               },
               "forward_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 3654.0,
+                "median": 3654.0,
+                "n": 1,
+                "p95_descriptive": 3654.0,
+                "sum": 3654.0
               },
               "generated_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 1895.0,
+                "median": 1895.0,
+                "n": 1,
+                "p95_descriptive": 1895.0,
+                "sum": 1895.0
               },
               "prm_calls": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 4.0,
+                "median": 4.0,
+                "n": 1,
+                "p95_descriptive": 4.0,
+                "sum": 4.0
               },
               "revoked_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 1351.0,
+                "median": 1351.0,
+                "n": 1,
+                "p95_descriptive": 1351.0,
+                "sum": 1351.0
               },
               "rollbacks": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 2.0,
+                "median": 2.0,
+                "n": 1,
+                "p95_descriptive": 2.0,
+                "sum": 2.0
               }
             },
-            "complete": 0,
+            "complete": 1,
             "correct": 0,
             "early_endpoint": 0,
             "first_check": {
-              "FAIL_fraction": null,
-              "UNCERTAIN_fraction": null,
-              "effective_verdict_counts": {},
-              "n": 0
+              "FAIL_fraction": 0.0,
+              "UNCERTAIN_fraction": 0.0,
+              "effective_verdict_counts": {
+                "PASS": 1
+              },
+              "n": 1
             },
             "first_check_extra_steps": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 0.0,
+              "median": 0.0,
+              "n": 1,
+              "p95_descriptive": 0.0,
+              "sum": 0.0
             },
             "first_check_input_tokens": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 362.0,
+              "median": 362.0,
+              "n": 1,
+              "p95_descriptive": 362.0,
+              "sum": 362.0
             },
-            "grading_exclusion_counts": {},
-            "quality_n": 0,
-            "recorded": 0,
-            "status_counts": {},
-            "termination_counts": {},
+            "grading_exclusion_counts": {
+              "BUDGET_ROLLBACKS": 1
+            },
+            "quality_n": 1,
+            "recorded": 1,
+            "status_counts": {
+              "COMPLETE": 1
+            },
+            "termination_counts": {
+              "BUDGET_ROLLBACKS": 1
+            },
             "time_seconds": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 32.78808011300862,
+              "median": 32.78808011300862,
+              "n": 1,
+              "p95_descriptive": 32.78808011300862,
+              "sum": 32.78808011300862
             }
           }
         },
-        "by_backend": {},
-        "complete_pairs": 0,
+        "by_backend": {
+          "{\"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"total_memory\": 50866487296, \"uuid\": \"25e77621-43ff-c8a0-6924-2394046aa091\"}": {
+            "arms": {
+              "DELAY_2": {
+                "accuracy": 0.0,
+                "budget": {
+                  "feedback_tokens": {
+                    "mean": 122.0,
+                    "median": 122.0,
+                    "n": 1,
+                    "p95_descriptive": 122.0,
+                    "sum": 122.0
+                  },
+                  "forward_tokens": {
+                    "mean": 4195.0,
+                    "median": 4195.0,
+                    "n": 1,
+                    "p95_descriptive": 4195.0,
+                    "sum": 4195.0
+                  },
+                  "generated_tokens": {
+                    "mean": 2147.0,
+                    "median": 2147.0,
+                    "n": 1,
+                    "p95_descriptive": 2147.0,
+                    "sum": 2147.0
+                  },
+                  "prm_calls": {
+                    "mean": 4.0,
+                    "median": 4.0,
+                    "n": 1,
+                    "p95_descriptive": 4.0,
+                    "sum": 4.0
+                  },
+                  "revoked_tokens": {
+                    "mean": 1305.0,
+                    "median": 1305.0,
+                    "n": 1,
+                    "p95_descriptive": 1305.0,
+                    "sum": 1305.0
+                  },
+                  "rollbacks": {
+                    "mean": 2.0,
+                    "median": 2.0,
+                    "n": 1,
+                    "p95_descriptive": 2.0,
+                    "sum": 2.0
+                  }
+                },
+                "complete": 1,
+                "correct": 0,
+                "early_endpoint": 0,
+                "first_check": {
+                  "FAIL_fraction": 0.0,
+                  "UNCERTAIN_fraction": 0.0,
+                  "effective_verdict_counts": {
+                    "PASS": 1
+                  },
+                  "n": 1
+                },
+                "first_check_extra_steps": {
+                  "mean": 2.0,
+                  "median": 2.0,
+                  "n": 1,
+                  "p95_descriptive": 2.0,
+                  "sum": 2.0
+                },
+                "first_check_input_tokens": {
+                  "mean": 454.0,
+                  "median": 454.0,
+                  "n": 1,
+                  "p95_descriptive": 454.0,
+                  "sum": 454.0
+                },
+                "grading_exclusion_counts": {
+                  "BUDGET_ROLLBACKS": 1
+                },
+                "quality_n": 1,
+                "recorded": 1,
+                "status_counts": {
+                  "COMPLETE": 1
+                },
+                "termination_counts": {
+                  "BUDGET_ROLLBACKS": 1
+                },
+                "time_seconds": {
+                  "mean": 37.39912284165621,
+                  "median": 37.39912284165621,
+                  "n": 1,
+                  "p95_descriptive": 37.39912284165621,
+                  "sum": 37.39912284165621
+                }
+              },
+              "NOW": {
+                "accuracy": 0.0,
+                "budget": {
+                  "feedback_tokens": {
+                    "mean": 122.0,
+                    "median": 122.0,
+                    "n": 1,
+                    "p95_descriptive": 122.0,
+                    "sum": 122.0
+                  },
+                  "forward_tokens": {
+                    "mean": 3654.0,
+                    "median": 3654.0,
+                    "n": 1,
+                    "p95_descriptive": 3654.0,
+                    "sum": 3654.0
+                  },
+                  "generated_tokens": {
+                    "mean": 1895.0,
+                    "median": 1895.0,
+                    "n": 1,
+                    "p95_descriptive": 1895.0,
+                    "sum": 1895.0
+                  },
+                  "prm_calls": {
+                    "mean": 4.0,
+                    "median": 4.0,
+                    "n": 1,
+                    "p95_descriptive": 4.0,
+                    "sum": 4.0
+                  },
+                  "revoked_tokens": {
+                    "mean": 1351.0,
+                    "median": 1351.0,
+                    "n": 1,
+                    "p95_descriptive": 1351.0,
+                    "sum": 1351.0
+                  },
+                  "rollbacks": {
+                    "mean": 2.0,
+                    "median": 2.0,
+                    "n": 1,
+                    "p95_descriptive": 2.0,
+                    "sum": 2.0
+                  }
+                },
+                "complete": 1,
+                "correct": 0,
+                "early_endpoint": 0,
+                "first_check": {
+                  "FAIL_fraction": 0.0,
+                  "UNCERTAIN_fraction": 0.0,
+                  "effective_verdict_counts": {
+                    "PASS": 1
+                  },
+                  "n": 1
+                },
+                "first_check_extra_steps": {
+                  "mean": 0.0,
+                  "median": 0.0,
+                  "n": 1,
+                  "p95_descriptive": 0.0,
+                  "sum": 0.0
+                },
+                "first_check_input_tokens": {
+                  "mean": 362.0,
+                  "median": 362.0,
+                  "n": 1,
+                  "p95_descriptive": 362.0,
+                  "sum": 362.0
+                },
+                "grading_exclusion_counts": {
+                  "BUDGET_ROLLBACKS": 1
+                },
+                "quality_n": 1,
+                "recorded": 1,
+                "status_counts": {
+                  "COMPLETE": 1
+                },
+                "termination_counts": {
+                  "BUDGET_ROLLBACKS": 1
+                },
+                "time_seconds": {
+                  "mean": 32.78808011300862,
+                  "median": 32.78808011300862,
+                  "n": 1,
+                  "p95_descriptive": 32.78808011300862,
+                  "sum": 32.78808011300862
+                }
+              }
+            },
+            "complete_pairs": 1,
+            "correct_to_wrong": 0,
+            "delay_collapsed": 0,
+            "delta_T_seconds": {
+              "bootstrap_skipped": 0,
+              "bootstrap_valid": 1000,
+              "ci95": [
+                4.61104272864759,
+                4.61104272864759
+              ],
+              "estimate": 4.61104272864759,
+              "paired_questions": 1,
+              "reason": null
+            },
+            "delta_Y": {
+              "bootstrap_skipped": 0,
+              "bootstrap_valid": 1000,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0,
+              "paired_questions": 1,
+              "reason": null
+            },
+            "eligible": 1,
+            "near_end": 0,
+            "prefix_tokens": {
+              "mean": 103.0,
+              "median": 103.0,
+              "n": 1,
+              "p95_descriptive": 103.0,
+              "sum": 103.0
+            },
+            "quality_pairs": 1,
+            "questions": 1,
+            "time_pairs": 1,
+            "wrong_to_correct": 0
+          }
+        },
+        "complete_pairs": 1,
         "correct_to_wrong": 0,
         "delay_collapsed": 0,
         "delta_T_seconds": {
-          "bootstrap_skipped": 1000,
-          "bootstrap_valid": 0,
-          "ci95": null,
-          "estimate": null,
-          "reason": "NO_VALID_PAIRED_TIME"
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            4.61104272864759,
+            4.61104272864759
+          ],
+          "estimate": 4.61104272864759,
+          "paired_questions": 1,
+          "reason": null
         },
         "delta_Y": {
-          "bootstrap_skipped": 1000,
-          "bootstrap_valid": 0,
-          "ci95": null,
-          "estimate": null,
-          "reason": "NO_VALID_PAIRED_QUALITY"
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0.0,
+          "paired_questions": 1,
+          "reason": null
         },
-        "eligible": 0,
+        "eligible": 1,
         "near_end": 0,
         "prefix_tokens": {
-          "mean": null,
-          "median": null,
-          "n": 0,
-          "p95_descriptive": null,
-          "sum": null
+          "mean": 103.0,
+          "median": 103.0,
+          "n": 1,
+          "p95_descriptive": 103.0,
+          "sum": 103.0
         },
-        "quality_pairs": 0,
+        "quality_pairs": 1,
         "questions": 20,
-        "time_pairs": 0,
+        "time_pairs": 1,
         "wrong_to_correct": 0
       },
       "pending_anchors": {
-        "MISSING_SNAPSHOT": 20
+        "MISSING_SNAPSHOT": 19
       },
       "pending_pairs": 0,
       "planned": 20,
@@ -2357,7 +2604,24 @@
               "wrong_to_correct": 0
             }
           },
-          "heterogeneity_by_backend": {},
+          "heterogeneity_by_backend": {
+            "{\"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"total_memory\": 50866487296, \"uuid\": \"25e77621-43ff-c8a0-6924-2394046aa091\"}": {
+              "high_minus_low_delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              },
+              "high_minus_low_delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              }
+            }
+          },
           "high_minus_low_delta_T_seconds": {
             "bootstrap_skipped": 1000,
             "bootstrap_valid": 0,
@@ -2974,7 +3238,24 @@
               "wrong_to_correct": 0
             }
           },
-          "heterogeneity_by_backend": {},
+          "heterogeneity_by_backend": {
+            "{\"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"total_memory\": 50866487296, \"uuid\": \"25e77621-43ff-c8a0-6924-2394046aa091\"}": {
+              "high_minus_low_delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              },
+              "high_minus_low_delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              }
+            }
+          },
           "high_minus_low_delta_T_seconds": {
             "bootstrap_skipped": 1000,
             "bootstrap_valid": 0,
@@ -2991,7 +3272,7 @@
           }
         }
       },
-      "snapshot_recorded": 0
+      "snapshot_recorded": 1
     },
     "test": {
       "anchor_exclusions": {},
