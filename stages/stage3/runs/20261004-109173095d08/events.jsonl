@@ -595,3 +595,5 @@
 {"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 6.10596140101552, "termination": "FINAL_PASS", "time": "2026-10-04T17:16:55.079831+00:00", "unique_id": "test/prealgebra/1733.json"}
 {"completed_this_process": 40, "event": "PROBLEM_COMPLETED", "phase": "dev", "time": "2026-10-04T17:16:55.266708+00:00", "unique_id": "test/prealgebra/1733.json"}
 {"event": "BACKUP_PENDING", "last_successful_commit": "f4083b9794e9833de1c364f0cfafc63a12b13449", "reason": "dev progress 40 new problems", "time": "2026-10-04T17:16:55.528533+00:00"}
+{"commit": "3fb5d94f8360ebbcfca38ea564652780efd40a87", "event": "BACKUP_SUCCEEDED", "reason": "dev progress 40 new problems", "remote_verified": true, "time": "2026-10-04T17:17:38.798516+00:00"}
+{"event": "BACKUP_PENDING", "last_successful_commit": "3fb5d94f8360ebbcfca38ea564652780efd40a87", "reason": "dev complete", "time": "2026-10-04T17:17:39.006606+00:00"}
