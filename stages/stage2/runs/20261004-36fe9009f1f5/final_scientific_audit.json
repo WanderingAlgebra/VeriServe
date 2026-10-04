@@ -1,0 +1,428 @@
+{
+  "passed": true,
+  "issues": [],
+  "status": "COMPLETE",
+  "audited_at": "2026-10-04T14:39:54.485568+00:00",
+  "counts": {
+    "train": {
+      "planned": 100,
+      "generated": 100,
+      "completed": 99,
+      "correct": 70,
+      "wrong": 27,
+      "truncated": 1,
+      "unscorable": 3,
+      "no_steps": 1,
+      "format_error_trajectories": 1,
+      "features_missing_or_corrupt": 0,
+      "PREDICTION_UNPARSEABLE": 1,
+      "MISSING_OR_INCOMPLETE_BOXED": 1,
+      "LENGTH_TRUNCATED": 1,
+      "analyzable_end": 97,
+      "analyzable_intermediate": 96
+    },
+    "test": {
+      "planned": 200,
+      "generated": 200,
+      "completed": 198,
+      "correct": 142,
+      "wrong": 54,
+      "truncated": 2,
+      "unscorable": 4,
+      "no_steps": 5,
+      "format_error_trajectories": 5,
+      "features_missing_or_corrupt": 0,
+      "MISSING_OR_INCOMPLETE_BOXED": 1,
+      "LENGTH_TRUNCATED": 2,
+      "FINAL_FORMAT_ERROR": 1,
+      "analyzable_end": 196,
+      "analyzable_intermediate": 191
+    },
+    "smoke": {
+      "planned": 10,
+      "generated": 10,
+      "completed": 10,
+      "correct": 6,
+      "wrong": 3,
+      "truncated": 0,
+      "unscorable": 1,
+      "no_steps": 0,
+      "format_error_trajectories": 0,
+      "features_missing_or_corrupt": 0,
+      "MISSING_OR_INCOMPLETE_BOXED": 1,
+      "analyzable_end": 9,
+      "analyzable_intermediate": 9
+    }
+  },
+  "selected_layers": {
+    "A": 19,
+    "B": 19,
+    "C": null
+  },
+  "training_coverage": {
+    "A": {
+      "correct": 70,
+      "questions": 97,
+      "wrong": 27
+    },
+    "B": {
+      "correct": 69,
+      "questions": 96,
+      "wrong": 27
+    },
+    "C": {
+      "correct": 69,
+      "questions": 96,
+      "wrong": 27
+    }
+  },
+  "test_scope_metrics": {
+    "intermediate_all": {
+      "correct": 137,
+      "methods": {
+        "A": {
+          "auroc": 0.6633175548018371,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.6106371048916605,
+            0.7134621603292342
+          ]
+        },
+        "B": {
+          "auroc": 0.7338539585674774,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.6657305676562789,
+            0.7953710207387839
+          ]
+        },
+        "C": {
+          "auroc": 0.5828041390862689,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.527321174524132,
+            0.6357320912220166
+          ]
+        }
+      },
+      "paired": {
+        "A-C": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.013997491783005684,
+            0.1468836366480921
+          ],
+          "difference": 0.08051341571556814
+        },
+        "B-A": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.019473853845975275,
+            0.12304833141814721
+          ],
+          "difference": 0.0705364037656403
+        },
+        "B-C": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.09512196451356028,
+            0.20724018347401965
+          ],
+          "difference": 0.15104981948120844
+        }
+      },
+      "positions": 1247,
+      "questions": 191,
+      "wrong": 54
+    },
+    "step_1": {
+      "correct": 137,
+      "methods": {
+        "A": {
+          "auroc": 0.564882400648824,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.4790072587934021,
+            0.6531636491402116
+          ]
+        },
+        "B": {
+          "auroc": 0.6408488780751554,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.5517052914915966,
+            0.722042748917749
+          ]
+        },
+        "C": {
+          "auroc": 0.56772100567721,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.47608181981218206,
+            0.6564338567548466
+          ]
+        }
+      },
+      "paired": {
+        "A-C": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            -0.1306958943184646,
+            0.13513037491115845
+          ],
+          "difference": -0.0028386050283859543
+        },
+        "B-A": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            -0.01954706016536944,
+            0.16930893740522537
+          ],
+          "difference": 0.07596647742633145
+        },
+        "B-C": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            -0.04241209169333465,
+            0.18665478967220797
+          ],
+          "difference": 0.07312787239794549
+        }
+      },
+      "positions": 191,
+      "questions": 191,
+      "wrong": 54
+    },
+    "step_2": {
+      "correct": 137,
+      "methods": {
+        "A": {
+          "auroc": 0.6265206812652069,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.541571761986767,
+            0.7072738008598703
+          ]
+        },
+        "B": {
+          "auroc": 0.7123546904568803,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.6287711809202351,
+            0.7896936892066097
+          ]
+        },
+        "C": {
+          "auroc": 0.5475804271424709,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.450915494699545,
+            0.6366282609925681
+          ]
+        }
+      },
+      "paired": {
+        "A-C": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            -0.048657631399980604,
+            0.2026469700735796
+          ],
+          "difference": 0.07894025412273598
+        },
+        "B-A": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.015022169887932394,
+            0.16032766653188057
+          ],
+          "difference": 0.08583400919167339
+        },
+        "B-C": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.04943623202362604,
+            0.27708011480673694
+          ],
+          "difference": 0.16477426331440936
+        }
+      },
+      "positions": 191,
+      "questions": 191,
+      "wrong": 54
+    },
+    "step_3": {
+      "correct": 135,
+      "methods": {
+        "A": {
+          "auroc": 0.646639231824417,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.5535371618078385,
+            0.7379375597406288
+          ]
+        },
+        "B": {
+          "auroc": 0.7403292181069959,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.6560960785204545,
+            0.8223971016532262
+          ]
+        },
+        "C": {
+          "auroc": 0.5962962962962962,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.5058488733564882,
+            0.6881223785360342
+          ]
+        }
+      },
+      "paired": {
+        "A-C": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            -0.08007848159023567,
+            0.17301331968227873
+          ],
+          "difference": 0.05034293552812075
+        },
+        "B-A": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.014882176467565077,
+            0.17435883028668464
+          ],
+          "difference": 0.09368998628257896
+        },
+        "B-C": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.04079954350161132,
+            0.24858243801915786
+          ],
+          "difference": 0.1440329218106997
+        }
+      },
+      "positions": 189,
+      "questions": 189,
+      "wrong": 54
+    },
+    "full_trajectory_end": {
+      "correct": 142,
+      "methods": {
+        "A": {
+          "auroc": 0.8466353677621283,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.784775351978691,
+            0.8976860502912419
+          ]
+        },
+        "B": {
+          "auroc": 0.7687793427230047,
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.6842506121814146,
+            0.8469628635515225
+          ]
+        }
+      },
+      "paired": {
+        "B-A": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            -0.1439995329425477,
+            -0.01933123697976094
+          ],
+          "difference": -0.07785602503912359
+        }
+      },
+      "positions": 196,
+      "questions": 196,
+      "wrong": 54
+    }
+  },
+  "prediction_spotchecks": [
+    {
+      "id": "test/algebra/1004.json",
+      "shape": [
+        28,
+        5,
+        3584
+      ],
+      "max_abs_prediction_error": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 2.7755575615628914e-17
+      }
+    },
+    {
+      "id": "test/intermediate_algebra/1898.json",
+      "shape": [
+        28,
+        10,
+        3584
+      ],
+      "max_abs_prediction_error": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 0.0
+      }
+    },
+    {
+      "id": "test/precalculus/990.json",
+      "shape": [
+        28,
+        5,
+        3584
+      ],
+      "max_abs_prediction_error": {
+        "A": 0.0,
+        "B": 0.0,
+        "C": 1.1102230246251565e-16
+      }
+    }
+  ],
+  "checks": [
+    "All310 actual record IDs/provenance, exclusions, counts and feature SHA256 verified",
+    "All intermediate/end CSV labels, effective steps, cohorts, weighted pairwise AUROC and paired point differences agree",
+    "Three test trajectory spotchecks reproduce all A/B/C scores and end A/B scores from frozen serialized parameters"
+  ],
+  "bootstrap_recomputed": false,
+  "main_signal_vs_random_and_C_supported": true,
+  "independent_cv_review": {
+    "path": "cv_scaler_audit.json",
+    "passed": true,
+    "summary": "All342CV rows; independent A/B maxima at layer19; five validation folds partition97 training questions without test/smoke IDs; weighted scaler moments match within1.1e-12; frozen parameters/CV hashes unchanged through COMPLETE and precede test predictions.",
+    "original_temporary_path": "/tmp/stage2-cv-final-review.json"
+  }
+}

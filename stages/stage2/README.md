@@ -63,6 +63,12 @@ python -m stages.stage2.run_probe --config stages/stage2/config.json --fit-only 
 
 ## 结果入口与解释范围
 
+本轮已完成 **300/300 正式题**（另 10 道 smoke）：[完整报告](runs/20261004-36fe9009f1f5/report.md)、[指标](runs/20261004-36fe9009f1f5/metrics.json)、[正式 NPZ 远端取回核验](runs/20261004-36fe9009f1f5/formal_feature_remote_verification.json)。训练可评分 97 道，中途训练 96 道；测试可评分 196 道，共同中途评估 191 道 / 1247 个位置。正式排除 7 道：截断 3、缺少完整 boxed 2、预测不可解析 1、最终答案格式错误 1；另 6 道可评分轨迹无有效中途步骤，均保留。
+
+A/B 均选择第 19 层。全部中途位置按题等权 AUROC：A 0.663 [0.611, 0.713]、B 0.734 [0.666, 0.795]、C 0.583 [0.527, 0.636]；B−C 0.151 [0.095, 0.207]。此配置下存在超过随机与进度基线的最终答错风险信号；第 1 有效步骤的 B−C CI 跨零，不能据此声称所有早期位置均超过基线。完整轨迹末尾指标另列，不与中途混报。
+
+34 项 CPU 自检、10 道真实逐前缀 smoke、实际暂停恢复、独立科学/CV 复核与正式 LFS 远端哈希核验通过。原单次整段 BF16 提取与独立前缀比较失败的诊断完整保留，正式特征使用 smoke 阶段修复后冻结的独立前缀方法。正式采集没有中断或未备份特征。
+
 运行目录为 `stages/stage2/runs/<seed>-<config_hash前12位>/`。其中 report.md 是结论入口；manifest.json 保存全部题目原始字段、划分、revision、环境和脚本哈希；records/ 每题有原始 token、文本、评分/排除原因、步骤 token 对齐、硬件和分阶段耗时。cv_scores.csv、cv_folds.json、probe_*.npz/json、test_predictions.csv、metrics.json 和 step_auroc.png 保存分析。
 
 正式结果未产生时 report.md 明确列出未执行阶段与 NA，不生成示意实验数字。CPU 自检仅用临时合成样本，不能当作 smoke 或正式结果。实际 smoke、恢复和远端核验分别保存 smoke_checks.json、resume_check.json、backup.json。
