@@ -5,32 +5,32 @@
   "offline_timing": {
     "dev": {
       "T_common_generation": {
-        "mean": null,
-        "median": null,
-        "n": 0,
-        "p95_descriptive": null,
-        "sum": null
+        "mean": 2.698206298239529,
+        "median": 2.2584667028859258,
+        "n": 10,
+        "p95_descriptive": 5.703482469636942,
+        "sum": 26.98206298239529
       },
       "T_offline_feature": {
-        "mean": null,
-        "median": null,
-        "n": 0,
-        "p95_descriptive": null,
-        "sum": null
+        "mean": 0.03956518210470676,
+        "median": 0.04080534819513559,
+        "n": 10,
+        "p95_descriptive": 0.053597948420792796,
+        "sum": 0.39565182104706764
       },
       "T_probe": {
-        "mean": null,
-        "median": null,
-        "n": 0,
-        "p95_descriptive": null,
-        "sum": null
+        "mean": 0.00012460388243198394,
+        "median": 0.0001223646104335785,
+        "n": 10,
+        "p95_descriptive": 0.00016441652551293373,
+        "sum": 0.0012460388243198395
       },
       "T_snapshot_restore": {
-        "mean": null,
-        "median": null,
-        "n": 0,
-        "p95_descriptive": null,
-        "sum": null
+        "mean": 0.0419125777669251,
+        "median": 0.04201453924179077,
+        "n": 20,
+        "p95_descriptive": 0.06615363508462906,
+        "sum": 0.8382515553385019
       }
     },
     "pilot": {
@@ -98,212 +98,503 @@
     "dev": {
       "anchor_exclusions": {},
       "different_backend_pairs": 0,
-      "eligible": 0,
-      "eligible_coverage": 0.0,
+      "eligible": 10,
+      "eligible_coverage": 0.25,
       "infrastructure_interrupted_pairs": 0,
       "overall": {
         "arms": {
           "DELAY_2": {
-            "accuracy": null,
+            "accuracy": 0.7,
             "budget": {
               "feedback_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 29.9,
+                "median": 0.0,
+                "n": 10,
+                "p95_descriptive": 119.3,
+                "sum": 299.0
               },
               "forward_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 1264.0,
+                "median": 1025.0,
+                "n": 10,
+                "p95_descriptive": 2627.7,
+                "sum": 12640.0
               },
               "generated_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 1058.8,
+                "median": 569.0,
+                "n": 10,
+                "p95_descriptive": 3095.1999999999975,
+                "sum": 10588.0
               },
               "prm_calls": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 2.1,
+                "median": 2.0,
+                "n": 10,
+                "p95_descriptive": 3.549999999999999,
+                "sum": 21.0
               },
               "revoked_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 186.8,
+                "median": 0.0,
+                "n": 10,
+                "p95_descriptive": 926.1999999999994,
+                "sum": 1868.0
               },
               "rollbacks": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 0.5,
+                "median": 0.0,
+                "n": 10,
+                "p95_descriptive": 2.0,
+                "sum": 5.0
               }
             },
-            "complete": 0,
-            "correct": 0,
-            "early_endpoint": 0,
+            "complete": 10,
+            "correct": 7,
+            "early_endpoint": 1,
             "first_check": {
-              "FAIL_fraction": null,
-              "UNCERTAIN_fraction": null,
-              "effective_verdict_counts": {},
-              "n": 0
+              "FAIL_fraction": 0.1,
+              "UNCERTAIN_fraction": 0.0,
+              "effective_verdict_counts": {
+                "FAIL": 1,
+                "PASS": 9
+              },
+              "n": 10
             },
             "first_check_extra_steps": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 1.9,
+              "median": 2.0,
+              "n": 10,
+              "p95_descriptive": 2.0,
+              "sum": 19.0
             },
             "first_check_input_tokens": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 386.9,
+              "median": 390.0,
+              "n": 10,
+              "p95_descriptive": 568.0499999999998,
+              "sum": 3869.0
             },
-            "grading_exclusion_counts": {},
-            "outcome_categories": {},
-            "quality_n": 0,
-            "recorded": 0,
-            "status_counts": {},
-            "termination_counts": {},
+            "grading_exclusion_counts": {
+              "BUDGET_GENERATION_ATTEMPT": 1,
+              "BUDGET_ROLLBACKS": 1,
+              "MISSING_OR_INCOMPLETE_BOXED": 1,
+              "NONE": 7
+            },
+            "outcome_categories": {
+              "BUDGET_OR_INPUT_LIMIT": 2,
+              "CORRECT": 7,
+              "FORMAT_OR_PREDICTION_PARSE": 1
+            },
+            "quality_n": 10,
+            "recorded": 10,
+            "status_counts": {
+              "COMPLETE": 10
+            },
+            "termination_counts": {
+              "BUDGET_GENERATION_ATTEMPT": 1,
+              "BUDGET_ROLLBACKS": 1,
+              "FINAL_PASS": 7,
+              "MISSING_OR_INCOMPLETE_BOXED": 1
+            },
             "time_seconds": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 16.709366767667234,
+              "median": 7.309551030397415,
+              "n": 10,
+              "p95_descriptive": 54.178564550355034,
+              "sum": 167.09366767667234
             }
           },
           "NOW": {
-            "accuracy": null,
+            "accuracy": 0.7,
             "budget": {
               "feedback_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 24.4,
+                "median": 0.0,
+                "n": 10,
+                "p95_descriptive": 94.54999999999993,
+                "sum": 244.0
               },
               "forward_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 1112.2,
+                "median": 1013.5,
+                "n": 10,
+                "p95_descriptive": 2214.649999999999,
+                "sum": 11122.0
               },
               "generated_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 989.4,
+                "median": 569.0,
+                "n": 10,
+                "p95_descriptive": 2885.4999999999973,
+                "sum": 9894.0
               },
               "prm_calls": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 2.2,
+                "median": 2.0,
+                "n": 10,
+                "p95_descriptive": 3.549999999999999,
+                "sum": 22.0
               },
               "revoked_tokens": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 150.1,
+                "median": 0.0,
+                "n": 10,
+                "p95_descriptive": 699.0999999999997,
+                "sum": 1501.0
               },
               "rollbacks": {
-                "mean": null,
-                "median": null,
-                "n": 0,
-                "p95_descriptive": null,
-                "sum": null
+                "mean": 0.4,
+                "median": 0.0,
+                "n": 10,
+                "p95_descriptive": 1.549999999999999,
+                "sum": 4.0
               }
             },
-            "complete": 0,
-            "correct": 0,
+            "complete": 10,
+            "correct": 7,
             "early_endpoint": 0,
             "first_check": {
-              "FAIL_fraction": null,
-              "UNCERTAIN_fraction": null,
-              "effective_verdict_counts": {},
-              "n": 0
+              "FAIL_fraction": 0.0,
+              "UNCERTAIN_fraction": 0.0,
+              "effective_verdict_counts": {
+                "PASS": 10
+              },
+              "n": 10
             },
             "first_check_extra_steps": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 0.0,
+              "median": 0.0,
+              "n": 10,
+              "p95_descriptive": 0.0,
+              "sum": 0.0
             },
             "first_check_input_tokens": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 237.7,
+              "median": 233.5,
+              "n": 10,
+              "p95_descriptive": 409.5999999999998,
+              "sum": 2377.0
             },
-            "grading_exclusion_counts": {},
-            "outcome_categories": {},
-            "quality_n": 0,
-            "recorded": 0,
-            "status_counts": {},
-            "termination_counts": {},
+            "grading_exclusion_counts": {
+              "BUDGET_GENERATION_ATTEMPT": 1,
+              "BUDGET_ROLLBACKS": 1,
+              "MISSING_OR_INCOMPLETE_BOXED": 1,
+              "NONE": 7
+            },
+            "outcome_categories": {
+              "BUDGET_OR_INPUT_LIMIT": 2,
+              "CORRECT": 7,
+              "FORMAT_OR_PREDICTION_PARSE": 1
+            },
+            "quality_n": 10,
+            "recorded": 10,
+            "status_counts": {
+              "COMPLETE": 10
+            },
+            "termination_counts": {
+              "BUDGET_GENERATION_ATTEMPT": 1,
+              "BUDGET_ROLLBACKS": 1,
+              "FINAL_PASS": 7,
+              "MISSING_OR_INCOMPLETE_BOXED": 1
+            },
             "time_seconds": {
-              "mean": null,
-              "median": null,
-              "n": 0,
-              "p95_descriptive": null,
-              "sum": null
+              "mean": 15.393662595190108,
+              "median": 7.2751271184533834,
+              "n": 10,
+              "p95_descriptive": 50.32560622571031,
+              "sum": 153.93662595190108
             }
           }
         },
-        "by_backend": {},
-        "complete_pairs": 0,
+        "by_backend": {
+          "{\"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"total_memory\": 50866487296, \"uuid\": \"25e77621-43ff-c8a0-6924-2394046aa091\"}": {
+            "arms": {
+              "DELAY_2": {
+                "accuracy": 0.7,
+                "budget": {
+                  "feedback_tokens": {
+                    "mean": 29.9,
+                    "median": 0.0,
+                    "n": 10,
+                    "p95_descriptive": 119.3,
+                    "sum": 299.0
+                  },
+                  "forward_tokens": {
+                    "mean": 1264.0,
+                    "median": 1025.0,
+                    "n": 10,
+                    "p95_descriptive": 2627.7,
+                    "sum": 12640.0
+                  },
+                  "generated_tokens": {
+                    "mean": 1058.8,
+                    "median": 569.0,
+                    "n": 10,
+                    "p95_descriptive": 3095.1999999999975,
+                    "sum": 10588.0
+                  },
+                  "prm_calls": {
+                    "mean": 2.1,
+                    "median": 2.0,
+                    "n": 10,
+                    "p95_descriptive": 3.549999999999999,
+                    "sum": 21.0
+                  },
+                  "revoked_tokens": {
+                    "mean": 186.8,
+                    "median": 0.0,
+                    "n": 10,
+                    "p95_descriptive": 926.1999999999994,
+                    "sum": 1868.0
+                  },
+                  "rollbacks": {
+                    "mean": 0.5,
+                    "median": 0.0,
+                    "n": 10,
+                    "p95_descriptive": 2.0,
+                    "sum": 5.0
+                  }
+                },
+                "complete": 10,
+                "correct": 7,
+                "early_endpoint": 1,
+                "first_check": {
+                  "FAIL_fraction": 0.1,
+                  "UNCERTAIN_fraction": 0.0,
+                  "effective_verdict_counts": {
+                    "FAIL": 1,
+                    "PASS": 9
+                  },
+                  "n": 10
+                },
+                "first_check_extra_steps": {
+                  "mean": 1.9,
+                  "median": 2.0,
+                  "n": 10,
+                  "p95_descriptive": 2.0,
+                  "sum": 19.0
+                },
+                "first_check_input_tokens": {
+                  "mean": 386.9,
+                  "median": 390.0,
+                  "n": 10,
+                  "p95_descriptive": 568.0499999999998,
+                  "sum": 3869.0
+                },
+                "grading_exclusion_counts": {
+                  "BUDGET_GENERATION_ATTEMPT": 1,
+                  "BUDGET_ROLLBACKS": 1,
+                  "MISSING_OR_INCOMPLETE_BOXED": 1,
+                  "NONE": 7
+                },
+                "outcome_categories": {
+                  "BUDGET_OR_INPUT_LIMIT": 2,
+                  "CORRECT": 7,
+                  "FORMAT_OR_PREDICTION_PARSE": 1
+                },
+                "quality_n": 10,
+                "recorded": 10,
+                "status_counts": {
+                  "COMPLETE": 10
+                },
+                "termination_counts": {
+                  "BUDGET_GENERATION_ATTEMPT": 1,
+                  "BUDGET_ROLLBACKS": 1,
+                  "FINAL_PASS": 7,
+                  "MISSING_OR_INCOMPLETE_BOXED": 1
+                },
+                "time_seconds": {
+                  "mean": 16.709366767667234,
+                  "median": 7.309551030397415,
+                  "n": 10,
+                  "p95_descriptive": 54.178564550355034,
+                  "sum": 167.09366767667234
+                }
+              },
+              "NOW": {
+                "accuracy": 0.7,
+                "budget": {
+                  "feedback_tokens": {
+                    "mean": 24.4,
+                    "median": 0.0,
+                    "n": 10,
+                    "p95_descriptive": 94.54999999999993,
+                    "sum": 244.0
+                  },
+                  "forward_tokens": {
+                    "mean": 1112.2,
+                    "median": 1013.5,
+                    "n": 10,
+                    "p95_descriptive": 2214.649999999999,
+                    "sum": 11122.0
+                  },
+                  "generated_tokens": {
+                    "mean": 989.4,
+                    "median": 569.0,
+                    "n": 10,
+                    "p95_descriptive": 2885.4999999999973,
+                    "sum": 9894.0
+                  },
+                  "prm_calls": {
+                    "mean": 2.2,
+                    "median": 2.0,
+                    "n": 10,
+                    "p95_descriptive": 3.549999999999999,
+                    "sum": 22.0
+                  },
+                  "revoked_tokens": {
+                    "mean": 150.1,
+                    "median": 0.0,
+                    "n": 10,
+                    "p95_descriptive": 699.0999999999997,
+                    "sum": 1501.0
+                  },
+                  "rollbacks": {
+                    "mean": 0.4,
+                    "median": 0.0,
+                    "n": 10,
+                    "p95_descriptive": 1.549999999999999,
+                    "sum": 4.0
+                  }
+                },
+                "complete": 10,
+                "correct": 7,
+                "early_endpoint": 0,
+                "first_check": {
+                  "FAIL_fraction": 0.0,
+                  "UNCERTAIN_fraction": 0.0,
+                  "effective_verdict_counts": {
+                    "PASS": 10
+                  },
+                  "n": 10
+                },
+                "first_check_extra_steps": {
+                  "mean": 0.0,
+                  "median": 0.0,
+                  "n": 10,
+                  "p95_descriptive": 0.0,
+                  "sum": 0.0
+                },
+                "first_check_input_tokens": {
+                  "mean": 237.7,
+                  "median": 233.5,
+                  "n": 10,
+                  "p95_descriptive": 409.5999999999998,
+                  "sum": 2377.0
+                },
+                "grading_exclusion_counts": {
+                  "BUDGET_GENERATION_ATTEMPT": 1,
+                  "BUDGET_ROLLBACKS": 1,
+                  "MISSING_OR_INCOMPLETE_BOXED": 1,
+                  "NONE": 7
+                },
+                "outcome_categories": {
+                  "BUDGET_OR_INPUT_LIMIT": 2,
+                  "CORRECT": 7,
+                  "FORMAT_OR_PREDICTION_PARSE": 1
+                },
+                "quality_n": 10,
+                "recorded": 10,
+                "status_counts": {
+                  "COMPLETE": 10
+                },
+                "termination_counts": {
+                  "BUDGET_GENERATION_ATTEMPT": 1,
+                  "BUDGET_ROLLBACKS": 1,
+                  "FINAL_PASS": 7,
+                  "MISSING_OR_INCOMPLETE_BOXED": 1
+                },
+                "time_seconds": {
+                  "mean": 15.393662595190108,
+                  "median": 7.2751271184533834,
+                  "n": 10,
+                  "p95_descriptive": 50.32560622571031,
+                  "sum": 153.93662595190108
+                }
+              }
+            },
+            "complete_pairs": 10,
+            "correct_to_wrong": 0,
+            "delay_collapsed": 1,
+            "delta_T_seconds": {
+              "bootstrap_skipped": 0,
+              "bootstrap_valid": 1000,
+              "ci95": [
+                -0.063353639440611,
+                3.186495397700925
+              ],
+              "estimate": 1.3157041724771261,
+              "paired_questions": 10,
+              "reason": null
+            },
+            "delta_Y": {
+              "bootstrap_skipped": 0,
+              "bootstrap_valid": 1000,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0,
+              "paired_questions": 10,
+              "reason": null
+            },
+            "eligible": 10,
+            "near_end": 0,
+            "prefix_tokens": {
+              "mean": 144.2,
+              "median": 120.0,
+              "n": 10,
+              "p95_descriptive": 310.0499999999997,
+              "sum": 1442.0
+            },
+            "quality_pairs": 10,
+            "questions": 10,
+            "time_pairs": 10,
+            "wrong_to_correct": 0
+          }
+        },
+        "complete_pairs": 10,
         "correct_to_wrong": 0,
-        "delay_collapsed": 0,
+        "delay_collapsed": 1,
         "delta_T_seconds": {
-          "bootstrap_skipped": 1000,
-          "bootstrap_valid": 0,
-          "ci95": null,
-          "estimate": null,
-          "reason": "NO_VALID_PAIRED_TIME"
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            -0.063353639440611,
+            3.186495397700925
+          ],
+          "estimate": 1.3157041724771261,
+          "paired_questions": 10,
+          "reason": null
         },
         "delta_Y": {
-          "bootstrap_skipped": 1000,
-          "bootstrap_valid": 0,
-          "ci95": null,
-          "estimate": null,
-          "reason": "NO_VALID_PAIRED_QUALITY"
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0.0,
+          "paired_questions": 10,
+          "reason": null
         },
-        "eligible": 0,
+        "eligible": 10,
         "near_end": 0,
         "prefix_tokens": {
-          "mean": null,
-          "median": null,
-          "n": 0,
-          "p95_descriptive": null,
-          "sum": null
+          "mean": 144.2,
+          "median": 120.0,
+          "n": 10,
+          "p95_descriptive": 310.0499999999997,
+          "sum": 1442.0
         },
-        "quality_pairs": 0,
+        "quality_pairs": 10,
         "questions": 40,
-        "time_pairs": 0,
+        "time_pairs": 10,
         "wrong_to_correct": 0
       },
       "pending_anchors": {
-        "MISSING_SNAPSHOT": 40
+        "MISSING_SNAPSHOT": 30
       },
       "pending_pairs": 0,
       "planned": 40,
@@ -916,7 +1207,24 @@
               "wrong_to_correct": 0
             }
           },
-          "heterogeneity_by_backend": {},
+          "heterogeneity_by_backend": {
+            "{\"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"total_memory\": 50866487296, \"uuid\": \"25e77621-43ff-c8a0-6924-2394046aa091\"}": {
+              "high_minus_low_delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              },
+              "high_minus_low_delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              }
+            }
+          },
           "high_minus_low_delta_T_seconds": {
             "bootstrap_skipped": 1000,
             "bootstrap_valid": 0,
@@ -1539,7 +1847,24 @@
               "wrong_to_correct": 0
             }
           },
-          "heterogeneity_by_backend": {},
+          "heterogeneity_by_backend": {
+            "{\"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"total_memory\": 50866487296, \"uuid\": \"25e77621-43ff-c8a0-6924-2394046aa091\"}": {
+              "high_minus_low_delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              },
+              "high_minus_low_delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              }
+            }
+          },
           "high_minus_low_delta_T_seconds": {
             "bootstrap_skipped": 1000,
             "bootstrap_valid": 0,
@@ -1556,7 +1881,7 @@
           }
         }
       },
-      "snapshot_recorded": 0
+      "snapshot_recorded": 10
     },
     "pilot": {
       "anchor_exclusions": {},
