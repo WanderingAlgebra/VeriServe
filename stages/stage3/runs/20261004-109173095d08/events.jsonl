@@ -1880,3 +1880,5 @@
 {"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 4.904120896011591, "termination": "FINAL_PASS", "time": "2026-10-04T21:28:06.083845+00:00", "unique_id": "test/algebra/305.json"}
 {"completed_this_process": 20, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T21:28:06.241236+00:00", "unique_id": "test/algebra/305.json"}
 {"event": "BACKUP_PENDING", "last_successful_commit": "6897bad28def3ce9b452567b1ae4ae5fa46eca9e", "reason": "test progress 20 new problems", "time": "2026-10-04T21:28:07.877696+00:00"}
+{"commit": "8c4f836f95ef5a2c49ab79a6dc03af4b5e36b0e1", "event": "BACKUP_SUCCEEDED", "reason": "test progress 20 new problems", "remote_verified": true, "time": "2026-10-04T21:28:51.923383+00:00"}
+{"event": "BACKUP_PENDING", "last_successful_commit": "8c4f836f95ef5a2c49ab79a6dc03af4b5e36b0e1", "reason": "test complete", "time": "2026-10-04T21:28:53.384451+00:00"}
