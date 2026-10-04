@@ -19,6 +19,7 @@ import warnings
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import numpy as np
 
@@ -43,6 +44,11 @@ def digest(path):
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def source_code():
+    return {"script_sha256": digest(__file__),
+            "common_sha256": digest(ROOT / "stages/stage1/veriserve/common.py")}
 
 
 def atomic_bytes(path, value):
@@ -360,10 +366,18 @@ def read_record(path, run):
     try:
         value = read_json(path)
     except (ValueError, OSError) as exc:
-        # Preserve damaged bytes for audit before regenerating an unreadable JSON.
+        # Never replace original tokens or good features because a JSON became unreadable.
         event(run, "CORRUPT_JSON", path=str(path.relative_to(run)), error=safe_error(exc))
         atomic_bytes(path.with_suffix(f".corrupt-{time.time_ns()}"), path.read_bytes())
-        return None
+        try:
+            restored = json.loads(git("show", f"HEAD:{path.relative_to(ROOT)}"))
+            if stable_hash({"prompt_ids": restored["prompt_ids"], "generated_ids": restored["generated_ids"]}) != restored["token_sha256"]:
+                raise ValueError("Committed token checksum mismatch")
+        except (RuntimeError, ValueError, KeyError):
+            raise ValueError(f"Unreadable original token JSON {path}; preserved files, recover from a valid backup") from exc
+        atomic_json(path, restored)
+        event(run, "JSON_RECOVERED_FROM_GIT", path=str(path.relative_to(run)))
+        value = restored
     if value:
         if stable_hash({"prompt_ids": value["prompt_ids"], "generated_ids": value["generated_ids"]}) != value["token_sha256"]:
             raise ValueError(f"Token checksum mismatch in {path}; preserve and inspect manually")
@@ -403,7 +417,7 @@ def causal_check(model, record, cfg):
     import torch
     steps = record["boundaries"]["steps"]
     if not steps:
-        return {"passed": False, "reason": "no intermediate position"}
+        return {"passed": None, "applicable": False, "reason": "no intermediate position; trajectory retained"}
     ids = record["prompt_ids"] + record["generated_ids"]
     position = len(record["prompt_ids"]) + steps[0]["end_token_index"]
     original = extract(model, ids, [position])
@@ -417,7 +431,7 @@ def causal_check(model, record, cfg):
                         "max_abs_per_layer": diff.max(axis=(1, 2)).tolist(),
                         "passed": bool(np.allclose(original, other, atol=cfg["causal_atol"],
                                                    rtol=cfg["causal_rtol"]))}
-    checks.update(passed=all(v["passed"] for v in checks.values()), position=position,
+    checks.update(passed=all(v["passed"] for v in checks.values()), applicable=True, position=position,
                   atol=cfg["causal_atol"], rtol=cfg["causal_rtol"],
                   tolerance_note="BF16 rounding: atol=1/32, rtol=one BF16 relative ULP; report raw errors")
     torch.cuda.empty_cache()
@@ -428,7 +442,9 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware):
     import torch
     path = record_path(run, split, row["unique_id"])
     record = read_record(path, run)
-    if record and record.get("stage") == "FEATURES" and valid_features(path, record):
+    code = source_code()
+    if (record and record.get("stage") == "FEATURES" and valid_features(path, record)
+            and record.get("feature_source_code") == code):
         print(f"SKIP {split} {row['unique_id']}", flush=True)
         return record, False
     if not record:
@@ -489,7 +505,8 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware):
     layers_per_file = max(1, (40 * 1024 * 1024) // hidden[0].nbytes)
     for lo in range(0, len(hidden), layers_per_file):
         hi = min(lo + layers_per_file, len(hidden))
-        feature_path = path.with_suffix(".npz") if len(hidden) <= layers_per_file else path.with_suffix(f".layers{lo + 1}-{hi}.npz")
+        suffix = f".features-{code['script_sha256'][:12]}"
+        feature_path = path.with_suffix(suffix + ".npz") if len(hidden) <= layers_per_file else path.with_suffix(suffix + f".layers{lo + 1}-{hi}.npz")
         preserved = feature_path.exists() and digest(feature_path) == previous_features.get(feature_path.name)
         if not preserved:
             save_npz(feature_path, hidden=hidden[lo:hi], layers=np.arange(lo + 1, hi + 1),
@@ -499,6 +516,7 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware):
         record["feature_files"].append({"name": feature_path.name, "sha256": digest(feature_path)})
     record["stage"] = "FEATURES"
     record["feature_hardware"] = hardware
+    record["feature_source_code"] = code
     atomic_json(path, record)
     print(f"DONE {split} {row['unique_id']} label={record['label']} exclusion={record['exclusion']} "
           f"steps={len(bounds['steps'])} tokens={len(record['generated_ids'])}", flush=True)
@@ -514,6 +532,9 @@ def remote_feature_check(run):
     with tempfile.TemporaryDirectory(prefix="stage2-lfs-verify-") as tmp:
         folder = Path(tmp)
         env = {**os.environ, "GIT_LFS_SKIP_SMUDGE": "1", "GIT_TERMINAL_PROMPT": "0"}
+        ssh = subprocess.run(["git", "config", "--get", "core.sshCommand"], cwd=ROOT, capture_output=True, text=True)
+        if ssh.returncode == 0:
+            env["GIT_SSH_COMMAND"] = ssh.stdout.strip()
         git("init", cwd=folder)
         git("remote", "add", "origin", git("remote", "get-url", "origin"), cwd=folder)
         git("fetch", "--depth=1", "--filter=blob:none", "origin", BRANCH, cwd=folder, env=env)
@@ -578,7 +599,8 @@ def snapshot_hashes(run, split):
     hashes = {}
     for path in sorted((run / "records" / split).glob("*.json")):
         record = read_record(path, run)
-        if record and record.get("stage") == "FEATURES" and valid_features(path, record):
+        if (record and record.get("stage") == "FEATURES" and valid_features(path, record)
+                and record.get("feature_source_code") == source_code()):
             for p in [path, *[path.parent / f["name"] for f in record["feature_files"]]]:
                 hashes[str(p.relative_to(run))] = digest(p)
     return hashes
@@ -586,7 +608,9 @@ def snapshot_hashes(run, split):
 
 def load_examples(run, manifest, split):
     examples = []
-    counts = Counter(planned=len(manifest["splits"][split]))
+    counts = Counter({key: 0 for key in ("generated", "completed", "correct", "wrong", "truncated",
+                                       "unscorable", "no_steps", "format_error_trajectories", "features_missing_or_corrupt")})
+    counts["planned"] = len(manifest["splits"][split])
     for row in manifest["splits"][split]:
         path = record_path(run, split, row["unique_id"])
         record = read_record(path, run)
@@ -877,7 +901,7 @@ def report(run, manifest, counts, metrics=None, rows=None, coverage=None, failur
     cfg = manifest["config"]
     fit = read_json(run / "fit_status.json", {})
     lines = ["# 第二阶段：逐步 hidden 最终答错风险探针", "",
-             f"运行：`{run.name}`；报告更新于 {now()}。", "",
+             f"运行：`{run.name}`；报告更新于 {datetime.now(ZoneInfo('Asia/Shanghai')).isoformat()}。", "",
              "标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途步骤；不是局部错误标签。", "",
              f"模型 `{cfg['model']}`，revision `{cfg['revisions']['model']}`；tokenizer `{cfg['revisions']['tokenizer']}`。",
              f"数据 `{cfg['dataset']}` / test，revision `{cfg['revisions']['dataset']}`。",
@@ -1047,6 +1071,7 @@ def self_check(cfg):
         feature = path.with_suffix(".npz")
         save_npz(feature, hidden=np.ones((2, 1, 2), dtype=np.float32), layers=np.array([1, 2]), positions=np.array([1]))
         record = {"prompt_ids": [1], "generated_ids": [2], "stage": "FEATURES",
+                  "feature_source_code": source_code(),
                   "token_sha256": stable_hash({"prompt_ids": [1], "generated_ids": [2]}),
                   "feature_files": [{"name": feature.name, "sha256": digest(feature)}]}
         atomic_json(path, record)
@@ -1055,6 +1080,14 @@ def self_check(cfg):
         check("resume skips complete JSON and NPZ without generation", not changed and before == snapshot_hashes(folder, "smoke"))
         atomic_bytes(feature, b"damaged")
         check("damaged NPZ detected", not valid_features(path, record))
+        atomic_bytes(path, b"damaged JSON")
+        try:
+            read_record(path, folder)
+        except ValueError:
+            check("unrecoverable JSON never triggers regeneration", True)
+        else:
+            check("unrecoverable JSON never triggers regeneration", False)
+        check("no-step causal check is not a failure", causal_check(None, {"boundaries": {"steps": []}}, cfg)["passed"] is None)
     result = {"passed": True, "checked_at": now(), "checks": checks, "environment": environment(),
               "script_sha256": digest(__file__),
               "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke"}
@@ -1102,12 +1135,16 @@ def main():
             resume = read_json(run / "resume_check.json", {})
             if not smoke.get("passed") or not resume.get("passed"):
                 raise RuntimeError("Run all ten smoke questions and a separate --smoke --resume restart first")
+            if smoke.get("source_code") != source_code() or resume.get("source_code") != source_code():
+                raise RuntimeError("Smoke/resume checks refer to different code; rerun --smoke --resume")
             if not read_json(run / "backup.json", {}).get("feature_remote_verification"):
                 raise RuntimeError("Smoke NPZ has not been retrieved from the remote and verified")
-            current = {"script_sha256": digest(__file__), "common_sha256": digest(ROOT / "stages/stage1/veriserve/common.py")}
+            current = source_code()
             if manifest.get("formal_frozen_code") and manifest["formal_frozen_code"] != current:
                 raise RuntimeError("Collection code changed after freezing; inspect changes and use a new run_id")
             manifest["formal_frozen_code"] = current
+            manifest.update(current)
+            manifest["code_commit"] = git("rev-parse", "HEAD")
             manifest.setdefault("formal_frozen_at", now())
             atomic_json(run / "manifest.json", manifest)
             backup(run, "stage2: freeze formal collection after independent smoke")
@@ -1115,12 +1152,15 @@ def main():
         before = snapshot_hashes(run, "smoke") if args.smoke else {}
         hardware = environment(gpu=True)
         checks = read_json(run / "smoke_checks.json", {"questions": {}})
+        if checks.get("source_code") != source_code():
+            checks = {"questions": {}, "source_code": source_code()}
         completed = 0
         for split in splits:
             for row in manifest["splits"][split]:
                 path = record_path(run, split, row["unique_id"])
                 old = read_record(path, run)
-                needs_features = not (old and old.get("stage") == "FEATURES" and valid_features(path, old))
+                needs_features = not (old and old.get("stage") == "FEATURES" and valid_features(path, old)
+                                      and old.get("feature_source_code") == source_code())
                 needs_causal = args.smoke and row["unique_id"] not in checks["questions"]
                 if (needs_features or needs_causal) and model is None:
                     model, tokenizer = load_model(cfg)
@@ -1131,10 +1171,13 @@ def main():
                 completed += 1
                 if args.smoke and needs_causal:
                     checks["questions"][row["unique_id"]] = causal_check(model, record, cfg)
-                    checks["passed"] = len(checks["questions"]) == cfg["split_sizes"]["smoke"] and all(v["passed"] for v in checks["questions"].values())
+                    applicable = [v for v in checks["questions"].values() if v.get("applicable", True)]
+                    checks["passed"] = (len(checks["questions"]) == cfg["split_sizes"]["smoke"]
+                                        and bool(applicable) and all(v["passed"] for v in applicable))
+                    checks["not_applicable"] = len(checks["questions"]) - len(applicable)
                     checks["updated_at"] = now()
                     atomic_json(run / "smoke_checks.json", checks)
-                    if not checks["questions"][row["unique_id"]]["passed"]:
+                    if checks["questions"][row["unique_id"]]["passed"] is False:
                         raise RuntimeError("Causal smoke check failed; preserve errors and inspect before formal collection")
                 if not args.smoke and completed % cfg["backup_every"] == 0:
                     backup(run, f"stage2: persist formal questions through {completed}/300")
@@ -1146,6 +1189,7 @@ def main():
         if args.smoke:
             after = snapshot_hashes(run, "smoke")
             audit = {"passed": bool(before) and all(after.get(k) == v for k, v in before.items()),
+                     "source_code": source_code(),
                      "unchanged_files": len(before), "hashes_before": before,
                      "hashes_after_for_existing": {k: after.get(k) for k in before}, "checked_at": now()}
             atomic_json(run / "resume_check.json", audit)

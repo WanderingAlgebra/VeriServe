@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-04T12:33:04.626353+00:00",
+  "checked_at": "2026-10-04T12:39:54.262871+00:00",
   "checks": [
     "grade \\frac{1}{2} vs 0.5",
     "grade \\sqrt{8} vs 2\\sqrt{2}",
@@ -25,7 +25,9 @@
     "weighted evaluation and paired bootstrap",
     "single-class bootstrap reports NA",
     "resume skips complete JSON and NPZ without generation",
-    "damaged NPZ detected"
+    "damaged NPZ detected",
+    "unrecoverable JSON never triggers regeneration",
+    "no-step causal check is not a failure"
   ],
   "environment": {
     "executable": "/root/miniconda3/bin/python",
@@ -46,5 +48,5 @@
   },
   "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke",
   "passed": true,
-  "script_sha256": "866da90db05d1d5467e16b2834b7fb6ff03fdfc63872a65caa0aad0f8081f745"
+  "script_sha256": "4719975530b8db4f420f0b62ab6b2f12f4088d102db73e8de012e806da6c0031"
 }

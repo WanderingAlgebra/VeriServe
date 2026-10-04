@@ -41,7 +41,7 @@ uv pip install --python /path/to/python 'transformers==4.57.3' 'datasets==4.8.5'
 python -m stages.stage2.run_probe --config stages/stage2/config.json --fit-only --resume
 ```
 
-缺少足够训练标签会保存 NA/不足报告，不借用测试题。每题先原子写生成 JSON，再提取 NPZ；特征缺失或校验失败时只重前向原始 `prompt_ids + generated_ids`，不重新生成。无法读取的损坏 JSON 留副本再重做；token 校验不一致则停止并要求检查原始数据。
+缺少足够训练标签会保存 NA/不足报告，不借用测试题。每题先原子写生成 JSON，再提取 NPZ；特征缺失或校验失败时只重前向原始 `prompt_ids + generated_ids`，不重新生成。无法读取的损坏 JSON 留副本并尝试从本地 Git 已提交版本恢复；无可恢复 token 或校验不一致时停止，保留所有文件，不能重新生成来覆盖有效特征。smoke 与恢复检查绑定脚本/common 哈希；采集实现变化时复用原始 token，重新提取和验证，旧版本特征保留。无中途步骤的 smoke 题记为 causal 检查不适用，其轨迹仍保留；全部 smoke 均无有效位置时不允许冻结正式运行。
 
 每 25 道正式题提交并常规推送代码、清单、JSON、NPZ；NPZ 用原生 LFS，小量层分片避免单文件大于 50 MiB。推送失败立即停止下一批，保留本地数据和 events.jsonl 错误；修复连接后原命令 `--resume` 会先重试备份。至少第一批特征通过独立临时仓库 `git lfs fetch/checkout` 取回并校验，结果在 backup.json。
 
