@@ -1,5 +1,5 @@
 {
-  "code_commit": "a6df90f107a7b9949827abeba964649088776d59",
+  "code_commit": "cd5795bb3f2ef67f404bfa19bfcd991ac15f152c",
   "config": {
     "anchor_step": 2,
     "attention": "sdpa",
@@ -269,6 +269,7 @@
     "test/algebra/1529.json",
     "test/algebra/305.json"
   ],
+  "prepare_base_commit": "a6df90f107a7b9949827abeba964649088776d59",
   "probe_hashes": {
     "stages/stage2/runs/20261004-36fe9009f1f5/probe_B.json": "f934d2a8aa677e324edcd128f9c6fddf50a981a5d71a07f16803bbd0aa9de1e9",
     "stages/stage2/runs/20261004-36fe9009f1f5/probe_B.npz": "9492147a4f359c8a9c9fe0e960f72a7ee21d5c99cf44b72e1b7743bb494c1016",
@@ -291,10 +292,10 @@
     "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
     "stages/stage2/config.json": "ebde4a2f85e9829af1d272ef277164af617dab221741abab8e02f3f9a90fd73d",
     "stages/stage2/run_probe.py": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa",
-    "stages/stage3/analyze.py": "0336ef08274789c873739804829ebb01a832c286928588866cf41328bf4d00af",
-    "stages/stage3/protocol.py": "0d11198eb86398ca982ecba81515f11e37f7dbc51cd477b79391f0d92891aa25",
-    "stages/stage3/run_timing.py": "c9a4d221d2e181109ac619021ec8bb04f4446ce58b43aaf8e1dcf4f2ae387a22",
-    "stages/stage3/storage.py": "c18cdde03a20787591263a3e159086aa562b03fdbebb994bdacaa8a60ef5e03b"
+    "stages/stage3/analyze.py": "a35cf5419978e7cf79c85de3fcf8587dd9aae081f2d3fb73c75484e5c6de4474",
+    "stages/stage3/protocol.py": "2b25938a367dafa10ca310198b25edf81de10bb7d7c3f493a4c210898733f0f3",
+    "stages/stage3/run_timing.py": "3e5a36dcf5a22ea982a1cfeb7d22121de66fc2b6a24563fc572635c5688f1db2",
+    "stages/stage3/storage.py": "92478dd017dd06390f94569db05fca84f7f849fe0a7c55c362556ec8a2fd00cc"
   },
   "split_hashes": {
     "dev": "37267dc6bbb5835387fa6e652a88e6f185fb70b9971d622cffccb20dc1cc259a",
@@ -1830,5 +1831,26 @@
     ]
   },
   "stage2_manifest_sha256": "3754e25029ac5ef23d785d77391b0a4e82a3de775cf1680dcc46593317d4c32e",
-  "timing": "T_postfork_wall is follow-up processing time from the common snapshot; offline feature/probe and fork restoration are separate"
+  "timing": "T_postfork_wall is follow-up processing time from the common snapshot; offline feature/probe and fork restoration are separate",
+  "verifier_revision_source": {
+    "config_file_mtime_utc": "2026-10-04T15:52:48.103904+00:00",
+    "method": "hub_model_info",
+    "persisted_before_download": true,
+    "repo": "Qwen/Qwen2.5-Math-PRM-7B",
+    "revisioned_local_cache_found": false,
+    "sha": "0610740060112df12585d00a1c5f4624d2f59051",
+    "stage1_recorded_revision_found": false,
+    "timestamp_basis": "observed persisted config mtime; exact Hub response timestamp was not recorded"
+  },
+  "workingtree": {
+    "head_commit": "cd5795bb3f2ef67f404bfa19bfcd991ac15f152c",
+    "scope": "source files, config, documentation and LFS metadata; excludes run artifacts",
+    "source_clean": false,
+    "source_status": [
+      "M stages/stage3/README.md",
+      " M stages/stage3/protocol.py",
+      " M stages/stage3/run_timing.py",
+      " M stages/stage3/storage.py"
+    ]
+  }
 }

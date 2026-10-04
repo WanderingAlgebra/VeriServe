@@ -1,7 +1,7 @@
 {
   "actual_check_state_transitions": true,
   "budget_rejected_answer_not_submitted": true,
-  "created": "2026-10-04T16:01:25.319785+00:00",
+  "created": "2026-10-04T16:06:11.951122+00:00",
   "environment": {
     "executable": "/root/miniconda3/bin/python",
     "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
@@ -36,6 +36,8 @@
       "complete final retained before EOS",
       "partial next header is pending until colon",
       "DELAY closes fourth ordinary step",
+      "DELAY skips boxed Step 3 and waits for two ordinary steps",
+      "DELAY second ordinary step can close at Final marker",
       "anchor eligibility only excludes boxed in Step 2",
       "illegal and boxed anchors excluded",
       "post-final reasoning is format failure",
@@ -51,7 +53,7 @@
       "FAIL with exhausted rollback budget cannot retry",
       "PRM length has independent tokenizer budget"
     ],
-    "count": 25,
+    "count": 27,
     "passed": true
   },
   "source_hashes": {
@@ -62,9 +64,9 @@
     "stages/stage2/config.json": "ebde4a2f85e9829af1d272ef277164af617dab221741abab8e02f3f9a90fd73d",
     "stages/stage2/run_probe.py": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa",
     "stages/stage3/analyze.py": "a35cf5419978e7cf79c85de3fcf8587dd9aae081f2d3fb73c75484e5c6de4474",
-    "stages/stage3/protocol.py": "0d11198eb86398ca982ecba81515f11e37f7dbc51cd477b79391f0d92891aa25",
-    "stages/stage3/run_timing.py": "178dbe14e34f2cd11e0bd980180df31dab61a1ce9816a9c586578e15ed12b20c",
-    "stages/stage3/storage.py": "c18cdde03a20787591263a3e159086aa562b03fdbebb994bdacaa8a60ef5e03b"
+    "stages/stage3/protocol.py": "2b25938a367dafa10ca310198b25edf81de10bb7d7c3f493a4c210898733f0f3",
+    "stages/stage3/run_timing.py": "3e5a36dcf5a22ea982a1cfeb7d22121de66fc2b6a24563fc572635c5688f1db2",
+    "stages/stage3/storage.py": "92478dd017dd06390f94569db05fca84f7f849fe0a7c55c362556ec8a2fd00cc"
   },
   "status": "PASS",
   "storage": {
@@ -72,7 +74,8 @@
       "atomic_roundtrip",
       "corruption_preserved",
       "fixed_probe_metadata_weights",
-      "190_original_unused_ids_disjoint"
+      "190_original_unused_ids_disjoint",
+      "frozen_backup_interrupt_retry"
     ],
     "status": "PASSED"
   }

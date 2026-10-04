@@ -30,14 +30,15 @@ def boundary(tokenizer, generated_ids, target_step=2):
         return None  # Current content, trailing whitespace and partial headers are not closure.
     _, parsed = boundaries(tokenizer, generated_ids)
     ordinary = next((step for step in parsed["steps"] if step["step_number"] == target_step), None)
-    excluded = [step for step in parsed["excluded_steps"]
-                if (step["step_number"] == 2 if target_step == 2 else 2 < step["step_number"] <= target_step)]
+    excluded = any(step["step_number"] == target_step for step in parsed["excluded_steps"])
     if excluded:
         if target_step == 2:
             raise ValueError("NO_ELIGIBLE_ANCHOR: EXPLICIT_FINAL_OR_BOXED in Step 2")
-        return None  # DELAY reaches the endpoint if two more ordinary steps never exist.
+        return None
     if ordinary is None:
         raise ValueError("NO_ELIGIBLE_ANCHOR: " + "; ".join(parsed["format_errors"]))
+    if target_step > 2 and sum(2 < step["step_number"] <= target_step for step in parsed["steps"]) < 2:
+        return None
     # A pending empty Step N is expected; errors in the accepted part are not.
     for error in parsed["format_errors"]:
         if "empty Step" in error and next_marker and error.endswith(f"Step {numbers[target + 1]}"):
@@ -50,6 +51,26 @@ def boundary(tokenizer, generated_ids, target_step=2):
             "pending_ids": list(generated_ids[count:]), "current_step": target_step,
             "near_end": bool(near_end), "delay_collapsed": bool(near_end),
             "step": {**ordinary, "near_end": bool(near_end)}}
+
+
+def delay_boundary(tokenizer, generated_ids):
+    """Check after two actual ordinary steps beyond Step 2, using only closed steps."""
+    text = decode(tokenizer, generated_ids)
+    matches = list(STEP.finditer(text))
+    numbers = [int(match.group(1)) for match in matches]
+    if numbers != list(range(1, len(numbers) + 1)):
+        raise ValueError("FORMAT_ERROR: missing, repeated or non-sequential Step N markers")
+    final = FINAL.search(text)
+    closed = [match for i, match in enumerate(matches)
+              if i + 1 < len(matches) or final is not None and final.start() > match.start()]
+    for match in reversed(closed):
+        target = int(match.group(1))
+        if target < 4:
+            break  # Two additional ordinary steps cannot fit before Step 4.
+        found = boundary(tokenizer, generated_ids, target_step=target)
+        if found:
+            return found
+    return None
 
 
 def terminal(tokenizer, generated_ids, eos=False, text=None):
@@ -207,6 +228,14 @@ def self_check():
     check("partial next header is pending until colon", boundary(partial, [0]) is None)
     delay = Tokenizer(["Step 1:", " a", "\nStep 2:", " b", "\nStep 3:", " c", "\nStep 4:", " d", "\nFinal answer:"])
     check("DELAY closes fourth ordinary step", boundary(delay, list(range(9)), 4)["current_step"] == 4)
+    skipped = Tokenizer(["Step 1:", " a", "\nStep 2:", " b", "\nStep 3:", r" \boxed{1}",
+                         "\nStep 4:", " c", "\nStep 5:", " d", "\nStep 6:"])
+    check("DELAY skips boxed Step 3 and waits for two ordinary steps",
+          delay_boundary(skipped, list(range(9))) is None
+          and delay_boundary(skipped, list(range(10))) is None
+          and delay_boundary(skipped, list(range(11)))["current_step"] == 5)
+    check("DELAY second ordinary step can close at Final marker",
+          delay_boundary(Tokenizer(skipped.pieces[:10] + ["\nFinal answer:"]), list(range(11)))["current_step"] == 5)
     prior_box = Tokenizer(["Step 1:", r" \boxed{1}", "\nStep 2:", " y", "\nStep 3:"])
     check("anchor eligibility only excludes boxed in Step 2", boundary(prior_box, list(range(5)))["current_step"] == 2)
     for invalid in ("Step 1: a\nStep 3: b", "Step 1: a\nStep 2: b\nStep 2: c",

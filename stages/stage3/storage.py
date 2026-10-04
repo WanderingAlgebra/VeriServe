@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -19,6 +20,15 @@ from stages.stage2.run_probe import (ROOT, BRANCH, SHA, atomic_bytes, digest,
 
 HERE = Path(__file__).resolve().parent
 STAGE2 = ROOT / "stages/stage2/runs/20261004-36fe9009f1f5"
+# The initial resolution preceded downloads; preserve its provenance without changing config_hash.
+INITIAL_VERIFIER_RESOLUTION = {
+    "repo": "Qwen/Qwen2.5-Math-PRM-7B",
+    "sha": "0610740060112df12585d00a1c5f4624d2f59051",
+    "method": "hub_model_info",
+    "stage1_recorded_revision_found": False,
+    "revisioned_local_cache_found": False,
+    "persisted_before_download": True,
+}
 
 
 def source_hashes():
@@ -42,6 +52,31 @@ def environment():
     except (OSError, subprocess.SubprocessError):
         result["nvidia_smi"] = "unavailable"
     return result
+
+
+def workingtree():
+    # Artifact writes are excluded so recording the manifest does not dirty its own provenance.
+    paths = [*source_hashes(), "stages/stage3/config.json", "stages/stage3/README.md",
+             ".gitignore", ".gitattributes"]
+    status = git("status", "--porcelain=v1", "--untracked-files=all", "--", *paths)
+    return {"head_commit": git("rev-parse", "HEAD"), "source_clean": not bool(status),
+            "source_status": status.splitlines(),
+            "scope": "source files, config, documentation and LFS metadata; excludes run artifacts"}
+
+
+def verifier_provenance(cfg, config_path=None):
+    if cfg.get("verifier_revision_source"):
+        return cfg["verifier_revision_source"]
+    if (cfg["verifier"]["id"] == INITIAL_VERIFIER_RESOLUTION["repo"]
+            and cfg["revisions"]["verifier"] == INITIAL_VERIFIER_RESOLUTION["sha"]):
+        result = dict(INITIAL_VERIFIER_RESOLUTION)
+        if config_path is not None:
+            result["config_file_mtime_utc"] = datetime.fromtimestamp(
+                Path(config_path).stat().st_mtime, timezone.utc).isoformat()
+            result["timestamp_basis"] = "observed persisted config mtime; exact Hub response timestamp was not recorded"
+        return result
+    return {"method": "configured_exact_revision", "repo": cfg["verifier"]["id"],
+            "sha": cfg["revisions"]["verifier"], "original_resolution_provenance": "unavailable"}
 
 
 def event(run, kind, **values):
@@ -223,6 +258,16 @@ def prepare(config_path, resume=True):
         frozen = safe_read_json(run / "protocol_frozen.json", {})
         if frozen and frozen.get("source_hashes") != source_hashes():
             raise ValueError("Frozen source files changed; preserve old records and use a new run")
+        if not frozen and not any((run / "snapshots").glob("**/*.json")):
+            updated = {**manifest, "prepare_base_commit": manifest.get("prepare_base_commit", manifest["code_commit"]),
+                       "source_hashes": source_hashes(), "environment": environment(),
+                       "code_commit": git("rev-parse", "HEAD"), "workingtree": workingtree(),
+                       "verifier_revision_source": verifier_provenance(cfg, config_path)}
+            if updated != manifest:
+                atomic_json(run / "manifest.json", updated)
+                event(run, "PREPARE_PROVENANCE_REFRESHED", code_commit=updated["code_commit"],
+                      prepare_base_commit=updated["prepare_base_commit"], source_hashes=updated["source_hashes"])
+                manifest = updated
         return cfg, run, manifest
     from datasets import load_dataset
     rows = list(load_dataset(cfg["dataset"], split=cfg["dataset_split"],
@@ -240,7 +285,9 @@ def prepare(config_path, resume=True):
         "split_hashes": {phase: stable_hash(values) for phase, values in splits.items()},
         "stage2_manifest_sha256": digest(stage2 / "manifest.json"),
         "probe_hashes": probes, "source_hashes": source_hashes(),
-        "code_commit": git("rev-parse", "HEAD"), "environment": environment(),
+        "code_commit": git("rev-parse", "HEAD"), "prepare_base_commit": git("rev-parse", "HEAD"),
+        "workingtree": workingtree(), "environment": environment(),
+        "verifier_revision_source": verifier_provenance(cfg, config_path),
         "feature_extraction": cfg["feature_extraction"],
         "probe_interpretation": "risk of incorrect unintervened complete trajectory",
         "feedback_adaptation": "checkpoint_step=0: No reasoning steps have been accepted. Restart from Step 1.",
@@ -321,6 +368,11 @@ def backup(run, reason="manual"):
     previous = safe_read_json(run / "backup.json", {})
     env = {**os.environ, "GIT_TERMINAL_PROMPT": "0"}
     paths = ["stages/stage3", ".gitignore", ".gitattributes"]
+    last = previous.get("last_successful_commit") or (
+        previous.get("commit") if previous.get("status") == "PUSHED" else None)
+    atomic_json(run / "backup.json", {**previous, "status": "PENDING", "time": now(),
+                "reason": reason, "last_successful_commit": last})
+    event(run, "BACKUP_PENDING", reason=reason, last_successful_commit=last)
     try:
         if git("branch", "--show-current") != BRANCH:
             raise RuntimeError(f"Expected authorized existing branch {BRANCH}")
@@ -342,7 +394,11 @@ def backup(run, reason="manual"):
         if not remote or remote[0] != commit:
             raise RuntimeError("Remote did not confirm the ordinary pushed commit")
         verification = previous.get("remote_verification") or verify_remote(run, commit)
+        frozen_path, groups_path = run / "protocol_frozen.json", run / "dev_groups.json"
         status = {"status": "PUSHED", "commit": commit, "last_successful_commit": commit,
+                  "stage3_source_commit": commit, "source_hashes": source_hashes(),
+                  "protocol_frozen_sha256": digest(frozen_path) if frozen_path.exists() else None,
+                  "dev_groups_sha256": digest(groups_path) if groups_path.exists() else None,
                   "pushed_at": now(), "completed_problems": completed_problems(run),
                   "remote_verification": verification}
         atomic_json(run / "backup.json", status)
@@ -350,14 +406,35 @@ def backup(run, reason="manual"):
               remote_verified=bool(verification))
         return status
     except Exception as exc:
-        last = previous.get("last_successful_commit") or (
-            previous.get("commit") if previous.get("status") == "PUSHED" else None)
         status = {"status": "FAILED", "error": safe_error(exc), "time": now(),
                   "last_successful_commit": last,
                   "remote_verification": previous.get("remote_verification")}
         atomic_json(run / "backup.json", status)
         event(run, "BACKUP_FAILED", error=safe_error(exc), last_successful_commit=last)
         raise RuntimeError(f"Backup failed; retained local data, stop before next batch: {safe_error(exc)}") from exc
+
+
+def ensure_frozen_backup(run, frozen):
+    """A frozen file alone never proves it was pushed; persist pending state before retry."""
+    run = Path(run)
+    frozen_path, groups_path = run / "protocol_frozen.json", run / "dev_groups.json"
+    if digest(groups_path) != frozen["dev_groups_sha256"]:
+        raise RuntimeError("Frozen dev groups hash changed; preserve files and recover the original groups")
+    status = safe_read_json(run / "backup.json", {})
+    if (status.get("status") == "PUSHED"
+            and status.get("protocol_frozen_sha256") == digest(frozen_path)
+            and status.get("dev_groups_sha256") == frozen["dev_groups_sha256"]
+            and status.get("source_hashes") == frozen["source_hashes"]
+            and status.get("stage3_source_commit") == status.get("commit")):
+        return status
+    last = status.get("last_successful_commit") or (
+        status.get("commit") if status.get("status") == "PUSHED" else None)
+    atomic_json(run / "backup.json", {**status, "status": "PENDING", "time": now(),
+                "reason": "frozen protocol must be pushed before test",
+                "last_successful_commit": last})
+    event(run, "FROZEN_BACKUP_PENDING", last_successful_commit=last,
+          protocol_frozen_sha256=digest(frozen_path))
+    return backup(run, "freeze dev groups and protocol before independent test")
 
 
 def self_check():
@@ -375,13 +452,33 @@ def self_check():
             raise AssertionError("Corrupt records must not become new generation requests")
         assert path.read_text() == "{broken"
         assert len(list(path.parent.glob("record.json.corrupt-*"))) == 1
+        run = path.parent / "run"
+        save_json(run / "dev_groups.json", {"B": [1, 2], "C": [1, 2]})
+        frozen = {"dev_groups_sha256": digest(run / "dev_groups.json"), "source_hashes": {"code.py": "hash"}}
+        save_json(run / "protocol_frozen.json", frozen)
+        pushed = {"status": "PUSHED", "commit": "a" * 40, "stage3_source_commit": "a" * 40,
+                  "source_hashes": frozen["source_hashes"], "dev_groups_sha256": frozen["dev_groups_sha256"],
+                  "protocol_frozen_sha256": digest(run / "protocol_frozen.json")}
+        save_json(run / "backup.json", pushed)
+        assert ensure_frozen_backup(run, frozen) == pushed
+        save_json(run / "backup.json", {"status": "PUSHED", "commit": "a" * 40})
+        original_backup = globals()["backup"]
+        def fake_backup(folder, reason):
+            pending = safe_read_json(folder / "backup.json")
+            assert pending["status"] == "PENDING" and pending["last_successful_commit"] == "a" * 40
+            return {"status": "SELF_CHECK_RETRY_OBSERVED"}
+        globals()["backup"] = fake_backup
+        try:
+            assert ensure_frozen_backup(run, frozen)["status"] == "SELF_CHECK_RETRY_OBSERVED"
+        finally:
+            globals()["backup"] = original_backup
     assert probe_hashes(STAGE2)
     original = read_json(STAGE2 / "manifest.json")
     ids = original["unused_ids"]
     assert len(ids) == len(set(ids)) == 190
     assert not set(ids) & {r["unique_id"] for rows in original["splits"].values() for r in rows}
     return {"status": "PASSED", "checks": ["atomic_roundtrip", "corruption_preserved",
-            "fixed_probe_metadata_weights", "190_original_unused_ids_disjoint"]}
+            "fixed_probe_metadata_weights", "190_original_unused_ids_disjoint", "frozen_backup_interrupt_retry"]}
 
 
 if __name__ == "__main__":

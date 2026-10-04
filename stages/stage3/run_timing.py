@@ -72,7 +72,13 @@ class Session:
 
     def sample(self):
         self.ensure()
-        token = int(self.logits.argmax())
+        from transformers import RepetitionPenaltyLogitsProcessor
+        import torch
+        scores=self.logits.float()[None]
+        penalty=self.model.generation_config.repetition_penalty
+        if penalty!=1.0:
+            scores=RepetitionPenaltyLogitsProcessor(penalty)(torch.tensor([self.ids],device=scores.device),scores)
+        token = int(scores[0].argmax())
         self.ids.append(token)  # last sampled token may still be absent from KV
         return token
 
@@ -272,7 +278,7 @@ def arm_state(snapshot, arm):
             'generated_segments':[{'kind':'COMMON','ids':reasoning.copy()}], 'feedback_tokens':[],
             'budget':{**copy.deepcopy(snapshot['budget']),'prm_calls':0,'rollbacks':0,'revoked_tokens':0,
                       'feedback_tokens':0},'timing':{},'backend':snapshot['backend'], 'Y':None,
-            'snapshot_token_hash':snapshot['token_hash'],'created':old.now()}
+            'snapshot_token_hash':snapshot['token_hash'],'source_hashes':storage.source_hashes(),'created':old.now()}
 
 
 def reasoning_text(state, tokenizer, start=0, end=None):
@@ -323,13 +329,17 @@ def prm_check(cfg, state, session, verifier, tokenizer, prefix_count, final, for
            'raw':raw,'input_ids':ids,'input_tokens':input_tokens,'accepted_steps':prior,
            'current_step':current,'reasoning_tokens':prefix_count,'seconds':elapsed,
            'feedback_ids':feedback_ids,'feedback_text':feedback,'synthetic':forced is not None,
-           'extra_steps':max(0,current-2),'early_endpoint':bool(final and not state['first_check_done'] and current<4)}
+           'extra_steps':sum(s['step_number']>2 for s in old.boundaries(tokenizer,prefix)[1]['steps']) if not state['first_check_done'] else None,
+           'early_endpoint':False}
+    check['early_endpoint']=bool(final and check['is_first'] and (check['extra_steps'] or 0)<2)
     state['checks'].append(check)
     state['events'].append(check.copy())
     if not state['first_check_done']:
         state['first_check']={'extra_steps':check['extra_steps'],'early_endpoint':check['early_endpoint'],
                               'position':check['position'],'input_tokens':input_tokens}
     state['first_check_done']=True
+    if state['arm']=='DELAY_2' and check['is_first']:
+        state['delay_collapsed']=check['early_endpoint']
     state['timing']['verification_seconds']=state['timing'].get('verification_seconds',0)+elapsed
     if effective=='PASS':
         end=state['reasoning_positions'][prefix_count-1]+1 if prefix_count else len(state['prompt_ids'])
@@ -450,7 +460,7 @@ def execute_arm(cfg, run, row, snapshot, arm, model, tokenizer, verifier, backen
                 break
             if not state['first_check_done'] and arm=='DELAY_2':
                 try:
-                    bound=protocol.boundary(tokenizer,state['reasoning_ids'],target_step=4)
+                    bound=protocol.delay_boundary(tokenizer,state['reasoning_ids'])
                 except ValueError as exc:
                     reason='STEP_FORMAT_ERROR: '+str(exc)
                     break
@@ -461,14 +471,11 @@ def execute_arm(cfg, run, row, snapshot, arm, model, tokenizer, verifier, backen
                 atomic_json(path,state)
         state['timing']['generation_control_seconds']=state['timing'].get('generation_control_seconds',0)+(clock()-generation_start)
         state['termination']=reason
+        if state.get('submitted_reasoning_ids') is not None:
+            state['submitted_text']=reasoning_text(state,tokenizer,0,len(state['submitted_reasoning_ids']))
         state['timing']['T_postfork_wall']=clock()-start
         state['timing']['peak_allocated_bytes']=torch.cuda.max_memory_allocated()
         state['timing']['common_generated_tokens_inherited']=snapshot['budget']['generated_tokens']
-        if state.get('submitted_reasoning_ids') is not None:
-            ids=list(state['submitted_reasoning_ids'])
-            while ids and ids[-1] in tokenizer.all_special_ids:
-                ids.pop()
-            state['submitted_text']=reasoning_text(state,tokenizer,0,len(ids))
         finish_arm(cfg,state,row)
         atomic_json(path,state)
         storage.event(run,'ARM_COMPLETED',unique_id=row['unique_id'],arm=arm,Y=state['Y'],termination=reason,
@@ -496,6 +503,17 @@ def pilot_checks(cfg,run,snapshot,model,tokenizer,verifier):
     max_abs=float(np.max(np.abs(h-reference)))
     if not np.allclose(h,reference,atol=cfg['causal_atol'],rtol=cfg['causal_rtol']):
         raise RuntimeError('Pilot hidden_states[19] prefix extraction differs from stage2; tolerance unchanged')
+    direct_prompt=torch.tensor([snapshot['prompt_ids']],device='cuda:0')
+    with torch.inference_mode():
+        native=model.generate(input_ids=direct_prompt,attention_mask=torch.ones_like(direct_prompt),do_sample=False,
+                              max_new_tokens=32,use_cache=True,pad_token_id=tokenizer.pad_token_id,
+                              eos_token_id=model.generation_config.eos_token_id)[0,len(snapshot['prompt_ids']):].tolist()
+    streamed=Session(model,snapshot['prompt_ids'])
+    greedy=[]
+    for _ in native:
+        greedy.append(streamed.sample())
+    native_greedy_ok=native==greedy
+    del direct_prompt,streamed
     base=Session(model,snapshot['prompt_ids'])
     for token in snapshot['prefix_ids']+snapshot['pending_ids']:
         base.ids.append(token)
@@ -503,18 +521,21 @@ def pilot_checks(cfg,run,snapshot,model,tokenizer,verifier):
     continuous=base.clone()
     paused=base.clone()
     a,b=[],[]
+    ref_logits=[]
     max_logits=float((continuous.logits-paused.logits).abs().max().item())
     eos_cfg=model.generation_config.eos_token_id
     eos=set(eos_cfg if isinstance(eos_cfg,list) else [eos_cfg])
     for _ in range(32):
         token=continuous.sample()
         a.append(token)
+        ref_logits.append(continuous.logits.clone())
         if token in eos:
             break
     raw,_,_,_=verifier.verify(snapshot['problem'],'',old.decode(tokenizer,snapshot['prefix_ids']))
     for index in range(len(a)):
         token=paused.sample()
         b.append(token)
+        max_logits=max(max_logits,float((ref_logits[index]-paused.logits).abs().max().item()))
     # Same retained cache with a paused PRM call, no control changes.
     pause_match=a==b
     forced=arm_state(snapshot,'SYNTHETIC_SELF_CHECK')
@@ -538,10 +559,11 @@ def pilot_checks(cfg,run,snapshot,model,tokenizer,verifier):
     # Document the experiment-only full-prefill numerical effect separately.
     restore=Session(model,snapshot['prompt_ids']+snapshot['prefix_ids']+snapshot['pending_ids'])
     delta=float((base.logits-restore.logits).abs().max().item())
-    check={'status':'PASS' if pause_match and forced_ok else 'FAILED','source_hashes':storage.source_hashes(),
-           'unique_id':snapshot['unique_id'],'feature':{'layer':19,'max_abs':max_abs,'atol':cfg['causal_atol'],
+    check={'status':'PASS' if pause_match and forced_ok and native_greedy_ok else 'FAILED','source_hashes':storage.source_hashes(),
+           'unique_id':snapshot['unique_id'],'native_greedy':{'pass':native_greedy_ok,'native_ids':native,'streamed_ids':greedy,
+           'repetition_penalty':model.generation_config.repetition_penalty},'feature':{'layer':19,'max_abs':max_abs,'atol':cfg['causal_atol'],
            'rtol':cfg['causal_rtol'],'pass':True},'pause':{'continuous_ids':a,'paused_ids':b,
-           'token_equal':pause_match,'initial_logit_max_abs':max_logits,'prm_output':json.loads(raw)},
+           'token_equal':pause_match,'logit_max_abs':max_logits,'token_difference_positions':[i for i,(x,y) in enumerate(zip(a,b)) if x!=y],'prm_output':json.loads(raw)},
            'snapshot_prefill_diagnostic':{'logit_max_abs':delta,'note':'full prefix shape may differ in BF16; both arms use identical restore'},
            'forced_fail':{'pass':forced_ok,'synthetic':True,'excluded_from_statistics':True,'state':forced,
            'retry_ids':retry,'retry_text':text},'created':old.now()}
@@ -661,7 +683,9 @@ def validate_evaluation_data(cfg,run,row):
         for arm in ('NOW','DELAY_2'):
             path=run/'arms'/f'{key(uid)}.{arm}.json'
             state=storage.safe_read_json(path)
-            state['grading_original']=state['grading']
+            if state['grading'].get('exclusion')==data[uid]['status'] and state['Y'] is None:
+                continue
+            state.setdefault('grading_original',state['grading'])
             state['grading']={**state['grading'],'exclusion':data[uid]['status']}
             state['Y']=None
             atomic_json(path,state)
@@ -674,6 +698,7 @@ def freeze(cfg,run,manifest):
     if frozen:
         if frozen['source_hashes']!=storage.source_hashes() or frozen['config_hash']!=manifest['config_hash']:
             raise RuntimeError('Frozen protocol source changed; use new run_id, preserve old run')
+        storage.ensure_frozen_backup(run,frozen)
         return frozen
     groups=freeze_groups(cfg,run,manifest)
     frozen={'source_hashes':storage.source_hashes(),'config_hash':manifest['config_hash'],
@@ -682,7 +707,7 @@ def freeze(cfg,run,manifest):
             'feedback_adaptation':'checkpoint 0: No reasoning steps have been accepted. Restart from Step 1.; preserve diagnosis/hint',
             'cache_implementation':'DynamicCache.crop; feedback incremental prefill; experimental initial full prefix restore only'}
     atomic_json(run/'protocol_frozen.json',frozen)
-    storage.backup(run,'freeze dev groups and protocol before independent test')
+    storage.ensure_frozen_backup(run,frozen)
     return frozen
 
 
@@ -692,7 +717,7 @@ def run_phase(cfg,run,manifest,phase,stop_after=None):
     if not check or check['status']!='PASS' or check['source_hashes']!=storage.source_hashes():
         raise RuntimeError('Current implementation requires passing CPU self-check')
     backup=storage.safe_read_json(run/'backup.json',{})
-    if backup.get('status')!='PUSHED':
+    if backup.get('status')!='PUSHED' or backup.get('source_hashes')!=storage.source_hashes():
         storage.backup(run,'resume pending stage3 backup before generation')
     if phase in ('dev','test'):
         pilot=storage.safe_read_json(run/'pilot_checks.json',{})
@@ -709,6 +734,12 @@ def run_phase(cfg,run,manifest,phase,stop_after=None):
                 raise RuntimeError('Incomplete pilot pair')
     if phase=='test':
         freeze(cfg,run,manifest)
+    phase_execution=storage.safe_read_json(run/'phase_execution.json',{})
+    if phase in ('dev','test') and phase in phase_execution and phase_execution[phase]['source_hashes']!=storage.source_hashes():
+        raise RuntimeError('Phase source semantics changed; preserve this run and add run_note for a new run_id with the same IDs')
+    if phase not in phase_execution:
+        phase_execution[phase]={'source_hashes':storage.source_hashes(),'code_commit':old.git('rev-parse','HEAD'),'created':old.now()}
+        atomic_json(run/'phase_execution.json',phase_execution)
     pending_resume=storage.safe_read_json(run/'resume_probe.json')
     if pending_resume and pending_resume['phase']==phase:
         current=artifact_hashes(run,phase)
@@ -725,6 +756,10 @@ def run_phase(cfg,run,manifest,phase,stop_after=None):
         snap=storage.safe_read_json(run/'snapshots'/f'{key(row["unique_id"])}.json',{})
         completed=(snap.get('status')=='NO_ELIGIBLE_ANCHOR' or (snap.get('status')=='ELIGIBLE' and all(
             storage.safe_read_json(run/'arms'/f'{key(row["unique_id"])}.{arm}.json',{}).get('completed') for arm in ('NOW','DELAY_2'))))
+        if completed and snap.get('status')=='ELIGIBLE':
+            if phase in ('dev','test') and any(storage.safe_read_json(run/'arms'/f'{key(row["unique_id"])}.{arm}.json')['source_hashes']!=storage.source_hashes() for arm in ('NOW','DELAY_2')):
+                raise RuntimeError('Saved dev/test arm source mismatch; use a new run_id, never mix execution semantics')
+            validate_evaluation_data(cfg,run,row)
         if not completed:
             remaining.append((index,row))
     if not remaining:
@@ -741,7 +776,9 @@ def run_phase(cfg,run,manifest,phase,stop_after=None):
     model,tokenizer,verifier=load_resident(cfg,run)
     probes=probe_files(cfg)
     atomic_json(run/'runtime_environment.json',{'environment':hardware,'bitsandbytes':__import__('importlib.metadata',fromlist=['version']).version('bitsandbytes'),
-                'backend':backend,'created':old.now()})
+                'backend':backend,'effective_generation_config':{**model.generation_config.to_dict(),'do_sample':False},
+                'model_config_sha256':old.digest(Path(model.config._name_or_path)/'config.json') if Path(model.config._name_or_path).is_dir() else None,
+                'created':old.now()})
     completed_now=0
     try:
         for index,row in remaining:
@@ -764,7 +801,10 @@ def run_phase(cfg,run,manifest,phase,stop_after=None):
                 validate_evaluation_data(cfg,run,row)
             completed_now+=1
             storage.event(run,'PROBLEM_COMPLETED',unique_id=row['unique_id'],phase=phase,completed_this_process=completed_now)
-            if completed_now%cfg['backup_every']==0:
+            current_counts=storage.completed_problems(run)
+            backed_counts=storage.safe_read_json(run/'backup.json',{}).get('completed_problems',{})
+            unbacked=sum(current_counts.values())-sum(backed_counts.values())
+            if unbacked>=cfg['backup_every']:
                 analyze(cfg,run,manifest)
                 storage.backup(run,f'{phase} progress {completed_now} new problems')
             if stop_after and completed_now>=stop_after:
