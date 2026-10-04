@@ -291,6 +291,57 @@
     "stages/stage2/runs/20261004-36fe9009f1f5/probe_C.npz": "a9348171f82e7663269686202c7700c150ad36bd8c126e189906ac38fecfb099"
   },
   "probe_interpretation": "risk of incorrect unintervened complete trajectory",
+  "reused_public_snapshots": [
+    {
+      "arms_reused": false,
+      "compatibility_ast_hashes": {
+        "protocol.boundary": "b6b48d4260d9f820cfa4138504f40d732255b5bd4efa9650531f364780149cc2",
+        "protocol.delay_boundary": "f8e082e6129209f1e8e59f9f7eabebc2b25bf319d356aba59e1127cc9b0e2e52",
+        "protocol.terminal": "271025f9b52f7bf848788cb3b557dec8a1128fcc0b6e7b5e970d607822aad0e0",
+        "run_timing.Session": "a21eecc12084a4aa683ed6e6a6c4cc344fa9b67679f8315b133455a7abad9992",
+        "run_timing.feature": "a1c1e433de3e70d6b63a95e3e4e682d197096ed629cc2b62be96219a7f03f640",
+        "run_timing.generator_limit": "6b9a68b7c1f1db97804ebbdb6d91f4fe22ba53e2e459265c0f75228346beb03b",
+        "run_timing.initial_snapshot": "b9e2d2864dcd40260cadbbd05bd7994701769904a14cbb0e0a4e25d16941873c",
+        "run_timing.key": "885aa0e989c4156c29505a09ab43d974d1649b60b4a71f034767597dd3c230e4",
+        "run_timing.probe_files": "92727f85439d2bdf90b376288a544db0026485e90816c61bf781a77c6a8eda96",
+        "run_timing.score_snapshot": "27c8709a775c3b76a0b2ed9ebf821e7b0e64764bb7c8a2a5b951991847c7cfbc"
+      },
+      "copied_all_finished_public_snapshots": true,
+      "created": "2026-10-04T16:44:59.393714+00:00",
+      "inherited_timing_fields": [
+        "T_common_generation",
+        "T_offline_feature",
+        "T_probe"
+      ],
+      "original_snapshot_source_hashes_retained": true,
+      "pilot_checks_reused": false,
+      "prm_input_correction_only": true,
+      "raw_bytes_unchanged": [
+        {
+          "from": "stages/stage3/runs/20261004-bcab71671427/snapshots/9752291fe1302ac010a0.json",
+          "sha256": "9030f8288b6bd4b1cbd2701e995ca91c1f983c91f2c2c25255791e3b05d67100",
+          "to": "stages/stage3/runs/20261004-109173095d08/snapshots/9752291fe1302ac010a0.json"
+        },
+        {
+          "from": "stages/stage3/runs/20261004-bcab71671427/snapshots/9752291fe1302ac010a0.npz",
+          "sha256": "46f93607d956c977fc4f99e3dc3b9d32ad9efd743f4870a318fdb616ced9f631",
+          "to": "stages/stage3/runs/20261004-109173095d08/snapshots/9752291fe1302ac010a0.npz"
+        }
+      ],
+      "selection": "all finished public snapshots; no selection by outcomes or scores",
+      "shared_generation_config_hash": "746da86975da0346de762a5b0c2c9b78fe15c45151f2184268c76b4927eb78af",
+      "source_commit": "0242cc5558f1db60a27d80ad63f73ed805a10fd6",
+      "source_run": "stages/stage3/runs/20261004-bcab71671427",
+      "unchanged_generation_feature_functions_ast": [
+        "key",
+        "Session",
+        "generator_limit",
+        "initial_snapshot",
+        "feature",
+        "score_snapshot"
+      ]
+    }
+  ],
   "revisions": {
     "dataset": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
     "model": "a09a35458c702b33eeacc393d103063234e8bc28",
