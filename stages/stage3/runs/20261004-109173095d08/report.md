@@ -105,58 +105,58 @@ DELAY_2 后续时间均值/中位数/p95（描述性）：10.4216/6.0969/33.5867
 
 ## test
 
-计划 130 题；已保存锚点状态 70 题；合格 70 题（覆盖率 0.5385）；完整配对 70，有效质量配对 70，有效时间配对 70。
-锚点不合格原因：`{}`；未执行/待恢复锚点：`{"MISSING_SNAPSHOT": 60}`；待完成配对 0；基础设施中断配对 0；质量评估排除：`{}`。
+计划 130 题；已保存锚点状态 80 题；合格 80 题（覆盖率 0.6154）；完整配对 80，有效质量配对 80，有效时间配对 80。
+锚点不合格原因：`{}`；未执行/待恢复锚点：`{"MISSING_SNAPSHOT": 50}`；待完成配对 0；基础设施中断配对 0；质量评估排除：`{}`。
 
 | 范围 | 合格题数 | 质量配对 | NOW 正确率 | DELAY_2 正确率 | ΔY [95% CI] | ΔT 秒 [95% CI] | 错→对 | 对→错 | 前缀 token 均值 |
 | --- | ---: | ---: | ---: | ---: | --- | --- | ---: | ---: | ---: |
-| 总体 | 70 | 70 | 0.6571 | 0.6429 | 0.0143 [-0.0286, 0.0571] | 0.1285 [-1.3523, 1.6500] | 2 | 1 | 107.0286 |
-| B low | 23 | 23 | 0.9130 | 0.8696 | 0.0435 [0.0000, 0.1739] | 0.6679 [-0.2409, 2.7643] | 1 | 0 | 78.2174 |
-| B mid | 16 | 16 | 0.5625 | 0.5625 | 0.0000 [0.0000, 0.0000] | 0.1880 [-0.6784, 0.9207] | 0 | 0 | 130.0625 |
-| B high | 31 | 31 | 0.5161 | 0.5161 | 0.0000 [-0.0968, 0.0968] | -0.3025 [-3.5862, 3.0212] | 1 | 1 | 116.5161 |
-| C low | 29 | 29 | 0.8276 | 0.8276 | 0.0000 [0.0000, 0.0000] | -0.0327 [-0.4561, 0.2671] | 0 | 0 | 60.6897 |
-| C mid | 17 | 17 | 0.5882 | 0.6471 | -0.0588 [-0.1765, 0.0000] | 2.3508 [-0.3953, 5.6969] | 0 | 1 | 98.7647 |
-| C high | 24 | 24 | 0.5000 | 0.4167 | 0.0833 [0.0000, 0.2083] | -1.2509 [-5.3388, 2.4005] | 2 | 0 | 168.8750 |
+| 总体 | 80 | 80 | 0.6875 | 0.6750 | 0.0125 [-0.0250, 0.0625] | 0.1147 [-1.3324, 1.4873] | 2 | 1 | 107.3125 |
+| B low | 27 | 27 | 0.9259 | 0.8889 | 0.0370 [0.0000, 0.1111] | 0.5703 [-0.1451, 1.8996] | 1 | 0 | 85.1481 |
+| B mid | 18 | 18 | 0.6111 | 0.6111 | 0.0000 [0.0000, 0.0000] | 0.1708 [-0.5914, 0.8581] | 0 | 0 | 132.8889 |
+| B high | 35 | 35 | 0.5429 | 0.5429 | 0.0000 [-0.0857, 0.0857] | -0.2656 [-3.1146, 2.4397] | 1 | 1 | 111.2571 |
+| C low | 31 | 31 | 0.8065 | 0.8065 | 0.0000 [0.0000, 0.0000] | -0.0293 [-0.4275, 0.2657] | 0 | 0 | 59.1935 |
+| C mid | 21 | 21 | 0.6667 | 0.7143 | -0.0476 [-0.1429, 0.0000] | 1.9033 [-0.3187, 4.8203] | 0 | 1 | 99.0952 |
+| C high | 28 | 28 | 0.5714 | 0.5000 | 0.0714 [0.0000, 0.1786] | -1.0674 [-4.1767, 1.6085] | 2 | 0 | 166.7500 |
 
 总体质量：95% CI 跨零，当前证据不足；不能据此宣称两种动作等效。 总体时间：95% CI 跨零，当前证据不足；不能据此宣称两种动作等效。
 总体 ΔY/ΔT 有效 bootstrap 次数：1000/1000/1000/1000。
 
 | 范围 | NOW 时间均值/中位秒 | DELAY_2 时间均值/中位秒 | 检查/回滚均值 | 生成/撤销 token 均值 | 首检 FAIL/UNCERTAIN 比例 | 结果分类次数 | ΔY;ΔT 有效 bootstrap |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 总体 | 11.3167/7.4110 | 11.4452/7.4697 | NOW:2.4571/0.5286; DELAY_2:2.3000/0.5143 | NOW:728.6857/279.0429; DELAY_2:733.7143/254.0143 | NOW:0.0429/0.0000; DELAY_2:0.1449/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 13, "CORRECT": 46, "FORMAT_OR_PREDICTION_PARSE": 1, "OTHER_ALGORITHM_FAILURE": 1, "WRONG_SUBMITTED": 9}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 16, "CORRECT": 45, "FORMAT_OR_PREDICTION_PARSE": 2, "WRONG_SUBMITTED": 7}` | 1000/1000;1000/1000 |
-| B low | 5.8160/3.1691 | 6.4839/3.1887 | NOW:2.1304/0.1304; DELAY_2:2.0870/0.1739 | NOW:400.0000/71.9130; DELAY_2:435.1304/95.0435 | NOW:0.0000/0.0000; DELAY_2:0.0435/0.0000 | NOW:`{"CORRECT": 21, "WRONG_SUBMITTED": 2}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 2, "CORRECT": 20, "WRONG_SUBMITTED": 1}` | 1000/1000;1000/1000 |
-| B mid | 8.6203/9.0495 | 8.8082/9.0998 | NOW:2.1250/0.4375; DELAY_2:2.0000/0.4375 | NOW:603.7500/114.8750; DELAY_2:613.1875/127.4375 | NOW:0.1875/0.0000; DELAY_2:0.2667/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 3, "CORRECT": 9, "FORMAT_OR_PREDICTION_PARSE": 1, "OTHER_ALGORITHM_FAILURE": 1, "WRONG_SUBMITTED": 2}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 3, "CORRECT": 9, "FORMAT_OR_PREDICTION_PARSE": 2, "WRONG_SUBMITTED": 2}` | 1000/1000;1000/1000 |
-| B high | 16.7897/9.5447 | 16.4872/9.2673 | NOW:2.8710/0.8710; DELAY_2:2.6129/0.8065 | NOW:1037.0323/517.4516; DELAY_2:1017.4516/437.2903 | NOW:0.0000/0.0000; DELAY_2:0.1613/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 10, "CORRECT": 16, "WRONG_SUBMITTED": 5}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 11, "CORRECT": 16, "WRONG_SUBMITTED": 4}` | 1000/1000;1000/1000 |
-| C low | 5.9484/4.2927 | 5.9157/3.7531 | NOW:2.1724/0.2069; DELAY_2:2.0345/0.2069 | NOW:389.6207/81.7931; DELAY_2:386.3793/72.9310 | NOW:0.0000/0.0000; DELAY_2:0.0357/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 2, "CORRECT": 24, "OTHER_ALGORITHM_FAILURE": 1, "WRONG_SUBMITTED": 2}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 2, "CORRECT": 24, "FORMAT_OR_PREDICTION_PARSE": 1, "WRONG_SUBMITTED": 2}` | 1000/1000;1000/1000 |
-| C mid | 10.6511/8.8172 | 13.0019/8.8277 | NOW:2.5294/0.5294; DELAY_2:2.3529/0.5294 | NOW:684.5294/243.5882; DELAY_2:811.4706/281.1765 | NOW:0.0000/0.0000; DELAY_2:0.1765/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 3, "CORRECT": 10, "WRONG_SUBMITTED": 4}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 4, "CORRECT": 11, "WRONG_SUBMITTED": 2}` | 1000/1000;1000/1000 |
-| C high | 18.2750/11.1403 | 17.0241/11.6693 | NOW:2.7500/0.9167; DELAY_2:2.5833/0.8750 | NOW:1169.6667/542.5000; DELAY_2:1098.3333/453.5833 | NOW:0.1250/0.0000; DELAY_2:0.2500/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 8, "CORRECT": 12, "FORMAT_OR_PREDICTION_PARSE": 1, "WRONG_SUBMITTED": 3}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 10, "CORRECT": 10, "FORMAT_OR_PREDICTION_PARSE": 1, "WRONG_SUBMITTED": 3}` | 1000/1000;1000/1000 |
+| 总体 | 10.4495/6.1976 | 10.5642/6.2692 | NOW:2.3875/0.4625; DELAY_2:2.2375/0.4500 | NOW:681.6500/244.1625; DELAY_2:686.0500/222.2625 | NOW:0.0375/0.0000; DELAY_2:0.1266/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 13, "CORRECT": 55, "FORMAT_OR_PREDICTION_PARSE": 1, "OTHER_ALGORITHM_FAILURE": 2, "WRONG_SUBMITTED": 9}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 16, "CORRECT": 54, "FORMAT_OR_PREDICTION_PARSE": 2, "OTHER_ALGORITHM_FAILURE": 1, "WRONG_SUBMITTED": 7}` | 1000/1000;1000/1000 |
+| B low | 5.2718/2.7994 | 5.8420/2.8550 | NOW:2.1111/0.1111; DELAY_2:2.0370/0.1481 | NOW:376.8889/61.2593; DELAY_2:406.8148/80.9630 | NOW:0.0000/0.0000; DELAY_2:0.0370/0.0000 | NOW:`{"CORRECT": 25, "WRONG_SUBMITTED": 2}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 2, "CORRECT": 24, "WRONG_SUBMITTED": 1}` | 1000/1000;1000/1000 |
+| B mid | 8.2840/8.7602 | 8.4547/8.7277 | NOW:2.1111/0.3889; DELAY_2:2.0000/0.3889 | NOW:588.3333/102.1111; DELAY_2:596.7222/113.2778 | NOW:0.1667/0.0000; DELAY_2:0.2353/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 3, "CORRECT": 11, "FORMAT_OR_PREDICTION_PARSE": 1, "OTHER_ALGORITHM_FAILURE": 1, "WRONG_SUBMITTED": 2}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 3, "CORRECT": 11, "FORMAT_OR_PREDICTION_PARSE": 2, "WRONG_SUBMITTED": 2}` | 1000/1000;1000/1000 |
+| B high | 15.5575/8.8172 | 15.2919/8.8277 | NOW:2.7429/0.7714; DELAY_2:2.5143/0.7143 | NOW:964.7429/458.3143; DELAY_2:947.4000/387.3143 | NOW:0.0000/0.0000; DELAY_2:0.1429/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 10, "CORRECT": 19, "OTHER_ALGORITHM_FAILURE": 1, "WRONG_SUBMITTED": 5}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 11, "CORRECT": 19, "OTHER_ALGORITHM_FAILURE": 1, "WRONG_SUBMITTED": 4}` | 1000/1000;1000/1000 |
+| C low | 6.0321/4.3874 | 6.0028/4.2967 | NOW:2.1290/0.1935; DELAY_2:2.0000/0.1935 | NOW:393.0000/76.5161; DELAY_2:389.9677/68.2258 | NOW:0.0000/0.0000; DELAY_2:0.0333/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 2, "CORRECT": 25, "OTHER_ALGORITHM_FAILURE": 2, "WRONG_SUBMITTED": 2}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 2, "CORRECT": 25, "FORMAT_OR_PREDICTION_PARSE": 1, "OTHER_ALGORITHM_FAILURE": 1, "WRONG_SUBMITTED": 2}` | 1000/1000;1000/1000 |
+| C mid | 9.2631/5.6563 | 11.1664/5.6789 | NOW:2.4286/0.4286; DELAY_2:2.2381/0.4286 | NOW:608.7619/197.1905; DELAY_2:711.5238/227.6190 | NOW:0.0000/0.0000; DELAY_2:0.1429/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 3, "CORRECT": 14, "WRONG_SUBMITTED": 4}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 4, "CORRECT": 15, "WRONG_SUBMITTED": 2}` | 1000/1000;1000/1000 |
+| C high | 16.2300/9.6888 | 15.1626/10.0799 | NOW:2.6429/0.7857; DELAY_2:2.5000/0.7500 | NOW:1055.8929/465.0000; DELAY_2:994.7500/388.7857 | NOW:0.1071/0.0000; DELAY_2:0.2143/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 8, "CORRECT": 16, "FORMAT_OR_PREDICTION_PARSE": 1, "WRONG_SUBMITTED": 3}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 10, "CORRECT": 14, "FORMAT_OR_PREDICTION_PARSE": 1, "WRONG_SUBMITTED": 3}` | 1000/1000;1000/1000 |
 
 结果分类：CORRECT=判对；WRONG_SUBMITTED=已提交答错；FORMAT_OR_PREDICTION_PARSE=格式/预测解析失败；BUDGET_OR_INPUT_LIMIT=预算/输入上限；OTHER_ALGORITHM_FAILURE=其他算法终止；EVALUATION_UNAVAILABLE=评估错误。精确终止原因、评分错误和基础设施状态另存 metrics.json。
 
-B 高风险减低风险的收益差：ΔY -0.0435 [-0.1772, 0.0715]；ΔT 秒 -0.9704 [-4.7793, 2.4626]。
+B 高风险减低风险的收益差：ΔY -0.0370 [-0.1572, 0.0625]；ΔT 秒 -0.8359 [-4.3005, 2.4453]。
 高低差 ΔY/ΔT 有效 bootstrap 次数：1000/1000/1000/1000。
 质量异质性：95% CI 跨零，当前证据不足；不能据此宣称两种动作等效。 时间异质性：95% CI 跨零，当前证据不足；不能据此宣称两种动作等效。
 
-C 高风险减低风险的收益差：ΔY 0.0833 [0.0000, 0.2105]；ΔT 秒 -1.2182 [-5.2392, 2.4188]。
+C 高风险减低风险的收益差：ΔY 0.0714 [0.0000, 0.1739]；ΔT 秒 -1.0381 [-4.4635, 1.9824]。
 高低差 ΔY/ΔT 有效 bootstrap 次数：1000/1000/1000/1000。
 质量异质性：95% CI 跨零，当前证据不足；不能据此宣称两种动作等效。 时间异质性：95% CI 跨零，当前证据不足；不能据此宣称两种动作等效。
 
-NOW 后续时间均值/中位数/p95（描述性）：11.3167/7.4110/35.0865 秒；PRM 调用/回滚均值 2.4571/0.5286；生成/撤销 token 合计 51008.0000/19533.0000。
-首次检查判决次数：`{"FAIL": 3, "PASS": 67}`；FAIL/UNCERTAIN 比例：0.0429/0.0000（有首次检查记录 70 臂）；提前终点 0 臂；累计非 decode 前向/反馈 token 均值 1310.9857/32.0429。
-终止原因：`{"BUDGET_ROLLBACKS": 13, "FINAL_PASS": 55, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONSEQUENTIAL_STEPS": 1}`；评分排除：`{"BUDGET_ROLLBACKS": 13, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONE": 55, "NONSEQUENTIAL_STEPS": 1}`；保存状态：`{"COMPLETE": 70}`。
+NOW 后续时间均值/中位数/p95（描述性）：10.4495/6.1976/33.5622 秒；PRM 调用/回滚均值 2.3875/0.4625；生成/撤销 token 合计 54532.0000/19533.0000。
+首次检查判决次数：`{"FAIL": 3, "PASS": 77}`；FAIL/UNCERTAIN 比例：0.0375/0.0000（有首次检查记录 80 臂）；提前终点 0 臂；累计非 decode 前向/反馈 token 均值 1236.1750/28.0375。
+终止原因：`{"BUDGET_ROLLBACKS": 13, "FINAL_PASS": 64, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONSEQUENTIAL_STEPS": 2}`；评分排除：`{"BUDGET_ROLLBACKS": 13, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONE": 64, "NONSEQUENTIAL_STEPS": 2}`；保存状态：`{"COMPLETE": 80}`。
 
-DELAY_2 后续时间均值/中位数/p95（描述性）：11.4452/7.4697/38.5529 秒；PRM 调用/回滚均值 2.3000/0.5143；生成/撤销 token 合计 51360.0000/17781.0000。
-首次检查判决次数：`{"FAIL": 10, "PASS": 59}`；FAIL/UNCERTAIN 比例：0.1449/0.0000（有首次检查记录 69 臂）；提前终点 2 臂；累计非 decode 前向/反馈 token 均值 1409.7571/30.7429。
-终止原因：`{"BUDGET_ROLLBACKS": 16, "FINAL_PASS": 51, "FINAL_UNCERTAIN": 1, "MISSING_OR_INCOMPLETE_BOXED": 1, "STEP_FORMAT_ERROR: FORMAT_ERROR: missing, repeated or non-sequential Step N markers": 1}`；评分排除：`{"BUDGET_ROLLBACKS": 16, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONE": 52, "STEP_FORMAT_ERROR: FORMAT_ERROR: missing, repeated or non-sequential Step N markers": 1}`；保存状态：`{"COMPLETE": 70}`。
+DELAY_2 后续时间均值/中位数/p95（描述性）：10.5642/6.2692/38.3761 秒；PRM 调用/回滚均值 2.2375/0.4500；生成/撤销 token 合计 54884.0000/17781.0000。
+首次检查判决次数：`{"FAIL": 10, "PASS": 69}`；FAIL/UNCERTAIN 比例：0.1266/0.0000（有首次检查记录 79 臂）；提前终点 3 臂；累计非 decode 前向/反馈 token 均值 1330.4375/26.9000。
+终止原因：`{"BUDGET_ROLLBACKS": 16, "FINAL_PASS": 60, "FINAL_UNCERTAIN": 1, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONSEQUENTIAL_STEPS": 1, "STEP_FORMAT_ERROR: FORMAT_ERROR: missing, repeated or non-sequential Step N markers": 1}`；评分排除：`{"BUDGET_ROLLBACKS": 16, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONE": 61, "NONSEQUENTIAL_STEPS": 1, "STEP_FORMAT_ERROR: FORMAT_ERROR: missing, repeated or non-sequential Step N markers": 1}`；保存状态：`{"COMPLETE": 80}`。
 
-公共快照 near_end 0 题；DELAY_2 delay_collapsed 2 题；两臂后端不一致 0 题。各组检查/回滚、失败分类、时间分布、有效 bootstrap 次数及分后端结果详见 metrics.json。
+公共快照 near_end 0 题；DELAY_2 delay_collapsed 3 题；两臂后端不一致 0 题。各组检查/回滚、失败分类、时间分布、有效 bootstrap 次数及分后端结果详见 metrics.json。
 
 ## 解释与后续
 
 B 预测未经干预的整条轨迹最终答错风险，不是当前步错误概率或检查收益概率。B 高低组配对收益差才检验“高风险是否更值得立即检查”；首次检查失败率本身不能回答该问题。C 是仅有步骤/长度的对照，固定第二步仍留下前缀长度差异；若 B 与 C 的收益模式相似，长度可能解释部分效果。B 在 stage2 的 AUROC 较高不构成本轮检查时机收益证据。
-正式 B 异质性质量/时间：-0.0435 [-0.1772, 0.0715] / -0.9704 [-4.7793, 2.4626]；C：0.0833 [0.0000, 0.2105] / -1.2182 [-5.2392, 2.4188]。
-实际长度与对照：B 低/高组前缀均值 78.2174/116.5161 token; C 低/高组前缀均值 60.6897/168.8750 token；质量高低收益差点估计 不同向；时间高低收益差点估计 同向。同向时长度信号与 B 收益模式相容，但这不证明长度完全解释 B；不同向也不能证明 B 有独立作用，本轮没有做长度调整。
-正式配对中立即检查修复 2 题、破坏 1 题；NOW 检查/回滚合计 172.0000/37.0000、撤销 token 19533.0000; DELAY_2 检查/回滚合计 161.0000/36.0000、撤销 token 17781.0000。
+正式 B 异质性质量/时间：-0.0370 [-0.1572, 0.0625] / -0.8359 [-4.3005, 2.4453]；C：0.0714 [0.0000, 0.1739] / -1.0381 [-4.4635, 1.9824]。
+实际长度与对照：B 低/高组前缀均值 85.1481/111.2571 token; C 低/高组前缀均值 59.1935/166.7500 token；质量高低收益差点估计 不同向；时间高低收益差点估计 同向。同向时长度信号与 B 收益模式相容，但这不证明长度完全解释 B；不同向也不能证明 B 有独立作用，本轮没有做长度调整。
+正式配对中立即检查修复 2 题、破坏 1 题；NOW 检查/回滚合计 191.0000/37.0000、撤销 token 19533.0000; DELAY_2 检查/回滚合计 179.0000/36.0000、撤销 token 17781.0000。
 修复/破坏次数、首次检查 PASS/FAIL/UNCERTAIN、返工次数和撤销 token 可描述收益与成本的机制，但没有额外随机化，不能把它们直接解释为因果中介。格式失败和预算耗尽保持在算法失败分母，所有排除均保留记录。
 反馈是 PRM 分数驱动的确定性通用 diagnosis/hint 模板；本轮只覆盖无历史 PASS 的普通 Step 2，不能直接推广到多位置或已有 PASS 状态。q 的独立前缀特征提取与探针时间属于离线诊断开销。小组 p95 仅为描述，分组样本过少、CI 跨零和 BF16 数值/运行后端差异都限制结论。
 当前没有足够正式证据支持推进风险阈值策略；结果为 NA 或 CI 跨零时如实保留，不调整 test 寻找正结果。
@@ -167,4 +167,4 @@ pilot/dev/test 分开报告；未执行指标均为 NA。离线诊断和公共�
 | --- | ---: | ---: | ---: | ---: |
 | pilot | 1.9988 | 0.0374 | 0.0001 | 0.0387 |
 | dev | 2.2924 | 0.0362 | 0.0001 | 0.0380 |
-| test | 2.0279 | 0.0363 | 0.0001 | 0.0379 |
+| test | 2.0329 | 0.0362 | 0.0001 | 0.0377 |
