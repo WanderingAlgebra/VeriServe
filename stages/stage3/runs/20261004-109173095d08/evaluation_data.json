@@ -20,6 +20,9 @@
   "test/algebra/1519.json": {
     "status": "VALID"
   },
+  "test/algebra/1529.json": {
+    "status": "VALID"
+  },
   "test/algebra/1547.json": {
     "status": "VALID"
   },
@@ -83,6 +86,9 @@
   "test/algebra/276.json": {
     "status": "VALID"
   },
+  "test/algebra/305.json": {
+    "status": "VALID"
+  },
   "test/algebra/346.json": {
     "status": "VALID"
   },
@@ -90,6 +96,9 @@
     "status": "VALID"
   },
   "test/algebra/509.json": {
+    "status": "VALID"
+  },
+  "test/algebra/524.json": {
     "status": "VALID"
   },
   "test/algebra/567.json": {
@@ -143,6 +152,9 @@
   "test/counting_and_probability/216.json": {
     "status": "VALID"
   },
+  "test/counting_and_probability/230.json": {
+    "status": "VALID"
+  },
   "test/counting_and_probability/23957.json": {
     "status": "VALID"
   },
@@ -162,6 +174,9 @@
     "status": "VALID"
   },
   "test/counting_and_probability/731.json": {
+    "status": "VALID"
+  },
+  "test/counting_and_probability/737.json": {
     "status": "VALID"
   },
   "test/counting_and_probability/761.json": {
@@ -222,6 +237,9 @@
     "status": "VALID"
   },
   "test/geometry/846.json": {
+    "status": "VALID"
+  },
+  "test/geometry/965.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/1000.json": {
@@ -288,6 +306,9 @@
     "status": "VALID"
   },
   "test/intermediate_algebra/2022.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/2152.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/232.json": {
@@ -425,10 +446,16 @@
   "test/prealgebra/1247.json": {
     "status": "VALID"
   },
+  "test/prealgebra/1302.json": {
+    "status": "VALID"
+  },
   "test/prealgebra/1317.json": {
     "status": "VALID"
   },
   "test/prealgebra/1356.json": {
+    "status": "VALID"
+  },
+  "test/prealgebra/1436.json": {
     "status": "VALID"
   },
   "test/prealgebra/1558.json": {
@@ -468,6 +495,9 @@
     "status": "VALID"
   },
   "test/prealgebra/2019.json": {
+    "status": "VALID"
+  },
+  "test/prealgebra/2057.json": {
     "status": "VALID"
   },
   "test/prealgebra/2086.json": {
