@@ -5,6 +5,9 @@
   "test/algebra/1199.json": {
     "status": "VALID"
   },
+  "test/algebra/1265.json": {
+    "status": "VALID"
+  },
   "test/algebra/1457.json": {
     "status": "VALID"
   },
@@ -113,6 +116,9 @@
   "test/geometry/627.json": {
     "status": "VALID"
   },
+  "test/geometry/711.json": {
+    "status": "VALID"
+  },
   "test/geometry/795.json": {
     "status": "VALID"
   },
@@ -132,6 +138,9 @@
     "status": "VALID"
   },
   "test/intermediate_algebra/1350.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/1354.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/1454.json": {
@@ -174,6 +183,9 @@
     "status": "VALID"
   },
   "test/intermediate_algebra/446.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/623.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/834.json": {
@@ -242,6 +254,9 @@
   "test/number_theory/627.json": {
     "status": "VALID"
   },
+  "test/number_theory/864.json": {
+    "status": "VALID"
+  },
   "test/number_theory/911.json": {
     "status": "VALID"
   },
@@ -252,6 +267,9 @@
     "status": "VALID"
   },
   "test/prealgebra/1044.json": {
+    "status": "VALID"
+  },
+  "test/prealgebra/105.json": {
     "status": "VALID"
   },
   "test/prealgebra/1187.json": {
@@ -272,6 +290,9 @@
   "test/prealgebra/1622.json": {
     "status": "VALID"
   },
+  "test/prealgebra/1640.json": {
+    "status": "VALID"
+  },
   "test/prealgebra/1686.json": {
     "status": "VALID"
   },
@@ -282,6 +303,9 @@
     "status": "VALID"
   },
   "test/prealgebra/1865.json": {
+    "status": "VALID"
+  },
+  "test/prealgebra/192.json": {
     "status": "VALID"
   },
   "test/prealgebra/1961.json": {
@@ -296,6 +320,9 @@
   "test/prealgebra/2019.json": {
     "status": "VALID"
   },
+  "test/prealgebra/2086.json": {
+    "status": "VALID"
+  },
   "test/prealgebra/307.json": {
     "status": "VALID"
   },
@@ -306,6 +333,9 @@
     "status": "VALID"
   },
   "test/prealgebra/846.json": {
+    "status": "VALID"
+  },
+  "test/prealgebra/951.json": {
     "status": "VALID"
   },
   "test/precalculus/1056.json": {
