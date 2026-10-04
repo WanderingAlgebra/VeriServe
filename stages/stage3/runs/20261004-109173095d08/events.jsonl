@@ -1882,3 +1882,6 @@
 {"event": "BACKUP_PENDING", "last_successful_commit": "6897bad28def3ce9b452567b1ae4ae5fa46eca9e", "reason": "test progress 20 new problems", "time": "2026-10-04T21:28:07.877696+00:00"}
 {"commit": "8c4f836f95ef5a2c49ab79a6dc03af4b5e36b0e1", "event": "BACKUP_SUCCEEDED", "reason": "test progress 20 new problems", "remote_verified": true, "time": "2026-10-04T21:28:51.923383+00:00"}
 {"event": "BACKUP_PENDING", "last_successful_commit": "8c4f836f95ef5a2c49ab79a6dc03af4b5e36b0e1", "reason": "test complete", "time": "2026-10-04T21:28:53.384451+00:00"}
+{"commit": "4fff47be7eabcbd30068afd52df9e5ec1cbf98e1", "event": "BACKUP_SUCCEEDED", "reason": "test complete", "remote_verified": true, "time": "2026-10-04T21:29:31.736063+00:00"}
+{"completed_test_questions": 130, "event": "TEST_RESUME_AFTER_BACKUP_TIMEOUT_VERIFIED", "time": "2026-10-04T21:30:46.615414+00:00", "unchanged_pre_resume_artifacts": 500}
+{"event": "BACKUP_PENDING", "last_successful_commit": "4fff47be7eabcbd30068afd52df9e5ec1cbf98e1", "reason": "stage3 code and experiment artifacts", "time": "2026-10-04T21:31:52.068466+00:00"}

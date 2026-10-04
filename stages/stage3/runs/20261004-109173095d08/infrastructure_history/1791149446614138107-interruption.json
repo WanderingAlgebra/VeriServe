@@ -1,10 +1,6 @@
 {
   "created": "2026-10-04T18:08:45.391083+00:00",
   "error": "Backup failed; retained local data, stop before next batch: Post \"[redacted URL] read tcp 127.0.0.1:39490->127.0.0.1:17897: i/o timeout\n",
-  "original_record_archive": "infrastructure_history/1791149446614138107-interruption.json",
   "phase": "dev",
-  "resolution": "Ordinary LFS backup retry succeeded before resuming remaining test IDs; 130 complete pairs; completed artifact hashes unchanged",
-  "resolved": true,
-  "resolved_at": "2026-10-04T21:30:46.614792+00:00",
   "resume_command": "/root/miniconda3/bin/python -m stages.stage3.run_timing --config stages/stage3/config.json --phase dev --resume"
 }

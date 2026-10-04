@@ -1,0 +1,53 @@
+import hashlib, json
+from collections import Counter
+from pathlib import Path
+from stages.stage1.veriserve.common import atomic_json
+from stages.stage2.run_probe import atomic_bytes, digest, now
+from stages.stage3.analyze import failure_category
+from stages.stage3.storage import source_hashes, completed_problems
+from stages.stage3.run_timing import key
+run = Path('/root/project/VeriServe/stages/stage3/runs/20261004-109173095d08')
+assert completed_problems(run) == {'pilot': 20, 'dev': 40, 'test': 130}
+manifest = json.loads((run / 'manifest.json').read_text())
+frozen = json.loads((run / 'protocol_frozen.json').read_text())
+assert frozen['source_hashes'] == source_hashes()
+extra_format = {'NONSEQUENTIAL_STEPS', 'INTERIOR_CONTROL_TOKEN'}
+artifacts = {}
+summary = {}
+for phase, rows in manifest['splits'].items():
+    summary[phase] = {}
+    for arm in ('NOW', 'DELAY_2'):
+        original, corrected, exact, changed = Counter(), Counter(), Counter(), Counter()
+        for row in rows:
+            path = run / 'arms' / (key(row['unique_id']) + '.' + arm + '.json')
+            if not path.exists():
+                continue
+            a = json.loads(path.read_text())
+            assert a['completed'] and a['status'] == 'COMPLETE'
+            artifacts[str(path.relative_to(run))] = digest(path)
+            category = failure_category(a)
+            original[category] += 1
+            replacement = 'FORMAT_OR_PREDICTION_PARSE' if a['termination'] in extra_format else category
+            corrected[replacement] += 1
+            exact[a['termination']] += 1
+            if replacement != category:
+                changed[a['termination']] += 1
+        summary[phase][arm] = {'original_outcome_categories': dict(original), 'descriptive_outcome_categories': dict(corrected), 'reclassified_format_terminations': dict(changed), 'exact_termination_counts': dict(exact)}
+metrics_path = run / 'metrics.json'
+metrics_hash = digest(metrics_path)
+report_path = run / 'report.md'
+marker = '\n## 最终描述性审计说明\n'
+base = report_path.read_text().split(marker)[0]
+lines = [marker, '上文宽分类的 OTHER_ALGORITHM_FAILURE 可能包含 NONSEQUENTIAL_STEPS、INTERIOR_CONTROL_TOKEN；两者实际都是格式失败。下表按精确终止原因补入格式/预测解析失败总计，仅校正描述分类。原始 arms、Y、配对分母、B/C 分组、效应和 95% CI 均未修改；metrics.json 的原始宽分类保留，校正明细与哈希见 analysis_notes.json。', '', '| 阶段 | NOW 格式/预测解析失败 | DELAY_2 格式/预测解析失败 |', '| --- | ---: | ---: |']
+for phase in ('pilot', 'dev', 'test'):
+    counts = [summary[phase][a]['descriptive_outcome_categories'].get('FORMAT_OR_PREDICTION_PARSE', 0) for a in ('NOW', 'DELAY_2')]
+    lines.append(f'| {phase} | {counts[0]} | {counts[1]} |')
+lines += ['', '机制/失败表描述所有已完成臂；正确率与 ΔY 使用两臂均可评分的配对分母。“修复/错→对”指 DELAY_2 答错而 NOW 答对，“破坏/对→错”相反，不代表 PRM 定位了具体错误。高低异质性 CI 检验高组相对低组收益差，不保证高组自身收益为正，须同时查看高组 ΔY/ΔT。', '', 'B 中组 29 题未观察到任何正确性差异，配对 bootstrap CI 退化为 [0,0]，不能据此宣称两动作总体质量等效。C 低组时间 CI 单独为正也不支持 B 的核心高低异质性假设，本轮不据多个分组结果选择 test 阈值。', '', 'bootstrap 次数分别针对质量和时间效应；例如两者各为 1000/1000 表示各自 1000 次均有效，并非额外抽样。', '', '运行与恢复：旧 pilot 目录 20261004-bcab71671427 因 PRM 输入遗漏跨界步骤尾部而独立保留，新目录重新执行两臂，仅按原字节复用唯一公共快照，公共生成/特征语义兼容证据见 common_snapshot_reuse.json。旧配对未进入本报告统计。test 完成 110 道后一次 Git LFS 备份网络超时；补推成功后新进程接续剩余题目，已完成产物的哈希核对通过。该中断发生在完整配对结束后，没有科学配对因中断被排除。恢复与旧记录见 test_resume_after_backup_timeout.json、infrastructure_history/ 和 events.jsonl。']
+notes = {'created': now(), 'scope': 'post-hoc descriptive format classification and interpretation only', 'execution_protocol_unchanged': True, 'Y_groups_paired_estimates_CI_unchanged': True, 'original_metrics_sha256': metrics_hash, 'original_report_sha256': hashlib.sha256(base.encode()).hexdigest(), 'protocol_frozen_sha256': digest(run / 'protocol_frozen.json'), 'dev_groups_sha256': digest(run / 'dev_groups.json'), 'audit_script_sha256': digest(Path(__file__)), 'completed_arm_sha256': artifacts, 'format_classification': summary}
+lines += ['', '![正式 B/C 风险分组配对 ΔY、ΔT 与 95% CI](risk_effects.png)']
+atomic_json(run / 'analysis_notes.json', notes)
+atomic_bytes(report_path, (base + '\n'.join(lines) + '\n').encode())
+atomic_bytes(run / 'analysis_notes_method.txt', Path(__file__).read_bytes())
+assert digest(metrics_path) == metrics_hash
+assert all(digest(run / p) == h for p, h in artifacts.items())
+print(json.dumps({p: {a: summary[p][a]['descriptive_outcome_categories'] for a in ('NOW', 'DELAY_2')} for p in summary}, ensure_ascii=False))

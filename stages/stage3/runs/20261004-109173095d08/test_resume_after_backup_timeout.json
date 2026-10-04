@@ -504,6 +504,9 @@
   "completed_test_questions": 110,
   "created": "2026-10-04T21:20:11.085633+00:00",
   "reason": "LFS network timeout resolved before new generation",
+  "same_backend_all_pairs": true,
   "successful_backup_commit": "e173565a816d75ab6ed77fa48ac4177e2aba1c0d",
-  "verification": "PENDING"
+  "verification": "PASS",
+  "verified_at": "2026-10-04T21:30:46.612599+00:00",
+  "verified_unchanged_artifacts": 500
 }
