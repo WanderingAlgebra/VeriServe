@@ -3,3 +3,16 @@
 {"event": "BACKUP_PENDING", "last_successful_commit": null, "reason": "stage3 code and experiment artifacts", "time": "2026-10-04T16:46:11.562134+00:00"}
 {"commit": "33f1da085337b49c9ad1b8bf2602a175a30aa4fc", "event": "BACKUP_SUCCEEDED", "reason": "stage3 code and experiment artifacts", "remote_verified": false, "time": "2026-10-04T16:46:49.581042+00:00"}
 {"event": "BACKUP_PENDING", "last_successful_commit": "33f1da085337b49c9ad1b8bf2602a175a30aa4fc", "reason": "stage3 code and experiment artifacts", "time": "2026-10-04T16:47:02.517161+00:00"}
+{"commit": "18a8febffe5725e1b53b66a78c96cd0c595329ea", "event": "BACKUP_SUCCEEDED", "reason": "stage3 code and experiment artifacts", "remote_verified": false, "time": "2026-10-04T16:47:40.616010+00:00"}
+{"arm": "NOW", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T16:48:07.473621+00:00", "unique_id": "test/intermediate_algebra/1779.json", "verdict": "PASS"}
+{"arm": "NOW", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T16:48:21.693045+00:00", "unique_id": "test/intermediate_algebra/1779.json", "verdict": "FAIL"}
+{"arm": "NOW", "check": 3, "event": "CHECK_SAVED", "time": "2026-10-04T16:48:32.571850+00:00", "unique_id": "test/intermediate_algebra/1779.json", "verdict": "FAIL"}
+{"arm": "NOW", "check": 4, "event": "CHECK_SAVED", "time": "2026-10-04T16:48:42.955942+00:00", "unique_id": "test/intermediate_algebra/1779.json", "verdict": "FAIL"}
+{"Y": 0, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 35.547156075015664, "termination": "BUDGET_ROLLBACKS", "time": "2026-10-04T16:48:42.960899+00:00", "unique_id": "test/intermediate_algebra/1779.json"}
+{"arm": "DELAY_2", "check": 1, "event": "CHECK_SAVED", "time": "2026-10-04T16:48:44.996628+00:00", "unique_id": "test/intermediate_algebra/1779.json", "verdict": "PASS"}
+{"arm": "DELAY_2", "check": 2, "event": "CHECK_SAVED", "time": "2026-10-04T16:48:57.435169+00:00", "unique_id": "test/intermediate_algebra/1779.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 3, "event": "CHECK_SAVED", "time": "2026-10-04T16:49:08.911830+00:00", "unique_id": "test/intermediate_algebra/1779.json", "verdict": "FAIL"}
+{"arm": "DELAY_2", "check": 4, "event": "CHECK_SAVED", "time": "2026-10-04T16:49:17.291581+00:00", "unique_id": "test/intermediate_algebra/1779.json", "verdict": "FAIL"}
+{"Y": 0, "arm": "DELAY_2", "event": "ARM_COMPLETED", "seconds": 34.123002177104354, "termination": "BUDGET_ROLLBACKS", "time": "2026-10-04T16:49:17.296578+00:00", "unique_id": "test/intermediate_algebra/1779.json"}
+{"completed_this_process": 1, "event": "PROBLEM_COMPLETED", "phase": "pilot", "time": "2026-10-04T16:49:17.531209+00:00", "unique_id": "test/intermediate_algebra/1779.json"}
+{"event": "BACKUP_PENDING", "last_successful_commit": "18a8febffe5725e1b53b66a78c96cd0c595329ea", "reason": "pilot stop-after 1, resume checkpoint", "time": "2026-10-04T16:49:17.821152+00:00"}

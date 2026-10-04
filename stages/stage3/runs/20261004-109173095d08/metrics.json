@@ -1,0 +1,4781 @@
+{
+  "bootstrap": 1000,
+  "dev_groups_reason": null,
+  "dev_groups_status": "NOT_FROZEN",
+  "offline_timing": {
+    "dev": {
+      "T_common_generation": {
+        "mean": null,
+        "median": null,
+        "n": 0,
+        "p95_descriptive": null,
+        "sum": null
+      },
+      "T_offline_feature": {
+        "mean": null,
+        "median": null,
+        "n": 0,
+        "p95_descriptive": null,
+        "sum": null
+      },
+      "T_probe": {
+        "mean": null,
+        "median": null,
+        "n": 0,
+        "p95_descriptive": null,
+        "sum": null
+      },
+      "T_snapshot_restore": {
+        "mean": null,
+        "median": null,
+        "n": 0,
+        "p95_descriptive": null,
+        "sum": null
+      }
+    },
+    "pilot": {
+      "T_common_generation": {
+        "mean": 1.9775942359119654,
+        "median": 1.9775942359119654,
+        "n": 1,
+        "p95_descriptive": 1.9775942359119654,
+        "sum": 1.9775942359119654
+      },
+      "T_offline_feature": {
+        "mean": 0.051781926304101944,
+        "median": 0.051781926304101944,
+        "n": 1,
+        "p95_descriptive": 0.051781926304101944,
+        "sum": 0.051781926304101944
+      },
+      "T_probe": {
+        "mean": 0.00013307109475135803,
+        "median": 0.00013307109475135803,
+        "n": 1,
+        "p95_descriptive": 0.00013307109475135803,
+        "sum": 0.00013307109475135803
+      },
+      "T_snapshot_restore": {
+        "mean": 0.053098867647349834,
+        "median": 0.053098867647349834,
+        "n": 2,
+        "p95_descriptive": 0.053590433578938244,
+        "sum": 0.10619773529469967
+      }
+    },
+    "test": {
+      "T_common_generation": {
+        "mean": null,
+        "median": null,
+        "n": 0,
+        "p95_descriptive": null,
+        "sum": null
+      },
+      "T_offline_feature": {
+        "mean": null,
+        "median": null,
+        "n": 0,
+        "p95_descriptive": null,
+        "sum": null
+      },
+      "T_probe": {
+        "mean": null,
+        "median": null,
+        "n": 0,
+        "p95_descriptive": null,
+        "sum": null
+      },
+      "T_snapshot_restore": {
+        "mean": null,
+        "median": null,
+        "n": 0,
+        "p95_descriptive": null,
+        "sum": null
+      }
+    }
+  },
+  "phases": {
+    "dev": {
+      "anchor_exclusions": {},
+      "different_backend_pairs": 0,
+      "eligible": 0,
+      "eligible_coverage": 0.0,
+      "infrastructure_interrupted_pairs": 0,
+      "overall": {
+        "arms": {
+          "DELAY_2": {
+            "accuracy": null,
+            "budget": {
+              "feedback_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "forward_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "generated_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "prm_calls": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "revoked_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "rollbacks": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              }
+            },
+            "complete": 0,
+            "correct": 0,
+            "early_endpoint": 0,
+            "first_check": {
+              "FAIL_fraction": null,
+              "UNCERTAIN_fraction": null,
+              "effective_verdict_counts": {},
+              "n": 0
+            },
+            "first_check_extra_steps": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            },
+            "first_check_input_tokens": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            },
+            "grading_exclusion_counts": {},
+            "outcome_categories": {},
+            "quality_n": 0,
+            "recorded": 0,
+            "status_counts": {},
+            "termination_counts": {},
+            "time_seconds": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            }
+          },
+          "NOW": {
+            "accuracy": null,
+            "budget": {
+              "feedback_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "forward_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "generated_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "prm_calls": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "revoked_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "rollbacks": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              }
+            },
+            "complete": 0,
+            "correct": 0,
+            "early_endpoint": 0,
+            "first_check": {
+              "FAIL_fraction": null,
+              "UNCERTAIN_fraction": null,
+              "effective_verdict_counts": {},
+              "n": 0
+            },
+            "first_check_extra_steps": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            },
+            "first_check_input_tokens": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            },
+            "grading_exclusion_counts": {},
+            "outcome_categories": {},
+            "quality_n": 0,
+            "recorded": 0,
+            "status_counts": {},
+            "termination_counts": {},
+            "time_seconds": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            }
+          }
+        },
+        "by_backend": {},
+        "complete_pairs": 0,
+        "correct_to_wrong": 0,
+        "delay_collapsed": 0,
+        "delta_T_seconds": {
+          "bootstrap_skipped": 1000,
+          "bootstrap_valid": 0,
+          "ci95": null,
+          "estimate": null,
+          "reason": "NO_VALID_PAIRED_TIME"
+        },
+        "delta_Y": {
+          "bootstrap_skipped": 1000,
+          "bootstrap_valid": 0,
+          "ci95": null,
+          "estimate": null,
+          "reason": "NO_VALID_PAIRED_QUALITY"
+        },
+        "eligible": 0,
+        "near_end": 0,
+        "prefix_tokens": {
+          "mean": null,
+          "median": null,
+          "n": 0,
+          "p95_descriptive": null,
+          "sum": null
+        },
+        "quality_pairs": 0,
+        "questions": 40,
+        "time_pairs": 0,
+        "wrong_to_correct": 0
+      },
+      "pending_anchors": {
+        "MISSING_SNAPSHOT": 40
+      },
+      "pending_pairs": 0,
+      "planned": 40,
+      "quality_pair_exclusions": {},
+      "risk": {
+        "B": {
+          "boundaries": null,
+          "groups": {
+            "high": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "low": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "mid": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            }
+          },
+          "heterogeneity_by_backend": {},
+          "high_minus_low_delta_T_seconds": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          },
+          "high_minus_low_delta_Y": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          }
+        },
+        "C": {
+          "boundaries": null,
+          "groups": {
+            "high": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "low": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "mid": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            }
+          },
+          "heterogeneity_by_backend": {},
+          "high_minus_low_delta_T_seconds": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          },
+          "high_minus_low_delta_Y": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          }
+        }
+      },
+      "snapshot_recorded": 0
+    },
+    "pilot": {
+      "anchor_exclusions": {},
+      "different_backend_pairs": 0,
+      "eligible": 1,
+      "eligible_coverage": 0.05,
+      "infrastructure_interrupted_pairs": 0,
+      "overall": {
+        "arms": {
+          "DELAY_2": {
+            "accuracy": 0.0,
+            "budget": {
+              "feedback_tokens": {
+                "mean": 122.0,
+                "median": 122.0,
+                "n": 1,
+                "p95_descriptive": 122.0,
+                "sum": 122.0
+              },
+              "forward_tokens": {
+                "mean": 4013.0,
+                "median": 4013.0,
+                "n": 1,
+                "p95_descriptive": 4013.0,
+                "sum": 4013.0
+              },
+              "generated_tokens": {
+                "mean": 1970.0,
+                "median": 1970.0,
+                "n": 1,
+                "p95_descriptive": 1970.0,
+                "sum": 1970.0
+              },
+              "prm_calls": {
+                "mean": 4.0,
+                "median": 4.0,
+                "n": 1,
+                "p95_descriptive": 4.0,
+                "sum": 4.0
+              },
+              "revoked_tokens": {
+                "mean": 1312.0,
+                "median": 1312.0,
+                "n": 1,
+                "p95_descriptive": 1312.0,
+                "sum": 1312.0
+              },
+              "rollbacks": {
+                "mean": 2.0,
+                "median": 2.0,
+                "n": 1,
+                "p95_descriptive": 2.0,
+                "sum": 2.0
+              }
+            },
+            "complete": 1,
+            "correct": 0,
+            "early_endpoint": 0,
+            "first_check": {
+              "FAIL_fraction": 0.0,
+              "UNCERTAIN_fraction": 0.0,
+              "effective_verdict_counts": {
+                "PASS": 1
+              },
+              "n": 1
+            },
+            "first_check_extra_steps": {
+              "mean": 2.0,
+              "median": 2.0,
+              "n": 1,
+              "p95_descriptive": 2.0,
+              "sum": 2.0
+            },
+            "first_check_input_tokens": {
+              "mean": 454.0,
+              "median": 454.0,
+              "n": 1,
+              "p95_descriptive": 454.0,
+              "sum": 454.0
+            },
+            "grading_exclusion_counts": {
+              "BUDGET_ROLLBACKS": 1
+            },
+            "outcome_categories": {
+              "BUDGET_OR_INPUT_LIMIT": 1
+            },
+            "quality_n": 1,
+            "recorded": 1,
+            "status_counts": {
+              "COMPLETE": 1
+            },
+            "termination_counts": {
+              "BUDGET_ROLLBACKS": 1
+            },
+            "time_seconds": {
+              "mean": 34.123002177104354,
+              "median": 34.123002177104354,
+              "n": 1,
+              "p95_descriptive": 34.123002177104354,
+              "sum": 34.123002177104354
+            }
+          },
+          "NOW": {
+            "accuracy": 0.0,
+            "budget": {
+              "feedback_tokens": {
+                "mean": 122.0,
+                "median": 122.0,
+                "n": 1,
+                "p95_descriptive": 122.0,
+                "sum": 122.0
+              },
+              "forward_tokens": {
+                "mean": 3808.0,
+                "median": 3808.0,
+                "n": 1,
+                "p95_descriptive": 3808.0,
+                "sum": 3808.0
+              },
+              "generated_tokens": {
+                "mean": 2050.0,
+                "median": 2050.0,
+                "n": 1,
+                "p95_descriptive": 2050.0,
+                "sum": 2050.0
+              },
+              "prm_calls": {
+                "mean": 4.0,
+                "median": 4.0,
+                "n": 1,
+                "p95_descriptive": 4.0,
+                "sum": 4.0
+              },
+              "revoked_tokens": {
+                "mean": 1380.0,
+                "median": 1380.0,
+                "n": 1,
+                "p95_descriptive": 1380.0,
+                "sum": 1380.0
+              },
+              "rollbacks": {
+                "mean": 2.0,
+                "median": 2.0,
+                "n": 1,
+                "p95_descriptive": 2.0,
+                "sum": 2.0
+              }
+            },
+            "complete": 1,
+            "correct": 0,
+            "early_endpoint": 0,
+            "first_check": {
+              "FAIL_fraction": 0.0,
+              "UNCERTAIN_fraction": 0.0,
+              "effective_verdict_counts": {
+                "PASS": 1
+              },
+              "n": 1
+            },
+            "first_check_extra_steps": {
+              "mean": 0.0,
+              "median": 0.0,
+              "n": 1,
+              "p95_descriptive": 0.0,
+              "sum": 0.0
+            },
+            "first_check_input_tokens": {
+              "mean": 362.0,
+              "median": 362.0,
+              "n": 1,
+              "p95_descriptive": 362.0,
+              "sum": 362.0
+            },
+            "grading_exclusion_counts": {
+              "BUDGET_ROLLBACKS": 1
+            },
+            "outcome_categories": {
+              "BUDGET_OR_INPUT_LIMIT": 1
+            },
+            "quality_n": 1,
+            "recorded": 1,
+            "status_counts": {
+              "COMPLETE": 1
+            },
+            "termination_counts": {
+              "BUDGET_ROLLBACKS": 1
+            },
+            "time_seconds": {
+              "mean": 35.547156075015664,
+              "median": 35.547156075015664,
+              "n": 1,
+              "p95_descriptive": 35.547156075015664,
+              "sum": 35.547156075015664
+            }
+          }
+        },
+        "by_backend": {
+          "{\"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"total_memory\": 50866487296, \"uuid\": \"25e77621-43ff-c8a0-6924-2394046aa091\"}": {
+            "arms": {
+              "DELAY_2": {
+                "accuracy": 0.0,
+                "budget": {
+                  "feedback_tokens": {
+                    "mean": 122.0,
+                    "median": 122.0,
+                    "n": 1,
+                    "p95_descriptive": 122.0,
+                    "sum": 122.0
+                  },
+                  "forward_tokens": {
+                    "mean": 4013.0,
+                    "median": 4013.0,
+                    "n": 1,
+                    "p95_descriptive": 4013.0,
+                    "sum": 4013.0
+                  },
+                  "generated_tokens": {
+                    "mean": 1970.0,
+                    "median": 1970.0,
+                    "n": 1,
+                    "p95_descriptive": 1970.0,
+                    "sum": 1970.0
+                  },
+                  "prm_calls": {
+                    "mean": 4.0,
+                    "median": 4.0,
+                    "n": 1,
+                    "p95_descriptive": 4.0,
+                    "sum": 4.0
+                  },
+                  "revoked_tokens": {
+                    "mean": 1312.0,
+                    "median": 1312.0,
+                    "n": 1,
+                    "p95_descriptive": 1312.0,
+                    "sum": 1312.0
+                  },
+                  "rollbacks": {
+                    "mean": 2.0,
+                    "median": 2.0,
+                    "n": 1,
+                    "p95_descriptive": 2.0,
+                    "sum": 2.0
+                  }
+                },
+                "complete": 1,
+                "correct": 0,
+                "early_endpoint": 0,
+                "first_check": {
+                  "FAIL_fraction": 0.0,
+                  "UNCERTAIN_fraction": 0.0,
+                  "effective_verdict_counts": {
+                    "PASS": 1
+                  },
+                  "n": 1
+                },
+                "first_check_extra_steps": {
+                  "mean": 2.0,
+                  "median": 2.0,
+                  "n": 1,
+                  "p95_descriptive": 2.0,
+                  "sum": 2.0
+                },
+                "first_check_input_tokens": {
+                  "mean": 454.0,
+                  "median": 454.0,
+                  "n": 1,
+                  "p95_descriptive": 454.0,
+                  "sum": 454.0
+                },
+                "grading_exclusion_counts": {
+                  "BUDGET_ROLLBACKS": 1
+                },
+                "outcome_categories": {
+                  "BUDGET_OR_INPUT_LIMIT": 1
+                },
+                "quality_n": 1,
+                "recorded": 1,
+                "status_counts": {
+                  "COMPLETE": 1
+                },
+                "termination_counts": {
+                  "BUDGET_ROLLBACKS": 1
+                },
+                "time_seconds": {
+                  "mean": 34.123002177104354,
+                  "median": 34.123002177104354,
+                  "n": 1,
+                  "p95_descriptive": 34.123002177104354,
+                  "sum": 34.123002177104354
+                }
+              },
+              "NOW": {
+                "accuracy": 0.0,
+                "budget": {
+                  "feedback_tokens": {
+                    "mean": 122.0,
+                    "median": 122.0,
+                    "n": 1,
+                    "p95_descriptive": 122.0,
+                    "sum": 122.0
+                  },
+                  "forward_tokens": {
+                    "mean": 3808.0,
+                    "median": 3808.0,
+                    "n": 1,
+                    "p95_descriptive": 3808.0,
+                    "sum": 3808.0
+                  },
+                  "generated_tokens": {
+                    "mean": 2050.0,
+                    "median": 2050.0,
+                    "n": 1,
+                    "p95_descriptive": 2050.0,
+                    "sum": 2050.0
+                  },
+                  "prm_calls": {
+                    "mean": 4.0,
+                    "median": 4.0,
+                    "n": 1,
+                    "p95_descriptive": 4.0,
+                    "sum": 4.0
+                  },
+                  "revoked_tokens": {
+                    "mean": 1380.0,
+                    "median": 1380.0,
+                    "n": 1,
+                    "p95_descriptive": 1380.0,
+                    "sum": 1380.0
+                  },
+                  "rollbacks": {
+                    "mean": 2.0,
+                    "median": 2.0,
+                    "n": 1,
+                    "p95_descriptive": 2.0,
+                    "sum": 2.0
+                  }
+                },
+                "complete": 1,
+                "correct": 0,
+                "early_endpoint": 0,
+                "first_check": {
+                  "FAIL_fraction": 0.0,
+                  "UNCERTAIN_fraction": 0.0,
+                  "effective_verdict_counts": {
+                    "PASS": 1
+                  },
+                  "n": 1
+                },
+                "first_check_extra_steps": {
+                  "mean": 0.0,
+                  "median": 0.0,
+                  "n": 1,
+                  "p95_descriptive": 0.0,
+                  "sum": 0.0
+                },
+                "first_check_input_tokens": {
+                  "mean": 362.0,
+                  "median": 362.0,
+                  "n": 1,
+                  "p95_descriptive": 362.0,
+                  "sum": 362.0
+                },
+                "grading_exclusion_counts": {
+                  "BUDGET_ROLLBACKS": 1
+                },
+                "outcome_categories": {
+                  "BUDGET_OR_INPUT_LIMIT": 1
+                },
+                "quality_n": 1,
+                "recorded": 1,
+                "status_counts": {
+                  "COMPLETE": 1
+                },
+                "termination_counts": {
+                  "BUDGET_ROLLBACKS": 1
+                },
+                "time_seconds": {
+                  "mean": 35.547156075015664,
+                  "median": 35.547156075015664,
+                  "n": 1,
+                  "p95_descriptive": 35.547156075015664,
+                  "sum": 35.547156075015664
+                }
+              }
+            },
+            "complete_pairs": 1,
+            "correct_to_wrong": 0,
+            "delay_collapsed": 0,
+            "delta_T_seconds": {
+              "bootstrap_skipped": 0,
+              "bootstrap_valid": 1000,
+              "ci95": [
+                -1.4241538979113102,
+                -1.4241538979113102
+              ],
+              "estimate": -1.4241538979113102,
+              "paired_questions": 1,
+              "reason": null
+            },
+            "delta_Y": {
+              "bootstrap_skipped": 0,
+              "bootstrap_valid": 1000,
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "estimate": 0.0,
+              "paired_questions": 1,
+              "reason": null
+            },
+            "eligible": 1,
+            "near_end": 0,
+            "prefix_tokens": {
+              "mean": 103.0,
+              "median": 103.0,
+              "n": 1,
+              "p95_descriptive": 103.0,
+              "sum": 103.0
+            },
+            "quality_pairs": 1,
+            "questions": 1,
+            "time_pairs": 1,
+            "wrong_to_correct": 0
+          }
+        },
+        "complete_pairs": 1,
+        "correct_to_wrong": 0,
+        "delay_collapsed": 0,
+        "delta_T_seconds": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            -1.4241538979113102,
+            -1.4241538979113102
+          ],
+          "estimate": -1.4241538979113102,
+          "paired_questions": 1,
+          "reason": null
+        },
+        "delta_Y": {
+          "bootstrap_skipped": 0,
+          "bootstrap_valid": 1000,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0.0,
+          "paired_questions": 1,
+          "reason": null
+        },
+        "eligible": 1,
+        "near_end": 0,
+        "prefix_tokens": {
+          "mean": 103.0,
+          "median": 103.0,
+          "n": 1,
+          "p95_descriptive": 103.0,
+          "sum": 103.0
+        },
+        "quality_pairs": 1,
+        "questions": 20,
+        "time_pairs": 1,
+        "wrong_to_correct": 0
+      },
+      "pending_anchors": {
+        "MISSING_SNAPSHOT": 19
+      },
+      "pending_pairs": 0,
+      "planned": 20,
+      "quality_pair_exclusions": {},
+      "risk": {
+        "B": {
+          "boundaries": null,
+          "groups": {
+            "high": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "low": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "mid": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            }
+          },
+          "heterogeneity_by_backend": {
+            "{\"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"total_memory\": 50866487296, \"uuid\": \"25e77621-43ff-c8a0-6924-2394046aa091\"}": {
+              "high_minus_low_delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              },
+              "high_minus_low_delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              }
+            }
+          },
+          "high_minus_low_delta_T_seconds": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          },
+          "high_minus_low_delta_Y": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          }
+        },
+        "C": {
+          "boundaries": null,
+          "groups": {
+            "high": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "low": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "mid": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            }
+          },
+          "heterogeneity_by_backend": {
+            "{\"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"total_memory\": 50866487296, \"uuid\": \"25e77621-43ff-c8a0-6924-2394046aa091\"}": {
+              "high_minus_low_delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              },
+              "high_minus_low_delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+              }
+            }
+          },
+          "high_minus_low_delta_T_seconds": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          },
+          "high_minus_low_delta_Y": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          }
+        }
+      },
+      "snapshot_recorded": 1
+    },
+    "test": {
+      "anchor_exclusions": {},
+      "different_backend_pairs": 0,
+      "eligible": 0,
+      "eligible_coverage": 0.0,
+      "infrastructure_interrupted_pairs": 0,
+      "overall": {
+        "arms": {
+          "DELAY_2": {
+            "accuracy": null,
+            "budget": {
+              "feedback_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "forward_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "generated_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "prm_calls": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "revoked_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "rollbacks": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              }
+            },
+            "complete": 0,
+            "correct": 0,
+            "early_endpoint": 0,
+            "first_check": {
+              "FAIL_fraction": null,
+              "UNCERTAIN_fraction": null,
+              "effective_verdict_counts": {},
+              "n": 0
+            },
+            "first_check_extra_steps": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            },
+            "first_check_input_tokens": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            },
+            "grading_exclusion_counts": {},
+            "outcome_categories": {},
+            "quality_n": 0,
+            "recorded": 0,
+            "status_counts": {},
+            "termination_counts": {},
+            "time_seconds": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            }
+          },
+          "NOW": {
+            "accuracy": null,
+            "budget": {
+              "feedback_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "forward_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "generated_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "prm_calls": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "revoked_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "rollbacks": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              }
+            },
+            "complete": 0,
+            "correct": 0,
+            "early_endpoint": 0,
+            "first_check": {
+              "FAIL_fraction": null,
+              "UNCERTAIN_fraction": null,
+              "effective_verdict_counts": {},
+              "n": 0
+            },
+            "first_check_extra_steps": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            },
+            "first_check_input_tokens": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            },
+            "grading_exclusion_counts": {},
+            "outcome_categories": {},
+            "quality_n": 0,
+            "recorded": 0,
+            "status_counts": {},
+            "termination_counts": {},
+            "time_seconds": {
+              "mean": null,
+              "median": null,
+              "n": 0,
+              "p95_descriptive": null,
+              "sum": null
+            }
+          }
+        },
+        "by_backend": {},
+        "complete_pairs": 0,
+        "correct_to_wrong": 0,
+        "delay_collapsed": 0,
+        "delta_T_seconds": {
+          "bootstrap_skipped": 1000,
+          "bootstrap_valid": 0,
+          "ci95": null,
+          "estimate": null,
+          "reason": "NO_VALID_PAIRED_TIME"
+        },
+        "delta_Y": {
+          "bootstrap_skipped": 1000,
+          "bootstrap_valid": 0,
+          "ci95": null,
+          "estimate": null,
+          "reason": "NO_VALID_PAIRED_QUALITY"
+        },
+        "eligible": 0,
+        "near_end": 0,
+        "prefix_tokens": {
+          "mean": null,
+          "median": null,
+          "n": 0,
+          "p95_descriptive": null,
+          "sum": null
+        },
+        "quality_pairs": 0,
+        "questions": 130,
+        "time_pairs": 0,
+        "wrong_to_correct": 0
+      },
+      "pending_anchors": {
+        "MISSING_SNAPSHOT": 130
+      },
+      "pending_pairs": 0,
+      "planned": 130,
+      "quality_pair_exclusions": {},
+      "risk": {
+        "B": {
+          "boundaries": null,
+          "groups": {
+            "high": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "low": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "mid": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            }
+          },
+          "heterogeneity_by_backend": {},
+          "high_minus_low_delta_T_seconds": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          },
+          "high_minus_low_delta_Y": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          }
+        },
+        "C": {
+          "boundaries": null,
+          "groups": {
+            "high": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "low": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            },
+            "mid": {
+              "arms": {
+                "DELAY_2": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                },
+                "NOW": {
+                  "accuracy": null,
+                  "budget": {
+                    "feedback_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "forward_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "generated_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "prm_calls": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "revoked_tokens": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    },
+                    "rollbacks": {
+                      "mean": null,
+                      "median": null,
+                      "n": 0,
+                      "p95_descriptive": null,
+                      "sum": null
+                    }
+                  },
+                  "complete": 0,
+                  "correct": 0,
+                  "early_endpoint": 0,
+                  "first_check": {
+                    "FAIL_fraction": null,
+                    "UNCERTAIN_fraction": null,
+                    "effective_verdict_counts": {},
+                    "n": 0
+                  },
+                  "first_check_extra_steps": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "first_check_input_tokens": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  },
+                  "grading_exclusion_counts": {},
+                  "outcome_categories": {},
+                  "quality_n": 0,
+                  "recorded": 0,
+                  "status_counts": {},
+                  "termination_counts": {},
+                  "time_seconds": {
+                    "mean": null,
+                    "median": null,
+                    "n": 0,
+                    "p95_descriptive": null,
+                    "sum": null
+                  }
+                }
+              },
+              "by_backend": {},
+              "complete_pairs": 0,
+              "correct_to_wrong": 0,
+              "delay_collapsed": 0,
+              "delta_T_seconds": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_TIME"
+              },
+              "delta_Y": {
+                "bootstrap_skipped": 1000,
+                "bootstrap_valid": 0,
+                "ci95": null,
+                "estimate": null,
+                "reason": "NO_VALID_PAIRED_QUALITY"
+              },
+              "eligible": 0,
+              "near_end": 0,
+              "prefix_tokens": {
+                "mean": null,
+                "median": null,
+                "n": 0,
+                "p95_descriptive": null,
+                "sum": null
+              },
+              "quality_pairs": 0,
+              "questions": 0,
+              "time_pairs": 0,
+              "wrong_to_correct": 0
+            }
+          },
+          "heterogeneity_by_backend": {},
+          "high_minus_low_delta_T_seconds": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          },
+          "high_minus_low_delta_Y": {
+            "bootstrap_skipped": 1000,
+            "bootstrap_valid": 0,
+            "ci95": null,
+            "estimate": null,
+            "reason": "EMPTY_LOW_OR_HIGH_GROUP"
+          }
+        }
+      },
+      "snapshot_recorded": 0
+    }
+  },
+  "run_id": "20261004-109173095d08",
+  "seed": 20261004
+}
