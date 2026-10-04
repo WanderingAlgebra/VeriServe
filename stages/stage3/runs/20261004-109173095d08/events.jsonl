@@ -1676,3 +1676,6 @@
 {"Y": 1, "arm": "NOW", "event": "ARM_COMPLETED", "seconds": 1.9772100169211626, "termination": "FINAL_PASS", "time": "2026-10-04T18:07:58.777087+00:00", "unique_id": "test/algebra/776.json"}
 {"completed_this_process": 110, "event": "PROBLEM_COMPLETED", "phase": "test", "time": "2026-10-04T18:07:58.944229+00:00", "unique_id": "test/algebra/776.json"}
 {"event": "BACKUP_PENDING", "last_successful_commit": "f144b59be60538c3b24522dd30866bce1c62072b", "reason": "test progress 110 new problems", "time": "2026-10-04T18:08:00.507240+00:00"}
+{"error": "Post \"[redacted URL] read tcp 127.0.0.1:39490->127.0.0.1:17897: i/o timeout\n", "event": "BACKUP_FAILED", "last_successful_commit": "f144b59be60538c3b24522dd30866bce1c62072b", "time": "2026-10-04T18:08:44.857402+00:00"}
+{"error": "Backup failed; retained local data, stop before next batch: Post \"[redacted URL] read tcp 127.0.0.1:39490->127.0.0.1:17897: i/o timeout\n", "event": "PHASE_INTERRUPTED", "phase": "dev", "time": "2026-10-04T18:08:45.389809+00:00"}
+{"event": "BACKUP_PENDING", "last_successful_commit": "f144b59be60538c3b24522dd30866bce1c62072b", "reason": "stage3 code and experiment artifacts", "time": "2026-10-04T19:35:46.551244+00:00"}

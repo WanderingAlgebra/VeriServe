@@ -1,15 +1,7 @@
 {
-  "commit": "f144b59be60538c3b24522dd30866bce1c62072b",
-  "completed_problems": {
-    "dev": 40,
-    "pilot": 20,
-    "test": 100
-  },
-  "dev_groups_sha256": "f60ae0ff03d681d4583419a13942b02e1671ef306ff06e98a45701960c9825fe",
+  "error": "Post \"[redacted URL] read tcp 127.0.0.1:39490->127.0.0.1:17897: i/o timeout\n",
   "last_successful_commit": "f144b59be60538c3b24522dd30866bce1c62072b",
-  "protocol_frozen_sha256": "aec625f2bf1d98ce2982a59994d74c379cb5542907524863564cf826736a4bc1",
-  "pushed_at": "2026-10-04T18:03:41.792183+00:00",
-  "reason": "test progress 110 new problems",
+  "reason": "stage3 code and experiment artifacts",
   "remote_verification": {
     "remote_commit": "8d271a3bc0d95f8c57925c74aa71a894be01c9b7",
     "sha256": {
@@ -20,19 +12,6 @@
     },
     "verified_at": "2026-10-04T16:50:17.557508+00:00"
   },
-  "source_hashes": {
-    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
-    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
-    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
-    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
-    "stages/stage2/config.json": "ebde4a2f85e9829af1d272ef277164af617dab221741abab8e02f3f9a90fd73d",
-    "stages/stage2/run_probe.py": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa",
-    "stages/stage3/analyze.py": "8c074cf2088ade317f8f2e587e92b0b4f4d2e8771f234ea659dc3c893480a872",
-    "stages/stage3/protocol.py": "b8ea8e5e0a437974a74802cefab029ef2c49b474f99b56ac8e66a74a49d05680",
-    "stages/stage3/run_timing.py": "b32b8471bc9791a0eada2b699abde5d5d2c064337f86ae5bf2b5826607bcf938",
-    "stages/stage3/storage.py": "c536e673e3b8ebeaa14f8a9b11522bdb4247e368747140e4c3f4991f0d5c017c"
-  },
-  "stage3_source_commit": "f144b59be60538c3b24522dd30866bce1c62072b",
   "status": "PENDING",
-  "time": "2026-10-04T18:08:00.506426+00:00"
+  "time": "2026-10-04T19:35:46.550371+00:00"
 }

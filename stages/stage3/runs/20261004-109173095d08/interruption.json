@@ -1,0 +1,6 @@
+{
+  "created": "2026-10-04T18:08:45.391083+00:00",
+  "error": "Backup failed; retained local data, stop before next batch: Post \"[redacted URL] read tcp 127.0.0.1:39490->127.0.0.1:17897: i/o timeout\n",
+  "phase": "dev",
+  "resume_command": "/root/miniconda3/bin/python -m stages.stage3.run_timing --config stages/stage3/config.json --phase dev --resume"
+}
