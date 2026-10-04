@@ -1,0 +1,6 @@
+{
+  "created": "2026-10-04T16:34:32.026765+00:00",
+  "error": "Using a `device_map`, `tp_plan`, `torch.device` context manager or setting `torch.set_default_device(device)` requires `accelerate`. You can install it with `pip install accelerate`",
+  "phase": "pilot",
+  "resume_command": "/root/miniconda3/bin/python -m stages.stage3.run_timing --config stages/stage3/config.json --phase pilot --resume"
+}

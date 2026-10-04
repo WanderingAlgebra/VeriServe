@@ -1,5 +1,5 @@
 {
-  "code_commit": "cd5795bb3f2ef67f404bfa19bfcd991ac15f152c",
+  "code_commit": "14068982f91e2e1924c9031ac43dfb8ef8ec2775",
   "config": {
     "anchor_step": 2,
     "attention": "sdpa",
@@ -55,6 +55,7 @@
     "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
     "python": "3.12.3",
     "versions": {
+      "accelerate": "1.15.0",
       "antlr4-python3-runtime": "4.13.2",
       "bitsandbytes": "0.50.2",
       "datasets": "4.8.5",
@@ -63,7 +64,9 @@
       "math-verify": "0.9.0",
       "matplotlib": "3.10.5",
       "numpy": "2.3.2",
+      "pyyaml": "6.0.2",
       "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
       "torch": "2.8.0+cu128",
       "transformers": "4.57.3"
     }
@@ -295,7 +298,7 @@
     "stages/stage3/analyze.py": "a35cf5419978e7cf79c85de3fcf8587dd9aae081f2d3fb73c75484e5c6de4474",
     "stages/stage3/protocol.py": "2b25938a367dafa10ca310198b25edf81de10bb7d7c3f493a4c210898733f0f3",
     "stages/stage3/run_timing.py": "3e5a36dcf5a22ea982a1cfeb7d22121de66fc2b6a24563fc572635c5688f1db2",
-    "stages/stage3/storage.py": "92478dd017dd06390f94569db05fca84f7f849fe0a7c55c362556ec8a2fd00cc"
+    "stages/stage3/storage.py": "e9020d4f9bc2743b9c33b0df228f8bf8bdca4556b8ed4ff251dfe9a24942825d"
   },
   "split_hashes": {
     "dev": "37267dc6bbb5835387fa6e652a88e6f185fb70b9971d622cffccb20dc1cc259a",
@@ -1843,14 +1846,11 @@
     "timestamp_basis": "observed persisted config mtime; exact Hub response timestamp was not recorded"
   },
   "workingtree": {
-    "head_commit": "cd5795bb3f2ef67f404bfa19bfcd991ac15f152c",
+    "head_commit": "14068982f91e2e1924c9031ac43dfb8ef8ec2775",
     "scope": "source files, config, documentation and LFS metadata; excludes run artifacts",
     "source_clean": false,
     "source_status": [
-      "M stages/stage3/README.md",
-      " M stages/stage3/protocol.py",
-      " M stages/stage3/run_timing.py",
-      " M stages/stage3/storage.py"
+      "M stages/stage3/storage.py"
     ]
   }
 }

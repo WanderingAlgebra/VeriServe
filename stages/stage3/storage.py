@@ -41,10 +41,11 @@ def source_hashes():
 
 def environment():
     result = stage2_environment(gpu=False)
-    try:
-        result["versions"]["bitsandbytes"] = importlib.metadata.version("bitsandbytes")
-    except importlib.metadata.PackageNotFoundError:
-        result["versions"]["bitsandbytes"] = None
+    for name in ("bitsandbytes", "accelerate", "scipy", "pyyaml"):
+        try:
+            result["versions"][name] = importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:
+            result["versions"][name] = None
     try:
         result["nvidia_smi"] = subprocess.check_output(
             ["nvidia-smi", "--query-gpu=name,uuid,memory.total,memory.free,driver_version",
