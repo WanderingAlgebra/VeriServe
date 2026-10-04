@@ -275,10 +275,18 @@ def aligned_end(tokenizer, ids, text, char_end, char_start=0):
         else:
             hi = mid - 1
     n = lo
-    while n and (not text.startswith(prefix(n)) or len(prefix(n)) > char_end
-                 or not text[len(prefix(n - 1)):len(prefix(n))].strip()):
+    previous = 0
+    while n:
+        if not text.startswith(prefix(n)) or len(prefix(n)) > char_end:
+            n -= 1
+            continue
+        previous = n - 1
+        while previous and not text.startswith(prefix(previous)):
+            previous -= 1  # A preceding token may contain only a partial UTF-8 character.
+        if text[len(prefix(previous)):len(prefix(n))].strip():
+            break
         n -= 1
-    if not n or not text.startswith(prefix(n - 1)) or len(prefix(n - 1)) < char_start:
+    if not n or len(prefix(previous)) < char_start:
         raise ValueError("FORMAT_ERROR: no complete content token within step")
     if "\ufffd" in prefix(n)[-1:]:
         raise ValueError("FORMAT_ERROR: incomplete UTF-8 token")
@@ -301,7 +309,7 @@ def boundaries(tokenizer, generated_ids):
         result["format_errors"].append("FORMAT_ERROR: interior control token")
         return text, result
     try:
-        result["end"] = aligned_end(tokenizer, content_ids, text, len(text.rstrip()))
+        result["end"] = aligned_end(tokenizer, content_ids, text, len(text))
     except ValueError as exc:
         result["format_errors"].append(str(exc))
     matches = list(STEP.finditer(text))
@@ -548,6 +556,7 @@ def remote_feature_check(run):
         pointer = git("show", f"FETCH_HEAD:{relative}", cwd=folder, env=env)
         if not pointer.startswith("version https://git-lfs.github.com/spec/v1"):
             raise RuntimeError("Remote feature is not a native Git LFS pointer")
+        git("update-ref", "HEAD", "FETCH_HEAD", cwd=folder, env=env)
         git("checkout", "FETCH_HEAD", "--", relative, cwd=folder, env=env)
         git("lfs", "fetch", f"--include={relative}", "--exclude=", "origin", "FETCH_HEAD",
             cwd=folder, env=env)
@@ -1046,6 +1055,16 @@ def self_check(cfg):
     unicode_tok = Tokenizer(["Step 1: ", "\ufffd", "\nFinal answer: \\boxed{2}"])
     _, bad = boundaries(unicode_tok, [0, 1, 2])
     check("incomplete Unicode endpoint excluded", not bad["steps"])
+    _, mixed = boundaries(Tokenizer(["Step 1: x", "\nFinal answer:", " \\boxed{2}\n", "\n\n"]), [0, 1, 2, 3, 999])
+    check("mixed final content and newline token retained", mixed["end"]["end_token_index"] == 2)
+    class ByteTokenizer(Tokenizer):
+        def decode(self, ids, **kwargs):
+            return b"".join(self.pieces[i] for i in ids).decode("utf-8", errors="replace")
+    for character in ("∛", "𝑥", "∞", "汉", "🧮"):
+        pieces = [b"Step 1: "] + [bytes([byte]) for byte in character.encode()] + [b"\nFinal answer: \\boxed{2}"]
+        _, completed = boundaries(ByteTokenizer(pieces), list(range(len(pieces))))
+        check(f"completed Unicode endpoint {character}", len(completed["steps"]) == 1
+              and completed["steps"][0]["end_token_index"] == len(pieces) - 2)
 
     examples = []
     for i in range(24):

@@ -1,0 +1,89 @@
+{
+  "not_applicable": 0,
+  "passed": false,
+  "questions": {
+    "test/intermediate_algebra/1411.json": {
+      "applicable": true,
+      "atol": 0.03125,
+      "changed_future": {
+        "max_abs": 0.0,
+        "max_abs_per_layer": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "passed": true,
+        "rms": 0.0
+      },
+      "independent_prefix": {
+        "max_abs": 1.0,
+        "max_abs_per_layer": [
+          0.0078125,
+          0.015625,
+          0.015625,
+          0.0234375,
+          0.03125,
+          0.0625,
+          0.125,
+          0.1875,
+          0.25,
+          0.25,
+          0.25,
+          0.125,
+          0.125,
+          0.125,
+          0.25,
+          0.375,
+          0.375,
+          0.25,
+          0.375,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.25,
+          0.28125,
+          0.3125,
+          1.0,
+          0.625
+        ],
+        "passed": false,
+        "rms": 0.03250587731599808
+      },
+      "passed": false,
+      "position": 376,
+      "rtol": 0.008,
+      "tolerance_note": "BF16 rounding: atol=1/32, rtol=one BF16 relative ULP; report raw errors"
+    }
+  },
+  "source_code": {
+    "common_sha256": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "script_sha256": "88c305b432bb64ffa991ca898d550fa2baee795196dee5497502a93733216cf5"
+  },
+  "updated_at": "2026-10-04T13:19:27.246063+00:00"
+}

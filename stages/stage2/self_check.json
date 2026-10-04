@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-04T12:42:10.329973+00:00",
+  "checked_at": "2026-10-04T13:20:16.152374+00:00",
   "checks": [
     "grade \\frac{1}{2} vs 0.5",
     "grade \\sqrt{8} vs 2\\sqrt{2}",
@@ -18,6 +18,12 @@
     "near-end retained",
     "anomalous numbering not guessed",
     "incomplete Unicode endpoint excluded",
+    "mixed final content and newline token retained",
+    "completed Unicode endpoint ∛",
+    "completed Unicode endpoint 𝑥",
+    "completed Unicode endpoint ∞",
+    "completed Unicode endpoint 汉",
+    "completed Unicode endpoint 🧮",
     "each question total weight one",
     "weighted scaler",
     "A/B/C fitting and grouped CV",
@@ -49,5 +55,5 @@
   },
   "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke",
   "passed": true,
-  "script_sha256": "88c305b432bb64ffa991ca898d550fa2baee795196dee5497502a93733216cf5"
+  "script_sha256": "18ec3f1c1ebbf5ffc32ef681886e4c3d89814f00eff2e47dff6b47b507a5de04"
 }

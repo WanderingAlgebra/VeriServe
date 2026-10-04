@@ -1,6 +1,6 @@
 # 第二阶段：逐步 hidden 最终答错风险探针
 
-运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T20:41:39.406944+08:00。
+运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T21:19:27.279151+08:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途步骤；不是局部错误标签。
 
@@ -77,29 +77,31 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
     "analyzable_intermediate": 0
   },
   "smoke": {
-    "generated": 0,
-    "completed": 0,
+    "generated": 1,
+    "completed": 1,
     "correct": 0,
-    "wrong": 0,
+    "wrong": 1,
     "truncated": 0,
     "unscorable": 0,
     "no_steps": 0,
     "format_error_trajectories": 0,
     "features_missing_or_corrupt": 0,
     "planned": 10,
-    "not_generated": 10,
-    "analyzable_end": 0,
-    "analyzable_intermediate": 0
+    "not_generated": 9,
+    "analyzable_end": 1,
+    "analyzable_intermediate": 1
   }
 }
 ```
+
+未完成原因：Causal smoke check failed; preserve errors and inspect before formal collection
 
 ## 自检与备份
 
 ```json
 {
   "cpu_self_check": {
-    "checked_at": "2026-10-04T12:39:54.262871+00:00",
+    "checked_at": "2026-10-04T12:42:10.329973+00:00",
     "checks": [
       "grade \\frac{1}{2} vs 0.5",
       "grade \\sqrt{8} vs 2\\sqrt{2}",
@@ -127,6 +129,7 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
       "resume skips complete JSON and NPZ without generation",
       "damaged NPZ detected",
       "unrecoverable JSON never triggers regeneration",
+      "valid JSON with invalid structure is preserved and rejected",
       "no-step causal check is not a failure"
     ],
     "environment": {
@@ -148,7 +151,7 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
     },
     "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke",
     "passed": true,
-    "script_sha256": "4719975530b8db4f420f0b62ab6b2f12f4088d102db73e8de012e806da6c0031"
+    "script_sha256": "88c305b432bb64ffa991ca898d550fa2baee795196dee5497502a93733216cf5"
   },
   "additional_implementation_checks": {
     "checked_at": "2026-10-04T12:33:07.087305+00:00",
@@ -195,12 +198,100 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
       "tolerance_note": "BF16 rounding: atol=1/32, rtol=one BF16 relative ULP; report raw errors"
     }
   },
-  "smoke": null,
+  "smoke": {
+    "not_applicable": 0,
+    "passed": false,
+    "questions": {
+      "test/intermediate_algebra/1411.json": {
+        "applicable": true,
+        "atol": 0.03125,
+        "changed_future": {
+          "max_abs": 0.0,
+          "max_abs_per_layer": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "passed": true,
+          "rms": 0.0
+        },
+        "independent_prefix": {
+          "max_abs": 1.0,
+          "max_abs_per_layer": [
+            0.0078125,
+            0.015625,
+            0.015625,
+            0.0234375,
+            0.03125,
+            0.0625,
+            0.125,
+            0.1875,
+            0.25,
+            0.25,
+            0.25,
+            0.125,
+            0.125,
+            0.125,
+            0.25,
+            0.375,
+            0.375,
+            0.25,
+            0.375,
+            0.25,
+            0.25,
+            0.25,
+            0.25,
+            0.25,
+            0.28125,
+            0.3125,
+            1.0,
+            0.625
+          ],
+          "passed": false,
+          "rms": 0.03250587731599808
+        },
+        "passed": false,
+        "position": 376,
+        "rtol": 0.008,
+        "tolerance_note": "BF16 rounding: atol=1/32, rtol=one BF16 relative ULP; report raw errors"
+      }
+    },
+    "source_code": {
+      "common_sha256": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+      "script_sha256": "88c305b432bb64ffa991ca898d550fa2baee795196dee5497502a93733216cf5"
+    },
+    "updated_at": "2026-10-04T13:19:27.246063+00:00"
+  },
   "resume": null,
   "backup": {
-    "commit": "e721101e58afd9487ba047fd034c49e644400ac8",
+    "commit": "fe6ffa85333f1e9e4f516ad1e05088f5a2f56f4c",
     "feature_remote_verification": null,
-    "pushed_at": "2026-10-04T12:40:32.250531+00:00",
+    "pushed_at": "2026-10-04T12:42:58.677256+00:00",
     "status": "PUSHED"
   }
 }
@@ -220,7 +311,7 @@ hidden_states[1..L] 排除 embedding，Qwen2 的索引 L 含最终 norm；轨迹
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`e721101e58afd9487ba047fd034c49e644400ac8`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`fe6ffa85333f1e9e4f516ad1e05088f5a2f56f4c`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 
