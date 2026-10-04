@@ -57,12 +57,12 @@ DELAY_2 后续时间均值/中位数/p95（描述性）：7.5933/5.3099/32.6290 
 
 ## dev
 
-计划 40 题；已保存锚点状态 20 题；合格 20 题（覆盖率 0.5000）；完整配对 20，有效质量配对 20，有效时间配对 20。
-锚点不合格原因：`{}`；未执行/待恢复锚点：`{"MISSING_SNAPSHOT": 20}`；待完成配对 0；基础设施中断配对 0；质量评估排除：`{}`。
+计划 40 题；已保存锚点状态 30 题；合格 30 题（覆盖率 0.7500）；完整配对 30，有效质量配对 30，有效时间配对 30。
+锚点不合格原因：`{}`；未执行/待恢复锚点：`{"MISSING_SNAPSHOT": 10}`；待完成配对 0；基础设施中断配对 0；质量评估排除：`{}`。
 
 | 范围 | 合格题数 | 质量配对 | NOW 正确率 | DELAY_2 正确率 | ΔY [95% CI] | ΔT 秒 [95% CI] | 错→对 | 对→错 | 前缀 token 均值 |
 | --- | ---: | ---: | ---: | ---: | --- | --- | ---: | ---: | ---: |
-| 总体 | 20 | 20 | 0.6500 | 0.7000 | -0.0500 [-0.1500, 0.0000] | -0.2894 [-2.0549, 1.2552] | 0 | 1 | 131.4500 |
+| 总体 | 30 | 30 | 0.6667 | 0.7000 | -0.0333 [-0.1000, 0.0000] | -0.7946 [-2.6040, 0.7120] | 0 | 1 | 126.8333 |
 | B low | 0 | 0 | NA | NA | NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 | NA |
 | B mid | 0 | 0 | NA | NA | NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 | NA |
 | B high | 0 | 0 | NA | NA | NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 | NA |
@@ -75,7 +75,7 @@ DELAY_2 后续时间均值/中位数/p95（描述性）：7.5933/5.3099/32.6290 
 
 | 范围 | NOW 时间均值/中位秒 | DELAY_2 时间均值/中位秒 | 检查/回滚均值 | 生成/撤销 token 均值 | 首检 FAIL/UNCERTAIN 比例 | 结果分类次数 | ΔY;ΔT 有效 bootstrap |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 总体 | 14.0630/6.3958 | 13.7736/6.0969 | NOW:2.4500/0.6000; DELAY_2:2.3500/0.6000 | NOW:902.8000/258.5000; DELAY_2:885.2500/236.9000 | NOW:0.0500/0.0000; DELAY_2:0.1000/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 6, "CORRECT": 13, "FORMAT_OR_PREDICTION_PARSE": 1}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 5, "CORRECT": 14, "FORMAT_OR_PREDICTION_PARSE": 1}` | 1000/1000;1000/1000 |
+| 总体 | 11.8508/4.9917 | 11.0562/5.4283 | NOW:2.3667/0.5000; DELAY_2:2.2000/0.4667 | NOW:777.2333/229.4667; DELAY_2:732.2000/179.3667 | NOW:0.0667/0.0000; DELAY_2:0.1000/0.0000 | NOW:`{"BUDGET_OR_INPUT_LIMIT": 7, "CORRECT": 20, "FORMAT_OR_PREDICTION_PARSE": 1, "WRONG_SUBMITTED": 2}`; DELAY_2:`{"BUDGET_OR_INPUT_LIMIT": 5, "CORRECT": 21, "FORMAT_OR_PREDICTION_PARSE": 1, "WRONG_SUBMITTED": 3}` | 1000/1000;1000/1000 |
 | B low | NA/NA | NA/NA | NOW:NA/NA; DELAY_2:NA/NA | NOW:NA/NA; DELAY_2:NA/NA | NOW:NA/NA; DELAY_2:NA/NA | NOW:`{}`; DELAY_2:`{}` | 0/1000;0/1000 |
 | B mid | NA/NA | NA/NA | NOW:NA/NA; DELAY_2:NA/NA | NOW:NA/NA; DELAY_2:NA/NA | NOW:NA/NA; DELAY_2:NA/NA | NOW:`{}`; DELAY_2:`{}` | 0/1000;0/1000 |
 | B high | NA/NA | NA/NA | NOW:NA/NA; DELAY_2:NA/NA | NOW:NA/NA; DELAY_2:NA/NA | NOW:NA/NA; DELAY_2:NA/NA | NOW:`{}`; DELAY_2:`{}` | 0/1000;0/1000 |
@@ -93,15 +93,15 @@ C 高风险减低风险的收益差：ΔY NA（EMPTY_LOW_OR_HIGH_GROUP）；ΔT 
 高低差 ΔY/ΔT 有效 bootstrap 次数：0/1000/0/1000。
 质量异质性：NA：尚无可评估证据。 时间异质性：NA：尚无可评估证据。
 
-NOW 后续时间均值/中位数/p95（描述性）：14.0630/6.3958/50.7938 秒；PRM 调用/回滚均值 2.4500/0.6000；生成/撤销 token 合计 18056.0000/5170.0000。
-首次检查判决次数：`{"FAIL": 1, "PASS": 19}`；FAIL/UNCERTAIN 比例：0.0500/0.0000（有首次检查记录 20 臂）；提前终点 0 臂；累计非 decode 前向/反馈 token 均值 1249.1500/36.3000。
-终止原因：`{"BUDGET_GENERATION_ATTEMPT": 1, "BUDGET_ROLLBACKS": 5, "FINAL_PASS": 13, "MISSING_OR_INCOMPLETE_BOXED": 1}`；评分排除：`{"BUDGET_GENERATION_ATTEMPT": 1, "BUDGET_ROLLBACKS": 5, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONE": 13}`；保存状态：`{"COMPLETE": 20}`。
+NOW 后续时间均值/中位数/p95（描述性）：11.8508/4.9917/47.1883 秒；PRM 调用/回滚均值 2.3667/0.5000；生成/撤销 token 合计 23317.0000/6884.0000。
+首次检查判决次数：`{"FAIL": 2, "PASS": 28}`；FAIL/UNCERTAIN 比例：0.0667/0.0000（有首次检查记录 30 臂）；提前终点 0 臂；累计非 decode 前向/反馈 token 均值 1175.2333/30.2000。
+终止原因：`{"BUDGET_GENERATION_ATTEMPT": 1, "BUDGET_ROLLBACKS": 6, "FINAL_PASS": 22, "MISSING_OR_INCOMPLETE_BOXED": 1}`；评分排除：`{"BUDGET_GENERATION_ATTEMPT": 1, "BUDGET_ROLLBACKS": 6, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONE": 22}`；保存状态：`{"COMPLETE": 30}`。
 
-DELAY_2 后续时间均值/中位数/p95（描述性）：13.7736/6.0969/41.6610 秒；PRM 调用/回滚均值 2.3500/0.6000；生成/撤销 token 合计 17705.0000/4738.0000。
-首次检查判决次数：`{"FAIL": 2, "PASS": 18}`；FAIL/UNCERTAIN 比例：0.1000/0.0000（有首次检查记录 20 臂）；提前终点 1 臂；累计非 decode 前向/反馈 token 均值 1334.8500/36.0000。
-终止原因：`{"BUDGET_GENERATION_ATTEMPT": 1, "BUDGET_ROLLBACKS": 4, "FINAL_PASS": 14, "MISSING_OR_INCOMPLETE_BOXED": 1}`；评分排除：`{"BUDGET_GENERATION_ATTEMPT": 1, "BUDGET_ROLLBACKS": 4, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONE": 14}`；保存状态：`{"COMPLETE": 20}`。
+DELAY_2 后续时间均值/中位数/p95（描述性）：11.0562/5.4283/36.9726 秒；PRM 调用/回滚均值 2.2000/0.4667；生成/撤销 token 合计 21966.0000/5381.0000。
+首次检查判决次数：`{"FAIL": 3, "PASS": 27}`；FAIL/UNCERTAIN 比例：0.1000/0.0000（有首次检查记录 30 臂）；提前终点 3 臂；累计非 decode 前向/反馈 token 均值 1211.1000/27.9667。
+终止原因：`{"BUDGET_GENERATION_ATTEMPT": 1, "BUDGET_ROLLBACKS": 4, "FINAL_PASS": 24, "MISSING_OR_INCOMPLETE_BOXED": 1}`；评分排除：`{"BUDGET_GENERATION_ATTEMPT": 1, "BUDGET_ROLLBACKS": 4, "MISSING_OR_INCOMPLETE_BOXED": 1, "NONE": 24}`；保存状态：`{"COMPLETE": 30}`。
 
-公共快照 near_end 0 题；DELAY_2 delay_collapsed 1 题；两臂后端不一致 0 题。各组检查/回滚、失败分类、时间分布、有效 bootstrap 次数及分后端结果详见 metrics.json。
+公共快照 near_end 1 题；DELAY_2 delay_collapsed 3 题；两臂后端不一致 0 题。各组检查/回滚、失败分类、时间分布、有效 bootstrap 次数及分后端结果详见 metrics.json。
 
 ## test
 
@@ -166,5 +166,5 @@ pilot/dev/test 分开报告；未执行指标均为 NA。离线诊断和公共�
 | 阶段 | 公共生成秒均值 | 离线特征秒均值 | 探针秒均值 | 实验快照恢复秒均值 |
 | --- | ---: | ---: | ---: | ---: |
 | pilot | 1.9988 | 0.0374 | 0.0001 | 0.0387 |
-| dev | 2.4662 | 0.0365 | 0.0001 | 0.0383 |
+| dev | 2.3819 | 0.0359 | 0.0001 | 0.0375 |
 | test | NA | NA | NA | NA |
