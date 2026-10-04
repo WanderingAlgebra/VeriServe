@@ -4,4 +4,6 @@ __pycache__/
 runs/
 !stages/stage2/runs/
 !stages/stage2/runs/**
+!stages/stage3/runs/
+!stages/stage3/runs/**
 .cache/
