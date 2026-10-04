@@ -40,7 +40,118 @@
         "passed": true,
         "rms": 0.0
       },
+      "extraction": "independent_original_prefixes",
       "independent_prefix": {
+        "max_abs": 0.0,
+        "max_abs_per_layer": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "passed": true,
+        "rms": 0.0
+      },
+      "passed": true,
+      "position": 376,
+      "previous_token_negative_control": {
+        "detected": true,
+        "max_abs": 65.546875,
+        "max_abs_per_layer": [
+          1.390625,
+          1.4296875,
+          1.69140625,
+          1.96875,
+          2.375,
+          3.53125,
+          3.75,
+          4.5625,
+          4.90625,
+          5.09375,
+          5.21875,
+          5.65625,
+          5.8125,
+          5.8125,
+          6.34375,
+          7.25,
+          7.375,
+          7.8125,
+          12.125,
+          8.0625,
+          8.75,
+          9.625,
+          11.5,
+          12.234375,
+          13.0,
+          15.90625,
+          20.0,
+          65.546875
+        ],
+        "passed": false,
+        "rms": 1.6659446954727173
+      },
+      "rtol": 0.008,
+      "single_full_changed_future": {
+        "max_abs": 0.0,
+        "max_abs_per_layer": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "passed": true,
+        "rms": 0.0
+      },
+      "single_full_vs_prefix_diagnostic": {
+        "gating": false,
         "max_abs": 1.0,
         "max_abs_per_layer": [
           0.0078125,
@@ -72,18 +183,17 @@
           1.0,
           0.625
         ],
+        "note": "Retained full-once BF16 shape discrepancy; features use independent original prefixes",
         "passed": false,
-        "rms": 0.03250587731599808
+        "rms": 0.03250587731599808,
+        "used_for_features": false
       },
-      "passed": false,
-      "position": 376,
-      "rtol": 0.008,
       "tolerance_note": "BF16 rounding: atol=1/32, rtol=one BF16 relative ULP; report raw errors"
     }
   },
   "source_code": {
     "common_sha256": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
-    "script_sha256": "88c305b432bb64ffa991ca898d550fa2baee795196dee5497502a93733216cf5"
+    "script_sha256": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa"
   },
-  "updated_at": "2026-10-04T13:19:27.246063+00:00"
+  "updated_at": "2026-10-04T13:33:29.735697+00:00"
 }

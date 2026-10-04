@@ -113,10 +113,11 @@
   "completion": "EOS",
   "config_hash": "36fe9009f1f5639726a7a3ed8f9761be68999a7c295271d68254ded8a38c42cd",
   "exclusion": null,
+  "feature_extraction": "independent_original_prefixes; BF16 decoder use_cache=False",
   "feature_files": [
     {
-      "name": "360ab3e1d67a68508365.features-88c305b432bb.npz",
-      "sha256": "427fbfbdfde52a7aa66807ebb3aa04437e97311e8e89a87493a543e6e2935521"
+      "name": "360ab3e1d67a68508365.features-3d46237d3fa2.npz",
+      "sha256": "e1b114b71efb5e3cecfd61dbcfc183edd89f08fc47a0b6f16754477bb120e789"
     }
   ],
   "feature_hardware": {
@@ -147,7 +148,7 @@
   },
   "feature_source_code": {
     "common_sha256": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
-    "script_sha256": "88c305b432bb64ffa991ca898d550fa2baee795196dee5497502a93733216cf5"
+    "script_sha256": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa"
   },
   "generated_at": "2026-10-04T13:19:26.270846+00:00",
   "generated_ids": [
@@ -1333,7 +1334,7 @@
     198
   ],
   "raw_text": "Step 1: Since the polynomial \\(P(x) = 2x^3 - 2ax^2 + (a^2 - 81)x - c\\) has roots that are all positive integers, let's denote the roots by \\(p\\), \\(q\\), and \\(r\\). By Vieta's formulas, we have:\n\\[ p + q + r = a, \\]\n\\[ pq + qr + rp = \\frac{a^2 - 81}{2}, \\]\n\\[ pqr = \\frac{c}{2}. \\]\n\nStep 2: From the second equation, we can express \\(a^2 - 81\\) as:\n\\[ a^2 - 81 = 2(pq + qr + rp). \\]\n\nStep 3: Since \\(a\\) is a positive integer, let's test possible values for \\(a\\). We need to find values of \\(a\\) such that \\(a^2 - 81\\) is even, which it always is since \\(a^2\\) is odd if \\(a\\) is odd and even if \\(a\\) is even. However, \\(a^2 - 81\\) must be divisible by 2, which is always true for any integer \\(a\\).\n\nStep 4: Let's start with small values of \\(a\\) and check if they satisfy the conditions. If \\(a = 9\\), then:\n\\[ p + q + r = 9, \\]\n\\[ pq + qr + rp = \\frac{9^2 - 81}{2} = \\frac{81 - 81}{2} = 0. \\]\nThis implies \\(pq + qr + rp = 0\\), which is impossible since \\(p\\), \\(q\\), and \\(r\\) are positive integers. So, \\(a = 9\\) is not a solution.\n\nStep 5: Next, let's try \\(a = 10\\):\n\\[ p + q + r = 10, \\]\n\\[ pq + qr + rp = \\frac{10^2 - 81}{2} = \\frac{100 - 81}{2} = \\frac{19}{2}, \\]\nwhich is not an integer, so \\(a = 10\\) is not a solution.\n\nStep 6: Now, let's try \\(a = 11\\):\n\\[ p + q + r = 11, \\]\n\\[ pq + qr + rp = \\frac{11^2 - 81}{2} = \\frac{121 - 81}{2} = \\frac{40}{2} = 20. \\]\nWe need to find positive integers \\(p\\), \\(q\\), and \\(r\\) such that \\(p + q + r = 11\\) and \\(pq + qr + rp = 20\\). Testing possible combinations, we find:\n\\[ p = 2, q = 3, r = 6 \\quad \\text{or} \\quad p = 3, q = 2, r = 6. \\]\nIn both cases, \\(pqr = 2 \\cdot 3 \\cdot 6 = 36\\), so \\(c = 2 \\cdot 36 = 72\\).\n\nStep 7: Steve gives the value of \\(a\\) as 11, and Jon says there are two possible values of \\(c\\). This means there must be another combination of roots that also satisfies the conditions. Testing other combinations, we find:\n\\[ p = 1, q = 4, r = 6 \\quad \\text{or} \\quad p = 4, q = 1, r = 6. \\]\nIn this case, \\(pqr = 1 \\cdot 4 \\cdot 6 = 24\\), so \\(c = 2 \\cdot 24 = 48\\).\n\nStep 8: The two possible values of \\(c\\) are 72 and 48. The sum of these values is:\n\\[ 72 + 48 = 120. \\]\n\nFinal answer: \\boxed{120}<|im_end|>",
-  "reforward_peak_bytes": 15665456640,
+  "reforward_peak_bytes": 15666643456,
   "script_sha256": "88c305b432bb64ffa991ca898d550fa2baee795196dee5497502a93733216cf5",
   "source": {
     "answer": "440",
@@ -1346,9 +1347,9 @@
   "split": "smoke",
   "stage": "FEATURES",
   "timings": {
-    "boundary_and_grading_seconds": 0.07431632839143276,
+    "boundary_and_grading_seconds": 0.07424146309494972,
     "generation_seconds": 16.150028008967638,
-    "reforward_seconds": 0.120222182944417
+    "reforward_seconds": 0.742382176220417
   },
   "token_sha256": "3c1a52a90d920f55f80ee221194b7ad047195c2fcfdf76c5c4aea4e803739ff8",
   "unique_id": "test/intermediate_algebra/1411.json"
