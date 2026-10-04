@@ -1,5 +1,5 @@
 {
-  "error": "fatal: could not read Username for '[redacted URL] terminal prompts disabled\nGit credentials for [redacted URL] not found.\n",
+  "error": "fatal: could not read Username for '[redacted URL] terminal prompts disabled\n",
   "status": "FAILED",
-  "time": "2026-10-04T12:31:22.501905+00:00"
+  "time": "2026-10-04T12:33:20.090253+00:00"
 }

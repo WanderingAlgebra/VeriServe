@@ -1,6 +1,6 @@
 # 第二阶段：逐步 hidden 最终答错风险探针
 
-运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T12:33:03.020949+00:00。
+运行：`20261004-36fe9009f1f5`；报告更新于 2026-10-04T12:33:20.096299+00:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途步骤；不是局部错误标签。
 
@@ -67,8 +67,7 @@ BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.
 }
 ```
 
-未完成原因：Fewer than five training questions in either class; no test data borrowed; origin backup failed: fatal: could not read Username for '[redacted URL] terminal prompts disabled
-Git credentials for [redacted URL] not found.
+未完成原因：Backup failed; local files retained, collection stopped: fatal: could not read Username for '[redacted URL] terminal prompts disabled
 
 
 ## 自检与备份
@@ -76,7 +75,7 @@ Git credentials for [redacted URL] not found.
 ```json
 {
   "cpu_self_check": {
-    "checked_at": "2026-10-04T12:30:09.524635+00:00",
+    "checked_at": "2026-10-04T12:33:04.626353+00:00",
     "checks": [
       "grade \\frac{1}{2} vs 0.5",
       "grade \\sqrt{8} vs 2\\sqrt{2}",
@@ -122,15 +121,60 @@ Git credentials for [redacted URL] not found.
       }
     },
     "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke",
-    "passed": true
+    "passed": true,
+    "script_sha256": "866da90db05d1d5467e16b2834b7fb6ff03fdfc63872a65caa0aad0f8081f745"
   },
-  "additional_implementation_checks": null,
+  "additional_implementation_checks": {
+    "checked_at": "2026-10-04T12:33:07.087305+00:00",
+    "layer_index_and_final_output": true,
+    "note": "Implementation checks on a tiny randomly initialized Qwen2 decoder, not the requested 7B model; no experimental trajectories.",
+    "pinned_tokenizer_alignment": [
+      {
+        "boundary_alignment": true,
+        "effective_steps": 2,
+        "excluded_steps": 0,
+        "tokens": 29
+      },
+      {
+        "boundary_alignment": true,
+        "effective_steps": 1,
+        "excluded_steps": 1,
+        "tokens": 42
+      }
+    ],
+    "script_sha256": "866da90db05d1d5467e16b2834b7fb6ff03fdfc63872a65caa0aad0f8081f745",
+    "tiny_qwen_bf16_sdpa_causal": {
+      "atol": 0.03125,
+      "changed_future": {
+        "max_abs": 0.0,
+        "max_abs_per_layer": [
+          0.0,
+          0.0
+        ],
+        "passed": true,
+        "rms": 0.0
+      },
+      "independent_prefix": {
+        "max_abs": 0.0,
+        "max_abs_per_layer": [
+          0.0,
+          0.0
+        ],
+        "passed": true,
+        "rms": 0.0
+      },
+      "passed": true,
+      "position": 5,
+      "rtol": 0.008,
+      "tolerance_note": "BF16 rounding: atol=1/32, rtol=one BF16 relative ULP; report raw errors"
+    }
+  },
   "smoke": null,
   "resume": null,
   "backup": {
-    "error": "fatal: could not read Username for '[redacted URL] terminal prompts disabled\nGit credentials for [redacted URL] not found.\n",
+    "error": "fatal: could not read Username for '[redacted URL] terminal prompts disabled\n",
     "status": "FAILED",
-    "time": "2026-10-04T12:31:22.501905+00:00"
+    "time": "2026-10-04T12:33:20.090253+00:00"
   }
 }
 ```
@@ -149,7 +193,7 @@ hidden_states[1..L] 排除 embedding，Qwen2 的索引 L 含最终 norm；轨迹
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`b88e66a0b96e870cb5b2e7e48741fe43ce91b8c0`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`3f0077e029ce1d88cd784b7f8a0668b2ff3f633b`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 
