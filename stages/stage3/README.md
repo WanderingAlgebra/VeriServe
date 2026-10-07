@@ -33,7 +33,9 @@ python -m stages.stage3.high_low --phase test --resume
 python -m stages.stage3.high_low --phase analyze --resume
 ```
 
-`--self-check` 复用旧 CPU 检查并补位置/端点、单次中途检查、PASS checkpoint、FAIL 截断/反馈、累计预算与评分/差值方向断言。真实 GPU pilot 另核对首检 token 一致、PASS 暂停继续与强制 FAIL 的真实 KV crop/保留/增量 prefill；强制 FAIL 自检不混入科学结果。只有四题 GPU pilot 通过才允许 `freeze` / 正式执行。没有 BF16 CUDA 时完成代码与 CPU 自检，保存未执行状态；当前新实验的 GPU pilot 和正式结果待执行，不能把 NA 当结果。
+`--self-check` 复用旧 CPU 检查并补位置/端点、单次中途检查、PASS checkpoint、FAIL 截断/反馈、累计预算与评分/差值方向断言。真实 GPU pilot 另核对首检 token 一致、PASS 暂停继续与强制 FAIL 的真实 KV crop/保留/增量 prefill；强制 FAIL 自检不混入科学结果。只有四题 GPU pilot 通过才允许 `freeze` / 正式执行。没有 BF16 CUDA 时完成代码与 CPU 自检，保存未执行状态，不能把 NA 当结果。
+
+2026-10-07 的新 run 已在同一 RTX 4090 上通过 CPU 自检和 4 题真实 GPU pilot，再冻结协议。原 test 200 题中 191 题合格，全部完成 HIGH/LOW 配对（382 次真实请求）；其余 9 题因参考轨迹截断或格式问题排除，原因逐题保留。HIGH 答对 142/191，LOW 答对 145/191，平均 `T_request` 分别为 12.626 / 12.930 秒；准确率差与时间差的 95% 配对 bootstrap 区间均跨 0，不能据此证明等效或哪条路径更优。完整统计、失败计数及位置分布见上表的新报告。
 
 恢复使用同一命令加 `--resume`：完整有效配对保留；基础设施中断的旧文件移入 `interrupted_pairs/`，该题两个请求时钟一起重新实跑。每 10 个完整题报告进度并在计时外沿用 Git/LFS 备份；无远端权限则保存本地状态。原 token、PRM 判决、预算和终止原因在 `arms/<key>.HIGH.json` / `.LOW.json`，汇总为 `paired_results.csv`、`metrics.json`、`report.md`，新 run 不覆盖旧 run。
 
