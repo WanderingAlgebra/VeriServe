@@ -65,21 +65,21 @@ T_request 从各自 prompt prefill 至提交/终止实测，含生成、PRM、�
 
 | 计划 | 已保存位置 | 合格 | 完整配对 | 质量配对 | 时间配对 | 待完成配对 | 基础设施中断 |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 200 | 200 | 191 | 80 | 80 | 80 | 111 | 0 |
+| 200 | 200 | 191 | 90 | 90 | 90 | 101 | 0 |
 
 | 路径 | 答对 / 共同可评估 | 正确率 | 平均总请求秒 | PRM / 回滚均值 | 生成 / 撤销 token 均值 | 生成 / 撤销 token 总数 |
 | --- | ---: | ---: | ---: | --- | --- | --- |
-| HIGH | 60 / 80 | 0.7500 | 12.0423 | 2.3000 / 0.4750 | 649.3250 / 212.7000 | 51946.0000 / 17016.0000 |
-| LOW | 63 / 80 | 0.7875 | 12.2951 | 2.2875 / 0.4000 | 665.9125 / 196.9375 | 53273.0000 / 15755.0000 |
+| HIGH | 66 / 90 | 0.7333 | 13.2560 | 2.3333 / 0.5111 | 708.5000 / 250.4000 | 63765.0000 / 22536.0000 |
+| LOW | 69 / 90 | 0.7667 | 12.5344 | 2.3222 / 0.4333 | 674.8556 / 202.5444 | 60737.0000 / 18229.0000 |
 
 | ΔY [95% CI] | ΔT 秒 [95% CI] | HIGH 对 / LOW 错 | HIGH 错 / LOW 对 |
 | --- | --- | ---: | ---: |
-| -0.0375 [-0.1000, 0.0250] | 0.2528 [-1.2710, 2.1398] | 2 | 5 |
+| -0.0333 [-0.0889, 0.0222] | -0.7216 [-2.3736, 1.1645] | 2 | 5 |
 
 | 路径 | 检查步号均值 | 前缀 token 均值 | near_end 数 / 比例 | 首检判决 | 算法失败终止次数 | 错答提交 | checkpoint_conflict |
 | --- | ---: | ---: | --- | --- | --- | ---: | ---: |
-| HIGH | 3.8377 | 250.4607 | 35 / 0.1832 | `{"FAIL": 14, "PASS": 66}` | `{"BUDGET_ROLLBACK": 14}` | 6 | 0 |
-| LOW | 3.4241 | 197.1937 | 28 / 0.1466 | `{"FAIL": 8, "PASS": 72}` | `{"BUDGET_ATTEMPT": 1, "BUDGET_ROLLBACK": 8}` | 8 | 0 |
+| HIGH | 3.8377 | 250.4607 | 35 / 0.1832 | `{"FAIL": 16, "PASS": 74}` | `{"BUDGET_ROLLBACK": 17}` | 7 | 0 |
+| LOW | 3.4241 | 197.1937 | 28 / 0.1466 | `{"FAIL": 9, "PASS": 81}` | `{"BUDGET_ATTEMPT": 1, "BUDGET_ROLLBACK": 10}` | 10 | 0 |
 
 位置关系：`{"HIGH_earlier": 101, "HIGH_later": 90}`；全同分题 0（保留并各自实跑）。
 
@@ -88,8 +88,8 @@ T_request 从各自 prompt prefill 至提交/终止实测，含生成、PRM、�
 | selection_exclusions | `{"FORMAT_ERROR: missing, repeated or non-sequential Step N markers": 5, "REFERENCE_FINAL_FORMAT_ERROR": 2, "REFERENCE_LENGTH_TRUNCATED": 2}` |
 | pending_selections | `{}` |
 | quality_pair_exclusions | `{}` |
-| HIGH grading exclusions | `{"NONE": 80}` |
-| LOW grading exclusions | `{"NONE": 80}` |
+| HIGH grading exclusions | `{"NONE": 90}` |
+| LOW grading exclusions | `{"NONE": 90}` |
 
 后端/请求时间无效完整配对：0。ΔY/ΔT 有效 bootstrap 次数 1000/1000（各应为 1000，NA 为 0）。
 
