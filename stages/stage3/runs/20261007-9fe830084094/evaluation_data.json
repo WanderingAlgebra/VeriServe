@@ -17,7 +17,16 @@
   "test/algebra/2264.json": {
     "status": "VALID"
   },
+  "test/algebra/251.json": {
+    "status": "VALID"
+  },
+  "test/algebra/2626.json": {
+    "status": "VALID"
+  },
   "test/algebra/2743.json": {
+    "status": "VALID"
+  },
+  "test/algebra/297.json": {
     "status": "VALID"
   },
   "test/algebra/478.json": {
@@ -68,10 +77,16 @@
   "test/intermediate_algebra/1151.json": {
     "status": "VALID"
   },
+  "test/intermediate_algebra/1410.json": {
+    "status": "VALID"
+  },
   "test/intermediate_algebra/1411.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/1467.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/1510.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/1566.json": {
@@ -110,6 +125,9 @@
   "test/number_theory/1065.json": {
     "status": "VALID"
   },
+  "test/number_theory/1172.json": {
+    "status": "VALID"
+  },
   "test/number_theory/417.json": {
     "status": "VALID"
   },
@@ -125,7 +143,13 @@
   "test/number_theory/914.json": {
     "status": "VALID"
   },
+  "test/prealgebra/1238.json": {
+    "status": "VALID"
+  },
   "test/prealgebra/1423.json": {
+    "status": "VALID"
+  },
+  "test/prealgebra/1572.json": {
     "status": "VALID"
   },
   "test/prealgebra/1730.json": {
@@ -143,7 +167,13 @@
   "test/precalculus/1252.json": {
     "status": "VALID"
   },
+  "test/precalculus/1289.json": {
+    "status": "VALID"
+  },
   "test/precalculus/1303.json": {
+    "status": "VALID"
+  },
+  "test/precalculus/190.json": {
     "status": "VALID"
   },
   "test/precalculus/34.json": {
