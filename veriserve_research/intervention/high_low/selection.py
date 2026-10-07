@@ -1,16 +1,14 @@
-"""Freeze offline HIGH/LOW positions from the untouched stage2 token records."""
 from __future__ import annotations
-
 import csv
 import math
 import re
 import time
 from pathlib import Path
-
 import numpy as np
-
-from stages.stage1.veriserve.common import read_json, stable_hash
-from stages.stage2 import run_probe as old
+from veriserve_research.artifacts.io import read_json, stable_hash, atomic_bytes, save_npz, digest
+from veriserve_research.trajectory import STEP, FINAL, ANSWER_STEP, boundaries, boxed, decode
+from veriserve_research.probe.materials import record_path
+from ...artifacts.materials import material_key
 
 
 def load_source(stage2_run):
@@ -55,8 +53,8 @@ def _reference_bounds(record, tokenizer):
     if record.get("token_sha256") != stable_hash({"prompt_ids": prompt, "generated_ids": generated}):
         raise ValueError("REFERENCE_TOKEN_HASH_MISMATCH")
     if tokenizer is not None:
-        text, bounds = old.boundaries(tokenizer, generated)
-        if old.decode(tokenizer, generated) != record.get("raw_text"):
+        text, bounds = boundaries(tokenizer, generated)
+        if decode(tokenizer, generated) != record.get("raw_text"):
             raise ValueError("REFERENCE_TEXT_TOKEN_MISMATCH")
         saved = record.get("boundaries")
         if saved is not None and saved != bounds:
@@ -78,9 +76,9 @@ def _reference_bounds(record, tokenizer):
         raise ValueError("INTERVENED_REFERENCE")
     if bounds.get("format_errors"):
         raise ValueError("; ".join(bounds["format_errors"]))
-    finals, markers = list(old.FINAL.finditer(text)), list(old.STEP.finditer(text))
+    finals, markers = list(FINAL.finditer(text)), list(STEP.finditer(text))
     if (len(finals) != 1 or text[finals[0].end():].strip()
-            or old.boxed(finals[0].group()) is None):
+            or boxed(finals[0].group()) is None):
         raise ValueError("REFERENCE_FINAL_FORMAT_ERROR")
     if [int(m.group(1)) for m in markers] != list(range(1, len(markers) + 1)):
         raise ValueError("REFERENCE_NONSEQUENTIAL_STEPS")
@@ -90,7 +88,7 @@ def _reference_bounds(record, tokenizer):
         if stop <= marker.start() or not text[marker.end():stop].strip():
             raise ValueError("REFERENCE_UNCLOSED_OR_EMPTY_STEP")
         segment = text[marker.start():stop].rstrip()
-        if not re.search(r"\\boxed\s*\{", segment) and not old.ANSWER_STEP.search(segment):
+        if not re.search(r"\\boxed\s*\{", segment) and not ANSWER_STEP.search(segment):
             ordinary.append((int(marker.group(1)), segment, marker.start()))
     steps = bounds.get("steps", [])
     if [(s["step_number"], s["text"], s["char_start"]) for s in steps] != ordinary:
@@ -120,8 +118,8 @@ def _saved_vectors(path, record, width, material):
     seen = set()
     for entry in record["feature_files"]:
         feature_path = path.parent / entry["name"]
-        actual = old.digest(feature_path)
-        material[str(feature_path)] = actual
+        actual = digest(feature_path)
+        material[material_key(feature_path)] = actual
         if actual != entry["sha256"]:
             raise ValueError("FEATURE_HASH_MISMATCH")
         with np.load(feature_path, allow_pickle=False) as data:
@@ -195,12 +193,12 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
     manifest, rows = load_source(folder)
     if row["unique_id"] not in {r["unique_id"] for r in rows[phase]}:
         raise ValueError("Question is outside the frozen manifest cohort")
-    material = {str(folder / name): old.digest(folder / name)
+    material = {material_key(folder / name): digest(folder / name)
                 for name in ("manifest.json", "probe_B.json", "probe_B.npz")}
-    path = old.record_path(folder, source_split, row["unique_id"])
+    path = record_path(folder, source_split, row["unique_id"])
     original = read_json(path)
     if original is not None:
-        material[str(path)] = old.digest(path)
+        material[material_key(path)] = digest(path)
     result = {"unique_id": row["unique_id"], "phase": phase, "source_split": source_split,
               "status": "EXCLUDED", "exclusion_reasons": [], "positions": {},
               "source_material_hashes": material, "hidden_state_index": 19,
@@ -265,7 +263,7 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
                 result["missing_feature_step_numbers"] = [bounds["steps"][i]["step_number"] for i in missing]
                 return _finish(result, started, time.perf_counter() - feature_started)
             import torch
-            from stages.stage3.run_timing import feature
+            from veriserve_research.inference import feature
             torch.cuda.synchronize()
             for i in missing:
                 step = bounds["steps"][i]
@@ -275,15 +273,15 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
             if cache is not None:
                 # Preserve an invalid cache before replacing it with verified prefix features.
                 if cache.exists():
-                    old.atomic_bytes(cache.with_suffix(f".preserved-{time.time_ns()}.npz"), cache.read_bytes())
-                old.save_npz(cache, layers=np.asarray([19]),
+                    atomic_bytes(cache.with_suffix(f".preserved-{time.time_ns()}.npz"), cache.read_bytes())
+                save_npz(cache, layers=np.asarray([19]),
                              positions=np.asarray([len(record["prompt_ids"]) + s["end_token_index"] for s in bounds["steps"]]),
                              hidden=vectors[np.newaxis].astype(np.float32),
                              token_sha256=np.asarray(record["token_sha256"]),
                              model_revision=np.asarray(manifest["revisions"]["model"]),
                              extraction=np.asarray("independent_original_prefixes"))
         if cache is not None:
-            material[str(cache)] = old.digest(cache)
+            material[material_key(cache)] = digest(cache)
     feature_seconds = time.perf_counter() - feature_started
     if vectors.shape != (len(bounds["steps"]), len(probe["w"])) or not np.isfinite(vectors).all():
         raise ValueError("Selected-layer prefix features are invalid")
@@ -292,7 +290,7 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
         raise ValueError("Non-finite B linear logits")
     saved, predictions_path = _saved_scores(folder, row["unique_id"]) if reused.any() else ({}, None)
     if predictions_path is not None:
-        material[str(predictions_path)] = old.digest(predictions_path)
+        material[material_key(predictions_path)] = digest(predictions_path)
     for i, (step, logit) in enumerate(zip(bounds["steps"], logits)):
         z = float(logit)
         q = 1 / (1 + math.exp(-z)) if z >= 0 else math.exp(z) / (1 + math.exp(z))
@@ -316,7 +314,7 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
 def self_check():
     """One CPU fixture catches endpoint, saturation, tie and outcome-filter regressions."""
     import tempfile
-    from stages.stage1.veriserve.common import atomic_json
+    from veriserve_research.artifacts.io import atomic_json
     class CharacterTokenizer:
         all_special_ids = [0]
         def decode(self, ids, **kwargs):
@@ -334,21 +332,21 @@ def self_check():
             "train": [{"unique_id": "train/0"}]}}
         atomic_json(folder / "manifest.json", manifest)
         atomic_json(folder / "probe_B.json", {"method": "B", "layer": 19, "b": 0.})
-        old.save_npz(folder / "probe_B.npz", mean=np.zeros(2), scale=np.ones(2), w=np.array([1., 0.]), b=np.array(0.))
+        save_npz(folder / "probe_B.npz", mean=np.zeros(2), scale=np.ones(2), w=np.array([1., 0.]), b=np.array(0.))
         text = "Step 1: one\n\nStep 2: two\n\nStep 3: three\n\nFinal answer: \\boxed{3}"
         ids = list(map(ord, text)) + [0]
-        _, bounds = old.boundaries(tokenizer, ids)
+        _, bounds = boundaries(tokenizer, ids)
         record = {"prompt_ids": [1], "generated_ids": ids, "raw_text": tokenizer.decode(ids),
                   "completion": "EOS", "config_hash": "fixture", "label": None,
                   "boundaries": bounds, "feature_extraction": "independent_original_prefixes"}
         record["token_sha256"] = stable_hash({"prompt_ids": [1], "generated_ids": ids})
-        path = old.record_path(folder, "test", row["unique_id"])
+        path = record_path(folder, "test", row["unique_id"])
         feature_path = path.with_suffix(".npz")
         positions = [1 + s["end_token_index"] for s in bounds["steps"] + [bounds["end"]]]
         hidden = np.zeros((3, len(positions), 2))
         hidden[1, :3, 0] = [1000., 1001., -1000.]
-        old.save_npz(feature_path, layers=np.array([18, 19, 20]), positions=np.array(positions), hidden=hidden)
-        record["feature_files"] = [{"name": feature_path.name, "sha256": old.digest(feature_path)}]
+        save_npz(feature_path, layers=np.array([18, 19, 20]), positions=np.array(positions), hidden=hidden)
+        record["feature_files"] = [{"name": feature_path.name, "sha256": digest(feature_path)}]
         atomic_json(path, record)
         selected = freeze_reference(folder, "test", row, tokenizer)
         assert selected["status"] == "ELIGIBLE"  # label=None must never exclude a question.
@@ -362,33 +360,33 @@ def self_check():
         replacement["generated_ids"] = list(map(ord, text.replace("boxed{3}", "boxed{4}"))) + [0]
         replacement["raw_text"] = tokenizer.decode(replacement["generated_ids"])
         replacement["token_sha256"] = stable_hash({k: replacement[k] for k in ("prompt_ids", "generated_ids")})
-        replacement["boundaries"] = old.boundaries(tokenizer, replacement["generated_ids"])[1]
+        replacement["boundaries"] = boundaries(tokenizer, replacement["generated_ids"])[1]
         unchanged_prefixes = freeze_reference(folder, "test", row, tokenizer, reference=replacement)
         assert unchanged_prefixes["status"] == "ELIGIBLE" and unchanged_prefixes["reused_original_feature_prefixes"] == 3
         replacement["generated_ids"] = list(map(ord, text.replace("three", "other"))) + [0]
         replacement["raw_text"] = tokenizer.decode(replacement["generated_ids"])
         replacement["token_sha256"] = stable_hash({k: replacement[k] for k in ("prompt_ids", "generated_ids")})
-        replacement["boundaries"] = old.boundaries(tokenizer, replacement["generated_ids"])[1]
+        replacement["boundaries"] = boundaries(tokenizer, replacement["generated_ids"])[1]
         changed_prefix = freeze_reference(folder, "test", row, tokenizer, reference=replacement)
         assert changed_prefix["status"] == "NEEDS_FEATURES" and changed_prefix["reused_original_feature_prefixes"] == 2
         assert changed_prefix["missing_feature_step_numbers"] == [3]
         hidden[1, :, :] = 0.
-        old.save_npz(feature_path, layers=np.array([18, 19, 20]), positions=np.array(positions), hidden=hidden)
-        record["feature_files"][0]["sha256"] = old.digest(feature_path)
+        save_npz(feature_path, layers=np.array([18, 19, 20]), positions=np.array(positions), hidden=hidden)
+        record["feature_files"][0]["sha256"] = digest(feature_path)
         atomic_json(path, record)
         tied = freeze_reference(folder, "test", row, tokenizer)
         assert tied["all_same_z"] and tied["high_low_same_position"]
         assert tied["positions"]["HIGH"]["step_number"] == 1
-        old.save_npz(feature_path, layers=np.array([18, 19, 20]), positions=np.array(positions) + 1, hidden=hidden)
-        record["feature_files"][0]["sha256"] = old.digest(feature_path)
+        save_npz(feature_path, layers=np.array([18, 19, 20]), positions=np.array(positions) + 1, hidden=hidden)
+        record["feature_files"][0]["sha256"] = digest(feature_path)
         atomic_json(path, record)
         assert freeze_reference(folder, "test", row, tokenizer)["status"] == "NEEDS_FEATURES"
         cache = folder / "selected.npz"
-        old.save_npz(cache, layers=np.asarray([19]), positions=np.asarray(positions[:3]), hidden=hidden[1:2, :3],
+        save_npz(cache, layers=np.asarray([19]), positions=np.asarray(positions[:3]), hidden=hidden[1:2, :3],
                      token_sha256=np.asarray(record["token_sha256"]), model_revision=np.asarray("fixture"),
                      extraction=np.asarray("independent_original_prefixes"))
         assert freeze_reference(folder, "test", row, tokenizer, feature_cache_path=cache)["status"] == "ELIGIBLE"
-        old.save_npz(cache, layers=np.asarray([19]), positions=np.asarray(positions[:3]), hidden=hidden[1:2, :3],
+        save_npz(cache, layers=np.asarray([19]), positions=np.asarray(positions[:3]), hidden=hidden[1:2, :3],
                      token_sha256=np.asarray("different_reference"), model_revision=np.asarray("fixture"),
                      extraction=np.asarray("independent_original_prefixes"))
         assert freeze_reference(folder, "test", row, tokenizer, feature_cache_path=cache)["status"] == "NEEDS_FEATURES"

@@ -1,19 +1,16 @@
-"""Two fresh requests; reuse resident models, token boundaries and native KV crop."""
 from __future__ import annotations
-
 import copy
 import gc
 import math
-import time
 from pathlib import Path
-
-from stages.stage1.veriserve.common import atomic_json, stable_hash
-from stages.stage2 import run_probe as old
-from stages.stage3 import protocol, run_timing as legacy, storage
+from veriserve_research.artifacts.io import atomic_json, stable_hash, now, safe_error
+from veriserve_research.trajectory import STEP, FINAL, boundaries, decode
+from veriserve_research.artifacts import storage
+from veriserve_research.intervention import protocol, fixed_step as fixed
 from . import source_hashes
 
-Session = legacy.Session
-clock = legacy.clock
+Session = fixed.Session
+clock = fixed.clock
 
 
 class ReferenceMismatch(RuntimeError):
@@ -37,14 +34,14 @@ def budget(cfg, state, **cost):
 
 def closed_boundary(tokenizer, ids, target):
     """Stage2's original token endpoint, plus the complete text of crossing tokens."""
-    text = old.decode(tokenizer, ids)
-    markers = list(old.STEP.finditer(text))
+    text = decode(tokenizer, ids)
+    markers = list(STEP.finditer(text))
     if [int(m.group(1)) for m in markers] != list(range(1, len(markers) + 1)):
         raise ValueError('NONSEQUENTIAL_STEPS')
     selected = next((i for i, m in enumerate(markers) if int(m.group(1)) == target), None)
     if selected is None:
         return None
-    final = old.FINAL.search(text)
+    final = FINAL.search(text)
     if final and final.start() < markers[selected].start():
         raise ValueError('STEP_AFTER_FINAL')
     following = markers[selected + 1] if selected + 1 < len(markers) else None
@@ -52,7 +49,7 @@ def closed_boundary(tokenizer, ids, target):
     if not closures:
         return None
     stop = min(closures)
-    _, parsed = old.boundaries(tokenizer, ids)
+    _, parsed = boundaries(tokenizer, ids)
     # The following marker/body is pending lookahead and can have no complete
     # content token yet. Validate every closed marker through our target only.
     parsed_numbers = {s['step_number'] for name in ('steps', 'excluded_steps') for s in parsed[name]}
@@ -71,7 +68,7 @@ def initial_state(row, selection, arm, backend):
     snapshot = dict(unique_id=row['unique_id'], phase=selection['phase'], prompt_ids=prompt,
                     prefix_ids=[], pending_ids=[], token_hash=stable_hash(prompt), backend=backend,
                     budget=dict(generated_tokens=0, attempt_tokens=0, forward_tokens=len(prompt)))
-    state = legacy.arm_state(snapshot, arm)
+    state = fixed.arm_state(snapshot, arm)
     state.update(experiment_type='within_question_high_low', problem=row['problem'],
                  selected_position=copy.deepcopy(selection['positions'][arm]),
                  selection_hash=stable_hash(selection), source_hashes=source_hashes(),
@@ -82,24 +79,24 @@ def initial_state(row, selection, arm, backend):
 def reasoning_text(state, tokenizer, start=0, end=None):
     """After crop, show checked content without the crossing token's next header."""
     if not state.get('checkpoint_reworked'):
-        return legacy.reasoning_text(state, tokenizer, start, end)
+        return fixed.reasoning_text(state, tokenizer, start, end)
     count = len(state['checkpoint_reasoning_ids'])
     end = len(state['reasoning_ids']) if end is None else end
     if start >= count:
-        return legacy.reasoning_text(state, tokenizer, start, end)
+        return fixed.reasoning_text(state, tokenizer, start, end)
     if start != 0 or end < count:
         raise ValueError('A logical accepted checkpoint cannot be sliced inside its raw token span')
-    tail = legacy.reasoning_text(state, tokenizer, count, end)
+    tail = fixed.reasoning_text(state, tokenizer, count, end)
     return state['checkpoint_text'] + ('\n\n' + tail if tail else '')
 
 
 def checkpoint_span(tokenizer, ids, floor, checked_text):
     """Keep original tokens through all scored characters, including a crossing tail."""
-    full = old.decode(tokenizer, ids)
+    full = decode(tokenizer, ids)
     if not full.startswith(checked_text):
         raise RuntimeError('Scored first-check text is not the original reasoning prefix')
     for count in range(floor, len(ids) + 1):
-        text = old.decode(tokenizer, ids[:count])
+        text = decode(tokenizer, ids[:count])
         if text.startswith(checked_text) and full.startswith(text):
             return count, text[len(checked_text):]
     raise RuntimeError('No original token prefix covers the complete checked step')
@@ -154,15 +151,15 @@ def check(cfg, state, session, verifier, tokenizer, prefix_count, final, *, prm_
         return reason
     start = clock()
     try:
-        result = legacy.verify_prm(verifier, ids, numbers, prior) if forced is None else forced
+        result = fixed.verify_prm(verifier, ids, numbers, prior) if forced is None else forced
     except ValueError as exc:
-        result = dict(verdict='UNAVAILABLE', diagnosis=old.safe_error(exc), hint='')
+        result = dict(verdict='UNAVAILABLE', diagnosis=safe_error(exc), hint='')
     result = strict_result(result, numbers, prior, verifier.threshold, synthetic=forced is not None)
     seconds = clock() - start
     verdict = result['effective_verdict']
     state['budget']['prm_calls'] += 1
     state['budget']['forward_tokens'] += len(ids)
-    current = max([int(m.group(1)) for m in old.STEP.finditer(
+    current = max([int(m.group(1)) for m in STEP.finditer(
         full_text)] or [state['checkpoint_step']])
     feedback = protocol.feedback_text(result.get('diagnosis', ''), result.get('hint', ''),
                                       state['checkpoint_step']) if verdict == 'FAIL' else ''
@@ -242,7 +239,7 @@ def eos_tokens(model):
 def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, backend):
     """T_request starts before fresh prompt prefill; gold grading follows the timer."""
     state = initial_state(row, selection, arm, backend)
-    path = Path(run) / 'arms' / f'{legacy.key(row["unique_id"])}.{arm}.json'
+    path = Path(run) / 'arms' / f'{fixed.key(row["unique_id"])}.{arm}.json'
     selected = selection['positions'][arm]
     session = None
     start = clock()
@@ -315,7 +312,7 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
         state['timing']['T_request'] = clock() - start
         state['timing']['definition'] = ('fresh prompt prefill through submission/termination; includes '
                                          'in-path atomic saves; excludes grading and final timing metadata save')
-        legacy.finish_arm(cfg, state, row)
+        fixed.finish_arm(cfg, state, row)
         exclusion = state['grading'].get('exclusion') or ''
         if state.get('submitted_reasoning_ids') is not None and exclusion.endswith('_ERROR'):
             state['Y'] = None
@@ -327,7 +324,7 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
         return state
     except (Exception, KeyboardInterrupt) as exc:
         state.update(status='REFERENCE_MISMATCH' if isinstance(exc, ReferenceMismatch) else 'INFRA_INTERRUPTED',
-                     error=old.safe_error(exc), completed=False)
+                     error=safe_error(exc), completed=False)
         if isinstance(exc, ReferenceMismatch):
             state['mismatch'] = exc.details
         state['timing']['interrupted_wall'] = clock() - start
@@ -362,7 +359,7 @@ def collect_reference(cfg, row, model, tokenizer):
                     completion = 'EOS'
                     break
         return dict(prompt_ids=prompt_ids, generated_ids=generated, completion=completion,
-                    raw_text=old.decode(tokenizer, generated),
+                    raw_text=decode(tokenizer, generated),
                     token_sha256=stable_hash(dict(prompt_ids=prompt_ids, generated_ids=generated)),
                     reference_origin='stage3_stream_unintervened_greedy',
                     offline_reference_seconds=clock() - start)
@@ -504,14 +501,14 @@ def self_check(cfg):
             force_terminal_fail[0] = False
             return dict(verdict='FAIL', unrounded_scores=[.9] * prior + [.1] * (len(numbers) - prior))
         return dict(verdict='PASS', unrounded_scores=[.9] * len(numbers))
-    real_finish = legacy.finish_arm
+    real_finish = fixed.finish_arm
     def grade_after_timer(cfg, state, row):
         ticks[0] += 100.
         return real_finish(cfg, state, row)
     with tempfile.TemporaryDirectory() as folder, contextlib.redirect_stdout(io.StringIO()), \
             patch(__name__ + '.Session', StreamingSession), patch(__name__ + '.clock', side_effect=lambda: ticks[0]), \
-            patch.object(legacy, 'verify_prm', side_effect=fake_verify), \
-            patch.object(legacy, 'finish_arm', side_effect=grade_after_timer):
+            patch.object(fixed, 'verify_prm', side_effect=fake_verify), \
+            patch.object(fixed, 'finish_arm', side_effect=grade_after_timer):
         pair = [execute_path(cfg, folder, {**row, 'answer': '2'}, selection, arm,
                              Model(), tokenizer, verifier, {}) for arm in ('HIGH', 'LOW')]
         assert len(sessions) == 2 and sessions[0] is not sessions[1]
@@ -529,7 +526,7 @@ def self_check(cfg):
         assert reworked['intermediate_checks'] == 1 and reworked['budget']['rollbacks'] == 1
         assert reworked['budget']['generated_tokens'] == 10 and reworked['budget']['revoked_tokens'] == 3
         assert 'Step 1: x.' in reworked['submitted_text'] and reworked['submitted_text'].count('Step 2:') == 1
-        assert old.decode(tokenizer, reworked['submitted_reasoning_ids']).count('Step 2:') == 2
+        assert decode(tokenizer, reworked['submitted_reasoning_ids']).count('Step 2:') == 2
         assert reworked['timing']['T_request'] == 23.
     checks.append('full two-path loop starts fresh even at same position; prompt timed/gold excluded; terminal budget failure Y=0')
     checks.append('complete terminal FAIL/crop/rework/PASS preserves scored tail, raw crossing token, logical markers and final Math-Verify')
@@ -574,7 +571,7 @@ def gpu_checks(cfg, run, row, selection, model, tokenizer, verifier):
         reason = budget(cfg, pause_state, prm_input_tokens=len(ids), prm_calls=1)
         if reason or not ids:
             raise RuntimeError('Pilot pause PRM input unavailable: ' + str(reason))
-        natural_result = legacy.verify_prm(verifier, ids, numbers, prior)
+        natural_result = fixed.verify_prm(verifier, ids, numbers, prior)
         assert check(cfg, pause_state, paused, verifier, tokenizer, len(boundary['prefix_ids']),
                      False, prm_text=boundary['prm_text'], forced=dict(verdict='PASS')) is None
         assert paused.cache.get_seq_length() == cache_before and paused.ids == continuous.ids
@@ -616,15 +613,15 @@ def gpu_checks(cfg, run, row, selection, model, tokenizer, verifier):
         assert accepted_session.cache.get_seq_length() == len(accepted_session.ids)
         assert accepted['checkpoint_text'] == boundary['prm_text']
         assert reasoning_text(accepted, tokenizer) == boundary['prm_text']
-        assert old.decode(tokenizer, accepted['checkpoint_reasoning_ids']).startswith(boundary['prm_text'])
+        assert decode(tokenizer, accepted['checkpoint_reasoning_ids']).startswith(boundary['prm_text'])
         result = dict(status='PASS', unique_id=row['unique_id'], source_hashes=source_hashes(),
                       selected_step=target['step_number'], reference_prefix_match=True,
                       generated_before_check=state['reasoning_ids'], pending_ids=boundary['pending_ids'],
                       pause=dict(token_equal=True, continuous_ids=expected, paused_ids=actual,
                                  natural_prm=natural_result, control_pass_synthetic=True),
                       forced_fail=dict(synthetic=True, excluded_from_statistics=True,
-                                       no_pass_state=forced, accepted_prefix_state=accepted), created=old.now())
-        atomic_json(Path(run) / 'pilot_checks' / f'{legacy.key(row["unique_id"])}.json', result)
+                                       no_pass_state=forced, accepted_prefix_state=accepted), created=now())
+        atomic_json(Path(run) / 'pilot_checks' / f'{fixed.key(row["unique_id"])}.json', result)
         del accepted_session
         return result
     finally:

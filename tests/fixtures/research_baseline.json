@@ -1,0 +1,21 @@
+{
+  "baseline_sources": {
+    "stages/stage2/run_probe.py": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa",
+    "stages/stage3/analyze.py": "8c074cf2088ade317f8f2e587e92b0b4f4d2e8771f234ea659dc3c893480a872",
+    "stages/stage3/high_low/__init__.py": "c3a153ccb9049a14b9db9eeb1b6f8731ed68e45ddf0481243b4b6e4f2b18aa7f",
+    "stages/stage3/high_low/__main__.py": "d6a050a060da118196781b8de54310b998e722d1c3d958a425980032aef8b501",
+    "stages/stage3/high_low/analyze.py": "6098bed188516c1b7943385c37c664eeb0df6dbdf5b72dc6d328aac59cdbc217",
+    "stages/stage3/high_low/runtime.py": "e1ea330dff4ed27ba227dc60ba7e3c46500995cc8757abcfa9345dbb8dc97087",
+    "stages/stage3/high_low/selection.py": "5a7da899477cde6db0622795e05be533ea4ec779311a442e7a911b2564c4d9c5",
+    "stages/stage3/protocol.py": "b8ea8e5e0a437974a74802cefab029ef2c49b474f99b56ac8e66a74a49d05680",
+    "stages/stage3/run_timing.py": "b32b8471bc9791a0eada2b699abde5d5d2c064337f86ae5bf2b5826607bcf938",
+    "stages/stage3/storage.py": "c536e673e3b8ebeaa14f8a9b11522bdb4247e368747140e4c3f4991f0d5c017c"
+  },
+  "description": "Canonical JSON hashes of fresh pre-refactor CPU analyses of retained stage3 runs; excludes only the new analysis_output field. Original metrics in partial runs may predate their latest arms.",
+  "scientific_metrics_sha256": {
+    "20261004-109173095d08": "39b068f742e1a8f83e00f49e5415cff6bd09b47df4cd10efa377d2342e3fb0b4",
+    "20261004-bcab71671427": "528f15c19bf53fa5d1e8dc5e7a0d8a450941c3df02edf06da3561dc3b3dc43a4",
+    "20261007-9fe830084094": "aa21cdfc235d41232808e1cadfcf1d028730bbaa00de61e905d30179e9bfe7e2",
+    "20261007-acde3028d49c": "c26ea4062e4179438d29dd90e7fd8b2edce5432dfbb999427ad9038f876b3997"
+  }
+}

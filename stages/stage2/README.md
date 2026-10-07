@@ -6,7 +6,15 @@ Qwen/Qwen2.5-7B-Instruct，BF16、单卡、batch 1、SDPA、greedy；4096 新 to
 
 A 用轨迹末尾训练，B 用中途步骤训练，C 仅用当前步号和已生成 token 数。A/B 分别在训练内五折按题交叉验证选择一个固定层；StandardScaler + L2 LogisticRegression（C=0.1、max_iter=2000）。B/C 的标准化、拟合与验证按每题总权重 1。测试题在保存冻结探针后才读取；bootstrap 按题抽取 1000 次，报告 paired AUROC 差。
 
-普通函数集中在 [run_probe.py](run_probe.py)，复用 stage1 原子 JSON 工具；stage1 实现和运行记录不改动。
+实现现按功能位于 `veriserve_research/probe`，共用轨迹、推理和材料工具；[run_probe.py](run_probe.py) 保留命令转发。下文的历史实验参数与结果不变。新命令创建 v2 run；继续旧实验需要对应原提交，见[根目录的历史恢复说明](../../README.md#历史材料分析与恢复)。
+
+重分析已保存的原始特征和冻结探针，不重新生成或拟合，也不覆盖旧报告：
+
+```bash
+python -m veriserve_research analyze --run stages/stage2/runs/20261004-36fe9009f1f5
+```
+
+stage2/3 的独立环境锁位于 `environments/stage23/`；常规 pytest 已包含本阶段 CPU 自检与真实保存材料的回归比较。
 
 ## 实际环境
 

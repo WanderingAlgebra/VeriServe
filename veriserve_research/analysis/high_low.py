@@ -1,21 +1,16 @@
-"""Question-paired HIGH/LOW reporting; no model load or outcome-based selection."""
+"""HIGH/LOW report with full-request timing and terminal-PASS outcomes."""
 from __future__ import annotations
-
 import json
 from collections import Counter
 from pathlib import Path
-
-from stages.stage1.veriserve.common import atomic_json
-from stages.stage2.run_probe import atomic_bytes, write_csv
-from stages.stage3.analyze import (backend, checks, distribution, effect, exclusion,
-                                   finite, number, paired_effect)
-from stages.stage3.storage import safe_read_json
-
+from ..artifacts.io import atomic_json, atomic_bytes, write_csv, read_json as safe_read_json
+from .paired import backend, checks, distribution, effect, exclusion, finite, number, paired_effect
+from ..artifacts.materials import validate_materials
+from . import analysis_output
 ARMS = ("HIGH", "LOW")
 PHASES = ("pilot", "test")
 EXCLUDED = {"NO_ELIGIBLE_ANCHOR", "EXCLUDED", "INELIGIBLE"}
-BUDGET_KEYS = ("generated_tokens", "revoked_tokens", "prm_calls", "rollbacks",
-               "forward_tokens", "feedback_tokens")
+BUDGET_KEYS = ("generated_tokens", "revoked_tokens", "prm_calls", "rollbacks", "forward_tokens", "feedback_tokens")
 
 
 def outcome(arm):
@@ -34,6 +29,8 @@ def load_rows(run, manifest):
             record = safe_read_json(path)
             if not record or not record.get("unique_id"):
                 continue
+            if folder == "selections":
+                validate_materials(record)
             if folder == "arms" and record.get("arm") not in ARMS:
                 continue
             key = (record.get("phase"), record["unique_id"])
@@ -141,7 +138,7 @@ def summarize(rows, cfg, *, by_backend=True):
 
 def report(run, manifest, metrics):
     lines = ["# Stage 3：同题 HIGH/LOW 离线检查位置诊断", "",
-             f"运行 `{run.name}`；experiment_type=`within_question_high_low`；配置哈希 `{manifest.get('config_hash', 'NA')}`。", "",
+             f"运行 `{metrics['run_id']}`；experiment_type=`within_question_high_low`；配置哈希 `{manifest.get('config_hash', 'NA')}`。", "",
              "目的：同一道题，在未经干预完整参考轨迹的 B 最高分与最低分普通步骤检查，比较最终准确率与总请求处理成本。每条路径只有一次主动中途检查，之后仅终点检查与返工；终点 PASS 才允许提交。旧 fixed_step_now_vs_delay 的 UNCERTAIN 提交默认规则保留，本轮不沿用。", "",
              "ΔY = Y_HIGH − Y_LOW；ΔT = T_LOW − T_HIGH（秒），正值分别表示 HIGH 更准、更快。Y=终点允许提交且 Math-Verify 判对；格式、预算或未通过检查的算法失败为 0。gold 数据错误、评分错误单列，质量只用双方可评估配对。", "",
              "T_request 从各自 prompt prefill 至提交/终止实测，含生成、PRM、真实回滚、反馈增量 prefill、控制及相同的臂内原子持久化；CUDA 边界同步。加载/warmup、离线参考与特征、Git、gold 评分排除。该指标不是旧 snapshot 后 T_postfork_wall 的改名。时间仅比较同 GPU/实现有效配对，多后端不混合。按题配对 bootstrap 1000 次，固定种子 " + str(metrics["seed"]) + "，95% percentile CI。", "",
@@ -206,9 +203,10 @@ def report(run, manifest, metrics):
     atomic_bytes(run / "report.md", ("\n".join(lines) + "\n").encode())
 
 
-def analyze(cfg, run, manifest=None):
+def analyze(cfg, run, manifest=None, *, output_dir=None):
     run = Path(run)
     manifest = manifest or safe_read_json(run / "manifest.json")
+    output = analysis_output(run, output_dir)
     if manifest.get("experiment_type") != "within_question_high_low":
         raise ValueError("HIGH/LOW analysis requires within_question_high_low manifest")
     rows = load_rows(run, manifest)
@@ -240,9 +238,10 @@ def analyze(cfg, run, manifest=None):
                    for r in rows if r["phase"] == phase]
         keys = sorted({key for timing in timings for key, value in timing.items() if finite(value)})
         metrics["offline_timing"][phase] = {key: distribution([timing.get(key) for timing in timings]) for key in keys}
-    atomic_json(run / "metrics.json", metrics)
-    write_csv(run / "paired_results.csv", flat, list(flat[0]) if flat else ["unique_id", "phase", "delta_Y", "delta_T_seconds"])
-    report(run, manifest, metrics)
+    metrics["analysis_output"] = str(output)
+    atomic_json(output / "metrics.json", metrics)
+    write_csv(output / "paired_results.csv", flat, list(flat[0]) if flat else ["unique_id", "phase", "delta_Y", "delta_T_seconds"])
+    report(output, manifest, metrics)
     return metrics
 
 
@@ -265,7 +264,8 @@ def self_check():
                 if uid == "c":
                     arm.update(Y=None, grading={"exclusion": "GOLD_UNPARSEABLE"})
                 atomic_json(run / "arms" / f"{uid}.{name}.json", arm)
-        stat = analyze(cfg, run, manifest)["phases"]["test"]
+        result = analyze(cfg, run, manifest)
+        stat = result["phases"]["test"]
         assert stat["quality_pairs"] == 2 and stat["arms"]["HIGH"]["accuracy"] == .5
         assert stat["delta_Y"]["estimate"] == -.5 and stat["delta_T_seconds"]["estimate"] == 2
         assert stat["delta_Y"]["bootstrap_valid"] == 1000
@@ -275,10 +275,6 @@ def self_check():
         assert outcome({"status": "COMPLETE", "Y": 1, "termination": "FINAL_UNCERTAIN"}) == (0, None)
         empty = summarize([], cfg)
         assert empty["delta_Y"]["estimate"] is None and empty["execution_status"] == "NOT_EXECUTED"
-        assert all((run / name).exists() for name in ("report.md", "metrics.json", "paired_results.csv"))
+        assert all((Path(result['analysis_output']) / name).exists() for name in ("report.md", "metrics.json", "paired_results.csv"))
     return {"high_low_paired_analysis": "PASS", "request_time_and_delta_directions": "PASS",
             "algorithm_failures_in_denominator": "PASS", "gold_errors_separate": "PASS", "unexecuted_NA": "PASS"}
-
-
-if __name__ == "__main__":
-    print(json.dumps(self_check(), ensure_ascii=False))

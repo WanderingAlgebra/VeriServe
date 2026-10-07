@@ -1,5 +1,14 @@
 # 第三阶段：检查收益
 
+实现已迁入 `veriserve_research/intervention` 和 `analysis`，原模块命令保留转发。新实现创建独立 v2 run，原结果不覆盖。继续旧实验使用核对过的原提交；新实现可直接重分析旧 run，见[历史恢复与分析说明](../../README.md#历史材料分析与恢复)。
+
+```bash
+python -m veriserve_research self-check
+python -m veriserve_research intervene --experiment fixed-step --phase prepare
+python -m veriserve_research intervene --experiment high-low --phase prepare
+python -m veriserve_research analyze --run stages/stage3/runs/20261007-9fe830084094
+```
+
 本阶段比较真实检查与返工后的质量和成本，保留两类独立实验。新实验的目的仅是回答：**同一道题，在原始完整轨迹的 B 最高分步骤检查，与最低分步骤检查，最终准确率和请求总处理成本有什么不同？**
 
 | 实验 | 目的与计时 | 配置 / 入口 | 结果 |
