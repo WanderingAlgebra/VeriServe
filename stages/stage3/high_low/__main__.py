@@ -137,9 +137,36 @@ def backup(run, manifest, reason):
 
 def cpu_checks(cfg, run):
     original = legacy.cpu_checks(cfg, run)
+    from tempfile import TemporaryDirectory
+    with TemporaryDirectory(prefix='high-low-recovery-') as tmp:
+        folder = Path(tmp)
+        row = {'unique_id': 'synthetic-recovery'}
+        selected = {'unique_id': row['unique_id'], 'phase': 'pilot', 'positions': {}}
+        selected['selection_sha256'] = stable_hash(selected)
+        atomic_json(folder / 'selections' / f'{legacy.key(row["unique_id"])}.json', selected)
+        state = {'completed': True, 'status': 'COMPLETE', 'source_hashes': source_hashes(),
+                 'backend': {'gpu': 'synthetic'}, 'selection_hash': stable_hash(selected)}
+        pair_paths = paths(folder, row['unique_id'])
+        atomic_json(pair_paths[0], state)
+        assert not complete_pair(folder, row)
+        atomic_json(pair_paths[1], state)
+        assert complete_pair(folder, row)
+        archive_pair(folder, row['unique_id'], 'synthetic interruption')
+        assert not any(p.exists() for p in pair_paths)
+        assert len(list((folder / 'interrupted_pairs').rglob('*.json'))) == 2
+        for path in pair_paths:
+            atomic_json(path, state)
+        selected['positions'] = {'corrupt': True}
+        atomic_json(folder / 'selections' / f'{legacy.key(row["unique_id"])}.json', selected)
+        try:
+            complete_pair(folder, row)
+        except RuntimeError:
+            pass
+        else:
+            raise AssertionError('Corrupted selection must not skip a timed pair')
     result = {**original, 'experiment_type': cfg['experiment_type'], 'source_hashes': source_hashes(),
               'high_low_selection': selection.self_check(), 'high_low_runtime': runtime.self_check(cfg),
-              'high_low_analysis': analyze.self_check()}
+              'high_low_analysis': analyze.self_check(), 'high_low_recovery': 'PASS'}
     atomic_json(run / 'self_check.json', result)
     return result
 
@@ -149,6 +176,8 @@ def freeze(cfg, run, manifest):
     check = storage.safe_read_json(run / 'self_check.json', {})
     if pilot.get('status') != 'PASS' or check.get('status') != 'PASS':
         raise RuntimeError('Current CPU and all four real GPU pilot checks must pass before freeze/test')
+    if not all(complete_pair(run, row) for row in manifest['splits']['pilot']):
+        raise RuntimeError('All four pilot questions require complete real HIGH/LOW pairs before freeze/test')
     if pilot.get('source_hashes') != source_hashes() or check.get('source_hashes') != source_hashes():
         raise RuntimeError('Pilot/self-check source mismatch')
     result = {'experiment_type': cfg['experiment_type'], 'source_hashes': source_hashes(),
@@ -354,7 +383,7 @@ def main():
             del model, tokenizer, verifier
             gc.collect()
             torch.cuda.empty_cache()
-    except Exception as exc:
+    except (Exception, KeyboardInterrupt) as exc:
         storage.event(run, 'PHASE_INTERRUPTED', phase=phase, error=old.safe_error(exc))
         atomic_json(run / 'interruption.json', {'phase': phase, 'error': old.safe_error(exc), 'created': old.now(),
                     'resume_command': f'python -m stages.stage3.high_low --config {args.config} --phase {phase} --resume'})

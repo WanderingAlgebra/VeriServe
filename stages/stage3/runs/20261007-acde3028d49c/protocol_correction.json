@@ -1,0 +1,8 @@
+{
+  "created": "2026-10-07T11:47:38.151492+00:00",
+  "formal_test_executed": false,
+  "preserved_original_run": true,
+  "reason": "PASS checkpoint excluded scored trailing characters inside original crossing token; pilot stopped for correction before protocol freeze/formal test",
+  "scientific_results_usable": false,
+  "status": "INVALID_PRE_FREEZE_PILOT"
+}

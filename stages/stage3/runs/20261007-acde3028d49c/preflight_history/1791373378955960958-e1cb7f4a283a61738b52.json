@@ -1,0 +1,42 @@
+{
+  "exclusion_reasons": [
+    "REFERENCE_LENGTH_TRUNCATED"
+  ],
+  "frozen_at": "2026-10-07T11:42:11.958505+00:00",
+  "hidden_state_index": 19,
+  "phase": "test",
+  "positions": {},
+  "reason": "REFERENCE_LENGTH_TRUNCATED",
+  "selection_semantics": "offline whole-trajectory B error-risk extrema; not online or local error",
+  "selection_sha256": "9e2ed950898b7be3a7df8dd9784b5d1e919f2cd00d236673d59baf0b9831e157",
+  "source_hashes": {
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "stages/stage2/config.json": "ebde4a2f85e9829af1d272ef277164af617dab221741abab8e02f3f9a90fd73d",
+    "stages/stage2/run_probe.py": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa",
+    "stages/stage3/analyze.py": "8c074cf2088ade317f8f2e587e92b0b4f4d2e8771f234ea659dc3c893480a872",
+    "stages/stage3/high_low/__init__.py": "c3a153ccb9049a14b9db9eeb1b6f8731ed68e45ddf0481243b4b6e4f2b18aa7f",
+    "stages/stage3/high_low/__main__.py": "7ec17c412b1fee417a288054f7987d94fc84f2580b8f7c2fd6d78b8ead6aef2c",
+    "stages/stage3/high_low/analyze.py": "6098bed188516c1b7943385c37c664eeb0df6dbdf5b72dc6d328aac59cdbc217",
+    "stages/stage3/high_low/runtime.py": "97d3319837fe5f73dfc80fa3447fce16e8a15f0f4687f49c52368569bb1621f4",
+    "stages/stage3/high_low/selection.py": "c58fa0a73e07c7fb94727105ceb6120b6cc89a773a8c0ad90c01f2813e48f92f",
+    "stages/stage3/protocol.py": "b8ea8e5e0a437974a74802cefab029ef2c49b474f99b56ac8e66a74a49d05680",
+    "stages/stage3/run_timing.py": "b32b8471bc9791a0eada2b699abde5d5d2c064337f86ae5bf2b5826607bcf938",
+    "stages/stage3/storage.py": "c536e673e3b8ebeaa14f8a9b11522bdb4247e368747140e4c3f4991f0d5c017c"
+  },
+  "source_material_hashes": {
+    "/root/project/VeriServe/stages/stage2/runs/20261004-36fe9009f1f5/manifest.json": "3754e25029ac5ef23d785d77391b0a4e82a3de775cf1680dcc46593317d4c32e",
+    "/root/project/VeriServe/stages/stage2/runs/20261004-36fe9009f1f5/probe_B.json": "f934d2a8aa677e324edcd128f9c6fddf50a981a5d71a07f16803bbd0aa9de1e9",
+    "/root/project/VeriServe/stages/stage2/runs/20261004-36fe9009f1f5/probe_B.npz": "9492147a4f359c8a9c9fe0e960f72a7ee21d5c99cf44b72e1b7743bb494c1016",
+    "/root/project/VeriServe/stages/stage2/runs/20261004-36fe9009f1f5/records/test/f61f187d88171db0f6e3.json": "b287cb81ca7db3621be6976d147a5fdc4b86feeaf37ead4cd9231f0de878c6f4"
+  },
+  "source_split": "test",
+  "status": "EXCLUDED",
+  "timing": {
+    "offline_feature_seconds": 0.0,
+    "selection_wall_seconds": 0.0015003904700279236
+  },
+  "unique_id": "test/algebra/1072.json"
+}

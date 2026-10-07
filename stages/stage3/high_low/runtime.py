@@ -79,6 +79,32 @@ def initial_state(row, selection, arm, backend):
     return state
 
 
+def reasoning_text(state, tokenizer, start=0, end=None):
+    """After crop, show checked content without the crossing token's next header."""
+    if not state.get('checkpoint_reworked'):
+        return legacy.reasoning_text(state, tokenizer, start, end)
+    count = len(state['checkpoint_reasoning_ids'])
+    end = len(state['reasoning_ids']) if end is None else end
+    if start >= count:
+        return legacy.reasoning_text(state, tokenizer, start, end)
+    if start != 0 or end < count:
+        raise ValueError('A logical accepted checkpoint cannot be sliced inside its raw token span')
+    tail = legacy.reasoning_text(state, tokenizer, count, end)
+    return state['checkpoint_text'] + ('\n\n' + tail if tail else '')
+
+
+def checkpoint_span(tokenizer, ids, floor, checked_text):
+    """Keep original tokens through all scored characters, including a crossing tail."""
+    full = old.decode(tokenizer, ids)
+    if not full.startswith(checked_text):
+        raise RuntimeError('Scored first-check text is not the original reasoning prefix')
+    for count in range(floor, len(ids) + 1):
+        text = old.decode(tokenizer, ids[:count])
+        if text.startswith(checked_text) and full.startswith(text):
+            return count, text[len(checked_text):]
+    raise RuntimeError('No original token prefix covers the complete checked step')
+
+
 def strict_result(result, numbers, prior, threshold, synthetic=False):
     """Keep every low score a FAIL, including accepted-prefix conflicts."""
     result = copy.deepcopy(result)
@@ -109,8 +135,11 @@ def check(cfg, state, session, verifier, tokenizer, prefix_count, final, *, prm_
     accepted_count = len(state['checkpoint_reasoning_ids'])
     if prefix[:accepted_count] != state['checkpoint_reasoning_ids']:
         raise RuntimeError('Accepted reasoning prefix changed')
-    accepted = legacy.reasoning_text(state, tokenizer, 0, accepted_count)
-    new = legacy.reasoning_text(state, tokenizer, accepted_count, prefix_count)
+    full_text = reasoning_text(state, tokenizer, 0, prefix_count)
+    accepted = state.get('checkpoint_text', '') if accepted_count else ''
+    if not full_text.startswith(accepted):
+        raise RuntimeError('Logical accepted reasoning prefix changed')
+    new = full_text[len(accepted):]
     if prm_text is not None:
         # First check only: include the target step tail in a crossing pending token,
         # while retaining that token and its KV for continuation after a PASS.
@@ -134,7 +163,7 @@ def check(cfg, state, session, verifier, tokenizer, prefix_count, final, *, prm_
     state['budget']['prm_calls'] += 1
     state['budget']['forward_tokens'] += len(ids)
     current = max([int(m.group(1)) for m in old.STEP.finditer(
-        legacy.reasoning_text(state, tokenizer, 0, prefix_count))] or [state['checkpoint_step']])
+        full_text)] or [state['checkpoint_step']])
     feedback = protocol.feedback_text(result.get('diagnosis', ''), result.get('hint', ''),
                                       state['checkpoint_step']) if verdict == 'FAIL' else ''
     feedback_ids = tokenizer.encode(feedback, add_special_tokens=False) if feedback else []
@@ -149,12 +178,22 @@ def check(cfg, state, session, verifier, tokenizer, prefix_count, final, *, prm_
     if not final:
         state['intermediate_checks'] += 1
     if verdict == 'PASS':
-        end = state['reasoning_positions'][prefix_count - 1] + 1 if prefix_count else len(state['prompt_ids'])
+        checkpoint_count, suffix = (prefix_count, '') if final or prm_text is None else checkpoint_span(
+            tokenizer, state['reasoning_ids'], prefix_count, prm_text)
+        checked_text = full_text if final or prm_text is None else prm_text
+        end = state['reasoning_positions'][checkpoint_count - 1] + 1 if checkpoint_count else len(state['prompt_ids'])
         state['checkpoint_ids'] = state['context_ids'][:end]
-        state['checkpoint_reasoning_ids'] = prefix.copy()
-        state['checkpoint_positions'] = state['reasoning_positions'][:prefix_count]
+        state['checkpoint_reasoning_ids'] = state['reasoning_ids'][:checkpoint_count]
+        state['checkpoint_positions'] = state['reasoning_positions'][:checkpoint_count]
         state['checkpoint_step'] = current
-        state['checkpoint_breaks'] = [b for b in state['reasoning_breaks'] if b < prefix_count]
+        state['checkpoint_breaks'] = [b for b in state['reasoning_breaks'] if b < checkpoint_count]
+        state['checkpoint_text'] = checked_text
+        state['checkpoint_unscored_suffix'] = suffix
+        metadata = dict(checkpoint_reasoning_tokens=checkpoint_count,
+                        checkpoint_extra_token_ids=state['reasoning_ids'][prefix_count:checkpoint_count],
+                        checkpoint_unscored_suffix=suffix, checkpoint_text=checked_text)
+        entry.update(metadata)
+        state['events'][-1].update(metadata)
         if final:
             state['submitted_reasoning_ids'] = prefix.copy()
             return 'FINAL_PASS'
@@ -185,6 +224,7 @@ def check(cfg, state, session, verifier, tokenizer, prefix_count, final, *, prm_
     state['reasoning_ids'] = state['checkpoint_reasoning_ids'].copy()
     state['reasoning_positions'] = state['checkpoint_positions'].copy()
     state['reasoning_breaks'] = state['checkpoint_breaks'].copy() + [len(state['reasoning_ids'])]
+    state['checkpoint_reworked'] = bool(state['checkpoint_reasoning_ids'])
     state['feedback_tokens'].append(feedback_ids)
     state['eos'] = False
     state['events'].append(dict(kind='ROLLBACK', checkpoint_step=state['checkpoint_step'],
@@ -234,7 +274,7 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
                 if token in eos_tokens(model):
                     state['eos'] = True
                     endpoint = protocol.terminal(tokenizer, state['reasoning_ids'], True,
-                                                 text=legacy.reasoning_text(state, tokenizer))
+                                                 text=reasoning_text(state, tokenizer))
                     if not endpoint or endpoint['reason'] != 'FINAL':
                         reason = endpoint.get('termination', 'FINAL_FORMAT_ERROR') if endpoint else 'EOS_FORMAT_FAILURE'
                         break
@@ -269,8 +309,8 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
                     atomic_json(path, state)
         state.update(status='TIMED_COMPLETE', termination=reason)
         if state.get('submitted_reasoning_ids') is not None:
-            state['submitted_text'] = legacy.reasoning_text(state, tokenizer, 0,
-                                                           len(state['submitted_reasoning_ids']))
+            state['submitted_text'] = reasoning_text(state, tokenizer, 0,
+                                                    len(state['submitted_reasoning_ids']))
         atomic_json(path, state)
         state['timing']['T_request'] = clock() - start
         state['timing']['definition'] = ('fresh prompt prefill through submission/termination; includes '
@@ -285,7 +325,7 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
         print(f"{state['phase']} {row['unique_id']} {arm} Y={state['Y']} {reason} "
               f"T_request={state['timing']['T_request']:.3f}", flush=True)
         return state
-    except Exception as exc:
+    except (Exception, KeyboardInterrupt) as exc:
         state.update(status='REFERENCE_MISMATCH' if isinstance(exc, ReferenceMismatch) else 'INFRA_INTERRUPTED',
                      error=old.safe_error(exc), completed=False)
         if isinstance(exc, ReferenceMismatch):
@@ -337,7 +377,7 @@ def self_check(cfg):
     checks = []
     class Tokenizer:
         all_special_ids = [999]
-        pieces = {10: 'prompt', 15: 'Step 1:', 11: ' x', 12: '.\n\nStep 2:', 13: ' y',
+        pieces = {10: 'prompt', 15: 'Step 1:', 11: ' x', 12: '.\n\nStep 2:', 16: 'Step 2:', 13: ' y',
                   14: '\n\nFinal answer: \\boxed{2}', 999: '<eos>', 88: '<feedback>', 89: '<continue>'}
         def decode(self, ids, **kwargs):
             return ''.join(self.pieces[i] for i in ids)
@@ -383,7 +423,8 @@ def self_check(cfg):
         assert check(cfg, state, session, verifier, tokenizer, 2, False,
                      prm_text=boundary['prm_text'], forced=dict(verdict='PASS')) is None
         assert verifier.steps == [(1, 'x.')]
-        assert state['checkpoint_ids'] == [10, 15, 11] and state['checkpoint_step'] == 1
+        assert state['checkpoint_ids'] == [10, 15, 11, 12] and state['checkpoint_step'] == 1
+        assert state['checkpoint_text'] == 'Step 1: x.' and state['checkpoint_unscored_suffix'] == '\n\nStep 2:'
         assert session.ids == [10, 15, 11, 12] and state['context_ids'] == session.ids
         assert state['intermediate_checks'] == 1 and state['reference_prefix_match'] is None
         checks.append('PASS stores exact token checkpoint and retains KV/pending token')
@@ -404,28 +445,29 @@ def self_check(cfg):
                                  unrounded_scores=[.1, .9])) is None
         assert state['checks'][-1]['effective_verdict'] == 'FAIL'
         assert state['checks'][-1]['checkpoint_conflict']
-        assert session.crop_to == 3 and session.ids == [10, 15, 11, 88, 89]
-        assert state['checkpoint_ids'] == [10, 15, 11] and state['reasoning_ids'] == [15, 11]
-        assert state['budget']['generated_tokens'] == 6 and state['budget']['revoked_tokens'] == 4
+        assert session.crop_to == 4 and session.ids == [10, 15, 11, 12, 88, 89]
+        assert state['checkpoint_ids'] == [10, 15, 11, 12] and state['reasoning_ids'] == [15, 11, 12]
+        assert reasoning_text(state, tokenizer) == 'Step 1: x.'
+        assert state['budget']['generated_tokens'] == 6 and state['budget']['revoked_tokens'] == 3
         assert state['budget']['attempt_tokens'] == 0 and state['budget']['feedback_tokens'] == 2
         assert state['budget']['forward_tokens'] == 4 + 2  # prompt + two PRM inputs + feedback
         assert state.get('submitted_reasoning_ids') is None
-        checks.append('accepted-prefix FAIL remains FAIL and crops to latest PASS with incremental feedback')
+        checks.append('accepted-prefix FAIL crops to latest PASS including scored crossing tail; hides unscored header fragment')
         untouched = copy.deepcopy(state)
         untouched['budget']['rollbacks'] = cfg['max_rollbacks']
         before_ids = session.ids.copy()
-        assert check(cfg, untouched, session, verifier, tokenizer, 2, True,
+        assert check(cfg, untouched, session, verifier, tokenizer, 3, True,
                      forced=dict(verdict='FAIL', first_error_step=1)) == 'BUDGET_ROLLBACK'
         assert session.ids == before_ids
         checks.append('budget checked before crop; generated/revoked costs never refunded')
         no_score = copy.deepcopy(state)
-        assert check(cfg, no_score, session, verifier, tokenizer, 2, True,
+        assert check(cfg, no_score, session, verifier, tokenizer, 3, True,
                      forced=dict(verdict='UNCERTAIN')) == 'PRM_UNAVAILABLE'
         assert no_score.get('submitted_reasoning_ids') is None
         submitted = copy.deepcopy(state)
-        assert check(cfg, submitted, session, verifier, tokenizer, 2, True,
+        assert check(cfg, submitted, session, verifier, tokenizer, 3, True,
                      forced=dict(verdict='PASS')) == 'FINAL_PASS'
-        assert submitted['submitted_reasoning_ids'] == [15, 11]
+        assert submitted['submitted_reasoning_ids'] == [15, 11, 12]
         checks.append('only terminal PASS can submit; unavailable PRM cannot pass')
     assert other['budget']['generated_tokens'] == 0 and other['reasoning_ids'] == []
     assert budget(cfg, state, generation_tokens=cfg['max_request_tokens']) in ('BUDGET_ATTEMPT', 'BUDGET_GENERATION')
@@ -435,7 +477,7 @@ def self_check(cfg):
     import contextlib
     import io
     import tempfile
-    ticks, sessions = [0.], []
+    ticks, sessions, force_terminal_fail = [0.], [], [False]
     class StreamingSession(FakeSession):
         def __init__(self, model, ids):
             super().__init__(ids)
@@ -448,11 +490,19 @@ def self_check(cfg):
             self.ids.append(token)
             self.cache.length = len(self.ids) - 1
             return token
+        def rollback(self, checkpoint, feedback):
+            charged = super().rollback(checkpoint, feedback)
+            self.iterator = iter([16, 13, 14, 999])
+            ticks[0] += charged
+            return charged
     class Model:
         class generation_config:
             eos_token_id = 999
     def fake_verify(verifier, ids, numbers, prior):
         ticks[0] += 3.
+        if force_terminal_fail[0] and prior and len(numbers) > prior:
+            force_terminal_fail[0] = False
+            return dict(verdict='FAIL', unrounded_scores=[.9] * prior + [.1] * (len(numbers) - prior))
         return dict(verdict='PASS', unrounded_scores=[.9] * len(numbers))
     real_finish = legacy.finish_arm
     def grade_after_timer(cfg, state, row):
@@ -472,7 +522,17 @@ def self_check(cfg):
                               'HIGH', Model(), tokenizer, verifier, {})
         assert denied['Y'] == 0 and denied['termination'] == 'BUDGET_VERIFIER'
         assert denied.get('submitted_reasoning_ids') is None and denied['budget']['prm_calls'] == 1
+        force_terminal_fail[0] = True
+        reworked = execute_path(cfg, folder, {**row, 'answer': '2'}, selection,
+                                'HIGH', Model(), tokenizer, verifier, {})
+        assert reworked['Y'] == 1 and reworked['termination'] == 'FINAL_PASS'
+        assert reworked['intermediate_checks'] == 1 and reworked['budget']['rollbacks'] == 1
+        assert reworked['budget']['generated_tokens'] == 10 and reworked['budget']['revoked_tokens'] == 3
+        assert 'Step 1: x.' in reworked['submitted_text'] and reworked['submitted_text'].count('Step 2:') == 1
+        assert old.decode(tokenizer, reworked['submitted_reasoning_ids']).count('Step 2:') == 2
+        assert reworked['timing']['T_request'] == 23.
     checks.append('full two-path loop starts fresh even at same position; prompt timed/gold excluded; terminal budget failure Y=0')
+    checks.append('complete terminal FAIL/crop/rework/PASS preserves scored tail, raw crossing token, logical markers and final Math-Verify')
     return dict(status='PASS', count=len(checks), checks=checks)
 
 
@@ -549,11 +609,14 @@ def gpu_checks(cfg, run, row, selection, model, tokenizer, verifier):
         # Also exercise a real crop that preserves an accepted generated prefix.
         accepted = copy.deepcopy(pause_state)
         accepted_session = session.clone()
-        assert check(cfg, accepted, accepted_session, verifier, tokenizer, len(boundary['prefix_ids']),
+        assert check(cfg, accepted, accepted_session, verifier, tokenizer, len(accepted['checkpoint_reasoning_ids']),
                      True, forced=dict(verdict='FAIL', first_error_step=target['step_number'])) is None
         assert accepted['checks'][-1]['checkpoint_conflict']
         assert accepted_session.ids[:len(accepted['checkpoint_ids'])] == accepted['checkpoint_ids']
         assert accepted_session.cache.get_seq_length() == len(accepted_session.ids)
+        assert accepted['checkpoint_text'] == boundary['prm_text']
+        assert reasoning_text(accepted, tokenizer) == boundary['prm_text']
+        assert old.decode(tokenizer, accepted['checkpoint_reasoning_ids']).startswith(boundary['prm_text'])
         result = dict(status='PASS', unique_id=row['unique_id'], source_hashes=source_hashes(),
                       selected_step=target['step_number'], reference_prefix_match=True,
                       generated_before_check=state['reasoning_ids'], pending_ids=boundary['pending_ids'],

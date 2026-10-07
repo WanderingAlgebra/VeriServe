@@ -54,5 +54,6 @@
   "experiment_type": "within_question_high_low",
   "reference_policy": "reuse stage2; recollect affected reference with stage3 streaming only on token mismatch",
   "terminal_policy": "PASS only; accepted-prefix FAIL stays FAIL; rollback nearest PASS",
-  "timing": "T_request: synchronized wall time from fresh prompt prefill through submit/termination; arm persistence included; grading excluded"
+  "timing": "T_request: synchronized wall time from fresh prompt prefill through submit/termination; arm persistence included; grading excluded",
+  "run_note": "PASS checkpoint preserves scored tail in original crossing token; logical reasoning removes only unscored following-marker overlap after rollback"
 }

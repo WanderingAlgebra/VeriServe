@@ -1,0 +1,126 @@
+{
+  "actual_check_state_transitions": true,
+  "budget_rejected_answer_not_submitted": true,
+  "created": "2026-10-07T11:42:57.493597+00:00",
+  "environment": {
+    "executable": "/root/miniconda3/bin/python",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "python": "3.12.3",
+    "versions": {
+      "antlr4-python3-runtime": "4.13.2",
+      "datasets": "4.8.5",
+      "huggingface-hub": "0.36.2",
+      "latex2sympy2-extended": "1.11.0",
+      "math-verify": "0.9.0",
+      "matplotlib": "3.10.5",
+      "numpy": "2.3.2",
+      "scikit-learn": "1.9.1",
+      "torch": "2.8.0+cu128",
+      "transformers": "4.57.3"
+    }
+  },
+  "experiment_type": "within_question_high_low",
+  "high_low_analysis": {
+    "algorithm_failures_in_denominator": "PASS",
+    "gold_errors_separate": "PASS",
+    "high_low_paired_analysis": "PASS",
+    "request_time_and_delta_directions": "PASS",
+    "unexecuted_NA": "PASS"
+  },
+  "high_low_runtime": {
+    "checks": [
+      "arbitrary target and crossing-token endpoint align; PRM receives full step tail",
+      "PASS stores exact token checkpoint and retains KV/pending token",
+      "exactly one intermediate check even after rework",
+      "accepted-prefix FAIL remains FAIL and crops to latest PASS with incremental feedback",
+      "budget checked before crop; generated/revoked costs never refunded",
+      "only terminal PASS can submit; unavailable PRM cannot pass",
+      "independent budgets; threshold equality passes; invalid scores unavailable",
+      "full two-path loop starts fresh even at same position; prompt timed/gold excluded; terminal budget failure Y=0"
+    ],
+    "count": 8,
+    "status": "PASS"
+  },
+  "high_low_selection": {
+    "bad_feature_positions_require_extraction": true,
+    "earliest_exact_tie": true,
+    "feature_cache_requires_matching_tokens_positions_revision": true,
+    "layer_position_alignment": true,
+    "missing_label_retained": true,
+    "near_end_retained": true,
+    "only_changed_reference_prefixes_require_extraction": true,
+    "saturated_q_ranked_by_z": true,
+    "status": "PASS",
+    "truncated_reference_excluded": true
+  },
+  "independent_arm_state": true,
+  "math_expression_equivalence": true,
+  "probe_B_layer": 19,
+  "probe_predictions_agree": true,
+  "protocol": {
+    "checks": [
+      "unfinished Step 2 is not closed",
+      "Step 2 original prefix and pending are separated",
+      "Step 1 cross-marker token aligns backward",
+      "Step 2 crossing token remains pending",
+      "Unicode boundary keeps every byte of complete content",
+      "early endpoint anchor retained",
+      "incomplete boxed cannot terminate",
+      "complete box waits for EOS",
+      "complete final retained before EOS",
+      "partial next header is pending until colon",
+      "DELAY closes fourth ordinary step",
+      "DELAY skips boxed Step 3 and waits for two ordinary steps",
+      "DELAY second ordinary step can close at Final marker",
+      "anchor eligibility only excludes boxed in Step 2",
+      "illegal and boxed anchors excluded",
+      "post-final reasoning is format failure",
+      "feedback removal preserves reasoning chunk boundaries",
+      "initial feedback explicitly restarts Step 1",
+      "PRM retains final and excludes feedback",
+      "final-only new segment receives a PRM step",
+      "cross-boundary math tail is retained in accepted Step 2",
+      "continued accepted step still gives prefix conflict",
+      "math tail before markerless Final stays separate from final virtual step",
+      "initial unmarked reasoning preamble is retained",
+      "accepted prefix conflict preserves raw FAIL and effective UNCERTAIN",
+      "threshold equality passes",
+      "new low score returns deterministic FAIL",
+      "exact budget permits necessary terminal verification",
+      "lookahead and revoked tokens cannot be refunded",
+      "FAIL with exhausted rollback budget cannot retry",
+      "PRM length has independent tokenizer budget"
+    ],
+    "count": 31,
+    "passed": true
+  },
+  "source_hashes": {
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "stages/stage2/config.json": "ebde4a2f85e9829af1d272ef277164af617dab221741abab8e02f3f9a90fd73d",
+    "stages/stage2/run_probe.py": "3d46237d3fa2d1d194ae8a3f4996120d3c1bf0d83b3c078c151f6660db552efa",
+    "stages/stage3/analyze.py": "8c074cf2088ade317f8f2e587e92b0b4f4d2e8771f234ea659dc3c893480a872",
+    "stages/stage3/high_low/__init__.py": "c3a153ccb9049a14b9db9eeb1b6f8731ed68e45ddf0481243b4b6e4f2b18aa7f",
+    "stages/stage3/high_low/__main__.py": "3b2476dca4c8f81cb48de91766937d64058f152e05f233ee4d429add07584236",
+    "stages/stage3/high_low/analyze.py": "6098bed188516c1b7943385c37c664eeb0df6dbdf5b72dc6d328aac59cdbc217",
+    "stages/stage3/high_low/runtime.py": "97d3319837fe5f73dfc80fa3447fce16e8a15f0f4687f49c52368569bb1621f4",
+    "stages/stage3/high_low/selection.py": "5a7da899477cde6db0622795e05be533ea4ec779311a442e7a911b2564c4d9c5",
+    "stages/stage3/protocol.py": "b8ea8e5e0a437974a74802cefab029ef2c49b474f99b56ac8e66a74a49d05680",
+    "stages/stage3/run_timing.py": "b32b8471bc9791a0eada2b699abde5d5d2c064337f86ae5bf2b5826607bcf938",
+    "stages/stage3/storage.py": "c536e673e3b8ebeaa14f8a9b11522bdb4247e368747140e4c3f4991f0d5c017c"
+  },
+  "status": "PASS",
+  "storage": {
+    "checks": [
+      "atomic_roundtrip",
+      "corruption_preserved",
+      "fixed_probe_metadata_weights",
+      "190_original_unused_ids_disjoint",
+      "frozen_backup_interrupt_retry",
+      "session_diagnostics_archived_byte_exact"
+    ],
+    "status": "PASSED"
+  }
+}

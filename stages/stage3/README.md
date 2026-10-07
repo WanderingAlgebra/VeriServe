@@ -5,7 +5,7 @@
 | 实验 | 目的与计时 | 配置 / 入口 | 结果 |
 | --- | --- | --- | --- |
 | `fixed_step_now_vs_delay`（旧） | 固定第二步公共快照，比较 NOW 与 DELAY_2；使用 `T_postfork_wall` | [config.json](config.json)；`stages.stage3.run_timing` | [既有配对报告](runs/20261004-109173095d08/report.md) / [CSV](runs/20261004-109173095d08/paired_results.csv) |
-| `within_question_high_low`（新） | 同题 B 全轨迹最高/最低分位置，各自从 prompt 开始实跑；使用 `T_request` | [high_low_config.json](high_low_config.json)；`stages.stage3.high_low` | [新报告](runs/20261007-acde3028d49c/report.md) / [CSV](runs/20261007-acde3028d49c/paired_results.csv) / [来源 manifest](runs/20261007-acde3028d49c/manifest.json) |
+| `within_question_high_low`（新） | 同题 B 全轨迹最高/最低分位置，各自从 prompt 开始实跑；使用 `T_request` | [high_low_config.json](high_low_config.json)；`stages.stage3.high_low` | [新报告](runs/20261007-9fe830084094/report.md) / [CSV](runs/20261007-9fe830084094/paired_results.csv) / [来源 manifest](runs/20261007-9fe830084094/manifest.json) |
 
 ## 同题 HIGH/LOW：一次中途检查与总请求计时
 
@@ -14,6 +14,8 @@
 参考须完整、格式合法且未经 PRM/反馈干预；候选只含已闭合的普通 Step N，排除 boxed、明确最终答案与 Final answer，至少两步才合格。保留 near_end 普通步骤；截断和格式排除保留原因。按 B 的线性 logit `z` 选择 HIGH/LOW，避免 sigmoid 饱和；相同 `z` 选最早步骤，全同分仍保留，HIGH=LOW 也各自实跑。干预前在 `selections/<key>.json` 保存步骤、原 token 前缀、`q/z`、near_end 与来源哈希。
 
 两条路径独立 prompt prefill、KV 和预算，按题交替 HIGH→LOW / LOW→HIGH。首检前逐 token 核对原参考；仅在发现不兼容时，用同一 stage3 流式实现重新采集该题无干预参考，保存旧材料与原因，再冻结位置。跨边界 lookahead/pending token 保留并计费，PRM 包含步骤尾部，检查时暂停继续生成。
+
+PASS 检查点保留覆盖已评分尾部的最短原 token 前缀及 KV；跨 token 携带的下一标题片段在返工推理文本中裁去，原 token 与计费仍保留。[冻结前 pilot 诊断](runs/20261007-acde3028d49c/protocol_correction.json)记录了此边界修正，旧 pilot 不进入新 run 的结果。
 
 每路径只有一次主动中途检查，随后只做终点检查与返工。PASS 保存最近 PASS 前缀和 KV 后继续；FAIL 回滚该检查点，无 PASS 时保留题目 prompt，从 Step 1 重来，追加确定性反馈增量 prefill。任何完整步骤低于 0.35 均为 FAIL；旧接受前缀低分标 `checkpoint_conflict`，仍回滚最近 PASS，直到终点 PASS 或预算/格式终止。无可评分步骤或结果不可用不能 PASS。Final answer 纳入 PRM，只有终点 PASS 可提交并由 Math-Verify 评分。**旧实验的 UNCERTAIN 提交默认规则保持原样；新 HIGH/LOW 两路径都使用上述严格规则。**
 
