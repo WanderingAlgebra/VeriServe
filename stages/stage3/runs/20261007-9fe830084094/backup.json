@@ -1,9 +1,9 @@
 {
   "completed_pairs": {
     "pilot": 4,
-    "test": 10
+    "test": 20
   },
-  "created": "2026-10-07T12:03:33.557152+00:00",
-  "reason": "test 10 complete pairs",
+  "created": "2026-10-07T12:07:58.924528+00:00",
+  "reason": "test 20 complete pairs",
   "status": "PENDING"
 }
