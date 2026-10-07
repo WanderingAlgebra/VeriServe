@@ -519,68 +519,68 @@
       "time_pairs": 4
     },
     "test": {
-      "HIGH_correct_LOW_wrong": 1,
-      "HIGH_wrong_LOW_correct": 1,
+      "HIGH_correct_LOW_wrong": 2,
+      "HIGH_wrong_LOW_correct": 2,
       "all_equal_scores": 0,
       "arms": {
         "HIGH": {
-          "accuracy": 0.775,
+          "accuracy": 0.78,
           "budget": {
             "feedback_tokens": {
-              "mean": 25.15,
+              "mean": 26.04,
               "median": 0.0,
-              "n": 40,
-              "p95_descriptive": 116.29999999999998,
-              "sum": 1006.0
+              "n": 50,
+              "p95_descriptive": 119.29999999999998,
+              "sum": 1302.0
             },
             "forward_tokens": {
-              "mean": 1363.2,
-              "median": 908.5,
-              "n": 40,
-              "p95_descriptive": 3249.3499999999995,
-              "sum": 54528.0
+              "mean": 1363.4,
+              "median": 1039.5,
+              "n": 50,
+              "p95_descriptive": 3210.0,
+              "sum": 68170.0
             },
             "generated_tokens": {
-              "mean": 714.125,
-              "median": 440.5,
-              "n": 40,
-              "p95_descriptive": 2527.149999999999,
-              "sum": 28565.0
+              "mean": 720.36,
+              "median": 456.0,
+              "n": 50,
+              "p95_descriptive": 2212.999999999998,
+              "sum": 36018.0
             },
             "prm_calls": {
-              "mean": 2.225,
+              "mean": 2.24,
               "median": 2.0,
-              "n": 40,
-              "p95_descriptive": 3.049999999999997,
-              "sum": 89.0
+              "n": 50,
+              "p95_descriptive": 3.549999999999997,
+              "sum": 112.0
             },
             "revoked_tokens": {
-              "mean": 251.65,
+              "mean": 237.86,
               "median": 0.0,
-              "n": 40,
-              "p95_descriptive": 1545.1999999999991,
-              "sum": 10066.0
+              "n": 50,
+              "p95_descriptive": 1408.5999999999992,
+              "sum": 11893.0
             },
             "rollbacks": {
-              "mean": 0.425,
+              "mean": 0.44,
               "median": 0.0,
-              "n": 40,
+              "n": 50,
               "p95_descriptive": 2.0,
-              "sum": 17.0
+              "sum": 22.0
             }
           },
           "checkpoint_conflicts": 0,
-          "complete": 40,
-          "correct": 31,
+          "complete": 50,
+          "correct": 39,
           "failure_counts": {
-            "BUDGET_ROLLBACK": 7
+            "BUDGET_ROLLBACK": 9
           },
           "first_check_verdicts": {
-            "FAIL": 8,
-            "PASS": 32
+            "FAIL": 10,
+            "PASS": 40
           },
           "grading_exclusion_counts": {
-            "NONE": 40
+            "NONE": 50
           },
           "near_end": 35,
           "near_end_fraction": 0.18324607329842932,
@@ -591,10 +591,10 @@
             "p95_descriptive": 751.0,
             "sum": 47838.0
           },
-          "quality_n": 40,
-          "recorded": 40,
+          "quality_n": 50,
+          "recorded": 50,
           "status_counts": {
-            "COMPLETE": 40
+            "COMPLETE": 50
           },
           "step_number": {
             "mean": 3.837696335078534,
@@ -604,77 +604,77 @@
             "sum": 733.0
           },
           "termination_counts": {
-            "BUDGET_ROLLBACK": 7,
-            "FINAL_PASS": 33
+            "BUDGET_ROLLBACK": 9,
+            "FINAL_PASS": 41
           },
           "time_seconds": {
-            "mean": 13.143875145539642,
-            "median": 8.15237022191286,
-            "n": 40,
-            "p95_descriptive": 46.19698956832288,
-            "sum": 525.7550058215857
+            "mean": 13.254813420139254,
+            "median": 8.380205314606428,
+            "n": 50,
+            "p95_descriptive": 40.49961827509102,
+            "sum": 662.7406710069627
           },
           "wrong_submitted": 2
         },
         "LOW": {
-          "accuracy": 0.775,
+          "accuracy": 0.78,
           "budget": {
             "feedback_tokens": {
-              "mean": 24.15,
+              "mean": 25.3,
               "median": 0.0,
-              "n": 40,
+              "n": 50,
               "p95_descriptive": 122.0,
-              "sum": 966.0
+              "sum": 1265.0
             },
             "forward_tokens": {
-              "mean": 1382.625,
-              "median": 1064.5,
-              "n": 40,
-              "p95_descriptive": 3670.3499999999976,
-              "sum": 55305.0
+              "mean": 1389.72,
+              "median": 1120.5,
+              "n": 50,
+              "p95_descriptive": 3579.4999999999995,
+              "sum": 69486.0
             },
             "generated_tokens": {
-              "mean": 811.1,
-              "median": 452.5,
-              "n": 40,
-              "p95_descriptive": 2779.6499999999974,
-              "sum": 32444.0
+              "mean": 784.1,
+              "median": 471.5,
+              "n": 50,
+              "p95_descriptive": 2434.049999999998,
+              "sum": 39205.0
             },
             "prm_calls": {
-              "mean": 2.3,
+              "mean": 2.32,
               "median": 2.0,
-              "n": 40,
+              "n": 50,
               "p95_descriptive": 4.0,
-              "sum": 92.0
+              "sum": 116.0
             },
             "revoked_tokens": {
-              "mean": 275.7,
+              "mean": 255.06,
               "median": 0.0,
-              "n": 40,
-              "p95_descriptive": 1722.75,
-              "sum": 11028.0
+              "n": 50,
+              "p95_descriptive": 1491.4999999999986,
+              "sum": 12753.0
             },
             "rollbacks": {
-              "mean": 0.4,
+              "mean": 0.42,
               "median": 0.0,
-              "n": 40,
+              "n": 50,
               "p95_descriptive": 2.0,
-              "sum": 16.0
+              "sum": 21.0
             }
           },
           "checkpoint_conflicts": 0,
-          "complete": 40,
-          "correct": 31,
+          "complete": 50,
+          "correct": 39,
           "failure_counts": {
             "BUDGET_ATTEMPT": 1,
-            "BUDGET_ROLLBACK": 5
+            "BUDGET_ROLLBACK": 7
           },
           "first_check_verdicts": {
-            "FAIL": 3,
-            "PASS": 37
+            "FAIL": 4,
+            "PASS": 46
           },
           "grading_exclusion_counts": {
-            "NONE": 40
+            "NONE": 50
           },
           "near_end": 28,
           "near_end_fraction": 0.14659685863874344,
@@ -685,10 +685,10 @@
             "p95_descriptive": 486.5,
             "sum": 37664.0
           },
-          "quality_n": 40,
-          "recorded": 40,
+          "quality_n": 50,
+          "recorded": 50,
           "status_counts": {
-            "COMPLETE": 40
+            "COMPLETE": 50
           },
           "step_number": {
             "mean": 3.424083769633508,
@@ -699,15 +699,15 @@
           },
           "termination_counts": {
             "BUDGET_ATTEMPT": 1,
-            "BUDGET_ROLLBACK": 5,
-            "FINAL_PASS": 34
+            "BUDGET_ROLLBACK": 7,
+            "FINAL_PASS": 42
           },
           "time_seconds": {
-            "mean": 14.914311132626608,
-            "median": 8.38049147091806,
-            "n": 40,
-            "p95_descriptive": 50.80273016905407,
-            "sum": 596.5724453050643
+            "mean": 14.422425566539168,
+            "median": 8.693007311783731,
+            "n": 50,
+            "p95_descriptive": 44.65924485158172,
+            "sum": 721.1212783269584
           },
           "wrong_submitted": 3
         }
@@ -715,267 +715,267 @@
       "backend_or_time_invalid_pairs": 0,
       "by_backend": {
         "{\"attention\": \"sdpa\", \"bitsandbytes\": \"0.50.2\", \"dtype\": \"bfloat16\", \"gpu\": \"NVIDIA GeForce RTX 4090\", \"implementation\": \"dynamic_cache_crop\", \"source_sha256\": \"87821ad1224c028b45edef428bc08bfe464e305efd0b3c2ec24943a39d369944\", \"torch\": \"2.8.0+cu128\", \"total_memory\": 50866487296, \"transformers\": \"4.57.3\", \"uuid\": \"dae856e4-2c2a-b830-134f-97927b826cec\"}": {
-          "HIGH_correct_LOW_wrong": 1,
-          "HIGH_wrong_LOW_correct": 1,
+          "HIGH_correct_LOW_wrong": 2,
+          "HIGH_wrong_LOW_correct": 2,
           "all_equal_scores": 0,
           "arms": {
             "HIGH": {
-              "accuracy": 0.775,
+              "accuracy": 0.78,
               "budget": {
                 "feedback_tokens": {
-                  "mean": 25.15,
+                  "mean": 26.04,
                   "median": 0.0,
-                  "n": 40,
-                  "p95_descriptive": 116.29999999999998,
-                  "sum": 1006.0
+                  "n": 50,
+                  "p95_descriptive": 119.29999999999998,
+                  "sum": 1302.0
                 },
                 "forward_tokens": {
-                  "mean": 1363.2,
-                  "median": 908.5,
-                  "n": 40,
-                  "p95_descriptive": 3249.3499999999995,
-                  "sum": 54528.0
+                  "mean": 1363.4,
+                  "median": 1039.5,
+                  "n": 50,
+                  "p95_descriptive": 3210.0,
+                  "sum": 68170.0
                 },
                 "generated_tokens": {
-                  "mean": 714.125,
-                  "median": 440.5,
-                  "n": 40,
-                  "p95_descriptive": 2527.149999999999,
-                  "sum": 28565.0
+                  "mean": 720.36,
+                  "median": 456.0,
+                  "n": 50,
+                  "p95_descriptive": 2212.999999999998,
+                  "sum": 36018.0
                 },
                 "prm_calls": {
-                  "mean": 2.225,
+                  "mean": 2.24,
                   "median": 2.0,
-                  "n": 40,
-                  "p95_descriptive": 3.049999999999997,
-                  "sum": 89.0
+                  "n": 50,
+                  "p95_descriptive": 3.549999999999997,
+                  "sum": 112.0
                 },
                 "revoked_tokens": {
-                  "mean": 251.65,
+                  "mean": 237.86,
                   "median": 0.0,
-                  "n": 40,
-                  "p95_descriptive": 1545.1999999999991,
-                  "sum": 10066.0
+                  "n": 50,
+                  "p95_descriptive": 1408.5999999999992,
+                  "sum": 11893.0
                 },
                 "rollbacks": {
-                  "mean": 0.425,
+                  "mean": 0.44,
                   "median": 0.0,
-                  "n": 40,
+                  "n": 50,
                   "p95_descriptive": 2.0,
-                  "sum": 17.0
+                  "sum": 22.0
                 }
               },
               "checkpoint_conflicts": 0,
-              "complete": 40,
-              "correct": 31,
+              "complete": 50,
+              "correct": 39,
               "failure_counts": {
-                "BUDGET_ROLLBACK": 7
+                "BUDGET_ROLLBACK": 9
               },
               "first_check_verdicts": {
-                "FAIL": 8,
-                "PASS": 32
+                "FAIL": 10,
+                "PASS": 40
               },
               "grading_exclusion_counts": {
-                "NONE": 40
+                "NONE": 50
               },
-              "near_end": 7,
-              "near_end_fraction": 0.175,
+              "near_end": 8,
+              "near_end_fraction": 0.16,
               "prefix_tokens": {
-                "mean": 317.55,
-                "median": 217.0,
-                "n": 40,
-                "p95_descriptive": 962.2999999999996,
-                "sum": 12702.0
+                "mean": 313.2,
+                "median": 221.0,
+                "n": 50,
+                "p95_descriptive": 924.9499999999998,
+                "sum": 15660.0
               },
-              "quality_n": 40,
-              "recorded": 40,
+              "quality_n": 50,
+              "recorded": 50,
               "status_counts": {
-                "COMPLETE": 40
+                "COMPLETE": 50
               },
               "step_number": {
-                "mean": 4.35,
-                "median": 4.0,
-                "n": 40,
+                "mean": 4.34,
+                "median": 3.5,
+                "n": 50,
                 "p95_descriptive": 11.0,
-                "sum": 174.0
+                "sum": 217.0
               },
               "termination_counts": {
-                "BUDGET_ROLLBACK": 7,
-                "FINAL_PASS": 33
+                "BUDGET_ROLLBACK": 9,
+                "FINAL_PASS": 41
               },
               "time_seconds": {
-                "mean": 13.143875145539642,
-                "median": 8.15237022191286,
-                "n": 40,
-                "p95_descriptive": 46.19698956832288,
-                "sum": 525.7550058215857
+                "mean": 13.254813420139254,
+                "median": 8.380205314606428,
+                "n": 50,
+                "p95_descriptive": 40.49961827509102,
+                "sum": 662.7406710069627
               },
               "wrong_submitted": 2
             },
             "LOW": {
-              "accuracy": 0.775,
+              "accuracy": 0.78,
               "budget": {
                 "feedback_tokens": {
-                  "mean": 24.15,
+                  "mean": 25.3,
                   "median": 0.0,
-                  "n": 40,
+                  "n": 50,
                   "p95_descriptive": 122.0,
-                  "sum": 966.0
+                  "sum": 1265.0
                 },
                 "forward_tokens": {
-                  "mean": 1382.625,
-                  "median": 1064.5,
-                  "n": 40,
-                  "p95_descriptive": 3670.3499999999976,
-                  "sum": 55305.0
+                  "mean": 1389.72,
+                  "median": 1120.5,
+                  "n": 50,
+                  "p95_descriptive": 3579.4999999999995,
+                  "sum": 69486.0
                 },
                 "generated_tokens": {
-                  "mean": 811.1,
-                  "median": 452.5,
-                  "n": 40,
-                  "p95_descriptive": 2779.6499999999974,
-                  "sum": 32444.0
+                  "mean": 784.1,
+                  "median": 471.5,
+                  "n": 50,
+                  "p95_descriptive": 2434.049999999998,
+                  "sum": 39205.0
                 },
                 "prm_calls": {
-                  "mean": 2.3,
+                  "mean": 2.32,
                   "median": 2.0,
-                  "n": 40,
+                  "n": 50,
                   "p95_descriptive": 4.0,
-                  "sum": 92.0
+                  "sum": 116.0
                 },
                 "revoked_tokens": {
-                  "mean": 275.7,
+                  "mean": 255.06,
                   "median": 0.0,
-                  "n": 40,
-                  "p95_descriptive": 1722.75,
-                  "sum": 11028.0
+                  "n": 50,
+                  "p95_descriptive": 1491.4999999999986,
+                  "sum": 12753.0
                 },
                 "rollbacks": {
-                  "mean": 0.4,
+                  "mean": 0.42,
                   "median": 0.0,
-                  "n": 40,
+                  "n": 50,
                   "p95_descriptive": 2.0,
-                  "sum": 16.0
+                  "sum": 21.0
                 }
               },
               "checkpoint_conflicts": 0,
-              "complete": 40,
-              "correct": 31,
+              "complete": 50,
+              "correct": 39,
               "failure_counts": {
                 "BUDGET_ATTEMPT": 1,
-                "BUDGET_ROLLBACK": 5
+                "BUDGET_ROLLBACK": 7
               },
               "first_check_verdicts": {
-                "FAIL": 3,
-                "PASS": 37
+                "FAIL": 4,
+                "PASS": 46
               },
               "grading_exclusion_counts": {
-                "NONE": 40
+                "NONE": 50
               },
-              "near_end": 7,
-              "near_end_fraction": 0.175,
+              "near_end": 9,
+              "near_end_fraction": 0.18,
               "prefix_tokens": {
-                "mean": 215.3,
-                "median": 157.5,
-                "n": 40,
-                "p95_descriptive": 509.54999999999984,
-                "sum": 8612.0
+                "mean": 237.96,
+                "median": 161.0,
+                "n": 50,
+                "p95_descriptive": 535.0499999999998,
+                "sum": 11898.0
               },
-              "quality_n": 40,
-              "recorded": 40,
+              "quality_n": 50,
+              "recorded": 50,
               "status_counts": {
-                "COMPLETE": 40
+                "COMPLETE": 50
               },
               "step_number": {
-                "mean": 3.425,
+                "mean": 3.86,
                 "median": 3.0,
-                "n": 40,
-                "p95_descriptive": 6.049999999999997,
-                "sum": 137.0
+                "n": 50,
+                "p95_descriptive": 7.549999999999997,
+                "sum": 193.0
               },
               "termination_counts": {
                 "BUDGET_ATTEMPT": 1,
-                "BUDGET_ROLLBACK": 5,
-                "FINAL_PASS": 34
+                "BUDGET_ROLLBACK": 7,
+                "FINAL_PASS": 42
               },
               "time_seconds": {
-                "mean": 14.914311132626608,
-                "median": 8.38049147091806,
-                "n": 40,
-                "p95_descriptive": 50.80273016905407,
-                "sum": 596.5724453050643
+                "mean": 14.422425566539168,
+                "median": 8.693007311783731,
+                "n": 50,
+                "p95_descriptive": 44.65924485158172,
+                "sum": 721.1212783269584
               },
               "wrong_submitted": 3
             }
           },
           "backend_or_time_invalid_pairs": 0,
-          "complete_pairs": 40,
+          "complete_pairs": 50,
           "delta_T_seconds": {
             "bootstrap_skipped": 0,
             "bootstrap_valid": 1000,
             "ci95": [
-              -0.7159441851056181,
-              5.524408745648107
+              -1.1394552866499872,
+              4.1418738924004135
             ],
-            "estimate": 1.7704359870869666,
-            "paired_questions": 40,
+            "estimate": 1.1676121463999152,
+            "paired_questions": 50,
             "reason": null
           },
           "delta_Y": {
             "bootstrap_skipped": 0,
             "bootstrap_valid": 1000,
             "ci95": [
-              -0.075,
-              0.075
+              -0.08,
+              0.08
             ],
             "estimate": 0.0,
-            "paired_questions": 40,
+            "paired_questions": 50,
             "reason": null
           },
-          "eligible": 40,
+          "eligible": 50,
           "execution_status": "COMPLETE",
           "infrastructure_pairs": 0,
           "pending_pairs": 0,
           "pending_selections": {},
-          "planned": 40,
+          "planned": 50,
           "position_relation": {
-            "HIGH_earlier": 21,
-            "HIGH_later": 19
+            "HIGH_earlier": 27,
+            "HIGH_later": 23
           },
           "quality_pair_exclusions": {},
-          "quality_pairs": 40,
+          "quality_pairs": 50,
           "selection_exclusions": {},
-          "selection_recorded": 40,
-          "time_pairs": 40
+          "selection_recorded": 50,
+          "time_pairs": 50
         }
       },
-      "complete_pairs": 40,
+      "complete_pairs": 50,
       "delta_T_seconds": {
         "bootstrap_skipped": 0,
         "bootstrap_valid": 1000,
         "ci95": [
-          -0.7159441851056181,
-          5.524408745648107
+          -1.1394552866499872,
+          4.1418738924004135
         ],
-        "estimate": 1.7704359870869666,
-        "paired_questions": 40,
+        "estimate": 1.1676121463999152,
+        "paired_questions": 50,
         "reason": null
       },
       "delta_Y": {
         "bootstrap_skipped": 0,
         "bootstrap_valid": 1000,
         "ci95": [
-          -0.075,
-          0.075
+          -0.08,
+          0.08
         ],
         "estimate": 0.0,
-        "paired_questions": 40,
+        "paired_questions": 50,
         "reason": null
       },
       "eligible": 191,
       "execution_status": "INCOMPLETE",
       "infrastructure_pairs": 0,
-      "pending_pairs": 151,
+      "pending_pairs": 141,
       "pending_selections": {},
       "planned": 200,
       "position_relation": {
@@ -983,14 +983,14 @@
         "HIGH_later": 90
       },
       "quality_pair_exclusions": {},
-      "quality_pairs": 40,
+      "quality_pairs": 50,
       "selection_exclusions": {
         "FORMAT_ERROR: missing, repeated or non-sequential Step N markers": 5,
         "REFERENCE_FINAL_FORMAT_ERROR": 2,
         "REFERENCE_LENGTH_TRUNCATED": 2
       },
       "selection_recorded": 200,
-      "time_pairs": 40
+      "time_pairs": 50
     }
   },
   "run_id": "20261007-9fe830084094",
