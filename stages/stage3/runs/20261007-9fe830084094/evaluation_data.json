@@ -68,6 +68,9 @@
   "test/algebra/2232.json": {
     "status": "VALID"
   },
+  "test/algebra/224.json": {
+    "status": "VALID"
+  },
   "test/algebra/2264.json": {
     "status": "VALID"
   },
@@ -111,6 +114,9 @@
     "status": "VALID"
   },
   "test/algebra/621.json": {
+    "status": "VALID"
+  },
+  "test/algebra/668.json": {
     "status": "VALID"
   },
   "test/algebra/694.json": {
@@ -179,10 +185,16 @@
   "test/geometry/1140.json": {
     "status": "VALID"
   },
+  "test/geometry/221.json": {
+    "status": "VALID"
+  },
   "test/geometry/434.json": {
     "status": "VALID"
   },
   "test/geometry/456.json": {
+    "status": "VALID"
+  },
+  "test/geometry/465.json": {
     "status": "VALID"
   },
   "test/geometry/473.json": {
@@ -203,6 +215,9 @@
   "test/geometry/826.json": {
     "status": "VALID"
   },
+  "test/geometry/843.json": {
+    "status": "VALID"
+  },
   "test/geometry/880.json": {
     "status": "VALID"
   },
@@ -219,6 +234,9 @@
     "status": "VALID"
   },
   "test/intermediate_algebra/1063.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/1102.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/1111.json": {
@@ -254,6 +272,9 @@
   "test/intermediate_algebra/1510.json": {
     "status": "VALID"
   },
+  "test/intermediate_algebra/1544.json": {
+    "status": "VALID"
+  },
   "test/intermediate_algebra/1566.json": {
     "status": "VALID"
   },
@@ -264,6 +285,9 @@
     "status": "VALID"
   },
   "test/intermediate_algebra/1797.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/183.json": {
     "status": "VALID"
   },
   "test/intermediate_algebra/1849.json": {
@@ -401,6 +425,9 @@
   "test/prealgebra/1251.json": {
     "status": "VALID"
   },
+  "test/prealgebra/1252.json": {
+    "status": "VALID"
+  },
   "test/prealgebra/1272.json": {
     "status": "VALID"
   },
@@ -450,6 +477,9 @@
     "status": "VALID"
   },
   "test/prealgebra/1922.json": {
+    "status": "VALID"
+  },
+  "test/prealgebra/1973.json": {
     "status": "VALID"
   },
   "test/prealgebra/465.json": {
