@@ -10,7 +10,7 @@ T_request 从各自 prompt prefill 至提交/终止实测，含生成、PRM、�
 
 来源 manifest：`stages/stage2/runs/20261004-36fe9009f1f5/manifest.json`。冻结位置与 token 前缀见 selections/；两路径原始结果见 arms/；保留源哈希。
 
-准备时实际 HEAD：`be623b6c424fbba3436b3dbd73e640c239ff662c`；用户核对过的 HEAD：`eeb47f1f0b28ee70992d2201ad1db8f5481baaaa`。执行源码逐文件 SHA256 见 manifest.json；完整模型/tokenizer/dataset revision 见配置。
+准备时实际 HEAD：`ca7200ecbd0e0edd54e05539bc43fba790a5a784`；用户核对过的 HEAD：`eeb47f1f0b28ee70992d2201ad1db8f5481baaaa`。执行源码逐文件 SHA256 见 manifest.json；完整模型/tokenizer/dataset revision 见配置。
 
 | 环境字段 | 记录值 |
 | --- | --- |
@@ -23,29 +23,29 @@ T_request 从各自 prompt prefill 至提交/终止实测，含生成、PRM、�
 
 | 执行 GPU | UUID | 实现 / attention / dtype | torch / transformers / bitsandbytes |
 | --- | --- | --- | --- |
-| 未执行真实路径 | NA | NA | NA |
+| NVIDIA GeForce RTX 4090 | dae856e4-2c2a-b830-134f-97927b826cec | dynamic_cache_crop / sdpa / bfloat16 | 2.8.0+cu128 / 4.57.3 / 0.50.2 |
 
 ## pilot
 
-执行状态：**NOT_EXECUTED**。pilot 仅自检；正式 test 为原留出 200 题顺序上的探索性诊断。
+执行状态：**COMPLETE**。pilot 仅自检；正式 test 为原留出 200 题顺序上的探索性诊断。
 
 | 计划 | 已保存位置 | 合格 | 完整配对 | 质量配对 | 时间配对 | 待完成配对 | 基础设施中断 |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 4 | 4 | 4 | 0 | 0 | 0 | 4 | 0 |
+| 4 | 4 | 4 | 4 | 4 | 4 | 0 | 0 |
 
 | 路径 | 答对 / 共同可评估 | 正确率 | 平均总请求秒 | PRM / 回滚均值 | 生成 / 撤销 token 均值 | 生成 / 撤销 token 总数 |
 | --- | ---: | ---: | ---: | --- | --- | --- |
-| HIGH | 0 / 0 | NA | NA | NA / NA | NA / NA | NA / NA |
-| LOW | 0 / 0 | NA | NA | NA / NA | NA / NA | NA / NA |
+| HIGH | 1 / 4 | 0.2500 | 49.0573 | 2.0000 / 1.0000 | 2666.2500 / 425.0000 | 10665.0000 / 1700.0000 |
+| LOW | 1 / 4 | 0.2500 | 26.0404 | 3.2500 / 1.5000 | 1417.7500 / 763.7500 | 5671.0000 / 3055.0000 |
 
 | ΔY [95% CI] | ΔT 秒 [95% CI] | HIGH 对 / LOW 错 | HIGH 错 / LOW 对 |
 | --- | --- | ---: | ---: |
-| NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 |
+| 0.0000 [0.0000, 0.0000] | -23.0169 [-47.9205, 2.8590] | 0 | 0 |
 
 | 路径 | 检查步号均值 | 前缀 token 均值 | near_end 数 / 比例 | 首检判决 | 算法失败终止次数 | 错答提交 | checkpoint_conflict |
 | --- | ---: | ---: | --- | --- | --- | ---: | ---: |
-| HIGH | 4.5000 | 336.5000 | 0 / 0.0000 | `{}` | `{}` | 0 | 0 |
-| LOW | 2.0000 | 177.5000 | 0 / 0.0000 | `{}` | `{}` | 0 | 0 |
+| HIGH | 4.5000 | 336.5000 | 0 / 0.0000 | `{"FAIL": 2, "PASS": 2}` | `{"BUDGET_ATTEMPT": 2, "BUDGET_ROLLBACK": 1}` | 0 | 0 |
+| LOW | 2.0000 | 177.5000 | 0 / 0.0000 | `{"FAIL": 1, "PASS": 3}` | `{"BUDGET_ROLLBACK": 3}` | 0 | 0 |
 
 位置关系：`{"HIGH_later": 4}`；全同分题 0（保留并各自实跑）。
 
@@ -54,10 +54,10 @@ T_request 从各自 prompt prefill 至提交/终止实测，含生成、PRM、�
 | selection_exclusions | `{}` |
 | pending_selections | `{}` |
 | quality_pair_exclusions | `{}` |
-| HIGH grading exclusions | `{}` |
-| LOW grading exclusions | `{}` |
+| HIGH grading exclusions | `{"NONE": 4}` |
+| LOW grading exclusions | `{"NONE": 4}` |
 
-后端/请求时间无效完整配对：0。ΔY/ΔT 有效 bootstrap 次数 0/0（各应为 1000，NA 为 0）。
+后端/请求时间无效完整配对：0。ΔY/ΔT 有效 bootstrap 次数 1000/1000（各应为 1000，NA 为 0）。
 
 ## test
 

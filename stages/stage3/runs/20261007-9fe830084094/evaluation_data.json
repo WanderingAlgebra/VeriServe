@@ -1,0 +1,14 @@
+{
+  "test/geometry/473.json": {
+    "status": "VALID"
+  },
+  "test/geometry/826.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/1411.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/362.json": {
+    "status": "VALID"
+  }
+}

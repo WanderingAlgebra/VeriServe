@@ -1,9 +1,9 @@
 {
   "completed_pairs": {
-    "pilot": 0,
+    "pilot": 4,
     "test": 0
   },
-  "created": "2026-10-07T11:51:46.988970+00:00",
-  "reason": "manual backup",
+  "created": "2026-10-07T11:58:07.472443+00:00",
+  "reason": "pilot checkpoint",
   "status": "PENDING"
 }
