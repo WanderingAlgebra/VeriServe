@@ -440,6 +440,9 @@
   "test/prealgebra/1353.json": {
     "status": "VALID"
   },
+  "test/prealgebra/1388.json": {
+    "status": "VALID"
+  },
   "test/prealgebra/1423.json": {
     "status": "VALID"
   },

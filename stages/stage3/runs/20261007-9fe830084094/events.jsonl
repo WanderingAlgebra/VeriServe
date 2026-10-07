@@ -591,3 +591,5 @@
 {"T_request": 6.724553395062685, "Y": 1, "arm": "HIGH", "event": "HIGH_LOW_PATH_COMPLETED", "termination": "FINAL_PASS", "time": "2026-10-07T13:31:06.754813+00:00", "unique_id": "test/geometry/221.json"}
 {"T_request": 7.29352174885571, "Y": 1, "arm": "HIGH", "event": "HIGH_LOW_PATH_COMPLETED", "termination": "FINAL_PASS", "time": "2026-10-07T13:31:14.877214+00:00", "unique_id": "test/geometry/843.json"}
 {"T_request": 7.313940828666091, "Y": 1, "arm": "LOW", "event": "HIGH_LOW_PATH_COMPLETED", "termination": "FINAL_PASS", "time": "2026-10-07T13:31:22.383569+00:00", "unique_id": "test/geometry/843.json"}
+{"T_request": 3.1799086946994066, "Y": 1, "arm": "LOW", "event": "HIGH_LOW_PATH_COMPLETED", "termination": "FINAL_PASS", "time": "2026-10-07T13:31:51.703236+00:00", "unique_id": "test/prealgebra/1388.json"}
+{"T_request": 3.143105208873749, "Y": 1, "arm": "HIGH", "event": "HIGH_LOW_PATH_COMPLETED", "termination": "FINAL_PASS", "time": "2026-10-07T13:31:55.026582+00:00", "unique_id": "test/prealgebra/1388.json"}
