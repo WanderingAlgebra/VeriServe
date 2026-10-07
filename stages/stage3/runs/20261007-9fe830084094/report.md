@@ -61,25 +61,25 @@ T_request 从各自 prompt prefill 至提交/终止实测，含生成、PRM、�
 
 ## test
 
-执行状态：**NOT_EXECUTED**。pilot 仅自检；正式 test 为原留出 200 题顺序上的探索性诊断。
+执行状态：**INCOMPLETE**。pilot 仅自检；正式 test 为原留出 200 题顺序上的探索性诊断。
 
 | 计划 | 已保存位置 | 合格 | 完整配对 | 质量配对 | 时间配对 | 待完成配对 | 基础设施中断 |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 200 | 200 | 191 | 0 | 0 | 0 | 191 | 0 |
+| 200 | 200 | 191 | 10 | 10 | 10 | 181 | 0 |
 
 | 路径 | 答对 / 共同可评估 | 正确率 | 平均总请求秒 | PRM / 回滚均值 | 生成 / 撤销 token 均值 | 生成 / 撤销 token 总数 |
 | --- | ---: | ---: | ---: | --- | --- | --- |
-| HIGH | 0 / 0 | NA | NA | NA / NA | NA / NA | NA / NA |
-| LOW | 0 / 0 | NA | NA | NA / NA | NA / NA | NA / NA |
+| HIGH | 7 / 10 | 0.7000 | 11.8322 | 2.3000 / 0.5000 | 640.4000 / 142.5000 | 6404.0000 / 1425.0000 |
+| LOW | 7 / 10 | 0.7000 | 13.4259 | 2.4000 / 0.5000 | 728.7000 / 240.0000 | 7287.0000 / 2400.0000 |
 
 | ΔY [95% CI] | ΔT 秒 [95% CI] | HIGH 对 / LOW 错 | HIGH 错 / LOW 对 |
 | --- | --- | ---: | ---: |
-| NA（NO_VALID_PAIRED_QUALITY） | NA（NO_VALID_PAIRED_TIME） | 0 | 0 |
+| 0.0000 [0.0000, 0.0000] | 1.5937 [0.0559, 3.5338] | 0 | 0 |
 
 | 路径 | 检查步号均值 | 前缀 token 均值 | near_end 数 / 比例 | 首检判决 | 算法失败终止次数 | 错答提交 | checkpoint_conflict |
 | --- | ---: | ---: | --- | --- | --- | ---: | ---: |
-| HIGH | 3.8377 | 250.4607 | 35 / 0.1832 | `{}` | `{}` | 0 | 0 |
-| LOW | 3.4241 | 197.1937 | 28 / 0.1466 | `{}` | `{}` | 0 | 0 |
+| HIGH | 3.8377 | 250.4607 | 35 / 0.1832 | `{"FAIL": 2, "PASS": 8}` | `{"BUDGET_ROLLBACK": 2}` | 1 | 0 |
+| LOW | 3.4241 | 197.1937 | 28 / 0.1466 | `{"FAIL": 1, "PASS": 9}` | `{"BUDGET_ROLLBACK": 2}` | 1 | 0 |
 
 位置关系：`{"HIGH_earlier": 101, "HIGH_later": 90}`；全同分题 0（保留并各自实跑）。
 
@@ -88,10 +88,10 @@ T_request 从各自 prompt prefill 至提交/终止实测，含生成、PRM、�
 | selection_exclusions | `{"FORMAT_ERROR: missing, repeated or non-sequential Step N markers": 5, "REFERENCE_FINAL_FORMAT_ERROR": 2, "REFERENCE_LENGTH_TRUNCATED": 2}` |
 | pending_selections | `{}` |
 | quality_pair_exclusions | `{}` |
-| HIGH grading exclusions | `{}` |
-| LOW grading exclusions | `{}` |
+| HIGH grading exclusions | `{"NONE": 10}` |
+| LOW grading exclusions | `{"NONE": 10}` |
 
-后端/请求时间无效完整配对：0。ΔY/ΔT 有效 bootstrap 次数 0/0（各应为 1000，NA 为 0）。
+后端/请求时间无效完整配对：0。ΔY/ΔT 有效 bootstrap 次数 1000/1000（各应为 1000，NA 为 0）。
 
 ## 离线开销
 

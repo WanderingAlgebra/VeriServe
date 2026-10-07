@@ -1,4 +1,13 @@
 {
+  "test/algebra/769.json": {
+    "status": "VALID"
+  },
+  "test/counting_and_probability/377.json": {
+    "status": "VALID"
+  },
+  "test/counting_and_probability/71.json": {
+    "status": "VALID"
+  },
   "test/geometry/473.json": {
     "status": "VALID"
   },
@@ -8,7 +17,28 @@
   "test/intermediate_algebra/1411.json": {
     "status": "VALID"
   },
+  "test/intermediate_algebra/1797.json": {
+    "status": "VALID"
+  },
   "test/intermediate_algebra/362.json": {
+    "status": "VALID"
+  },
+  "test/intermediate_algebra/964.json": {
+    "status": "VALID"
+  },
+  "test/number_theory/45.json": {
+    "status": "VALID"
+  },
+  "test/number_theory/483.json": {
+    "status": "VALID"
+  },
+  "test/precalculus/1303.json": {
+    "status": "VALID"
+  },
+  "test/precalculus/34.json": {
+    "status": "VALID"
+  },
+  "test/precalculus/801.json": {
     "status": "VALID"
   }
 }

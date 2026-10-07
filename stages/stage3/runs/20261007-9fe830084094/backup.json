@@ -1,9 +1,9 @@
 {
   "completed_pairs": {
     "pilot": 4,
-    "test": 0
+    "test": 10
   },
-  "created": "2026-10-07T11:58:35.716743+00:00",
-  "reason": "freeze protocol after four GPU pilots",
+  "created": "2026-10-07T12:03:33.557152+00:00",
+  "reason": "test 10 complete pairs",
   "status": "PENDING"
 }
