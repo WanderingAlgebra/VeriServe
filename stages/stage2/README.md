@@ -1,90 +1,160 @@
-# 逐步 hidden 最终答错风险探针
+# 第二阶段：从中途推理预测最终答错风险
 
-在无检查、反馈、返工的连续生成中，用中途正常推理步骤的末尾 hidden 预测**完整轨迹最终答错**。分数不表示该步骤局部错误。只在完成且可评分的轨迹上评估，不补抽题、不翻转方向、不调参。
+本阶段问：**模型还在解题时，能否从它的内部向量预测这条推理最终会答错？**
 
-Qwen/Qwen2.5-7B-Instruct，BF16、单卡、batch 1、SDPA、greedy；4096 新 token / 8192 总 token。MATH-500 test 按 unique_id 排序，以 20261004 洗牌，依次取 100 train、200 test、10 smoke；另 190 不使用。模型、tokenizer、数据精确 SHA 见 [config.json](config.json)，首次 Hub 查询结果已固定，不使用浮动 main。
+先让生成模型连续完成解题，过程中不检查、不反馈、不返工。再读取每个正常推理步骤末尾的内部向量（hidden state），训练一个小型分类器，称为风险探针。标签来自整条轨迹的最终答案，分数越高表示预测的最终答错风险越高；它不判断当前步骤是否出错。
 
-A 用轨迹末尾训练，B 用中途步骤训练，C 仅用当前步号和已生成 token 数。A/B 分别在训练内五折按题交叉验证选择一个固定层；StandardScaler + L2 LogisticRegression（C=0.1、max_iter=2000）。B/C 的标准化、拟合与验证按每题总权重 1。测试题在保存冻结探针后才读取；bootstrap 按题抽取 1000 次，报告 paired AUROC 差。
+返回[项目首页](../../README.md)，或继续阅读 [stage3 的真实检查时机比较](../stage3/README.md)。
 
-实现现按功能位于 `veriserve_research/probe`，共用轨迹、推理和材料工具；[run_probe.py](run_probe.py) 保留命令转发。下文的历史实验参数与结果不变。新命令创建 v2 run；继续旧实验需要对应原提交，见[根目录的历史恢复说明](../../README.md#历史材料分析与恢复)。
+## 当前结果
 
-重分析已保存的原始特征和冻结探针，不重新生成或拟合，也不覆盖旧报告：
+本轮已采集 **300/300 道正式题**，包括 100 道训练题和 200 道测试题，另有 10 道流程检查题（smoke）。结论与原始统计见[完整报告](runs/20261004-36fe9009f1f5/report.md)、[指标](runs/20261004-36fe9009f1f5/metrics.json)和[正式特征远端核验](runs/20261004-36fe9009f1f5/formal_feature_remote_verification.json)。
+
+主要结果是：**逐步风险探针在整体中途评估中，提供了超过随机与简单进度基线的最终答错风险信号。** 下表的 AUROC 衡量分数区分最终答对 / 答错轨迹的能力，随机水平为 0.5；它不是解题正确率。方括号为 95% 区间。
+
+| 比较项 | 如何训练或构造 | 中途位置 AUROC / 差值 |
+| --- | --- | --- |
+| 末尾探针 A | 用完整轨迹末尾的内部向量训练，再应用到中途位置 | 0.663 [0.611, 0.713] |
+| 逐步探针 B | 用中途步骤末尾的内部向量训练 | 0.734 [0.666, 0.795] |
+| 进度基线 C | 只用当前步号和已生成 token 数 | 0.583 [0.527, 0.636] |
+| 逐步探针减进度基线（B−C） | 同一批题目上的配对差值 | 0.151 [0.095, 0.207] |
+
+两种内部向量探针均选择第 19 层。上述结果使用全部共同中途位置，按题等权；第 1 个有效步骤的 B−C 区间跨零，不能推广为所有早期位置均超过基线。完整轨迹末尾的指标在报告中另列。
+
+| 题目用途 | 计划题数 | 最终答案可评分 | 有有效中途位置 |
+| --- | ---: | ---: | ---: |
+| 训练 | 100 | 97 | 96 |
+| 测试 | 200 | 196 | 191 |
+
+测试的共同中途评估包含 1247 个位置。正式排除 7 道题：截断 3、缺少完整 boxed 答案 2、预测不可解析 1、最终答案格式错误 1。另有 6 道可评分轨迹没有有效中途步骤，材料仍保留。
+
+本阶段只验证这一模型与数据设置下的风险预测能力。它不能直接定位首个错误步骤、决定检查阈值、证明检查收益，或证明在线请求更快；离线重新计算内部向量的时间也不能当作在线低成本。
+
+## 术语与实验设置
+
+本页的 A/B/C 是上表中的探针与基线，**与 stage1 实验三的三种恢复方式无关**。stage3 使用的是这里的逐步探针 B。
+
+| 术语 | 在本阶段的含义 |
+| --- | --- |
+| 轨迹 / 步骤 | 一道题的完整生成内容 / 其中一个 `Step N` 推理段落 |
+| token | 模型读写文本的基本单位，不一定是完整的字或词 |
+| hidden state | 模型某一层在指定 token 位置的内部向量，本实验用步骤末尾的位置 |
+| 前缀 / 端点 | 截至某位置的原始 token 序列 / 提取内部向量的位置 |
+| smoke | 10 道真实 GPU 流程检查题，用来验证特征提取与暂停恢复 |
+| 冻结探针 | 固定层、标准化参数和分类器参数，之后才评估测试题 |
+| 按题等权 | 一道题不因步骤更多而获得更高总权重 |
+| bootstrap | 按题有放回重抽样，用来估计指标与配对差值的不确定性 |
+
+### 模型、数据与拟合
+
+生成器为 Qwen/Qwen2.5-7B-Instruct，使用 BF16 数值精度、SDPA 注意力实现、单卡、每批 1 题和 greedy 解码（每次选择最高分 token）。最多生成 4096 个新 token，总上下文上限为 8192。
+
+数据来自 MATH-500 的原始 `test` split。按 `unique_id` 排序后，用种子 `20261004` 洗牌，依次分出本实验的 100 道训练题、200 道测试题和 10 道 smoke 题；其余 190 道不用。因此，本页的 train/test 是实验内部划分。模型、分词器和数据的精确版本 SHA 见 [config.json](config.json)，首次查询后即固定，不使用浮动 `main`。
+
+末尾探针 A 与逐步探针 B 分别在训练题内部做五折按题交叉验证，选择一个固定层。分类器使用 StandardScaler 标准化和 L2 LogisticRegression，正则化参数 `C=0.1`、`max_iter=2000`；这里的参数 `C` 与进度基线 C 不是同一概念。逐步探针和进度基线的标准化、拟合、验证均按每题总权重 1。
+
+测试题只在保存已固定参数的探针后读取。统计按题重抽样 1000 次，报告配对 AUROC 差；不补抽题、不翻转分数方向、不据测试结果调参。
+
+### 步骤位置与答案评分
+
+步骤端点以原始 `generated_ids` 为准，通过逐前缀解码对齐，不重新分词。跨越文本边界的 token 向前取最后完整内容 token。包含 boxed 或明确最终答案的步骤不作中途位置；最后一个正常推理步骤保留，并标记 `near_end`。轨迹末尾取 EOS（生成结束标记）或控制 token 之前的最后完整内容 token。Qwen2 的 `hidden_states[1..L]` 排除 embedding，最后索引包含 final norm。
+
+评分只读取独立 `Final answer` 行中的最后一个完整 boxed 答案，用 Math-Verify 与标准答案判等。截断、缺失或不完整 boxed、标准 / 预测答案不可解析、解析或评分超时分别排除；不从推理中寻找正确答案。没有有效中途步骤的可评分轨迹仍可用于末尾探针 A 的训练。
+
+## 运行当前实现（v2）
+
+以下命令从仓库根目录、在已准备好的 stage2/3 环境中执行；安装方法见[根目录环境说明](../../README.md#环境与运行)。当前实现位于 `veriserve_research/probe`。
+
+**这些命令创建或恢复 `stages/stage2/runs/v2-<seed>-<identity>/`，不恢复本页展示的历史目录 `20261004-36fe9009f1f5`。** 当前提交中的 `stages.stage2.run_probe` 兼容入口也转发到 v2。
+
+```bash
+python -m veriserve_research probe --config stages/stage2/config.json --self-check
+python -m veriserve_research probe --config stages/stage2/config.json --prepare-only --resume
+python -m veriserve_research probe --config stages/stage2/config.json --backup-only --resume
+python -m veriserve_research probe --config stages/stage2/config.json --smoke --resume --stop-after 1
+python -m veriserve_research probe --config stages/stage2/config.json --smoke --resume
+python -m veriserve_research probe --config stages/stage2/config.json --resume
+```
+
+`--stop-after 1` 在第一道 smoke 保存后暂停，下一条命令由独立进程恢复，核对已完成 JSON/NPZ 的哈希并跳过已有生成。完整 smoke 后可再执行一次 `--smoke --resume`，验证 10 题全部跳过。
+
+正式采集前必须通过 10 题逐前缀提取检查、独立进程恢复检查和远端 NPZ 取回核验。首次代码与题目清单推送成功后才启动 smoke 和正式题。自动备份使用现有分支 `experiment/step-hidden-probe`，不新建分支、不强推；服务器需已有 Git 作者信息、Git LFS 和 origin 推送凭据，凭据不写入日志。
+
+只在 CPU 上拟合 / 重评估**已有 v2 特征**时使用：
+
+```bash
+python -m veriserve_research probe --config stages/stage2/config.json --fit-only --resume
+```
+
+该命令不加载生成模型；标签不足时保存 NA / 不足报告，不借用测试题。若要查看历史特征的分析，使用下一节的 `analyze --run`。
+
+## 重分析与恢复
+
+### 重分析已有材料
+
+以下命令可在当前代码下读取历史材料，不重新生成或拟合，也不覆盖旧报告：
 
 ```bash
 python -m veriserve_research analyze --run stages/stage2/runs/20261004-36fe9009f1f5
 ```
 
-stage2/3 的独立环境锁位于 `environments/stage23/`；常规 pytest 已包含本阶段 CPU 自检与真实保存材料的回归比较。
+新分析默认写入该 run 的 `analyses/<分析哈希>/`。原始 `report.md` 保留为历史结论入口。
 
-## 实际环境
+### 恢复 v2 执行
 
-本服务器已有 `/root/miniconda3/bin/python`：Python 3.12.3、PyTorch 2.8.0+cu128；保持现有 GPU 环境，未安装新 CUDA/PyTorch。RTX 4090 实测 49,140 MiB，驱动 595.58.03（nvidia-smi CUDA 13.2，PyTorch CUDA build 12.8）；BF16 SDPA 前向通过。
-
-补齐 Transformers 4.57.3、Datasets 4.8.5、scikit-learn 1.9.1、Math-Verify 0.9.0 和必要传递依赖；Math-Verify 按官方 extra `antlr4_13_2` 安装（ANTLR 4.13.2）。Git LFS 3.0.2 通过服务器 apt 安装。完整实际版本保存在运行 manifest.json 和 self_check.json。根 pyproject/uv.lock 是 stage1 的 Python 3.11 环境，不对它做整套同步或修改。
-
-换机器时先选用已能跑 BF16 GPU 的 Python，再仅补缺少的依赖。例如（`python` 换成你的环境路径）：
+在对应源码、配置和材料齐全的仓库中，重复相同命令并加 `--resume`。换机器时先取回 Git LFS 材料：
 
 ```bash
-uv pip install --python /path/to/python 'transformers==4.57.3' 'datasets==4.8.5' 'scikit-learn==1.9.1' 'math-verify[antlr4_13_2]==0.9.0'
-```
-
-## 执行与恢复
-
-从仓库根目录运行。首次代码/清单推送成功后才启动 smoke 和正式题；推送使用现有分支 `experiment/step-hidden-probe`，不新建分支、不强推。需先在服务器配置 Git 作者和 origin 推送凭据，不在日志或聊天保存凭据。
-
-```bash
-/root/miniconda3/bin/python -m stages.stage2.run_probe --config stages/stage2/config.json --self-check
-/root/miniconda3/bin/python -m stages.stage2.run_probe --config stages/stage2/config.json --prepare-only --resume
-/root/miniconda3/bin/python -m stages.stage2.run_probe --config stages/stage2/config.json --backup-only --resume
-/root/miniconda3/bin/python -m stages.stage2.run_probe --config stages/stage2/config.json --smoke --resume --stop-after 1
-/root/miniconda3/bin/python -m stages.stage2.run_probe --config stages/stage2/config.json --smoke --resume
-/root/miniconda3/bin/python -m stages.stage2.run_probe --config stages/stage2/config.json --resume
-```
-
-`--stop-after 1` 在第一道 smoke 持久化后暂停；独立进程恢复，校验已完成 JSON/NPZ 哈希不变并跳过生成。也可完整 smoke 后再次执行 `--smoke --resume` 验证 10 题全部跳过。正式启动要求 10 题逐前缀提取检查和恢复检查通过、已从远端取回 NPZ 核对哈希。检查逐层记录后续 token 替换、独立 decoder 最后位置及错一 token 负对照的实际 max_abs/RMS；固定 BF16 容差 1/32 绝对误差 + 一个 BF16 相对 ULP（0.008），不因结果修改容差。
-
-真实 smoke 的首次单次整段重前向与独立前缀比较失败（最大逐坐标误差 1.0、RMS 0.03251）；同长度未来内容替换误差为 0。原生 SDPA 后端及 GEMM 精度诊断仍未通过逐坐标容差，结果保存在 `single_full_forward_failed_smoke.json` / `extraction_diagnostics.json`，不称通过。正式特征改为**每个端点独立重前向其原始 token 前缀**，仍使用 BF16、SDPA、`use_cache=False`，不重分词、不补 token、不改变生成配置。它避免未来长度改变 BF16 计算形状，代价是重复前向；首次 9 个端点实测约 0.99 秒。当前流水线与另一次独立 decoder 的末尾向量比较；原单次整段比较继续作为非门控诊断保留，不冒充已通过该旧检查。
-
-无 GPU 的 CPU 拟合/重评估不会加载生成模型：
-
-```bash
-python -m stages.stage2.run_probe --config stages/stage2/config.json --fit-only --resume
-```
-
-缺少足够训练标签会保存 NA/不足报告，不借用测试题。每题先原子写生成 JSON，再提取 NPZ；特征缺失或校验失败时只重前向原始 `prompt_ids + generated_ids`，不重新生成。无法读取的损坏 JSON 留副本并尝试从本地 Git 已提交版本恢复；无可恢复 token 或校验不一致时停止，保留所有文件，不能重新生成来覆盖有效特征。smoke 与恢复检查绑定脚本/common 哈希；采集实现变化时复用原始 token，重新提取和验证，旧版本特征保留。无中途步骤的 smoke 题记为 causal 检查不适用，其轨迹仍保留；全部 smoke 均无有效位置时不允许冻结正式运行。
-
-每 25 道正式题提交并常规推送代码、清单、JSON、NPZ；NPZ 用原生 LFS，小量层分片避免单文件大于 50 MiB。推送失败立即停止下一批，保留本地数据和 events.jsonl 错误；修复连接后原命令 `--resume` 会先重试备份。至少第一批特征通过独立临时仓库 `git lfs fetch/checkout` 取回并校验，结果在 backup.json。
-
-换机器恢复已有仓库（已存在的 clone 不要再次 clone）：
-
-```bash
-git switch experiment/step-hidden-probe
 git lfs install --local
 git lfs pull origin experiment/step-hidden-probe
+```
+
+配置、模型 / 数据版本或执行源码变化会产生新的执行身份。正式采集前需完成本 run 的 smoke；不能把旧 run 的检查记录直接当作新 run 已通过。需要改变正式采集实现时保留旧结果，用新执行身份，必要时添加说明性的 `run_note`。
+
+### 恢复历史执行
+
+先按[历史恢复说明](../../README.md#历史材料分析与恢复)，在独立 checkout/worktree 使用[清单](../../docs/legacy_runs.json)记录的 `source_commit`，放回最新已核对的历史材料与对应环境。**只有满足该前提后**，才在历史 checkout 根目录使用原入口：
+
+```bash
 python -m stages.stage2.run_probe --config stages/stage2/config.json --self-check
 python -m stages.stage2.run_probe --config stages/stage2/config.json --resume
-# 或只使用已保存特征
+# 历史实现中，只使用已保存特征拟合
 python -m stages.stage2.run_probe --config stages/stage2/config.json --fit-only --resume
 ```
 
-无本地记录的正式采集只能在 smoke 完成后运行。配置/revision 变化自动产生新 run_id；正式冻结后采集脚本变化拒绝混入旧记录。如必须修改正式采集实现，应在配置增加说明性 `run_note` 生成新目录，不修改旧结果。
+## 特征检查、备份与文件索引
 
-## 结果入口与解释范围
+### 特征提取的数值检查
 
-本轮已完成 **300/300 正式题**（另 10 道 smoke）：[完整报告](runs/20261004-36fe9009f1f5/report.md)、[指标](runs/20261004-36fe9009f1f5/metrics.json)、[正式 NPZ 远端取回核验](runs/20261004-36fe9009f1f5/formal_feature_remote_verification.json)。训练可评分 97 道，中途训练 96 道；测试可评分 196 道，共同中途评估 191 道 / 1247 个位置。正式排除 7 道：截断 3、缺少完整 boxed 2、预测不可解析 1、最终答案格式错误 1；另 6 道可评分轨迹无有效中途步骤，均保留。
+历史真实 smoke 首次使用“整条轨迹一次前向计算”提取特征，与独立前缀计算相比未通过逐坐标容差：最大绝对误差 1.0、RMS 0.03251。同长度未来内容替换误差为 0；原生 SDPA 后端和 GEMM 精度诊断仍未通过原容差。原失败记录保存在 `single_full_forward_failed_smoke.json` 和 `extraction_diagnostics.json`。
 
-A/B 均选择第 19 层。全部中途位置按题等权 AUROC：A 0.663 [0.611, 0.713]、B 0.734 [0.666, 0.795]、C 0.583 [0.527, 0.636]；B−C 0.151 [0.095, 0.207]。此配置下存在超过随机与进度基线的最终答错风险信号；第 1 有效步骤的 B−C CI 跨零，不能据此声称所有早期位置均超过基线。完整轨迹末尾指标另列，不与中途混报。
+正式方法改为**在每个端点独立计算其原始 token 前缀**，仍使用 BF16、SDPA、`use_cache=False`。不重新分词、不补 token、不改变生成配置。这样避免未来长度改变 BF16 计算形状，代价是重复前向；首次 9 个端点实测约 0.99 秒。
 
-34 项 CPU 自检、10 道真实逐前缀 smoke、实际暂停恢复、独立科学/CV 复核与正式 LFS 远端哈希核验通过。原单次整段 BF16 提取与独立前缀比较失败的诊断完整保留，正式特征使用 smoke 阶段修复后冻结的独立前缀方法。正式采集没有中断或未备份特征。
+流程检查逐层比较独立 decoder 的末尾向量、未来 token 替换和错一 token 的负对照，记录最大绝对误差（max_abs）与均方根误差（RMS）。固定容差为绝对误差 `1/32` 加相对容差 `0.008`（一个 BF16 相对 ULP），不因结果改变容差。原整段比较保留为诊断，不作为正式方法已通过的检查。
 
-运行目录为 `stages/stage2/runs/<seed>-<config_hash前12位>/`。其中 report.md 是结论入口；manifest.json 保存全部题目原始字段、划分、revision、环境和脚本哈希；records/ 每题有原始 token、文本、评分/排除原因、步骤 token 对齐、硬件和分阶段耗时。cv_scores.csv、cv_folds.json、probe_*.npz/json、test_predictions.csv、metrics.json 和 step_auroc.png 保存分析。
+历史本轮的 34 项 CPU 自检、10 道真实逐前缀 smoke、实际暂停恢复、独立科学 / 交叉验证复核和正式 LFS 远端核验已通过。正式采集没有中断或未备份特征。当前 pytest 包含本阶段 CPU 自检与保存材料的结果回归；v2 正式执行仍需本 run 自身的 GPU 检查。
 
-正式结果未产生时 report.md 明确列出未执行阶段与 NA，不生成示意实验数字。CPU 自检仅用临时合成样本，不能当作 smoke 或正式结果。实际 smoke、恢复和远端核验分别保存 smoke_checks.json、resume_check.json、backup.json。
+### 保存与备份规则
 
-端点以原始 generated_ids 为权威；只用 prefix decode 对齐，不重分词。跨界 token 向前取最后完整内容 token；包含 boxed 或明确最终答案的步骤排除，最后正常步骤保留 near_end。轨迹末尾取 EOS/控制 token 前最后完整内容 token。Qwen2 hidden_states[1..L] 排除 embedding，最后索引含 final norm。
+每题先原子写生成 JSON，再提取特征 NPZ。特征缺失或校验失败时，只重新计算原始 `prompt_ids + generated_ids`，不重新生成答案。损坏 JSON 保留副本，并尝试从本地 Git 已提交版本恢复；没有可恢复 token 或校验不一致时停止并保留全部文件。
 
-评分只从独立 Final answer 行取最后完整 boxed，以 Math-Verify 判等。截断、缺失/不完整 boxed、标准/预测答案不可解析、解析/评分超时分别排除；不从推理中寻找正确答案。无有效中途步骤的轨迹保留并计数，可用于 A 的末尾训练。
+smoke 和恢复检查绑定执行源码哈希。正式冻结前修正提取实现时，保留原始 token 与旧特征，再提取和验证；正式冻结后不混入修改后的采集结果。没有中途步骤的 smoke 题记为因果性检查不适用并保留轨迹；全部 smoke 都没有有效位置时不能固定正式运行。
 
-只回答这个设置下中途 hidden 是否提供超过随机和简单进度基线的最终答错风险信号；不能推出首个错误步骤、检查阈值、检查收益、降低请求完成时间或其他模型上的通用性。离线重前向时间不当作在线低成本。
+每 25 道正式题提交并常规推送代码、题目清单、JSON 和 NPZ。NPZ 使用原生 Git LFS，按少量层分片避免单文件超过 50 MiB。推送失败停止下一批；修复连接后，`--resume` 先重试备份。至少第一批特征从独立临时仓库通过 `git lfs fetch/checkout` 取回并核对哈希，结果保存到 `backup.json`。
+
+### 文件索引
+
+历史目录名为 `<seed>-<config_hash前12位>`，当前目录名为 `v2-<seed>-<identity>`，都位于 `stages/stage2/runs/`。
+
+| 文件 / 目录 | 用途 |
+| --- | --- |
+| `report.md`、`metrics.json`、`step_auroc.png` | 结论、指标与逐步曲线 |
+| `manifest.json` | 题目原始字段、划分、版本、环境与源码哈希 |
+| `records/` | 每题原始 token、文本、评分 / 排除原因、步骤位置、硬件与分阶段耗时 |
+| `cv_scores.csv`、`cv_folds.json`、`probe_*.npz/json` | 交叉验证记录与固定好的探针参数 |
+| `test_predictions.csv` | 测试题各位置的分数 |
+| `smoke_checks.json`、`resume_check.json`、`backup.json` | GPU 流程检查、恢复检查与远端备份状态 |
+
+尚未执行的阶段在报告中标为未执行 / NA。CPU 合成样本仅用于实现自检。
 
 参考：[原论文 §3.1/§4.1/B/C](https://arxiv.org/html/2605.09502v1)、[Qwen](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)、[MATH-500](https://huggingface.co/datasets/HuggingFaceH4/MATH-500)、[Math-Verify 安装/解析](https://github.com/huggingface/Math-Verify)。逐步训练、题目权重、提示词和生成上限是本实验适配。
