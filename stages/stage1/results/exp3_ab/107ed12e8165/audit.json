@@ -1,0 +1,41 @@
+{
+  "A_forward_reduction_fraction": 0.28802115493033364,
+  "A_only_correct": 5,
+  "B_only_correct": 4,
+  "actual_forward_tokens": {
+    "A": 53041,
+    "B": 74498
+  },
+  "both_correct": 60,
+  "checks": [
+    "100 original IDs/order/seeds",
+    "200 final states and recomputed gold scores",
+    "original logical budgets",
+    "alternating A/B execution order",
+    "synchronized wall time covers generation plus PRM",
+    "A/B forward accounting on every recovery",
+    "identical histories before first FAIL",
+    "identical outputs without FAIL",
+    "source hashes still match manifest",
+    "metrics agree with raw pairs",
+    "real GPU retained K/V exact"
+  ],
+  "completed_date_local": "2026-10-10",
+  "correctness_disagreement_ids": [
+    "test-1110",
+    "test-1025",
+    "test-615",
+    "test-473",
+    "test-576",
+    "test-317",
+    "test-1099",
+    "test-1236",
+    "test-1147"
+  ],
+  "pairs": 100,
+  "questions_with_natural_FAIL": 42,
+  "questions_without_FAIL": 58,
+  "requests": 200,
+  "status": "PASS",
+  "timezone": "Asia/Shanghai"
+}

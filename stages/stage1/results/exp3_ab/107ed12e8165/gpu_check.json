@@ -1,0 +1,24 @@
+{
+  "A": [
+    {
+      "cache_before": 106,
+      "checkpoint_tokens": 99,
+      "feedback_tokens": 7,
+      "forward_tokens": 7
+    }
+  ],
+  "B": [
+    {
+      "cache_before": 106,
+      "checkpoint_tokens": 99,
+      "feedback_tokens": 7,
+      "forward_tokens": 106
+    }
+  ],
+  "feedback_tokens": 7,
+  "kept_KV_exact": true,
+  "logit_max_abs_difference": 0.203125,
+  "note": "Real forced recovery outside scientific requests; BF16 logit equality is diagnostic only",
+  "prefix_tokens": 99,
+  "status": "PASS"
+}

@@ -1,0 +1,46 @@
+{
+  "arms": {
+    "A": {
+      "correct": 65,
+      "mean_T_request": 3.3756947150826453,
+      "mean_actual_forward_tokens": 530.41,
+      "rollbacks": 97,
+      "terminations": {
+        "BUDGET_VERIFIER": 20,
+        "EOS": 4,
+        "FINAL_PASS": 69,
+        "FINAL_UNCERTAIN": 7
+      }
+    },
+    "B": {
+      "correct": 64,
+      "mean_T_request": 3.395535758584738,
+      "mean_actual_forward_tokens": 744.98,
+      "rollbacks": 90,
+      "terminations": {
+        "BUDGET_VERIFIER": 16,
+        "EOS": 5,
+        "FINAL_PASS": 70,
+        "FINAL_UNCERTAIN": 9
+      }
+    }
+  },
+  "complete": 100,
+  "effects": {
+    "accuracy_A_minus_B": {
+      "ci95": [
+        -0.05,
+        0.07
+      ],
+      "mean": 0.01
+    },
+    "seconds_B_minus_A": {
+      "ci95": [
+        -0.09854342570528388,
+        0.1264361143410206
+      ],
+      "mean": 0.01984104350209236
+    }
+  },
+  "planned": 100
+}
