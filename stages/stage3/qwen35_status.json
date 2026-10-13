@@ -1,0 +1,13 @@
+{
+  "config": "stages/stage3/qwen35_4b_omni_high_low_config.json",
+  "cpu_regression_tests_passed": 29,
+  "formal_pairs": 0,
+  "human_audit": "NOT_RUN",
+  "note": "Formal HIGH/LOW requires independent confirmed human labels, capacity and four GPU pilots",
+  "phase": "Implementation and CPU checks complete; official weights downloading",
+  "pilot_pairs": 0,
+  "real_model_capacity": "NOT_RUN",
+  "stage2_run": "stages/stage2/runs/v2-20261013-ac98a06f1a89",
+  "status": "AWAITING_STAGE2_AND_HUMAN_AUDIT",
+  "updated": "2026-10-13T09:57:49.523942+00:00"
+}
