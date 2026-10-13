@@ -150,9 +150,14 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "STRICT_USER_PROMPT_TRIAL_PREPARED_FORMAT_DECISION_PENDING",
+  "status": "STRICT_USER_PROMPT_TRIAL_RUNNING_FORMAT_DECISION_PENDING",
+  "strict_user_prompt_trial": {
+    "path": "stages/stage2/diagnostics/qwen35-final-user-task",
+    "pid": 118299,
+    "status": "STARTING"
+  },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T19:58:49.750111+00:00",
+  "updated": "2026-10-13T20:00:47.237003+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+    "-u",
+    "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-final-user-task/trial.py"
+  ],
+  "created": "2026-10-13T20:00:47.235945+00:00",
+  "pid": 118299
+}
