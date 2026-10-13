@@ -1,0 +1,33 @@
+{
+  "adopted": false,
+  "created": "2026-10-13T20:59:33.226192+00:00",
+  "implementation_observation": "sample_token already has tokens = torch.tensor([ids]); presence penalty separately constructs torch.tensor(ids[prompt_length:]) again. Existing tokens slice contains identical suffix integers.",
+  "rows": [
+    {
+      "duplicate_suffix_constructor_ms": 0.08355151861906052,
+      "full_list_constructor_ms": 0.09093008935451508,
+      "generated_tokens": 1083,
+      "prompt_tokens": 139,
+      "suffix_view_ms": 0.00206872820854187,
+      "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+    },
+    {
+      "duplicate_suffix_constructor_ms": 2.6179703697562218,
+      "full_list_constructor_ms": 2.4052126333117485,
+      "generated_tokens": 32768,
+      "prompt_tokens": 199,
+      "suffix_view_ms": 0.0021101906895637512,
+      "unique_id": "da479a3d912813cafd000d6da2242458f8d38e1ce9cb95bf0de0f3b01794aef3"
+    },
+    {
+      "duplicate_suffix_constructor_ms": 2.6311062276363373,
+      "full_list_constructor_ms": 2.416275516152382,
+      "generated_tokens": 32768,
+      "prompt_tokens": 224,
+      "suffix_view_ms": 0.0020936504006385803,
+      "unique_id": "66e9762e872ce0fd44499350967561202d4c7450fb2762d8d4fbee382e857432"
+    }
+  ],
+  "scope": "Read-only CPU Python-list tensor-construction microbenchmark, one torch CPU thread; no GPU calls, generation, sampler changes or overall speedup claim.",
+  "status": "CPU_CONSTRUCTION_COST_MEASURED"
+}
