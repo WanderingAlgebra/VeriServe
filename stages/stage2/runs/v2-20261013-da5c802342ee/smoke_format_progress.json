@@ -1,0 +1,57 @@
+{
+  "exclusions": {
+    "FINAL_FORMAT_ERROR": 2,
+    "SCORABLE": 1,
+    "THINKING_FORMAT_ERROR": 1
+  },
+  "expected_questions": 10,
+  "note": "Descriptive engineering coverage only; full smoke and resume gate not yet passed; formal supervisor held.",
+  "questions": [
+    {
+      "candidates": 8,
+      "completion": "EOS",
+      "exclusion": null,
+      "generated_tokens": 1083,
+      "max_checkpoint_gap_tokens": 237,
+      "scorable": true,
+      "stage": "FEATURES",
+      "trailing_tokens_after_last_candidate": 68,
+      "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+    },
+    {
+      "candidates": 57,
+      "completion": "EOS",
+      "exclusion": "FINAL_FORMAT_ERROR",
+      "generated_tokens": 27344,
+      "max_checkpoint_gap_tokens": 3298,
+      "scorable": false,
+      "stage": "FEATURES",
+      "trailing_tokens_after_last_candidate": 933,
+      "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+    },
+    {
+      "candidates": 2,
+      "completion": "LENGTH_TRUNCATED",
+      "exclusion": "THINKING_FORMAT_ERROR",
+      "generated_tokens": 32768,
+      "max_checkpoint_gap_tokens": 29236,
+      "scorable": false,
+      "stage": "FEATURES",
+      "trailing_tokens_after_last_candidate": 29236,
+      "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+    },
+    {
+      "candidates": 65,
+      "completion": "EOS",
+      "exclusion": "FINAL_FORMAT_ERROR",
+      "generated_tokens": 20287,
+      "max_checkpoint_gap_tokens": 2034,
+      "scorable": false,
+      "stage": "FEATURES",
+      "trailing_tokens_after_last_candidate": 1210,
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "updated": "2026-10-13T16:21:27.078992+00:00"
+}

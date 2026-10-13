@@ -48,3 +48,4 @@ SKIP smoke 8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69
 [transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
 DONE smoke 6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355 label=None exclusion=FINAL_FORMAT_ERROR steps=65 tokens=20287
 DONE smoke 30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c label=0 exclusion=None steps=8 tokens=1083
+DONE smoke 0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2 label=None exclusion=THINKING_FORMAT_ERROR steps=2 tokens=32768

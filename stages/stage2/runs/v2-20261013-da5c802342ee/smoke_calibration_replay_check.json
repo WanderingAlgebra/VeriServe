@@ -1,0 +1,16 @@
+{
+  "calibration_sha256": "bddb44eca65b0220f18db17dbe71cd4e22d1de233065457de6f40a3128930b69",
+  "checked_at": "2026-10-13T16:17:10.901449+00:00",
+  "checks": {
+    "completion": true,
+    "generated_ids": true,
+    "generation_seed": true,
+    "prompt_ids": true,
+    "raw_text": true
+  },
+  "generated_tokens": 1083,
+  "record_sha256": "c5872f39c089c56b0b4064e573788f9e6df7183d1cb4805a0f8d86dd10b91680",
+  "scope": "Third smoke question only; exact comparison of independent calibration and resumed smoke generation",
+  "status": "PASS",
+  "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+}

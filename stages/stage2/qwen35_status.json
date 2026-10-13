@@ -10,12 +10,12 @@
     "offline_candidates": 305,
     "scientific_results": false,
     "short_generation_questions": 3,
-    "status": "INTEGRATED_NEW_RUN_PENDING_SMOKE",
+    "status": "FRESH_SMOKE_RUNNING",
     "summary": "stages/stage2/diagnostics/qwen35-paragraphs/summary.json",
     "user_authorized": true
   },
   "config": "stages/stage2/qwen35_4b_omni_config.json",
-  "cpu_regression_tests_passed": 33,
+  "cpu_regression_tests_passed": 35,
   "dataset": {
     "conflicting_answers": [],
     "duplicate_indices": [
@@ -34,12 +34,13 @@
     "url": "https://raw.githubusercontent.com/KbsdJames/omni-math-rule/bda09972374225ab2186582615307d909965b864/omni_math_rule.jsonl"
   },
   "formal_generated": 0,
+  "formal_hold": "stages/stage2/runs/v2-20261013-da5c802342ee/smoke_format_review_hold.json",
   "format_diagnostics": "stages/stage2/diagnostics/qwen35-format/summary.json",
   "models_downloaded": {
     "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
-  "next_action": "Run source-bound real-model cache/interface validation, ten fresh smoke trajectories and independent resume audit, then freeze stage2 formal collection if gates pass.",
+  "next_action": "Finish ten unchanged smoke trajectories; review strict final-format coverage before releasing supervisor to resume audit and formal collection.",
   "note": "Natural Thinking paragraph checkpoints and two synthetic format examples integrated; strict final-only line retained. Old ten failed smoke trajectories preserved in prior run; new run requires its own GPU validation and complete smoke.",
   "pipeline_pid": 65456,
   "pipeline_status": "stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_status.json",
@@ -53,7 +54,8 @@
     "scope": "first smoke first checkpoint and trajectory end, all 32 layers",
     "status": "PASS"
   },
-  "smoke_generated": 1,
+  "smoke_generated": 4,
+  "smoke_scorable": 1,
   "source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
@@ -83,7 +85,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "SMOKE_RESTART_AND_COMPLETE",
+  "status": "SMOKE_RUNNING_WITH_FORMAL_HOLD",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T15:50:47.867192+00:00"
+  "updated": "2026-10-13T16:21:27.079994+00:00"
 }
