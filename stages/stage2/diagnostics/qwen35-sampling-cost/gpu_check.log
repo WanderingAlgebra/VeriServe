@@ -1,0 +1,4 @@
+  File "<string>", line 10
+    print('VERIFIER_NATIVE_['/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python', '-u', '/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-sampling-cost/gpu_check.py']_TERMINAL; START_ISOLATED_SAMPLER_CHECK',flush=True)
+                                                                                           ^
+SyntaxError: invalid syntax

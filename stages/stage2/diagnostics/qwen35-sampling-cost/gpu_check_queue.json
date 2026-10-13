@@ -1,0 +1,12 @@
+{
+  "status": "QUEUED_AFTER_NATIVE_VERIFIER",
+  "pid": 133129,
+  "wait_pid": 125544,
+  "adopted": false,
+  "source_modified": false,
+  "command": [
+    "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+    "-u",
+    "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-sampling-cost/gpu_check.py"
+  ]
+}
