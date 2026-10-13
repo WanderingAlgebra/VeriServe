@@ -1,9 +1,12 @@
 {
   "active_environment_modified": false,
+  "adopted": false,
+  "comparison": "stages/stage2/diagnostics/qwen35-kernel-check/comparison.json",
   "created": "2026-10-13T16:59:01.214606+00:00",
   "cuda_compiler_on_path": false,
+  "decision": "Keep reference backend: measured short fixed-prefix decode gain 1.048x; first three-prefix extraction 24.8s versus 6.3s. Warm extraction gain 1.495x does not establish an overall speedup for many distinct prefixes.",
   "future_execution_identity_required": true,
-  "gpu_validation": "NOT_RUN",
+  "gpu_validation": "PASS",
   "installed_versions": {
     "einops": null,
     "torch": "2.8.0+cu128",
@@ -38,7 +41,7 @@
     }
   ],
   "primary_documentation": "https://huggingface.co/docs/transformers/v5.19.0/model_doc/qwen3_5#usage-tips-and-notes",
-  "scope": "Only isolated target installation verified; target absent from active sys.path. No GPU speed, numerical or restoration checks performed yet.",
-  "status": "ISOLATED_TARGET_PREPARED",
-  "updated": "2026-10-13T17:52:26.368431+00:00"
+  "scope": "Synthetic full-cache restoration and fixed-prefix timings only; original environment and trajectory backend unchanged.",
+  "status": "ISOLATED_GPU_CHECKED_KEEP_REFERENCE",
+  "updated": "2026-10-13T18:34:09.114718+00:00"
 }
