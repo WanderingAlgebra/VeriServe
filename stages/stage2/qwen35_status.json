@@ -24,7 +24,7 @@
   "pipeline_status": "stages/stage2/runs/v2-20261013-2f15553ff1e5/pipeline_status.json",
   "real_model_smoke": "STARTING",
   "run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
-  "smoke_generated": 1,
+  "smoke_generated": 10,
   "source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
@@ -54,7 +54,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "SMOKE_RESTART_AND_COMPLETE",
+  "status": "SMOKE_ALL_RECORDS_RESUME_AUDIT",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T11:51:47.495696+00:00"
+  "updated": "2026-10-13T13:29:12.231061+00:00"
 }
