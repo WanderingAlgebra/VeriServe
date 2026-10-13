@@ -1,5 +1,5 @@
 {
-  "child_pid": 98365,
+  "child_pid": 98824,
   "created": "2026-10-13T18:23:48.887741+00:00",
   "pid": 98041,
   "scientific_results": false,
@@ -25,8 +25,8 @@
     "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
     "veriserve_research/trajectory.py": "0e2fa62e8b6b778b00b35fcc490008cbbb5c9dcade1c6fcfb71222d1f5ac1d2a"
   },
-  "status": "REFERENCE_GPU_CHECK",
-  "updated": "2026-10-13T18:23:59.293548+00:00",
+  "status": "FLA_GPU_CHECK",
+  "updated": "2026-10-13T18:24:42.991016+00:00",
   "validation_only": true,
   "wait_pid": 80001
 }
