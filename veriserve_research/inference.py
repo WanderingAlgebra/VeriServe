@@ -51,7 +51,7 @@ def sample_token(logits, ids, prompt_length, settings, rng):
     # Presence applies once to each token in this request's generated/feedback suffix,
     # excluding the question prompt; shared by stage2, stage3 and the verifier.
     if settings['presence_penalty'] and len(ids) > prompt_length:
-        seen = torch.tensor(ids[prompt_length:], device=scores.device).unique()
+        seen = tokens[0, prompt_length:].unique()
         scores[0, seen] -= settings['presence_penalty']
     if not settings['do_sample']:
         return int(scores[0].argmax())

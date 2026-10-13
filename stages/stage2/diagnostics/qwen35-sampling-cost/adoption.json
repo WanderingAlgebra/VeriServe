@@ -1,0 +1,14 @@
+{
+  "after_source_sha256": "7bdf60f326b69b86d8f5addd52b0480c14acdeb1dd53a46078308adb263413ec",
+  "before_source_sha256": "0702a3343ec1985ae74845c14798da76ece8606344e35725b87b6103bc6911ae",
+  "benchmark_sha256": "5eb997fc709baa8eeea7f60f6b3b776ce81ed033c6d11b8ca39b48ed16667443",
+  "change": "One-line reuse of the already-created history tensor for presence-penalty suffix IDs.",
+  "cpu_regression_tests_passed": 35,
+  "isolated_sampler_token_and_rng_equality_cases": 96,
+  "new_execution_identity_required": true,
+  "regression_log_sha256": "34e082c7cd4c2a50a76bf11353cab007d159deeb72eb9b704f94d7abd11fe9e6",
+  "scientific_protocol_changed": false,
+  "scope": "Sampler-only timing and equivalent outputs; not measured full model decode or T_request speedup.",
+  "status": "ADOPTED",
+  "updated": "2026-10-13T21:21:04.744083+00:00"
+}

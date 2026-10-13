@@ -1,0 +1,36 @@
+{
+  "adopted": false,
+  "after": "tokens[0, prompt_length:].unique()",
+  "before": "torch.tensor(ids[prompt_length:], device=scores.device).unique()",
+  "created": "2026-10-13T21:16:18.353378+00:00",
+  "rows": [
+    {
+      "candidate_ms": 0.5279158940538764,
+      "generated_tokens": 1083,
+      "original_ms": 0.649217254249379,
+      "sampler_speedup": 1.2297740256767553,
+      "token_and_rng_equal_seeds": 32,
+      "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+    },
+    {
+      "candidate_ms": 2.063416439341381,
+      "generated_tokens": 20287,
+      "original_ms": 3.7134524318389595,
+      "sampler_speedup": 1.7996621336525993,
+      "token_and_rng_equal_seeds": 32,
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+    },
+    {
+      "candidate_ms": 2.991510118590668,
+      "generated_tokens": 32768,
+      "original_ms": 5.740928958402947,
+      "sampler_speedup": 1.9190738893798425,
+      "token_and_rng_equal_seeds": 32,
+      "unique_id": "66e9762e872ce0fd44499350967561202d4c7450fb2762d8d4fbee382e857432"
+    }
+  ],
+  "scope": "Isolated CUDA sampler microbenchmark on frozen reference token histories; no model generation, scientific protocol change or whole-request speedup claim.",
+  "source_sha256": "0702a3343ec1985ae74845c14798da76ece8606344e35725b87b6103bc6911ae",
+  "status": "PASS",
+  "torch_version": "2.8.0+cu128"
+}

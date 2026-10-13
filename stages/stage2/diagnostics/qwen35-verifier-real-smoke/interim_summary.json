@@ -1,21 +1,21 @@
 {
-  "status": "RUNNING",
-  "updated": "2026-10-13T20:54:02.082654+00:00",
-  "native_process_pid": 125544,
-  "planned_questions": 10,
-  "planned_checks": 21,
-  "saved_checks": 10,
-  "questions_with_saved_checks": 4,
-  "verdicts": {
-    "UNCERTAIN": 5,
-    "PASS": 5
-  },
-  "parser_errors": {
-    "VERIFIER_LENGTH_TRUNCATED": 5
-  },
-  "verified_human_labels": 0,
-  "quality_accuracy": "NOT_ESTIMATED_WITHOUT_HUMAN_LABELS",
-  "source_run_is_superseded_for_formal_collection": true,
   "final_line_policy_amended": false,
-  "scope": "Diagnostic verifier smoke only; no formal stage2/stage3 records or mathematics labels. Saved results are read-only observations of the fixed native command."
+  "native_process_pid": null,
+  "parser_errors": {
+    "VERIFIER_LENGTH_TRUNCATED": 15
+  },
+  "planned_checks": 21,
+  "planned_questions": 10,
+  "quality_accuracy": "NOT_ESTIMATED_WITHOUT_HUMAN_LABELS",
+  "questions_with_saved_checks": 10,
+  "saved_checks": 21,
+  "scope": "Diagnostic verifier smoke only; no formal stage2/stage3 records or mathematics labels. Saved results are read-only observations of the fixed native command.",
+  "source_run_is_superseded_for_formal_collection": true,
+  "status": "DIAGNOSTIC_COMPLETE",
+  "updated": "2026-10-13T21:21:04.780172+00:00",
+  "verdicts": {
+    "PASS": 6,
+    "UNCERTAIN": 15
+  },
+  "verified_human_labels": 0
 }

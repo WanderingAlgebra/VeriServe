@@ -44,7 +44,7 @@
     "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
     "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
     "veriserve_research/artifacts/provenance.py": "33399d2d5e37dea42b875768f4eab4690e6b927d5a60f940ff71b41dab5b12ea",
-    "veriserve_research/inference.py": "0702a3343ec1985ae74845c14798da76ece8606344e35725b87b6103bc6911ae",
+    "veriserve_research/inference.py": "7bdf60f326b69b86d8f5addd52b0480c14acdeb1dd53a46078308adb263413ec",
     "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "veriserve_research/probe/collect.py": "07b07cb72ab08de44b3e105fb19b768c6c4af7dd31b8f686b705fc9b9826770f",
     "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
@@ -94,13 +94,36 @@
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
   "new_official_identity_required": true,
-  "next_action": "Finish native verifier-smoke on all ten preserved smoke references; await explicit final-format amendment before changing the generator protocol. No additional prompt retries planned after four failures on the same complex smoke question.",
-  "note": "Natural Thinking paragraph checkpoints and two synthetic format examples integrated; strict final-only line retained. Old ten failed smoke trajectories preserved in prior run; new run requires its own GPU validation and complete smoke.",
+  "next_action": "Await final-answer format protocol decision, then prepare a fresh execution identity and fresh smoke before formal stage2. Develop verifier output budget/prompt only on the fixed verifier_dev cohort, then independently human-audit before formal stage3.",
+  "note": "Natural Thinking paragraph checkpoints work, but original strict final-only format remains unreliable. Four prompt variants failed on the same complex smoke question; no final-format amendment applied. Ten real verifier smoke questions completed: 6 PASS and 15 output-truncated checks; no human accuracy claim. Sampler suffix-view optimization adopted after 96 matching outputs/RNG states and 35 CPU regression checks.",
   "pipeline_pid": null,
   "pipeline_status": "stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
   "real_model_interface_restore": "PASS",
   "real_model_smoke": "TEN_TRAJECTORIES_COMPLETE_WITH_POOR_FORMAT",
+  "real_verifier_smoke": {
+    "checks": 21,
+    "completion_summary": "stages/stage2/diagnostics/qwen35-verifier-real-smoke/completion_summary.json",
+    "human_audit": false,
+    "native_command": "verifier-smoke",
+    "parser_errors": {
+      "VERIFIER_LENGTH_TRUNCATED": 15
+    },
+    "path": "stages/stage2/diagnostics/qwen35-verifier-real-smoke",
+    "pid": null,
+    "planned_checks": 21,
+    "questions": 10,
+    "retired_pid": 125544,
+    "saved_checks": 21,
+    "source_run_is_superseded_for_formal_collection": true,
+    "status": "DIAGNOSTIC_COMPLETE",
+    "supervisor_pid": 123836,
+    "validation_only": true,
+    "verdicts": {
+      "PASS": 6,
+      "UNCERTAIN": 15
+    }
+  },
   "resident_capacity": {
     "free_total_bytes": [
       5344526336,
@@ -113,6 +136,17 @@
   },
   "retired_pipeline_pid": 65456,
   "run": "stages/stage2/runs/v2-20261013-da5c802342ee",
+  "sampling_cost_diagnostic": {
+    "adopted": true,
+    "adoption": "stages/stage2/diagnostics/qwen35-sampling-cost/adoption.json",
+    "max_observed_duplicate_cpu_copy_ms": 2.6311062276363373,
+    "path": "stages/stage2/diagnostics/qwen35-sampling-cost",
+    "queue_pid": null,
+    "regression_tests_passed": 35,
+    "source_modified": true,
+    "status": "ADOPTED_EQUIVALENT_SAMPLER_VIEW",
+    "token_and_rng_equality_cases": 96
+  },
   "saved_feature_validation": {
     "max_abs": 0.0,
     "path": "stages/stage2/runs/v2-20261013-da5c802342ee/saved_feature_validation/validation.json",
@@ -150,7 +184,18 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "REAL_VERIFIER_SMOKE_RUNNING_FORMAT_AMENDMENT_PENDING",
+  "status": "FORMAT_PROTOCOL_DECISION_REQUIRED_AFTER_COMPLETED_DIAGNOSTICS",
+  "strict_channel_prompt_trial": {
+    "completion": "EOS",
+    "generated_tokens": 19498,
+    "max_new_tokens": 49152,
+    "original_final_line_rule_retained": true,
+    "path": "stages/stage2/diagnostics/qwen35-final-user-task/channel-contract",
+    "pid": 123193,
+    "selection": "Original second smoke UID; same seed, sampler, model revision and native backend; final-line rule unchanged.",
+    "status": "DIAGNOSTIC_COMPLETE",
+    "strict_format_valid": false
+  },
   "strict_user_prompt_trial": {
     "generated_tokens": 23795,
     "path": "stages/stage2/diagnostics/qwen35-final-user-task",
@@ -159,7 +204,7 @@
     "strict_format_valid": false
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T21:07:03.552336+00:00",
+  "updated": "2026-10-13T21:21:04.781899+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,
@@ -176,38 +221,5 @@
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface-view",
     "pid": 115492,
     "status": "SYNTHETIC_CONTROLS_PASS"
-  },
-  "strict_channel_prompt_trial": {
-    "status": "DIAGNOSTIC_COMPLETE",
-    "path": "stages/stage2/diagnostics/qwen35-final-user-task/channel-contract",
-    "selection": "Original second smoke UID; same seed, sampler, model revision and native backend; final-line rule unchanged.",
-    "pid": 123193,
-    "max_new_tokens": 49152,
-    "original_final_line_rule_retained": true,
-    "generated_tokens": 19498,
-    "completion": "EOS",
-    "strict_format_valid": false
-  },
-  "real_verifier_smoke": {
-    "status": "RUNNING",
-    "supervisor_pid": 123836,
-    "path": "stages/stage2/diagnostics/qwen35-verifier-real-smoke",
-    "questions": 10,
-    "checks": 21,
-    "validation_only": true,
-    "human_audit": false,
-    "native_command": "verifier-smoke",
-    "source_run_is_superseded_for_formal_collection": true,
-    "pid": 125544,
-    "saved_checks": 16,
-    "planned_checks": 21
-  },
-  "sampling_cost_diagnostic": {
-    "path": "stages/stage2/diagnostics/qwen35-sampling-cost",
-    "status": "CPU_COST_MEASURED_GPU_COMPARISON_QUEUED",
-    "queue_pid": 133900,
-    "source_modified": false,
-    "adopted": false,
-    "max_observed_duplicate_cpu_copy_ms": 2.6311062276363373
   }
 }

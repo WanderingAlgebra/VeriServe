@@ -1,0 +1,112 @@
+{
+  "all_input_hashes_matched": true,
+  "all_original_20_files_unchanged": true,
+  "by_question": [
+    {
+      "checks": 3,
+      "truncated": 2,
+      "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69",
+      "verdicts": {
+        "PASS": 1,
+        "UNCERTAIN": 2
+      }
+    },
+    {
+      "checks": 3,
+      "truncated": 2,
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355",
+      "verdicts": {
+        "PASS": 1,
+        "UNCERTAIN": 2
+      }
+    },
+    {
+      "checks": 3,
+      "truncated": 1,
+      "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c",
+      "verdicts": {
+        "PASS": 2,
+        "UNCERTAIN": 1
+      }
+    },
+    {
+      "checks": 1,
+      "truncated": 0,
+      "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2",
+      "verdicts": {
+        "PASS": 1
+      }
+    },
+    {
+      "checks": 3,
+      "truncated": 3,
+      "unique_id": "df9af8a321516208b329d6aea7e7e313cda29ccc9e67811a8b20ac10ca2b1b46",
+      "verdicts": {
+        "UNCERTAIN": 3
+      }
+    },
+    {
+      "checks": 1,
+      "truncated": 1,
+      "unique_id": "da479a3d912813cafd000d6da2242458f8d38e1ce9cb95bf0de0f3b01794aef3",
+      "verdicts": {
+        "UNCERTAIN": 1
+      }
+    },
+    {
+      "checks": 1,
+      "truncated": 1,
+      "unique_id": "8d921bb20bae08d9cc071dea699a7fa358f8ceb4d5c04595b7ff7cfa4ea5e51d",
+      "verdicts": {
+        "UNCERTAIN": 1
+      }
+    },
+    {
+      "checks": 2,
+      "truncated": 2,
+      "unique_id": "768eae894c4b077e6491275907b34520b257d7725b86b6364c24392f7dfe50c0",
+      "verdicts": {
+        "UNCERTAIN": 2
+      }
+    },
+    {
+      "checks": 2,
+      "truncated": 2,
+      "unique_id": "b06dd6f0e8140ab15e5f660bc6712886b667213459eb3739c23eded89f8c459a",
+      "verdicts": {
+        "UNCERTAIN": 2
+      }
+    },
+    {
+      "checks": 2,
+      "truncated": 1,
+      "unique_id": "66e9762e872ce0fd44499350967561202d4c7450fb2762d8d4fbee382e857432",
+      "verdicts": {
+        "PASS": 1,
+        "UNCERTAIN": 1
+      }
+    }
+  ],
+  "checks": 21,
+  "collection_completed_before_sampler_change": true,
+  "collection_identity_sha256": "2a132b7ffd3fec96cc9021353298b56435ead6ea515ddd360c689feae4b066b1",
+  "confirmed_human_labels": 0,
+  "final_answer_format_policy_changed": false,
+  "formal_quality_gate": "NOT_EVALUATED_ON_SMOKE_AND_NOT_PASSED",
+  "human_review_rows": 21,
+  "mathematical_accuracy": "NOT_ESTIMATED_WITHOUT_INDEPENDENT_HUMAN_LABELS",
+  "native_exit": 0,
+  "other_format_errors": 0,
+  "parser_errors": {
+    "VERIFIER_LENGTH_TRUNCATED": 15
+  },
+  "questions": 10,
+  "requires_fresh_identity_before_future_review_or_formal_collection": true,
+  "status": "DIAGNOSTIC_COMPLETE",
+  "truncation_rate": 0.7142857142857143,
+  "updated": "2026-10-13T21:17:47.486249+00:00",
+  "verdicts": {
+    "PASS": 6,
+    "UNCERTAIN": 15
+  }
+}

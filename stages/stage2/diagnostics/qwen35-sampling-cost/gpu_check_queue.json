@@ -1,14 +1,14 @@
 {
-  "status": "QUEUED_AFTER_NATIVE_VERIFIER",
-  "pid": 133900,
-  "wait_pid": 125544,
-  "adopted": false,
-  "source_modified": false,
+  "adopted": true,
   "command": [
     "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
     "-u",
     "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-sampling-cost/gpu_check.py"
   ],
+  "pid": 133900,
+  "previous_supervisor_failure": "SyntaxError before any GPU action: broad string substitution changed a log literal; replaced by native argv forwarding.",
   "previous_supervisor_pid": 133129,
-  "previous_supervisor_failure": "SyntaxError before any GPU action: broad string substitution changed a log literal; replaced by native argv forwarding."
+  "source_modified": true,
+  "status": "COMPLETE",
+  "wait_pid": 125544
 }
