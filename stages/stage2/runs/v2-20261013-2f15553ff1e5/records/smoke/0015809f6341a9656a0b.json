@@ -26229,7 +26229,7 @@
   "split": "smoke",
   "stage": "NO_FEATURE_POSITIONS",
   "timings": {
-    "boundary_and_grading_seconds": 0.13363635540008545,
+    "boundary_and_grading_seconds": 0.10887536965310574,
     "generation_seconds": 660.6842492558062
   },
   "token_sha256": "c4092e60aa0e2a3e4d1588ab7dd552774dc1d505b4eaebb8d127ca90d8ff9b21",

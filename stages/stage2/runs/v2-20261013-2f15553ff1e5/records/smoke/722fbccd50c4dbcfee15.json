@@ -12738,7 +12738,7 @@
   "split": "smoke",
   "stage": "NO_FEATURE_POSITIONS",
   "timings": {
-    "boundary_and_grading_seconds": 0.12678536400198936,
+    "boundary_and_grading_seconds": 0.10364888049662113,
     "generation_seconds": 310.5662352386862
   },
   "token_sha256": "642df0ecd6e339b9b541f0e6fb4476e8fc4e8c5c17a05bef8d31598e920db4ef",

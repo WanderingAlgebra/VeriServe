@@ -1,6 +1,6 @@
 # 第二阶段：逐步 hidden 最终答错风险探针
 
-运行：`v2-20261013-2f15553ff1e5`；报告更新于 2026-10-13T21:28:34.391962+08:00。
+运行：`v2-20261013-2f15553ff1e5`；报告更新于 2026-10-13T21:29:33.361160+08:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途步骤；不是局部错误标签。
 
@@ -80,7 +80,7 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
 ```json
 {
   "cpu_self_check": {
-    "checked_at": "2026-10-13T11:51:50.983801+00:00",
+    "checked_at": "2026-10-13T13:29:15.687614+00:00",
     "checks": [
       "grade \\frac{1}{2} vs 0.5",
       "grade \\sqrt{8} vs 2\\sqrt{2}",
@@ -267,10 +267,32 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
     "updated_at": "2026-10-13T13:28:34.299592+00:00"
   },
   "resume": {
-    "checked_at": "2026-10-13T13:28:34.350728+00:00",
-    "hashes_after_for_existing": {},
-    "hashes_before": {},
-    "passed": false,
+    "checked_at": "2026-10-13T13:29:33.319040+00:00",
+    "hashes_after_for_existing": {
+      "records/smoke/29fb09aef2d2b8192e12.features-de122e3170ec.npz": "2907ba34439550e71eb702dfb44d624b4d292c48c98b3338a84dd7c5bcad9a4c",
+      "records/smoke/29fb09aef2d2b8192e12.json": "ea33806896f3e559f5722b50471672c8bdabf4ec5a64966d27259596fedc9d52",
+      "records/smoke/8fe8ba3e885ab91a95bb.features-de122e3170ec.npz": "028996a15cd9fc7ca86f7546766bc19024d10a144ce9551d46f7386409bd41fc",
+      "records/smoke/8fe8ba3e885ab91a95bb.json": "afd4981b3e24e282047366bcbb10796b5697096d8e024fe88b9e8af286f18bab",
+      "records/smoke/9ccccfe8203576afba40.features-de122e3170ec.npz": "3efe72b0ab517153046827f1816717e665ae9a8d3011d551fe33d7103d1788f7",
+      "records/smoke/9ccccfe8203576afba40.json": "57171a5361ebe250bb51dde19088ed116cca8227b253c0464111de517afeed0d",
+      "records/smoke/eca310ad5d6fad19fe38.features-de122e3170ec.npz": "f11a37265772777054ac98c49ab7541f4dd3aa27cff13f6d5a621f6b950c4e4d",
+      "records/smoke/eca310ad5d6fad19fe38.json": "7a6d24a6736cf25918fe24a1a0942f6943e90c4a5eb94ab3af92ea90aaf452b9",
+      "records/smoke/f45649608d5fd4570df0.features-de122e3170ec.npz": "ed99e929224e0ea733acd8aab3e0fffdc2600f70935cf3a3cbbe397ff5a027a2",
+      "records/smoke/f45649608d5fd4570df0.json": "5300cb7640503a58ea64330e895a5f4fca86e0cccca81d7c0696d8fffa8468f2"
+    },
+    "hashes_before": {
+      "records/smoke/29fb09aef2d2b8192e12.features-de122e3170ec.npz": "2907ba34439550e71eb702dfb44d624b4d292c48c98b3338a84dd7c5bcad9a4c",
+      "records/smoke/29fb09aef2d2b8192e12.json": "ea33806896f3e559f5722b50471672c8bdabf4ec5a64966d27259596fedc9d52",
+      "records/smoke/8fe8ba3e885ab91a95bb.features-de122e3170ec.npz": "028996a15cd9fc7ca86f7546766bc19024d10a144ce9551d46f7386409bd41fc",
+      "records/smoke/8fe8ba3e885ab91a95bb.json": "afd4981b3e24e282047366bcbb10796b5697096d8e024fe88b9e8af286f18bab",
+      "records/smoke/9ccccfe8203576afba40.features-de122e3170ec.npz": "3efe72b0ab517153046827f1816717e665ae9a8d3011d551fe33d7103d1788f7",
+      "records/smoke/9ccccfe8203576afba40.json": "57171a5361ebe250bb51dde19088ed116cca8227b253c0464111de517afeed0d",
+      "records/smoke/eca310ad5d6fad19fe38.features-de122e3170ec.npz": "f11a37265772777054ac98c49ab7541f4dd3aa27cff13f6d5a621f6b950c4e4d",
+      "records/smoke/eca310ad5d6fad19fe38.json": "7a6d24a6736cf25918fe24a1a0942f6943e90c4a5eb94ab3af92ea90aaf452b9",
+      "records/smoke/f45649608d5fd4570df0.features-de122e3170ec.npz": "ed99e929224e0ea733acd8aab3e0fffdc2600f70935cf3a3cbbe397ff5a027a2",
+      "records/smoke/f45649608d5fd4570df0.json": "5300cb7640503a58ea64330e895a5f4fca86e0cccca81d7c0696d8fffa8468f2"
+    },
+    "passed": true,
     "source_code": {
       "common_sha256": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
       "execution_sources": {
@@ -297,12 +319,17 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
       },
       "script_sha256": "de122e3170ec57b4ba1380ededd25f261f242cf1820ce81b7265d6b63439c9da"
     },
-    "unchanged_files": 0
+    "unchanged_files": 10
   },
   "backup": {
-    "commit": "3e3645a2a7fa1ba7a34b82a20526ed08d1c21785",
-    "feature_remote_verification": null,
-    "pushed_at": "2026-10-13T11:52:02.901861+00:00",
+    "commit": "d9791b7e9fc2bddf494064ad4b971a3ab721374d",
+    "feature_remote_verification": {
+      "path": "stages/stage2/runs/v2-20261013-2f15553ff1e5/records/smoke/29fb09aef2d2b8192e12.features-de122e3170ec.npz",
+      "remote_commit": "9239e3a8e1faca29435f4ac3d4ce70a1eac9eccd",
+      "sha256": "2907ba34439550e71eb702dfb44d624b4d292c48c98b3338a84dd7c5bcad9a4c",
+      "verified_at": "2026-10-13T13:29:10.847709+00:00"
+    },
+    "pushed_at": "2026-10-13T13:29:26.408373+00:00",
     "status": "PUSHED"
   }
 }
@@ -321,7 +348,7 @@ AUROC / CI / 所选层：NA；正式数据不足或未采集，不能回答是�
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`3e3645a2a7fa1ba7a34b82a20526ed08d1c21785`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`d9791b7e9fc2bddf494064ad4b971a3ab721374d`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 
