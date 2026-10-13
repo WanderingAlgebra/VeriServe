@@ -1,6 +1,6 @@
 {
   "config": "stages/stage2/qwen35_4b_omni_config.json",
-  "cpu_regression_tests_passed": 29,
+  "cpu_regression_tests_passed": 31,
   "dataset": {
     "conflicting_answers": [],
     "duplicate_indices": [
@@ -20,8 +20,8 @@
   },
   "formal_generated": 0,
   "note": "4B weights verified; actual GPU interface, sampling, full restore and independent same-schedule replay passed; one-shot BF16 differences retained",
-  "pipeline_pid": 17854,
-  "pipeline_status": "stages/stage2/runs/v2-20261013-ac98a06f1a89/pipeline_status.json",
+  "pipeline_pid": 29216,
+  "pipeline_status": "stages/stage2/runs/v2-20261013-2f15553ff1e5/pipeline_status.json",
   "real_model_smoke": "STARTING",
   "run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
   "smoke_generated": 0,
@@ -54,7 +54,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "REAL_MODEL_GPU_CHECK_PASSED",
+  "status": "SMOKE_FIRST_QUESTION",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T11:35:33.974870+00:00"
+  "updated": "2026-10-13T11:37:13.634885+00:00"
 }
