@@ -1,0 +1,91 @@
+{
+  "candidate": {
+    "backend": {
+      "torch_chunk_gated_delta_rule": {
+        "module": "fla.ops.gated_delta_rule.chunk",
+        "optimized": true
+      },
+      "torch_recurrent_gated_delta_rule": {
+        "module": "fla.ops.gated_delta_rule.fused_recurrent",
+        "optimized": true
+      }
+    },
+    "decode_tokens": 256,
+    "forced_token_sha256": "213b33cc2b9abca3eae9bfeb9cd09f041db6d6668798a7f54eba1411ff614211",
+    "independent_prefix_positions": [
+      3464,
+      16442,
+      27509
+    ],
+    "peak_allocated_bytes": 16323469312,
+    "record_sha256": "ddfdbb39b16881002c7c776e1b8873035353d73c5298e0dab3477d72366b3a39",
+    "reforward_seconds": [
+      24.844599910080433,
+      4.210620814934373
+    ],
+    "repetitions": [
+      {
+        "prefill_seconds": 6.8141061048954725,
+        "teacher_forced_decode_seconds": 5.391029858961701,
+        "tokens_per_second": 47.486288649364845
+      },
+      {
+        "prefill_seconds": 0.03598804213106632,
+        "teacher_forced_decode_seconds": 5.436791609972715,
+        "tokens_per_second": 47.086594146889645
+      }
+    ],
+    "scope": "Fixed-token decoder and original-prefix extraction only; no sampling, labels or T_request comparison.",
+    "source_unchanged": true,
+    "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+  },
+  "created": "2026-10-13T18:26:53.851229+00:00",
+  "decode_speedup": 1.048012326421378,
+  "fixed_prefix_sha256": "213b33cc2b9abca3eae9bfeb9cd09f041db6d6668798a7f54eba1411ff614211",
+  "optimized_gdn_active": true,
+  "reference": {
+    "backend": {
+      "torch_chunk_gated_delta_rule": {
+        "module": "transformers.models.qwen3_5.modeling_qwen3_5",
+        "optimized": false
+      },
+      "torch_recurrent_gated_delta_rule": {
+        "module": "transformers.models.qwen3_5.modeling_qwen3_5",
+        "optimized": false
+      }
+    },
+    "decode_tokens": 256,
+    "forced_token_sha256": "213b33cc2b9abca3eae9bfeb9cd09f041db6d6668798a7f54eba1411ff614211",
+    "independent_prefix_positions": [
+      3464,
+      16442,
+      27509
+    ],
+    "peak_allocated_bytes": 19373202432,
+    "record_sha256": "ddfdbb39b16881002c7c776e1b8873035353d73c5298e0dab3477d72366b3a39",
+    "reforward_seconds": [
+      6.279981022700667,
+      6.2945603635162115
+    ],
+    "repetitions": [
+      {
+        "prefill_seconds": 0.0403644684702158,
+        "teacher_forced_decode_seconds": 5.745286786928773,
+        "tokens_per_second": 44.55826305876169
+      },
+      {
+        "prefill_seconds": 0.0370434895157814,
+        "teacher_forced_decode_seconds": 5.697824623435736,
+        "tokens_per_second": 44.92942779373128
+      }
+    ],
+    "scope": "Fixed-token decoder and original-prefix extraction only; no sampling, labels or T_request comparison.",
+    "source_unchanged": true,
+    "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+  },
+  "scientific_results": false,
+  "scope": "Synthetic full-cache restoration plus fixed-token and three original-prefix timings. Not a formal trajectory, ten-question smoke, pilot or capacity gate.",
+  "status": "MEASURED",
+  "validation_only": true,
+  "warm_reforward_speedup": 1.4949245349261684
+}
