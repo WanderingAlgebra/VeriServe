@@ -1,0 +1,69 @@
+{
+  "all_twenty_original_json_npz_files_unchanged": true,
+  "checked_at": "2026-10-13T19:36:23.014196+00:00",
+  "checks": [
+    {
+      "check_type": "intermediate",
+      "checkpoint_numbers": [
+        1
+      ],
+      "input_close_tokens": 0,
+      "input_open_tokens": 1,
+      "original_chars": 23,
+      "view_chars": 23
+    },
+    {
+      "check_type": "intermediate",
+      "checkpoint_numbers": [
+        1
+      ],
+      "input_close_tokens": 0,
+      "input_open_tokens": 1,
+      "original_chars": 23,
+      "view_chars": 23
+    },
+    {
+      "check_type": "terminal",
+      "checkpoint_numbers": [
+        1,
+        2
+      ],
+      "input_close_tokens": 0,
+      "input_open_tokens": 1,
+      "original_chars": 57,
+      "view_chars": 57
+    }
+  ],
+  "source_hashes": {
+    "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650",
+    "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336",
+    "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/artifacts/backup.py": "7da2d0989965ca5032ccb9d1a3133a6f0d561ec17540027ec7b86eb35b299981",
+    "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb",
+    "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
+    "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
+    "veriserve_research/artifacts/provenance.py": "33399d2d5e37dea42b875768f4eab4690e6b927d5a60f940ff71b41dab5b12ea",
+    "veriserve_research/artifacts/storage.py": "79ec27a76bd2f77748bb15b6554d17a7d2e27d170b1b0abb2b7c74a377e26459",
+    "veriserve_research/inference.py": "0702a3343ec1985ae74845c14798da76ece8606344e35725b87b6103bc6911ae",
+    "veriserve_research/intervention/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/intervention/fixed_step.py": "0ef6944131b87b1961d4b5b6800b75107cf7acc29b8843510ed0a0d1468109e1",
+    "veriserve_research/intervention/groups.py": "e7b746cd13aa338b2e3bd52b5ce405204fcd24e0779e309ae21b2ae89c57419a",
+    "veriserve_research/intervention/high_low/__init__.py": "6601d02cc9fe171ae7c1d25081c795dcb834d6026b11dac01a4b4e854c97fd23",
+    "veriserve_research/intervention/high_low/run.py": "b8c9d3cbf974ef6bbadca826fbcf5ace49e7f93c63c6a897b374200d912bd057",
+    "veriserve_research/intervention/high_low/runtime.py": "a612517cb50b553e2394559e8c0863b14e79cd6eea5af38e63a97e4b9c3dce9f",
+    "veriserve_research/intervention/high_low/selection.py": "6eefc3b22bd2f326a2197e437b5cb6064c950620fa2dcd04d609bf566196ca1b",
+    "veriserve_research/intervention/protocol.py": "f7aae52acecc22b5a4affabcede4fceef45522831ac9f58fd1b109d5bb0cc71a",
+    "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
+    "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
+    "veriserve_research/trajectory.py": "63c9abdb6a15a4abb9ff28e883f0c16ff1380f4399fbe105288ec73faf27f56f"
+  },
+  "status": "CPU_PASS_GPU_PENDING",
+  "strict_verdict_parser_unchanged": true
+}

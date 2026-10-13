@@ -356,7 +356,7 @@ class GenerativeVerifier:
     def input_ids(self, problem, prefix, current_step, feedback, kind):
         import json
         from .intervention.protocol import VERIFIER_PROMPT
-        from .trajectory import verification_units, PARAGRAPHS
+        from .trajectory import verification_units, PARAGRAPHS, thinking_view
         mode = getattr(self,'cfg',{}).get('boundary_mode','steps')
         prompt = VERIFIER_PROMPT
         if mode == PARAGRAPHS:
@@ -365,9 +365,11 @@ class GenerativeVerifier:
                 raise ValueError('Verifier checkpoint numbering differs from the exact prefix')
             prefix = units
             prompt += ('\nThe quoted prefix is an ordered array of externally numbered checkpoint units. '
-                       'Concatenating quoted_text restores the original prefix exactly. Numbers are metadata, '
+                       'Only formatting control markers are masked as whitespace; mathematical text and offsets are retained. Numbers are metadata, '
                        'not model-generated Step markers. A paragraph need not be one complete mathematical step. '
                        'Use checkpoint_number as first_error_step; do not confuse it with numbers inside the quoted text.')
+        else:
+            prefix = thinking_view(prefix)
         message = json.dumps(dict(problem=problem, quoted_prefix=prefix, current_step=current_step,
                                   retained_feedback=feedback, check_type=kind), ensure_ascii=False)
         # Reversible JSON escapes keep quoted chat delimiters from becoming control-token IDs.

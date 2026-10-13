@@ -150,12 +150,17 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "VERIFIER_INPUT_FIX_RETEST_PENDING_FORMAT_DECISION",
+  "status": "VERIFIER_INPUT_FIX_RETEST_RUNNING_FORMAT_DECISION_PENDING",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T19:17:27.241885+00:00",
+  "updated": "2026-10-13T19:19:29.035396+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,
     "status": "TERMINAL_CONTROL_QUOTE_FAILURE_RETEST_PENDING"
+  },
+  "verifier_interface_retest": {
+    "path": "stages/stage2/diagnostics/qwen35-verifier-interface-escaped",
+    "pid": 111359,
+    "status": "RUNNING"
   }
 }

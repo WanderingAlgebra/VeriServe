@@ -40,11 +40,11 @@ def verification_units(raw, mode='steps', terminal=False):
         if raw[start:].strip():
             spans.append(dict(char_start=start))
     numbers = list(range(1, len(spans)+1))
-    # Retain every character, including wrappers and separators, exactly once.
+    # Retain mathematical text and offsets; mask known wrappers only in the verifier view.
     starts = [0]+[span['char_start'] for span in spans[1:]]+[len(raw)] if spans else []
-    units = [dict(checkpoint_number=n, quoted_text=raw[a:b])
+    units = [dict(checkpoint_number=n, quoted_text=thinking_view(raw[a:b]))
              for n,a,b in zip(numbers,starts,starts[1:])]
-    assert ''.join(u['quoted_text'] for u in units) == raw or not spans
+    assert ''.join(u['quoted_text'] for u in units) == thinking_view(raw) or not spans
     return numbers, units
 
 

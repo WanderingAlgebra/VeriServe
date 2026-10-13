@@ -364,7 +364,7 @@ def test_generative_check_pass_fail_uncertain_and_accounting(tmp_path,monkeypatc
 
 
 def test_paragraph_checkpoint_selection_verifier_and_terminal_contract():
-    from veriserve_research.trajectory import boundaries,decode,grade,verification_units,PARAGRAPHS
+    from veriserve_research.trajectory import boundaries,decode,grade,verification_units,PARAGRAPHS,thinking_view
     from veriserve_research.intervention import protocol
     from veriserve_research.intervention.high_low.selection import _reference_bounds
     from veriserve_research.inference import GenerativeVerifier
@@ -387,7 +387,7 @@ def test_paragraph_checkpoint_selection_verifier_and_terminal_contract():
         assert point['delimiter_char_start']>=len(prefix)
     prefix=decode(tok,ids[:bounds['steps'][1]['prefix_token_count']])
     numbers,units=verification_units(prefix,PARAGRAPHS)
-    assert numbers==[1,2] and ''.join(u['quoted_text'] for u in units)==prefix
+    assert numbers==[1,2] and ''.join(u['quoted_text'] for u in units)==thinking_view(prefix)
     verifier=object.__new__(GenerativeVerifier)
     verifier.cfg={'boundary_mode':PARAGRAPHS}
     verifier.tokenizer=tok
@@ -400,7 +400,8 @@ def test_paragraph_checkpoint_selection_verifier_and_terminal_contract():
     restored=json.loads(encoded)
     assert '<' not in encoded and '>' not in encoded
     assert restored['problem']=='Check x < 2.' and restored['quoted_prefix']==terminal_units
-    assert ''.join(unit['quoted_text'] for unit in restored['quoted_prefix'])==raw
+    assert ''.join(unit['quoted_text'] for unit in restored['quoted_prefix'])==thinking_view(raw)
+    assert len(''.join(unit['quoted_text'] for unit in restored['quoted_prefix']))==len(raw)
     endpoint=protocol.terminal(tok,ids,True,mode=PARAGRAPHS)
     assert endpoint['reason']=='FINAL' and endpoint['answer']=='2'
     assert grade(text,'2','EOS',5,PARAGRAPHS)['label']==0
