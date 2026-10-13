@@ -1,0 +1,35 @@
+{
+  "validation_only": true,
+  "scientific_results": false,
+  "independent_human_audit": false,
+  "reviewer": "assistant_subagent",
+  "source_run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
+  "no_gold_or_solution_used": true,
+  "scope": "Qualitative review of old Step-constrained outputs; not a review of new natural-prompt generation.",
+  "sampling": "Per question: first paragraph, upper-middle paragraph and second-to-last; all paragraphs if only two. Blank-line or real Thinking-close terminated paragraphs included; incomplete truncated tails excluded. This review has 341 paragraphs in its pool, while check.py intentionally counts only 336 real blank-line terminated paragraphs.",
+  "sampled_paragraphs": 29,
+  "observations": {
+    "obvious_mid_formula_code_or_sentence_cut": 0,
+    "mathematical_analysis_or_calculation": 15,
+    "problem_restatement_or_task_introduction": 10,
+    "pure_format_discussion": 2,
+    "problem_interpretation_or_plan": 2
+  },
+  "limits": [
+    "Assistant review is not independent human labeling.",
+    "Mathematical-looking content does not imply one complete step or correct reasoning.",
+    "Currency dollar signs can trigger false-positive open-math flags."
+  ],
+  "examples": [
+    {
+      "record": "5bc5cc06c5ec1e5c60a2",
+      "paragraph": 37,
+      "note": "Format-only paragraph ends: The prompt asks to write \"Step 1:\", \"Step 2:\", etc. Okay."
+    },
+    {
+      "record": "9ccccfe8203576afba40",
+      "paragraph": 5,
+      "note": "35,703 characters of repeated calculations in one paragraph; sparse checkpoint coverage."
+    }
+  ]
+}

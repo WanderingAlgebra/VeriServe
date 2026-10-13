@@ -1,6 +1,6 @@
 {
   "causal_semantics": "Offline reference-selected content token endpoints. Delimiters are observed later; no claim of online discovery.",
-  "created": "2026-10-13T14:26:23.672408+00:00",
+  "created": "2026-10-13T14:31:49.157951+00:00",
   "limitations": [
     "Old Step-constrained prompts, not natural-prompt trajectories.",
     "Lexical flags are risk hints, not mathematical correctness or independent human audit.",
@@ -15,6 +15,7 @@
       "completion": "EOS",
       "distinct_candidate_tokens": 56,
       "generated_tokens": 32624,
+      "generated_tokens_after_last_candidate": 1551,
       "points": [
         {
           "aligned_char_end": 352,
@@ -1097,6 +1098,7 @@
       "completion": "EOS",
       "distinct_candidate_tokens": 66,
       "generated_tokens": 16147,
+      "generated_tokens_after_last_candidate": 1382,
       "points": [
         {
           "aligned_char_end": 153,
@@ -2301,6 +2303,7 @@
       "completion": "EOS",
       "distinct_candidate_tokens": 51,
       "generated_tokens": 6493,
+      "generated_tokens_after_last_candidate": 465,
       "points": [
         {
           "aligned_char_end": 81,
@@ -3686,6 +3689,7 @@
       "completion": "LENGTH_TRUNCATED",
       "distinct_candidate_tokens": 10,
       "generated_tokens": 32768,
+      "generated_tokens_after_last_candidate": 15936,
       "points": [
         {
           "aligned_char_end": 96,
@@ -3900,6 +3904,7 @@
       "completion": "EOS",
       "distinct_candidate_tokens": 29,
       "generated_tokens": 12522,
+      "generated_tokens_after_last_candidate": 1355,
       "points": [
         {
           "aligned_char_end": 138,
@@ -4476,6 +4481,7 @@
       "completion": "LENGTH_TRUNCATED",
       "distinct_candidate_tokens": 16,
       "generated_tokens": 32768,
+      "generated_tokens_after_last_candidate": 5748,
       "points": [
         {
           "aligned_char_end": 132,
@@ -4796,6 +4802,7 @@
       "completion": "LENGTH_TRUNCATED",
       "distinct_candidate_tokens": 2,
       "generated_tokens": 32768,
+      "generated_tokens_after_last_candidate": 31582,
       "points": [
         {
           "aligned_char_end": 458,
@@ -4846,6 +4853,7 @@
       "completion": "LENGTH_TRUNCATED",
       "distinct_candidate_tokens": 8,
       "generated_tokens": 32768,
+      "generated_tokens_after_last_candidate": 1207,
       "points": [
         {
           "aligned_char_end": 334,
@@ -5004,6 +5012,7 @@
       "completion": "EOS",
       "distinct_candidate_tokens": 39,
       "generated_tokens": 25958,
+      "generated_tokens_after_last_candidate": 1215,
       "points": [
         {
           "aligned_char_end": 673,
@@ -5758,6 +5767,7 @@
       "completion": "LENGTH_TRUNCATED",
       "distinct_candidate_tokens": 28,
       "generated_tokens": 32768,
+      "generated_tokens_after_last_candidate": 662,
       "points": [
         {
           "aligned_char_end": 290,
@@ -6292,7 +6302,7 @@
   ],
   "rule": "Original Thinking text only; actual blank line; no wrapper-induced or EOF boundary; explicit-answer paragraphs excluded.",
   "scientific_results": false,
-  "script_sha256": "3f6648fe9d751607c40329feaeda75490cf5af2af934c785524ba6961b1ddf3e",
+  "script_sha256": "2f027d826c3ab1d28f5f35bbb219455923af146432489a9e487f65da200a34d5",
   "self_check": "PASS",
   "source_hashes": {
     "stages/stage2/runs/v2-20261013-2f15553ff1e5/manifest.json": "782af712f8e21c1a50ee25a25ce586e4f783d91d7f51ed16062fb673be34784e",
@@ -6322,6 +6332,7 @@
       "OPEN_MATH_OR_CODE_AT_BOUNDARY": 31,
       "POSSIBLE_FORMAT_DISCUSSION": 15
     },
+    "max_generated_tokens_after_last_candidate": 31582,
     "paragraph_gap_max_tokens": 15971,
     "paragraph_gap_median_tokens": 160.0,
     "questions": 10,

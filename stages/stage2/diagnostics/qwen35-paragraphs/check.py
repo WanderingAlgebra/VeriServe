@@ -21,7 +21,8 @@ MATH = re.compile(r"```|\$\$|\$|\\[\[\]()]|\\(?:begin|end)\{(?:equation|align|ga
 
 
 def paragraphs(raw):
-    start = raw.index('<think>') + len('<think>') if '<think>' in raw else 0
+    opening = re.match(r'\s*<think>',raw)
+    start = opening.end() if opening else 0
     stop = raw.find('</think>', start)
     stop = len(raw) if stop < 0 else stop
     spans, cursor = [], start
@@ -83,6 +84,15 @@ def observed_count(tokenizer, ids, raw, char_end):
     raise ValueError('No stable original token prefix contains delimiter')
 
 
+def token_endpoint(tokenizer, ids, raw, span):
+    a,b,c,d = span
+    point = aligned_end(tokenizer,ids,raw,b,a)
+    point.update(char_start=a,delimiter_char_start=c,delimiter_char_end=d,
+        observed_prefix_token_count=observed_count(tokenizer,ids,raw,d),
+        unaligned_content_tail=raw[point['aligned_char_end']:b])
+    return point
+
+
 def self_check(tokenizer):
     raw = '<think>计算 $1+1=2$。\n\nReview:\n\nFinal answer: \\boxed{2}\n\n</think>answer'
     spans, tail = paragraphs(raw)
@@ -90,17 +100,19 @@ def self_check(tokenizer):
     assert [raw[a:b] for a,b,_,_ in spans] == ['计算 $1+1=2$。', 'Review:', 'Final answer: \\boxed{2}']
     assert len(paragraphs('a\n\nb unfinished')[0]) == 1
     assert len(paragraphs('<think>\n</think>')[0]) == 0
+    assert paragraphs('Discuss <think> marker.\n\nNext')[0][0][0] == 0
     assert len(paragraphs('a\r\n \r\nb')[0]) == 1
     assert lexical_flags('inside $x\n\n') == ['OPEN_MATH_OR_CODE_AT_BOUNDARY']
     assert not lexical_flags(r'cost \$3 and $x$')
     assert lexical_flags('```python\nx=1\n\n') == ['OPEN_MATH_OR_CODE_AT_BOUNDARY']
     assert not lexical_flags(r'\begin{align}x=1\end{align}')
     ids = tokenizer.encode(raw, add_special_tokens=False)
-    for a,b,_,end in spans:
-        aligned = aligned_end(tokenizer, ids, raw, b, a)
+    for a,b,c,end in spans:
+        aligned = token_endpoint(tokenizer, ids, raw, (a,b,c,end))
+        assert aligned['char_start'] == a and aligned['char_end'] == b
         prefix = decode(tokenizer, ids[:aligned['prefix_token_count']])
         assert raw.startswith(prefix) and len(prefix) <= b
-        count = observed_count(tokenizer, ids, raw, end)
+        count = aligned['observed_prefix_token_count']
         assert count >= aligned['prefix_token_count']
         assert len(decode(tokenizer, ids[:count])) >= end
 
@@ -135,9 +147,7 @@ def main():
             point['excluded_reason'] = ('EXPLICIT_FINAL_OR_BOXED' if re.search(r'\\boxed\s*\{',segment)
                 or ANSWER_STEP.search(segment) else None)
             try:
-                point.update(aligned_end(tokenizer,ids,raw,b,a))
-                point['observed_prefix_token_count'] = observed_count(tokenizer,ids,raw,d)
-                point['unaligned_content_tail'] = raw[point['aligned_char_end']:b]
+                point.update(token_endpoint(tokenizer,ids,raw,(a,b,c,d)))
                 point['gap_from_previous_paragraph_tokens'] = point['prefix_token_count'] - previous
                 previous = point['prefix_token_count']
             except ValueError as exc:
@@ -151,6 +161,7 @@ def main():
             generated_tokens=len(ids),thinking_closed='</think>' in raw,closed_paragraphs=len(points),
             candidates=len(candidates),distinct_candidate_tokens=len(set(counts)),
             can_supply_two_distinct_candidates=len(set(counts))>=2,undelimited_tail_chars=len(tail),
+            generated_tokens_after_last_candidate=len(ids)-(counts[-1] if counts else 0),
             undelimited_tail_preview=tail[-240:],points=points))
         print(f"{row['unique_id'][:12]} paragraphs={len(points)} candidates={len(candidates)}",flush=True)
     after = {str(p.relative_to(ROOT)): digest(p) for p in paths}
@@ -171,6 +182,7 @@ def main():
             lexical_flags=dict(Counter(f for p in points for f in p['flags'])),
             alignment_errors=sum('alignment_error' in p for p in points),
             content_tail_loss=sum(bool(p.get('unaligned_content_tail','').strip()) for p in points),
+            max_generated_tokens_after_last_candidate=max(r['generated_tokens_after_last_candidate'] for r in results),
             paragraph_gap_median_tokens=statistics.median(gaps),paragraph_gap_max_tokens=max(gaps)))
     atomic_json(Path(__file__).with_name('offline_check.json'),result)
     print(result['summary'],flush=True)
