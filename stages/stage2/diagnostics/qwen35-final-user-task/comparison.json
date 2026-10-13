@@ -38,8 +38,21 @@
       "record_sha256": "43868e4f2958ef939d95025a4829b48d0defbb780010de8967771eefb797ce75",
       "strict_final_only_format": false,
       "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+    },
+    {
+      "prompt_variant": "channel_contract",
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355",
+      "generated_tokens": 19498,
+      "completion": "EOS",
+      "strict_final_only_format": false,
+      "canonical_final_lines": 1,
+      "characters_before_final_line": 2123,
+      "proposed_final_line_format": true,
+      "record_sha256": "63c06823459df6276ff66f34165d6f0a70becf088882d81808e4578fb07a339c",
+      "mathematical_correctness": "NOT_EVALUATED_IN_THIS_FORMAT_DIAGNOSIS"
     }
   ],
   "scope": "Same frozen second smoke question across three predeclared prompt diagnoses; no test/audit or correctness tuning.",
-  "status": "THREE_PROMPT_VARIANTS_FAIL_STRICT_FINAL_ONLY"
+  "status": "FOUR_PROMPT_VARIANTS_FAIL_STRICT_FINAL_ONLY",
+  "updated": "2026-10-13T20:37:13.881543+00:00"
 }

@@ -94,7 +94,7 @@
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
   "new_official_identity_required": true,
-  "next_action": "One final channel-contract prompt diagnosis under the original strict rule; format amendment remains unapproved. Reference backend retained; verifier synthetic controls passed; formal collection remains zero.",
+  "next_action": "Finish native verifier-smoke on all ten preserved smoke references; await explicit final-format amendment before changing the generator protocol. No additional prompt retries planned after four failures on the same complex smoke question.",
   "note": "Natural Thinking paragraph checkpoints and two synthetic format examples integrated; strict final-only line retained. Old ten failed smoke trajectories preserved in prior run; new run requires its own GPU validation and complete smoke.",
   "pipeline_pid": null,
   "pipeline_status": "stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_status.json",
@@ -150,7 +150,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "STRICT_CHANNEL_PROMPT_AND_REAL_VERIFIER_DIAGNOSIS",
+  "status": "FORMAT_DECISION_PENDING_REAL_VERIFIER_SMOKE_STARTING",
   "strict_user_prompt_trial": {
     "generated_tokens": 23795,
     "path": "stages/stage2/diagnostics/qwen35-final-user-task",
@@ -159,7 +159,7 @@
     "strict_format_valid": false
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T20:32:29.815967+00:00",
+  "updated": "2026-10-13T20:37:13.881944+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,
@@ -178,15 +178,18 @@
     "status": "SYNTHETIC_CONTROLS_PASS"
   },
   "strict_channel_prompt_trial": {
-    "status": "RUNNING",
+    "status": "DIAGNOSTIC_COMPLETE",
     "path": "stages/stage2/diagnostics/qwen35-final-user-task/channel-contract",
     "selection": "Original second smoke UID; same seed, sampler, model revision and native backend; final-line rule unchanged.",
     "pid": 123193,
     "max_new_tokens": 49152,
-    "original_final_line_rule_retained": true
+    "original_final_line_rule_retained": true,
+    "generated_tokens": 19498,
+    "completion": "EOS",
+    "strict_format_valid": false
   },
   "real_verifier_smoke": {
-    "status": "QUEUED_AFTER_CHANNEL_PROMPT",
+    "status": "STARTING_NATIVE_COMMAND",
     "supervisor_pid": 123836,
     "path": "stages/stage2/diagnostics/qwen35-verifier-real-smoke",
     "questions": 10,
