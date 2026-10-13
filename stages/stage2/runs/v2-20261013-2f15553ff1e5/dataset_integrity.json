@@ -1,0 +1,16 @@
+{
+  "conflicting_answers": [],
+  "duplicate_indices": [
+    2505,
+    2542,
+    2585,
+    2722,
+    2746
+  ],
+  "git_blob": "a793db0d0076592c0d0538d9c1d644ad82b333ee",
+  "revision": "bda09972374225ab2186582615307d909965b864",
+  "rows": 2821,
+  "sha256": "d566d5b5a9865a04b507fdc4c0669cf0ff391748e13f190ecc925e78b584b172",
+  "unique": 2816,
+  "url": "https://raw.githubusercontent.com/KbsdJames/omni-math-rule/bda09972374225ab2186582615307d909965b864/omni_math_rule.jsonl"
+}

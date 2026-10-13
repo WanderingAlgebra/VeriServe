@@ -1,5 +1,7 @@
 {
-  "phase": "WAITING_FOR_4B_WEIGHTS",
+  "error": "Command '['/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python', 'tests/qwen35_migration_check.py', '--gpu', '--output', '/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-ac98a06f1a89/gpu_validation']' returned non-zero exit status 1.",
+  "exception_type": "CalledProcessError",
+  "phase": "STOPPED",
   "pid": 17854,
   "run": "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-ac98a06f1a89",
   "source_hashes": {
@@ -24,5 +26,5 @@
     "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
     "veriserve_research/trajectory.py": "21b74f7b2d70b3ec1282aa2ac352868a3b485357e7fbde2ee157e1c93a65beed"
   },
-  "updated": "2026-10-13T09:58:43.158746+00:00"
+  "updated": "2026-10-13T10:14:54.685672+00:00"
 }

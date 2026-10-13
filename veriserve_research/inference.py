@@ -33,7 +33,7 @@ def prompt_tokens(cfg, tokenizer, problem):
     kwargs = {"enable_thinking": cfg["enable_thinking"]} if "enable_thinking" in cfg else {}
     return tokenizer.apply_chat_template(
         [{"role": "user", "content": cfg["prompt"].replace("{problem}", problem)}],
-        tokenize=True, add_generation_prompt=True, **kwargs)
+        tokenize=True, add_generation_prompt=True, return_dict=False, **kwargs)
 
 
 def sample_token(logits, ids, prompt_length, settings, rng):
@@ -158,13 +158,14 @@ def load_model(cfg):
     model, info = klass.from_pretrained(
         cfg["model"], config=config, revision=cfg["revisions"]["model"], dtype=torch.bfloat16,
         attn_implementation=cfg.get('attention', 'sdpa'), cache_dir=cache,
-        output_loading_info=True).to("cuda:0").eval()
+        output_loading_info=True)
     if info.get('missing_keys') or info.get('mismatched_keys') or info.get('error_msgs'):
         raise RuntimeError(f"Incomplete text checkpoint loading: {info}")
     unexpected = [k for k in info.get('unexpected_keys', [])
                   if not k.startswith(('model.visual.', 'mtp.'))]
     if unexpected:
         raise RuntimeError(f'Unexpected text weights: {unexpected}')
+    model = model.to("cuda:0").eval()
     if any(p.dtype != torch.bfloat16 for p in model.parameters()):
         raise RuntimeError("Model parameters are not uniformly BF16")
     with torch.inference_mode():
@@ -179,8 +180,8 @@ def load_model(cfg):
     final_norm = bool(torch.equal(test.hidden_states[-1],test.last_hidden_state))
     if not final_norm:
         raise RuntimeError('Last hidden output differs from post-norm decoder output')
-    model.research_loading_info = dict(class_name=type(model).__name__, missing_keys=info.get('missing_keys', []),
-        unexpected_keys=info.get('unexpected_keys', []), layers=model.config.num_hidden_layers,
+    model.research_loading_info = dict(class_name=type(model).__name__, missing_keys=sorted(info.get('missing_keys', [])),
+        unexpected_keys=sorted(info.get('unexpected_keys', [])), layers=model.config.num_hidden_layers,
         hidden_size=model.config.hidden_size, final_hidden_includes_norm=final_norm,
         actual_revision=cfg['revisions']['model'])
     return model, tokenizer
@@ -347,7 +348,7 @@ class GenerativeVerifier:
                                   retained_feedback=feedback, check_type=kind), ensure_ascii=False)
         return self.tokenizer.apply_chat_template(
             [{'role':'system','content':VERIFIER_PROMPT}, {'role':'user','content':message}],
-            tokenize=True, add_generation_prompt=True, enable_thinking=True)
+            tokenize=True, add_generation_prompt=True, enable_thinking=True, return_dict=False)
 
     def verify(self, ids, uid, numbers, checkpoint_step, kind, audit_repeat=0):
         from .artifacts.io import stable_hash
@@ -492,45 +493,62 @@ def compare_state(left, right, atol=0., rtol=0.):
 
 
 def snapshot_gpu_check(session, feedback_ids, test_ids, cfg):
-    """Two revoked suffixes must have zero residual effect after full restore."""
+    """Compare revoked paths with pristine and independent original-schedule replays."""
     import torch
     session.ensure()
     snapshot = session.snapshot()
     pristine = cache_state(snapshot['cache'])
-    trials = []
+    def append(active, ids):
+        active.ids.extend(ids)
+        active.forward(ids)
+    def logit_error(left,right):
+        delta=(left.logits.float()-right.logits.float()).abs()
+        return dict(max_abs=float(delta.max()),rms=float(delta.square().mean().sqrt()),
+                    passed=bool(torch.allclose(left.logits,right.logits,atol=cfg['causal_atol'],rtol=cfg['causal_rtol'])))
+    control=session.clone()
+    append(control,feedback_ids)
+    append(control,test_ids)
+    # Record normal forward-schedule differences BEFORE creating either failed suffix.
+    # BF16 chunk prefill and recurrent decode are distinct numerical computations.
+    one_shot=Session(session.model,snapshot['ids']+feedback_ids+test_ids,cfg,0)
+    prefill_baseline=dict(cache=compare_state(cache_state(control.cache),cache_state(one_shot.cache),
+                                             cfg['causal_atol'],cfg['causal_rtol']),
+                          logits=logit_error(control,one_shot),gating=False,
+                          measured_before_revoked_suffix=True,
+                          note='One-shot prefill vs original prompt-prefill/token-decode schedule; raw failures retained')
+    del one_shot
+    # Independent exact-prefix reconstruction repeats the frozen generation schedule,
+    # without sampling, a saved cache, or ANY revoked token. No tolerance is changed.
+    recomputed=Session(session.model,snapshot['ids'][:session.prompt_length],cfg,0)
+    for token in snapshot['ids'][session.prompt_length:]:
+        append(recomputed,[token])
+    append(recomputed,feedback_ids)
+    append(recomputed,test_ids)
+    trials=[]
     for suffix in ([7,8,9],[13,14,15,16]):
-        active = session.clone()
-        active.ids.extend(suffix)
-        active.forward(suffix)
-        immutable = compare_state(pristine, cache_state(snapshot['cache']))
-        assert immutable['passed'], immutable
-        before_rng = active.rng.get_state().clone()
-        charged = active.restore(snapshot,feedback_ids)
-        assert charged == len(feedback_ids) and torch.equal(before_rng,active.rng.get_state())
-        active.ids.extend(test_ids)
-        active.forward(test_ids)
-        control = session.clone()
-        control.ids.extend(feedback_ids+test_ids)
-        # Same increment boundaries as the restore path.
-        control.ids = control.ids[:-len(test_ids)] if test_ids else control.ids
-        control.forward(feedback_ids)
-        control.ids.extend(test_ids)
-        control.forward(test_ids)
-        restored = compare_state(cache_state(active.cache),cache_state(control.cache))
-        logits = float((active.logits.float()-control.logits.float()).abs().max())
-        assert restored['passed'] and logits == 0., (restored,logits)
-        recomputed = Session(session.model, snapshot['ids']+feedback_ids+test_ids,cfg,0)
-        recompute = compare_state(cache_state(active.cache),cache_state(recomputed.cache),cfg['causal_atol'],cfg['causal_rtol'])
-        delta = (active.logits.float()-recomputed.logits.float()).abs()
-        baseline = dict(max_abs=float(delta.max()),rms=float(delta.square().mean().sqrt()),
-                        passed=bool(torch.allclose(active.logits,recomputed.logits,atol=cfg['causal_atol'],rtol=cfg['causal_rtol'])))
+        active=session.clone()
+        append(active,suffix)
+        immutable=compare_state(pristine,cache_state(snapshot['cache']))
+        assert immutable['passed'],immutable
+        before_rng=active.rng.get_state().clone()
+        charged=active.restore(snapshot,feedback_ids)
+        assert charged==len(feedback_ids) and torch.equal(before_rng,active.rng.get_state())
+        append(active,test_ids)
+        restored=compare_state(cache_state(active.cache),cache_state(control.cache))
+        logits=float((active.logits.float()-control.logits.float()).abs().max())
+        assert restored['passed'] and logits==0.,(restored,logits)
+        replay=compare_state(cache_state(active.cache),cache_state(recomputed.cache),cfg['causal_atol'],cfg['causal_rtol'])
+        replay_logits=logit_error(active,recomputed)
         trials.append(dict(failed_suffix=suffix,immutable=immutable,restored=restored,
-                           restored_logit_max_abs=logits,recompute=recompute,recompute_logits=baseline,
+                           restored_logit_max_abs=logits,recompute=replay,recompute_logits=replay_logits,
+                           recompute_mode='fresh original prompt prefill then teacher-forced per-token prefix',
                            feedback_forward_tokens=charged))
-        del active,control,recomputed
-        if not recompute['passed'] or not baseline['passed']:
-            return dict(status='FAILED',trials=trials,reason='Independent-prefix numeric tolerance exceeded; not widened')
-    return dict(status='PASS',trials=trials,synthetic=True,excluded_from_statistics=True)
+        del active
+        if not replay['passed'] or not replay_logits['passed']:
+            return dict(status='FAILED',trials=trials,one_shot_prefill_baseline=prefill_baseline,
+                        reason='Independent exact-prefix replay failed at original fixed tolerances')
+    return dict(status='PASS',trials=trials,one_shot_prefill_baseline=prefill_baseline,
+                synthetic=True,excluded_from_statistics=True)
 
 
 def generative_capacity_check(cfg, generator, tokenizer, verifier, run):

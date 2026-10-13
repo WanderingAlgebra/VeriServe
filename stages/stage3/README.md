@@ -10,6 +10,8 @@
 
 生成器为 Qwen3.5-4B，验证器为 Qwen3.5-9B，均为纯文本 BF16、原生 Thinking。HIGH/LOW 首检前继承参考记录的生成种子并逐 token 核对；不一致时保留诊断并停止，不重抽参考。中途 PASS 保存精确原 token 前缀的完整混合缓存；FAIL 恢复最近 PASS，否则恢复 prompt，再追加 diagnosis/hint。恢复不退回生成 RNG、不清零累计预算。中途 UNCERTAIN 继续，终点 UNCERTAIN 不提交；与已 PASS 步骤冲突的 FAIL 转为 UNCERTAIN。
 
+真实 4B 的短输入 GPU 接口检查已通过。当前 BF16 后端的一次性 prefill 与逐 token 解码存在正常数值差异，原始失败对照保留；完整状态恢复必须与未生成失败后缀的克隆一致，并通过从原 prompt 独立重放相同 token 前缀和前向顺序的对照，容差不变。这项检查不代替 10 题 smoke、4 题 pilot 或长上下文容量检查。
+
 验证器只读取题目、当前前缀、步号、已有反馈与检查类型，不读取探针分数、路径名、标准答案、标准解答或未来推理。仅严格解析其 Thinking 关闭后的最终 JSON；格式错误、截断和输入超限分别记录。
 
 ```bash

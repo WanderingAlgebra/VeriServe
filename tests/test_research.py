@@ -379,3 +379,46 @@ def test_verifier_quality_gate_requires_confirmed_independent_humans(tmp_path):
     assert failed['correct_prefixes']==failed['incorrect_prefixes']==20
     assert failed['metrics']['incorrect_pass_rate']['value']==1.
     assert failed['status']=='INSUFFICIENT_OR_FAILED'
+
+
+def test_text_loading_unpacks_model_and_serializes_loading_info(monkeypatch):
+    import torch
+    import transformers
+    from types import SimpleNamespace
+    from veriserve_research.inference import load_model
+    sample=torch.ones((1,1,2),dtype=torch.bfloat16)
+    moves=[]
+    model=SimpleNamespace(config=SimpleNamespace(num_hidden_layers=1,hidden_size=2),
+        parameters=lambda:iter([sample]),model=lambda **kwargs:SimpleNamespace(hidden_states=[sample,sample],last_hidden_state=sample))
+    model.to=lambda device:(moves.append(device) or model)
+    model.eval=lambda:model
+    tokenizer=SimpleNamespace(eos_token_id=0)
+    info=dict(missing_keys=set(),unexpected_keys=set(),mismatched_keys=set(),error_msgs=[])
+    monkeypatch.setattr(torch.cuda,'is_available',lambda:True)
+    monkeypatch.setattr(torch.cuda,'is_bf16_supported',lambda:True)
+    original_tensor=torch.tensor
+    monkeypatch.setattr(torch,'tensor',lambda *args,**kwargs:original_tensor(*args,**{**kwargs,'device':'cpu'}))
+    monkeypatch.setattr(transformers.AutoConfig,'from_pretrained',lambda *args,**kwargs:SimpleNamespace(model_type='fixture'))
+    monkeypatch.setattr(transformers.AutoTokenizer,'from_pretrained',lambda *args,**kwargs:tokenizer)
+    monkeypatch.setattr(transformers.AutoModelForCausalLM,'from_pretrained',lambda *args,**kwargs:(model,info))
+    cfg=dict(model='fixture',revisions={'model':'a'*40,'tokenizer':'a'*40})
+    assert load_model(cfg)==(model,tokenizer) and moves==['cuda:0']
+    json.dumps(model.research_loading_info)
+    moves.clear()
+    info['missing_keys']={'model.layers.0.weight'}
+    with pytest.raises(RuntimeError,match='Incomplete text checkpoint'):
+        load_model(cfg)
+    assert not moves
+
+
+def test_chat_templates_explicitly_request_original_id_lists():
+    from veriserve_research.inference import prompt_tokens,GenerativeVerifier
+    class Tokenizer:
+        def apply_chat_template(self,messages,**kwargs):
+            assert kwargs['return_dict'] is False and kwargs['tokenize'] is True
+            return [1,2,3]
+    tokenizer=Tokenizer()
+    assert prompt_tokens({'prompt':'Problem: {problem}','enable_thinking':True},tokenizer,'1+1')==[1,2,3]
+    verifier=object.__new__(GenerativeVerifier)
+    verifier.tokenizer=tokenizer
+    assert verifier.input_ids('1+1','Step 1: 1+1=2',1,[],'intermediate')==[1,2,3]
