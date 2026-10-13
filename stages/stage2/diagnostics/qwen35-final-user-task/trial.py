@@ -1,5 +1,6 @@
 """One fixed, well-posed smoke question; original strict final-line rule retained."""
 import copy
+import argparse
 import os
 from pathlib import Path
 import sys
@@ -20,6 +21,13 @@ OUTPUT=HERE/'trial.json'
 
 
 def main():
+    global HERE, OUTPUT
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--variant',choices=['user_suffix','channel_contract'],default='user_suffix')
+    args=parser.parse_args()
+    if args.variant=='channel_contract':
+        HERE=HERE/'channel-contract'
+        OUTPUT=HERE/'trial.json'
     if OUTPUT.exists():
         raise FileExistsError('Preserve the existing diagnostic; do not repeat to select an outcome')
     manifest=read_json(RUN/'manifest.json')
@@ -28,16 +36,24 @@ def main():
     cfg.update(system_prompt=None,format_examples=[],max_new_tokens=49152,
         prompt=('Solve the following mathematics problem. Use blank lines between reasoning stages.\n\n'
                 '{problem}\n\nYour final response must be only this single line, replacing ANSWER with your answer:\n'
-                'Final answer: \\boxed{{ANSWER}}\nDo not include explanations in the final response.'))
+                'Final answer: \\boxed{ANSWER}\nDo not include explanations in the final response.'))
+    if args.variant=='channel_contract':
+        cfg['prompt']=('{problem}\n\n'
+            'Solve this problem in your reasoning channel. Separate reasoning stages with blank lines. '
+            'The final answer channel is consumed by an exact-line parser. Its entire content must be '
+            'exactly one line: Final answer: \\boxed{ANSWER}, replacing ANSWER with your answer. '
+            'All derivations and explanations belong in the reasoning channel. '
+            'Do not repeat or summarize the solution in the final answer channel.')
     assert sampling_config(cfg)==sampling_config(manifest['config'])
     atomic_json(HERE/'trial_config.json',cfg)
     result=dict(status='PREPARED',created=now(),pid=os.getpid(),validation_only=True,scientific_results=False,
         new_smoke_passed=False,config=cfg,source_hashes=source_hashes('probe'),driver_sha256=digest(__file__),
         source_manifest_sha256=digest(RUN/'manifest.json'),unique_id=row['unique_id'],problem=row['problem'],
         selection='Original second smoke question: a well-posed complex-format failure; no test/audit or correctness selection.',
+        prompt_variant=args.variant,
         limitations='Single-question prompt/budget diagnosis, not ten fresh smoke or formal data; strict final-only parsing remains required.')
     atomic_json(OUTPUT,result)
-    backup_probe(RUN,'Prepare one strict final-line user-message prompt trial at 49152 tokens')
+    backup_probe(RUN,f'Prepare strict final-line {args.variant} prompt diagnosis at 49152 tokens')
     model,tokenizer=load_model(cfg)
     prompt=prompt_tokens(cfg,tokenizer,row['problem'])
     seed=generation_seed(cfg['seed'],row['unique_id'])
@@ -64,7 +80,7 @@ def main():
         thinking_error=thinking_error(raw,terminal=True,mode=PARAGRAPHS),
         strict_final_format_valid=(endpoint or {}).get('reason')=='FINAL')
     atomic_json(OUTPUT,result)
-    backup_probe(RUN,'Save strict final-line user-message prompt trial without changing official protocol')
+    backup_probe(RUN,f'Save strict final-line {args.variant} prompt diagnosis without changing official protocol')
 
 
 if __name__=='__main__':

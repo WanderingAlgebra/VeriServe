@@ -1,4 +1,5 @@
 {
+  "additional_prompt_comparison": "stages/stage2/diagnostics/qwen35-final-user-task/comparison.json",
   "approved": false,
   "created": "2026-10-13T18:03:47.731662+00:00",
   "note": "Independent human verifier audit, mathematics equivalence checks, fixed datasets, seeds and all quality gates remain required. Any approved change needs a new execution identity.",

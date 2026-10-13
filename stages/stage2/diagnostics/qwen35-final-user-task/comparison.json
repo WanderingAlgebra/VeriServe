@@ -1,0 +1,45 @@
+{
+  "created": "2026-10-13T20:21:59.882540+00:00",
+  "final_format_policy_changed": false,
+  "questions": 1,
+  "rows": [
+    {
+      "canonical_final_lines": 1,
+      "characters_before_final_line": 2224,
+      "completion": "EOS",
+      "generated_tokens": 20287,
+      "mathematical_correctness": "NOT_EVALUATED_IN_THIS_FORMAT_DIAGNOSIS",
+      "prompt_variant": "system_two_examples",
+      "proposed_final_line_format": true,
+      "record_sha256": "7e4c12f9c408a0dcf5e52b4f48b6ef2c85f75d94ac2eb631e410dd39eaa8fc40",
+      "strict_final_only_format": false,
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+    },
+    {
+      "canonical_final_lines": 1,
+      "characters_before_final_line": 2466,
+      "completion": "EOS",
+      "generated_tokens": 12876,
+      "mathematical_correctness": "NOT_EVALUATED_IN_THIS_FORMAT_DIAGNOSIS",
+      "prompt_variant": "system_four_examples",
+      "proposed_final_line_format": true,
+      "record_sha256": "d1207f1d77435e59bdc466570b7fb2acb6ca155973630dd4dff19ef7832238a1",
+      "strict_final_only_format": false,
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+    },
+    {
+      "canonical_final_lines": 1,
+      "characters_before_final_line": 2751,
+      "completion": "EOS",
+      "generated_tokens": 23795,
+      "mathematical_correctness": "NOT_EVALUATED_IN_THIS_FORMAT_DIAGNOSIS",
+      "prompt_variant": "user_suffix_no_examples",
+      "proposed_final_line_format": true,
+      "record_sha256": "43868e4f2958ef939d95025a4829b48d0defbb780010de8967771eefb797ce75",
+      "strict_final_only_format": false,
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+    }
+  ],
+  "scope": "Same frozen second smoke question across three predeclared prompt diagnoses; no test/audit or correctness tuning.",
+  "status": "THREE_PROMPT_VARIANTS_FAIL_STRICT_FINAL_ONLY"
+}

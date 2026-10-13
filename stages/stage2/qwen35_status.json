@@ -23,7 +23,7 @@
     "offline_candidates": 305,
     "scientific_results": false,
     "short_generation_questions": 3,
-    "status": "FRESH_SMOKE_RUNNING",
+    "status": "COMPLETE_REQUIRES_NEW_IDENTITY",
     "summary": "stages/stage2/diagnostics/qwen35-paragraphs/summary.json",
     "user_authorized": true
   },
@@ -94,7 +94,7 @@
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
   "new_official_identity_required": true,
-  "next_action": "Complete isolated reference/FLA diagnostics; await final-format decision before setting a new generator protocol. Preserve original runs and retire the held supervisor if identity changes.",
+  "next_action": "One final channel-contract prompt diagnosis under the original strict rule; format amendment remains unapproved. Reference backend retained; verifier synthetic controls passed; formal collection remains zero.",
   "note": "Natural Thinking paragraph checkpoints and two synthetic format examples integrated; strict final-only line retained. Old ten failed smoke trajectories preserved in prior run; new run requires its own GPU validation and complete smoke.",
   "pipeline_pid": null,
   "pipeline_status": "stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_status.json",
@@ -150,23 +150,25 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "STRICT_USER_PROMPT_TRIAL_RUNNING_FORMAT_DECISION_PENDING",
+  "status": "FORMAT_DECISION_PENDING_AFTER_THREE_PROMPT_FAILURES",
   "strict_user_prompt_trial": {
+    "generated_tokens": 23795,
     "path": "stages/stage2/diagnostics/qwen35-final-user-task",
     "pid": 118299,
-    "status": "STARTING"
+    "status": "DIAGNOSTIC_COMPLETE",
+    "strict_format_valid": false
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T20:00:47.237003+00:00",
+  "updated": "2026-10-13T20:28:09.854586+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,
-    "status": "TERMINAL_CONTROL_QUOTE_FAILURE_RETEST_PENDING"
+    "status": "COMPLETE_TERMINAL_CONTROL_FAILED"
   },
   "verifier_interface_retest": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface-escaped",
     "pid": 111359,
-    "status": "RUNNING"
+    "status": "COMPLETE_QUOTED_CONTROL_FAILED"
   },
   "verifier_interface_view": {
     "cases": 3,
@@ -174,5 +176,10 @@
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface-view",
     "pid": 115492,
     "status": "SYNTHETIC_CONTROLS_PASS"
+  },
+  "strict_channel_prompt_trial": {
+    "status": "PREDECLARED",
+    "path": "stages/stage2/diagnostics/qwen35-final-user-task/channel-contract",
+    "selection": "Original second smoke UID; same seed, sampler, model revision and native backend; final-line rule unchanged."
   }
 }
