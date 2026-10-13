@@ -495,7 +495,7 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
                 counts.append((record['boundaries']['end']['prefix_token_count'],'terminal'))
             for count,kind in dict.fromkeys(counts):
                 prefix=decode(tokenizer,record['generated_ids'][:count])
-                numbers,_=verification_units(prefix,cfg.get('boundary_mode','steps'),terminal=kind=='terminal')
+                numbers,units=verification_units(prefix,cfg.get('boundary_mode','steps'),terminal=kind=='terminal')
                 if not numbers:
                     continue
                 ids=verifier.input_ids(row['problem'],prefix,max(numbers),[],kind)
@@ -524,7 +524,7 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
                     item['results']=results
                     atomic_json(path,item)
                 review.append(dict(input_sha256=item['input_sha256'],unique_id=row['unique_id'],problem=row['problem'],
-                                   quoted_prefix=prefix,check_type=kind,reference_answer=row['answer'],
+                                   quoted_prefix=prefix,checkpoint_units=units,check_type=kind,reference_answer=row['answer'],
                                    reference_solution=row['solution'],label=None,first_error_step=None,reviewer=None,confirmed=False))
             backup_verifier_review(stage2,folder,f'{phase} question {index}/{len(cohort)}')
         # Keep judgments separate from blind review inputs and from online model inputs.
