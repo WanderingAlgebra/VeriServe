@@ -34,6 +34,7 @@
       "view_chars": 57
     }
   ],
+  "gpu_validation_sha256": "f715ef56a6208b89858d4e332a32cf7b6c610e59315ff5247c2b2146beef32ac",
   "source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
@@ -64,6 +65,7 @@
     "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
     "veriserve_research/trajectory.py": "63c9abdb6a15a4abb9ff28e883f0c16ff1380f4399fbe105288ec73faf27f56f"
   },
-  "status": "CPU_PASS_GPU_PENDING",
-  "strict_verdict_parser_unchanged": true
+  "status": "CPU_AND_SYNTHETIC_GPU_PASS",
+  "strict_verdict_parser_unchanged": true,
+  "updated": "2026-10-13T19:58:49.748920+00:00"
 }

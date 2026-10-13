@@ -1,0 +1,13 @@
+{
+  "created": "2026-10-13T19:58:49.750977+00:00",
+  "driver_sha256": "ccd7f555071c3b40a69f55d755edd443a0c0411b7d530e668eec4e66848b4478",
+  "max_new_tokens": 49152,
+  "max_total_tokens": 65536,
+  "question_manifest_index": 1,
+  "sampling_changed": false,
+  "scientific_results": false,
+  "scope": "Original second smoke question only. User-message suffix and larger diagnostic budget allowed during smoke; original official final-format rule remains in force.",
+  "status": "PREPARED",
+  "strict_final_line_rule": true,
+  "validation_only": true
+}

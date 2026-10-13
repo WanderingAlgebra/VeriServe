@@ -44,12 +44,12 @@
     "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
     "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
     "veriserve_research/artifacts/provenance.py": "33399d2d5e37dea42b875768f4eab4690e6b927d5a60f940ff71b41dab5b12ea",
-    "veriserve_research/inference.py": "ec1d63dce77850375d84ec2e5eea7c3bae3a24ea7d4d554e5a6e3798cdf1512c",
+    "veriserve_research/inference.py": "0702a3343ec1985ae74845c14798da76ece8606344e35725b87b6103bc6911ae",
     "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "veriserve_research/probe/collect.py": "07b07cb72ab08de44b3e105fb19b768c6c4af7dd31b8f686b705fc9b9826770f",
     "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
     "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
-    "veriserve_research/trajectory.py": "0e2fa62e8b6b778b00b35fcc490008cbbb5c9dcade1c6fcfb71222d1f5ac1d2a"
+    "veriserve_research/trajectory.py": "63c9abdb6a15a4abb9ff28e883f0c16ff1380f4399fbe105288ec73faf27f56f"
   },
   "dataset": {
     "conflicting_answers": [],
@@ -150,9 +150,9 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "VERIFIER_INPUT_FIX_RETEST_RUNNING_FORMAT_DECISION_PENDING",
+  "status": "STRICT_USER_PROMPT_TRIAL_PREPARED_FORMAT_DECISION_PENDING",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T19:19:29.035396+00:00",
+  "updated": "2026-10-13T19:58:49.750111+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,
@@ -162,5 +162,12 @@
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface-escaped",
     "pid": 111359,
     "status": "RUNNING"
+  },
+  "verifier_interface_view": {
+    "cases": 3,
+    "human_quality_gate": false,
+    "path": "stages/stage2/diagnostics/qwen35-verifier-interface-view",
+    "pid": 115492,
+    "status": "SYNTHETIC_CONTROLS_PASS"
   }
 }

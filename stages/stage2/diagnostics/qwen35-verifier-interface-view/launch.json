@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+    "-u",
+    "/root/project/VeriServe-step-hidden-probe/tests/qwen35_migration_check.py",
+    "--gpu",
+    "--verifier-interface",
+    "--output",
+    "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-interface-view"
+  ],
+  "created": "2026-10-13T19:44:02.510767+00:00",
+  "pid": 115492
+}
