@@ -343,6 +343,7 @@ def main(argv=None):
     parser.add_argument('--self-check', action='store_true')
     parser.add_argument('--resume', action='store_true', help='Keep valid completed pairs; restart both arms of incomplete pairs')
     parser.add_argument('--stop-after', type=int)
+    parser.add_argument('--audit-extra',type=int,default=0,help='Append first N unused questions in frozen manifest order to human audit')
     parser.add_argument('--human-labels',type=Path,help='Confirmed independent human audit labels JSON array')
     parser.add_argument('--review-output',type=Path,help='Verifier review folder')
     parser.add_argument('--run', type=Path, help='Saved run for --phase analyze, including legacy runs')
@@ -355,7 +356,7 @@ def main(argv=None):
     if args.stop_after is not None and args.stop_after < 1:
         parser.error('--stop-after must be positive')
     if phase in ('verifier-smoke','verifier-dev','verifier-audit','audit-report'):
-        return verifier_review(read_json(args.config),phase,args.review_output,args.human_labels)
+        return verifier_review(read_json(args.config),phase,args.review_output,args.human_labels,args.audit_extra)
     if phase == 'self-check':
         with tempfile.TemporaryDirectory(prefix='veriserve-high-low-check-') as folder:
             return cpu_checks(read_json(args.config), Path(folder))
@@ -413,7 +414,7 @@ def main(argv=None):
         raise
 
 
-def verifier_review(cfg, phase, output=None, human_labels=None):
+def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
     """Fixed length-position samples, blind human review export and held-out gate."""
     import json
     import numpy as np
@@ -436,12 +437,26 @@ def verifier_review(cfg, phase, output=None, human_labels=None):
     if phase == 'audit-report':
         return verifier_audit_report(cfg,folder,human_labels)
     split = {'verifier-smoke':'smoke','verifier-dev':'verifier_dev','verifier-audit':'verifier_audit'}[phase]
+    cohort = list(source['splits'][split])
+    if audit_extra < 0 or audit_extra and split != 'verifier_audit':
+        raise ValueError('audit-extra must be nonnegative and only used for verifier-audit')
+    if audit_extra:
+        import hashlib
+        if audit_extra > len(source['unused_ids']):
+            raise ValueError('Not enough unused audit questions')
+        lookup = {}
+        for line in (stage2/'omni_math_rule.jsonl').read_text().splitlines():
+            row = json.loads(line)
+            uid = hashlib.sha256(row['problem'].encode()).hexdigest()
+            lookup.setdefault(uid,dict(row,unique_id=uid))
+        cohort += [lookup[uid] for uid in source['unused_ids'][:audit_extra]]
+    atomic_json(folder/f'{split}_ordered_ids.json',[r['unique_id'] for r in cohort])
     generator=tokenizer=verifier=None
     try:
         generator,tokenizer=load_model(source['config'])
         verifier=GenerativeVerifier(cfg)
         review=[]
-        for row in source['splits'][split]:
+        for row in cohort:
             record,_=collect_one(source['config'],stage2,split,row,generator,tokenizer,environment(True),features=False)
             steps=record['boundaries']['steps']
             counts=[]
@@ -487,7 +502,7 @@ def verifier_review(cfg, phase, output=None, human_labels=None):
         # Keep judgments separate from blind review inputs and from online model inputs.
         atomic_json(folder/f'{split}_review_inputs.json',review)
         result=dict(status='AWAITING_HUMAN_REVIEW' if split=='verifier_audit' else 'COLLECTED',split=split,
-                    questions=len(source['splits'][split]),checks=len(review),folder=str(folder),**identity)
+                    questions=len(cohort),checks=len(review),folder=str(folder),**identity)
         atomic_json(folder/f'{split}_status.json',result)
         print(result,flush=True)
         return result

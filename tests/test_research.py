@@ -356,3 +356,26 @@ def test_generative_check_pass_fail_uncertain_and_accounting(tmp_path,monkeypatc
     assert state['budget']['generated_tokens']==4 and state['budget']['attempt_tokens']==0
     assert state['budget']['revoked_tokens']==2 and state['budget']['feedback_tokens']==1
     assert session.pass_checkpoint['ids']==[1,2,3]
+
+
+def test_verifier_quality_gate_requires_confirmed_independent_humans(tmp_path):
+    from veriserve_research.intervention.high_low.run import verifier_audit_report
+    cfg=read_json(ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
+    cfg['bootstrap']=10
+    labels=[]
+    for i in range(40):
+        result=dict(verdict='PASS',input_tokens=10,output_tokens=2,seconds=.1)
+        atomic_json(tmp_path/'checks'/f'verifier_audit-{i}.json',dict(unique_id=str(i//2),
+            input_sha256=str(i),results=[result,result]))
+        labels.append(dict(input_sha256=str(i),reviewer='independent human',confirmed=False,
+                           label='CORRECT' if i%2==0 else 'INCORRECT',first_error_step=1))
+    path=tmp_path/'human.json'
+    atomic_json(path,labels)
+    absent=verifier_audit_report(cfg,tmp_path,path)
+    assert absent['status']=='INSUFFICIENT_OR_FAILED' and absent['confirmed']==0
+    for item in labels:item['confirmed']=True
+    atomic_json(path,labels)
+    failed=verifier_audit_report(cfg,tmp_path,path)
+    assert failed['correct_prefixes']==failed['incorrect_prefixes']==20
+    assert failed['metrics']['incorrect_pass_rate']['value']==1.
+    assert failed['status']=='INSUFFICIENT_OR_FAILED'

@@ -200,6 +200,12 @@ def report(run, manifest, metrics):
     lines += ["", "## 解释边界", "",
               "无真实 GPU pilot / 正式配对时，实验未执行，所有效果为 NA。无正确性差异导致 [0,0] 不能证明总体等效；失败早停较快不能单独视为收益。完整配对与未完成记录均保留，不能按正负结果扩缩样本。", "",
               "最高/最低位置选择需看完整参考轨迹，属于离线诊断。B 预测未经干预轨迹最终答错风险，不是局部错误或检查收益。分数和位置可能同时影响结果；本轮不能独立证明 B 超越位置、定位局部错误，或中途检查优于不检查/随机位置。pilot 与正式结果分开，强制 FAIL 自检不进入科学结果。"]
+    if manifest.get('config',{}).get('verifier',{}).get('kind') == 'generative':
+        lines = [line.replace('PRM','生成式验证器') for line in lines]
+        lines += ['', '## Qwen3.5 验证器与完整状态恢复开销', '',
+                  '两模型权重 BF16 常驻；FAIL 恢复完整 K/V、卷积与递归状态，RNG 与累计预算不回退。中途 UNCERTAIN 继续，终点 UNCERTAIN 不提交；checkpoint_conflict 转为 UNCERTAIN。', '',
+                  '新模型和 Rule 数据下的探索实验；历史结果仅作参照。实际判决质量见独立人工核验报告，终点 PASS 不能代替 Math-Verify。', '',
+                  '```json', json.dumps(metrics.get('qwen35_mechanisms',{}),ensure_ascii=False,indent=2), '```']
     atomic_bytes(run / "report.md", ("\n".join(lines) + "\n").encode())
 
 
@@ -238,6 +244,29 @@ def analyze(cfg, run, manifest=None, *, output_dir=None):
                    for r in rows if r["phase"] == phase]
         keys = sorted({key for timing in timings for key, value in timing.items() if finite(value)})
         metrics["offline_timing"][phase] = {key: distribution([timing.get(key) for timing in timings]) for key in keys}
+    if cfg.get('verifier',{}).get('kind') == 'generative':
+        metrics['qwen35_mechanisms'] = {}
+        for phase in PHASES:
+            groups = {}
+            for name in ARMS:
+                records = [r['arms'][name] for r in rows if r['phase']==phase and r['complete']]
+                all_checks = [c for arm in records for c in checks(arm)]
+                groups[name] = dict(
+                    verifier_input_tokens=distribution([c.get('input_tokens') for c in all_checks]),
+                    verifier_output_tokens=distribution([c.get('output_tokens') for c in all_checks]),
+                    verifier_check_seconds=distribution([c.get('seconds') for c in all_checks]),
+                    verifier_generated_tokens_per_request=distribution([a['budget'].get('verifier_generated_tokens',0) for a in records]),
+                    prompt_snapshot_seconds=distribution([a['timing'].get('prompt_snapshot_seconds') for a in records]),
+                    pass_snapshot_seconds=distribution([a['timing'].get('pass_snapshot_seconds') for a in records]),
+                    restore_feedback_seconds=distribution([e.get('seconds') for a in records for e in a['events'] if e.get('kind')=='ROLLBACK']),
+                    snapshot_boundary_forward_tokens=sum(c.get('snapshot_boundary_forward_tokens',0) for c in all_checks),
+                    snapshot_rebuild_count=0,
+                    peak_allocated_bytes=distribution([a.get('peak_allocated_bytes') for a in records]),
+                    parser_errors=sum(bool(c.get('parser_error')) for c in all_checks),
+                    verifier_truncations=sum(c.get('completion')=='LENGTH_TRUNCATED' for c in all_checks),
+                    input_limit_requests=sum(a.get('termination') in ('PRM_INPUT_LIMIT','VERIFIER_CONTEXT_LIMIT') for a in records),
+                    uncertain_checks=sum(c.get('effective_verdict')=='UNCERTAIN' for c in all_checks))
+            metrics['qwen35_mechanisms'][phase] = groups
     metrics["analysis_output"] = str(output)
     atomic_json(output / "metrics.json", metrics)
     write_csv(output / "paired_results.csv", flat, list(flat[0]) if flat else ["unique_id", "phase", "delta_Y", "delta_T_seconds"])

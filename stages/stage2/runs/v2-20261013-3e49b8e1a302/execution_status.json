@@ -1,0 +1,8 @@
+{
+  "formal_generated": 0,
+  "reason": "Source review completed before any generation",
+  "smoke_generated": 0,
+  "status": "PREPARATION_SUPERSEDED",
+  "superseded_by": "stages/stage2/runs/v2-20261013-ac98a06f1a89",
+  "updated": "2026-10-13T09:53:42.422511+00:00"
+}

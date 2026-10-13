@@ -25,7 +25,7 @@ $QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QW
 $QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase pilot --resume
 ```
 
-核验输入按长度选早期、后期和终点，最多三个，不按预测或 HIGH/LOW 筛选。`verifier_audit_review_inputs.json` 包含供人工离线查看的标准解答；这些字段不进入在线验证。人工填写 `label`（`CORRECT` / `INCORRECT` / `UNDETERMINABLE`）、错误步号、`reviewer` 和 `confirmed=true`，另存 JSON 数组。模型建议不能充当人工确认。
+核验输入按长度选早期、后期和终点，最多三个，不按预测或 HIGH/LOW 筛选。`verifier_audit_review_inputs.json` 包含供人工离线查看的标准解答；这些字段不进入在线验证。人工填写 `label`（`CORRECT` / `INCORRECT` / `UNDETERMINABLE`）、错误步号、`reviewer` 和 `confirmed=true`，另存 JSON 数组。模型建议不能充当人工确认。类别数量不足时，报告保留不足诊断；使用 `--phase verifier-audit --audit-extra N` 按 manifest 未使用题目的固定顺序追加前 N 道核验题，不按验证器预测选样本。
 
 ```bash
 # 用实际核验目录及人工标签文件替换示例路径。

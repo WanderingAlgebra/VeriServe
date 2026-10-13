@@ -1,6 +1,6 @@
 {
   "config": "stages/stage2/qwen35_4b_omni_config.json",
-  "cpu_regression_tests_passed": 27,
+  "cpu_regression_tests_passed": 29,
   "dataset": {
     "conflicting_answers": [],
     "duplicate_indices": [
@@ -21,7 +21,7 @@
   "formal_generated": 0,
   "note": "No scientific result yet; full checkpoint download and GPU smoke pending",
   "real_model_smoke": "NOT_RUN",
-  "run": "stages/stage2/runs/v2-20261013-3e49b8e1a302",
+  "run": "stages/stage2/runs/v2-20261013-ac98a06f1a89",
   "smoke_generated": 0,
   "source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
@@ -31,7 +31,7 @@
     "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
     "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
     "veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650",
-    "veriserve_research/__main__.py": "f1d42e22a4019a2ae51effeba20942a60189a967448a3c7138924de059a1d282",
+    "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336",
     "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "veriserve_research/artifacts/backup.py": "7da2d0989965ca5032ccb9d1a3133a6f0d561ec17540027ec7b86eb35b299981",
     "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb",
@@ -53,5 +53,6 @@
     "verifier_dev": 20
   },
   "status": "PREPARED_WEIGHTS_DOWNLOADING",
-  "updated": "2026-10-13T09:44:27.309996+00:00"
+  "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
+  "updated": "2026-10-13T09:53:42.417999+00:00"
 }

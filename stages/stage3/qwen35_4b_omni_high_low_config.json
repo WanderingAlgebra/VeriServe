@@ -48,7 +48,7 @@
     "pilot": 4,
     "test": 200
   },
-  "stage2_run": "stages/stage2/runs/v2-20261013-3e49b8e1a302",
+  "stage2_run": "stages/stage2/runs/v2-20261013-ac98a06f1a89",
   "temperature": 1.0,
   "terminal_policy": "PASS only; checkpoint conflict becomes UNCERTAIN; restore full nearest PASS state",
   "threshold_metrics": true,

@@ -1,0 +1,636 @@
+{
+  "backend": "transformers5.19.0 torch2.8.0 BF16 CUDA",
+  "excluded_from_statistics": true,
+  "hidden_layers": 2,
+  "hidden_size": 128,
+  "inference_sha256": "3fa257525ae80226e4984bc1d8bd9eb1761c2de610d179cb4a8397f3ff245599",
+  "scientific_results": false,
+  "status": "PASS",
+  "synthetic": true,
+  "synthetic_random_weights": true,
+  "trials": [
+    {
+      "failed_suffix": [
+        7,
+        8,
+        9
+      ],
+      "feedback_forward_tokens": 2,
+      "immutable": {
+        "atol": 0.0,
+        "fields": {
+          "cache/layer_class_to_replicate": {
+            "left": null,
+            "passed": true,
+            "right": null
+          },
+          "cache/layers/0/conv_kernel_size/0": {
+            "left": 4,
+            "passed": true,
+            "right": 4
+          },
+          "cache/layers/0/conv_states/0": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              128,
+              4
+            ]
+          },
+          "cache/layers/0/has_previous_state/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_conv_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_recurrent_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/number_of_states": {
+            "left": 1,
+            "passed": true,
+            "right": 1
+          },
+          "cache/layers/0/record_past": {
+            "left": false,
+            "passed": true,
+            "right": false
+          },
+          "cache/layers/0/recurrent_states/0": {
+            "dtype": "torch.float32",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              2,
+              32,
+              32
+            ]
+          },
+          "cache/layers/1/is_initialized": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/1/keys": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              9,
+              64
+            ]
+          },
+          "cache/layers/1/values": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              9,
+              64
+            ]
+          },
+          "cache/offloading": {
+            "left": false,
+            "passed": true,
+            "right": false
+          }
+        },
+        "passed": true,
+        "rtol": 0.0
+      },
+      "recompute": {
+        "atol": 0.03125,
+        "fields": {
+          "cache/layer_class_to_replicate": {
+            "left": null,
+            "passed": true,
+            "right": null
+          },
+          "cache/layers/0/conv_kernel_size/0": {
+            "left": 4,
+            "passed": true,
+            "right": 4
+          },
+          "cache/layers/0/conv_states/0": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              128,
+              4
+            ]
+          },
+          "cache/layers/0/has_previous_state/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_conv_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_recurrent_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/number_of_states": {
+            "left": 1,
+            "passed": true,
+            "right": 1
+          },
+          "cache/layers/0/record_past": {
+            "left": false,
+            "passed": true,
+            "right": false
+          },
+          "cache/layers/0/recurrent_states/0": {
+            "dtype": "torch.float32",
+            "max_abs": 9.094947017729282e-13,
+            "passed": true,
+            "rms": 2.029249537231336e-14,
+            "shape": [
+              1,
+              2,
+              32,
+              32
+            ]
+          },
+          "cache/layers/1/is_initialized": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/1/keys": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              13,
+              64
+            ]
+          },
+          "cache/layers/1/values": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              13,
+              64
+            ]
+          },
+          "cache/offloading": {
+            "left": false,
+            "passed": true,
+            "right": false
+          }
+        },
+        "passed": true,
+        "rtol": 0.008
+      },
+      "recompute_logits": {
+        "max_abs": 0.0,
+        "passed": true,
+        "rms": 0.0
+      },
+      "restored": {
+        "atol": 0.0,
+        "fields": {
+          "cache/layer_class_to_replicate": {
+            "left": null,
+            "passed": true,
+            "right": null
+          },
+          "cache/layers/0/conv_kernel_size/0": {
+            "left": 4,
+            "passed": true,
+            "right": 4
+          },
+          "cache/layers/0/conv_states/0": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              128,
+              4
+            ]
+          },
+          "cache/layers/0/has_previous_state/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_conv_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_recurrent_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/number_of_states": {
+            "left": 1,
+            "passed": true,
+            "right": 1
+          },
+          "cache/layers/0/record_past": {
+            "left": false,
+            "passed": true,
+            "right": false
+          },
+          "cache/layers/0/recurrent_states/0": {
+            "dtype": "torch.float32",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              2,
+              32,
+              32
+            ]
+          },
+          "cache/layers/1/is_initialized": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/1/keys": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              13,
+              64
+            ]
+          },
+          "cache/layers/1/values": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              13,
+              64
+            ]
+          },
+          "cache/offloading": {
+            "left": false,
+            "passed": true,
+            "right": false
+          }
+        },
+        "passed": true,
+        "rtol": 0.0
+      },
+      "restored_logit_max_abs": 0.0
+    },
+    {
+      "failed_suffix": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "feedback_forward_tokens": 2,
+      "immutable": {
+        "atol": 0.0,
+        "fields": {
+          "cache/layer_class_to_replicate": {
+            "left": null,
+            "passed": true,
+            "right": null
+          },
+          "cache/layers/0/conv_kernel_size/0": {
+            "left": 4,
+            "passed": true,
+            "right": 4
+          },
+          "cache/layers/0/conv_states/0": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              128,
+              4
+            ]
+          },
+          "cache/layers/0/has_previous_state/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_conv_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_recurrent_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/number_of_states": {
+            "left": 1,
+            "passed": true,
+            "right": 1
+          },
+          "cache/layers/0/record_past": {
+            "left": false,
+            "passed": true,
+            "right": false
+          },
+          "cache/layers/0/recurrent_states/0": {
+            "dtype": "torch.float32",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              2,
+              32,
+              32
+            ]
+          },
+          "cache/layers/1/is_initialized": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/1/keys": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              9,
+              64
+            ]
+          },
+          "cache/layers/1/values": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              9,
+              64
+            ]
+          },
+          "cache/offloading": {
+            "left": false,
+            "passed": true,
+            "right": false
+          }
+        },
+        "passed": true,
+        "rtol": 0.0
+      },
+      "recompute": {
+        "atol": 0.03125,
+        "fields": {
+          "cache/layer_class_to_replicate": {
+            "left": null,
+            "passed": true,
+            "right": null
+          },
+          "cache/layers/0/conv_kernel_size/0": {
+            "left": 4,
+            "passed": true,
+            "right": 4
+          },
+          "cache/layers/0/conv_states/0": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              128,
+              4
+            ]
+          },
+          "cache/layers/0/has_previous_state/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_conv_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_recurrent_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/number_of_states": {
+            "left": 1,
+            "passed": true,
+            "right": 1
+          },
+          "cache/layers/0/record_past": {
+            "left": false,
+            "passed": true,
+            "right": false
+          },
+          "cache/layers/0/recurrent_states/0": {
+            "dtype": "torch.float32",
+            "max_abs": 9.094947017729282e-13,
+            "passed": true,
+            "rms": 2.029249537231336e-14,
+            "shape": [
+              1,
+              2,
+              32,
+              32
+            ]
+          },
+          "cache/layers/1/is_initialized": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/1/keys": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              13,
+              64
+            ]
+          },
+          "cache/layers/1/values": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              13,
+              64
+            ]
+          },
+          "cache/offloading": {
+            "left": false,
+            "passed": true,
+            "right": false
+          }
+        },
+        "passed": true,
+        "rtol": 0.008
+      },
+      "recompute_logits": {
+        "max_abs": 0.0,
+        "passed": true,
+        "rms": 0.0
+      },
+      "restored": {
+        "atol": 0.0,
+        "fields": {
+          "cache/layer_class_to_replicate": {
+            "left": null,
+            "passed": true,
+            "right": null
+          },
+          "cache/layers/0/conv_kernel_size/0": {
+            "left": 4,
+            "passed": true,
+            "right": 4
+          },
+          "cache/layers/0/conv_states/0": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              128,
+              4
+            ]
+          },
+          "cache/layers/0/has_previous_state/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_conv_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/is_recurrent_states_initialized/0": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/0/number_of_states": {
+            "left": 1,
+            "passed": true,
+            "right": 1
+          },
+          "cache/layers/0/record_past": {
+            "left": false,
+            "passed": true,
+            "right": false
+          },
+          "cache/layers/0/recurrent_states/0": {
+            "dtype": "torch.float32",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              2,
+              32,
+              32
+            ]
+          },
+          "cache/layers/1/is_initialized": {
+            "left": true,
+            "passed": true,
+            "right": true
+          },
+          "cache/layers/1/keys": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              13,
+              64
+            ]
+          },
+          "cache/layers/1/values": {
+            "dtype": "torch.bfloat16",
+            "max_abs": 0.0,
+            "passed": true,
+            "rms": 0.0,
+            "shape": [
+              1,
+              1,
+              13,
+              64
+            ]
+          },
+          "cache/offloading": {
+            "left": false,
+            "passed": true,
+            "right": false
+          }
+        },
+        "passed": true,
+        "rtol": 0.0
+      },
+      "restored_logit_max_abs": 0.0
+    }
+  ]
+}

@@ -42,7 +42,7 @@ def main(argv=None):
         from .probe.collect import main as run
         return run(remaining)
     if args.command == "intervene":
-        selector = argparse.ArgumentParser(description="Select the intervention protocol; remaining flags go to its runner")
+        selector = argparse.ArgumentParser(description="Select the intervention protocol; remaining flags go to its runner", add_help=False)
         selector.add_argument("--experiment", choices=("fixed-step", "high-low"), required=True)
         selected, flags = selector.parse_known_args(remaining)
         if selected.experiment == "fixed-step":
