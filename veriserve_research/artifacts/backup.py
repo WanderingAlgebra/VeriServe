@@ -47,7 +47,7 @@ def backup_probe(run, message):
         if git("branch", "--show-current") != BRANCH:
             raise RuntimeError(f"Expected existing branch {BRANCH}; switch safely before running")
         git("lfs", "version")
-        paths = ["stages/stage2", "README.md", ".gitignore", ".gitattributes", "veriserve_research", "environments/stage23"]
+        paths = ["stages/stage2", "README.md", ".gitignore", ".gitattributes", "veriserve_research", "environments/stage23", "environments/qwen35", "tests/test_research.py", "tests/qwen35_migration_check.py", "stages/stage3/qwen35_4b_omni_high_low_config.json", "stages/stage3/README.md"]
         for p in run.glob("records/**/*.npz"):
             relative = str(p.relative_to(ROOT))
             attrs = git("check-attr", "filter", "--", relative)
@@ -133,7 +133,7 @@ def backup_fixed_step(run, reason="manual"):
     run = Path(run)
     previous = safe_read_json(run / "backup.json", {})
     env = {**os.environ, "GIT_TERMINAL_PROMPT": "0"}
-    paths = ["stages/stage3", ".gitignore", ".gitattributes", "veriserve_research", "environments/stage23"]
+    paths = ["stages/stage3", ".gitignore", ".gitattributes", "veriserve_research", "environments/stage23", "environments/qwen35", "tests/test_research.py", "tests/qwen35_migration_check.py", "stages/stage3/qwen35_4b_omni_high_low_config.json", "stages/stage3/README.md"]
     last = previous.get("last_successful_commit") or (
         previous.get("commit") if previous.get("status") == "PUSHED" else None)
     atomic_json(run / "backup.json", {**previous, "status": "PENDING", "time": now(),
@@ -185,7 +185,7 @@ def backup_high_low(run, completed_pairs, reason):
     env = {**os.environ, 'GIT_TERMINAL_PROMPT': '0'}
     scoped = ['stages/stage3/high_low', 'stages/stage3/high_low_config.json',
               str(run.relative_to(ROOT)), 'stages/stage3/README.md', 'README.md', 'veriserve_research',
-              'environments/stage23', '.gitignore', '.gitattributes']
+              'environments/stage23', 'environments/qwen35', 'stages/stage3/qwen35_4b_omni_high_low_config.json', 'tests/test_research.py', 'tests/qwen35_migration_check.py', '.gitignore', '.gitattributes']
     status = {'status': 'PENDING', 'reason': reason, 'created': now(), 'completed_pairs': completed_pairs}
     atomic_json(run / 'backup.json', status)
     try:

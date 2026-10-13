@@ -11,8 +11,8 @@ from veriserve_research import ROOT
 from ..artifacts.io import atomic_json, read_json, stable_hash, digest, atomic_bytes, save_npz, now, git, event, safe_error
 from ..artifacts.provenance import environment, resolve_revision, SHA, run_identity, source_hashes, manifest_version, require_current
 from ..artifacts.backup import backup_probe as backup
-from ..trajectory import grade, boxed, boundaries, decode
-from ..inference import load_model, extract, causal_check
+from ..trajectory import grade, boxed, boundaries, decode, thinking_error
+from ..inference import load_model, extract, causal_check, Session, generation_seed, sampling_config, prompt_tokens
 from .materials import record_path, valid_features, read_record, load_examples
 from .fit import select_probes, method_rows, bootstrap_metrics, evaluate, fit_only
 from .report import report
@@ -25,12 +25,58 @@ def source_code():
             "common_sha256": digest(ROOT / "stages/stage1/veriserve/common.py")}
 
 
+def rule_rows(cfg, run):
+    import hashlib
+    import json
+    import urllib.request
+    raw_path = run / 'omni_math_rule.jsonl'
+    if not raw_path.exists():
+        with urllib.request.urlopen(cfg['dataset_url'], timeout=60) as response:
+            atomic_bytes(raw_path, response.read())
+    raw = raw_path.read_bytes()
+    blob = hashlib.sha1(b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest()
+    if blob != cfg['dataset_blob']:
+        raise ValueError('Rule Git blob mismatch')
+    source = [json.loads(line) for line in raw.splitlines() if line.strip()]
+    rows, duplicates, conflicts = {}, [], []
+    for index, row in enumerate(source):
+        uid = hashlib.sha256(row['problem'].encode()).hexdigest()
+        if uid in rows:
+            duplicates.append(index)
+            if rows[uid]['answer'] != row['answer']:
+                conflicts.append(dict(unique_id=uid, first=rows[uid], duplicate=row))
+        else:
+            rows[uid] = dict(row, unique_id=uid, original_row=index)
+    info = dict(url=cfg['dataset_url'], revision=cfg['revisions']['dataset'], git_blob=blob,
+                sha256=hashlib.sha256(raw).hexdigest(), rows=len(source), unique=len(rows),
+                duplicate_indices=duplicates, conflicting_answers=conflicts)
+    atomic_json(run / 'dataset_integrity.json', info)
+    if conflicts or len(source) != cfg['dataset_expected_rows'] or len(rows) != cfg['dataset_expected_unique']:
+        raise ValueError('Rule data counts/conflicts differ; retained dataset_integrity.json')
+    from math_verify import parse, LatexExtractionConfig
+    invalid = []
+    for row in rows.values():
+        try:
+            parsed = parse('$' + row['answer'] + '$', extraction_config=[LatexExtractionConfig(boxed_match_priority=0)],
+                           fallback_mode='no_fallback', extraction_mode='first_match',
+                           parsing_timeout=cfg['score_timeout_seconds'], raise_on_error=True)
+            if not parsed:
+                invalid.append(dict(unique_id=row['unique_id'], reason='GOLD_UNPARSEABLE'))
+        except Exception as exc:
+            invalid.append(dict(unique_id=row['unique_id'], reason=safe_error(exc)))
+    atomic_json(run / 'invalid_gold.json', invalid)
+    info['invalid_gold_count'] = len(invalid)
+    return list(rows.values()), info
+
+
 def prepare(config_path):
     cfg = read_json(config_path)
     original_config_hash = stable_hash(cfg)
     revisions = cfg.setdefault("revisions", {})
-    for name, kind, repo in (("model", "model", cfg["model"]),
-                             ("dataset", "dataset", cfg["dataset"])):
+    repositories = [("model", "model", cfg["model"])]
+    if not cfg.get("dataset_url"):
+        repositories.append(("dataset", "dataset", cfg["dataset"]))
+    for name, kind, repo in repositories:
         if not revisions.get(name):
             revisions[name] = resolve_revision(repo, kind)
             atomic_json(config_path, cfg)  # Persist first resolution even if the next download fails.
@@ -50,14 +96,20 @@ def prepare(config_path):
         if manifest["config_hash"] != cfg_hash:
             raise ValueError("Manifest/config mismatch; use a new run_id")
         return cfg, run, manifest
-    from datasets import load_dataset
-    rows = sorted(list(load_dataset(cfg["dataset"], split=cfg["dataset_split"],
-                                    revision=revisions["dataset"])), key=lambda x: x["unique_id"])
+    dataset_info = None
+    if cfg.get('dataset_url'):
+        rows, dataset_info = rule_rows(cfg, run)
+    else:
+        from datasets import load_dataset
+        rows = list(load_dataset(cfg["dataset"], split=cfg["dataset_split"], revision=revisions["dataset"]))
+    rows = sorted(rows, key=lambda x: x["unique_id"])
     if len({r["unique_id"] for r in rows}) != len(rows):
         raise ValueError("Duplicate unique_id in dataset")
     random.Random(cfg["seed"]).shuffle(rows)
     offset, splits = 0, {}
-    for name in ("train", "test", "smoke"):
+    for name in ("train", "test", "smoke", "verifier_dev", "verifier_audit"):
+        if name not in cfg["split_sizes"]:
+            continue
         size = cfg["split_sizes"][name]
         splits[name] = rows[offset:offset + size]
         if len(splits[name]) != size:
@@ -69,7 +121,8 @@ def prepare(config_path):
                 "environment": environment(gpu=True), "code_commit": git("rev-parse", "HEAD"),
                 "script_sha256": digest(__file__), "common_sha256": digest(
                     ROOT / "stages/stage1/veriserve/common.py"),
-                "hidden_index_convention": "hidden_states[1..L]; index L includes final norm in Qwen2",
+                "hidden_index_convention": "hidden_states[1..L]; embedding excluded; final norm verified at model load",
+                "dataset_integrity": dataset_info,
                 "grading": {"library": "Math-Verify", "extraction": "last complete boxed on separate Final answer line",
                             "parse": "LatexExtractionConfig(boxed_match_priority=0), no_fallback, first_match, raise_on_error",
                             "gold_wrapper": "$...$", "timeout_seconds": cfg["score_timeout_seconds"]}}
@@ -78,33 +131,45 @@ def prepare(config_path):
     return cfg, run, manifest
 
 
-def collect_one(cfg, run, split, row, model, tokenizer, hardware):
+def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=True):
     import torch
     path = record_path(run, split, row["unique_id"])
     record = read_record(path, run)
     code = source_code()
+    if not features and record and record.get('stage') in ('SCORED','FEATURES','NO_FEATURE_POSITIONS'):
+        return record, False
     if (record and record.get("stage") == "FEATURES" and valid_features(path, record)
             and record.get("feature_source_code") == code):
         print(f"SKIP {split} {row['unique_id']}", flush=True)
         return record, False
     if not record:
-        prompt = cfg["prompt"].replace("{problem}", row["problem"])
-        prompt_ids = tokenizer.apply_chat_template([{"role": "user", "content": prompt}],
-                                                   tokenize=True, add_generation_prompt=True)
+        prompt_ids = prompt_tokens(cfg, tokenizer, row['problem'])
         budget = min(cfg["max_new_tokens"], cfg["max_total_tokens"] - len(prompt_ids))
         if budget <= 0:
             raise ValueError("Prompt exceeds the frozen context limit")
         torch.cuda.reset_peak_memory_stats()
         start = time.perf_counter()
-        with torch.inference_mode():
-            inputs = torch.tensor([prompt_ids], device="cuda:0")
-            eos = model.generation_config.eos_token_id
-            output = model.generate(input_ids=inputs, attention_mask=torch.ones_like(inputs),
-                                    do_sample=False, max_new_tokens=budget, use_cache=True,
-                                    pad_token_id=tokenizer.pad_token_id, eos_token_id=eos)
-        torch.cuda.synchronize()
-        generated_ids = output[0, len(prompt_ids):].tolist()
+        seed = generation_seed(cfg['seed'], row['unique_id'])
+        eos = model.generation_config.eos_token_id
         eos_ids = eos if isinstance(eos, list) else [eos]
+        if cfg.get('enable_thinking'):
+            generated_ids = []
+            session = Session(model, prompt_ids, cfg, seed)
+            for _ in range(budget):
+                token = session.sample()
+                generated_ids.append(token)
+                if token in eos_ids:
+                    break
+            del session
+        else:
+            with torch.inference_mode():
+                inputs = torch.tensor([prompt_ids], device='cuda:0')
+                output = model.generate(input_ids=inputs, attention_mask=torch.ones_like(inputs),
+                    do_sample=False, max_new_tokens=budget, use_cache=True,
+                    pad_token_id=tokenizer.pad_token_id, eos_token_id=eos)
+                generated_ids = output[0,len(prompt_ids):].tolist()
+                del inputs, output
+        torch.cuda.synchronize()
         completion = ("EOS" if generated_ids[-1] in eos_ids else
                       "CONTEXT_LIMIT" if len(prompt_ids) + len(generated_ids) >= cfg["max_total_tokens"]
                       else "LENGTH_TRUNCATED")
@@ -113,19 +178,25 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware):
                   "raw_text": decode(tokenizer, generated_ids), "completion": completion,
                   "stage": "GENERATED", "generated_at": now(), "hardware": hardware,
                   "code_commit": git("rev-parse", "HEAD"), "script_sha256": digest(__file__),
-                  "config_hash": stable_hash(cfg),
+                  "config_hash": stable_hash(cfg), "generation_seed": seed,
+                  "sampling": sampling_config(cfg), "enable_thinking": cfg.get("enable_thinking", False),
                   "token_sha256": stable_hash({"prompt_ids": prompt_ids, "generated_ids": generated_ids}),
                   "timings": {"generation_seconds": time.perf_counter() - start},
                   "generation_peak_bytes": torch.cuda.max_memory_allocated()}
         atomic_json(path, record)  # Save tokens before scoring or hidden extraction.
-        del output, inputs
     start = time.perf_counter()
     text, bounds = boundaries(tokenizer, record["generated_ids"])
     record["boundaries"] = bounds
     record.update(grade(text, row["answer"], record["completion"], cfg["score_timeout_seconds"]))
+    if cfg.get('enable_thinking') and thinking_error(record['raw_text'], terminal=True):
+        record.update(label=None, exclusion='THINKING_FORMAT_ERROR')
+    if cfg.get('enable_thinking') and bounds['format_errors']:
+        record.update(label=None, exclusion='STEP_FORMAT_ERROR')
     record["timings"]["boundary_and_grading_seconds"] = time.perf_counter() - start
     record["stage"] = "SCORED"
     atomic_json(path, record)
+    if not features:
+        return record, True
     selected = bounds["steps"] + ([bounds["end"]] if bounds["end"] is not None else [])
     if not selected:
         record["stage"] = "NO_FEATURE_POSITIONS"
@@ -281,6 +352,9 @@ def self_check(cfg, output_dir=None):
                 raise AssertionError("Existing invalid JSON must never be treated as a missing record")
         check("valid JSON with invalid structure is preserved and rejected", True)
         check("no-step causal check is not a failure", causal_check(None, {"boundaries": {"steps": []}}, cfg)["passed"] is None)
+    if cfg.get('enable_thinking'):
+        from ..inference import migration_self_check
+        migration_self_check()
     result = {"passed": True, "checked_at": now(), "checks": checks, "environment": environment(),
               "script_sha256": digest(__file__),
               "note": "Synthetic CPU checks only; actual model causal/GPU and remote LFS checks belong to smoke"}
@@ -363,7 +437,7 @@ def main(argv=None):
                 if (needs_features or needs_causal) and model is None:
                     model, tokenizer = load_model(cfg)
                     event(run, "MODEL_LOADED", hardware=hardware,
-                          layers=model.config.num_hidden_layers, hidden_size=model.config.hidden_size,
+                          loading_info=model.research_loading_info, layers=model.config.num_hidden_layers, hidden_size=model.config.hidden_size,
                           attention=model.config._attn_implementation, bf16_forward=True)
                 record, changed = collect_one(cfg, run, split, row, model, tokenizer, hardware)
                 completed += 1

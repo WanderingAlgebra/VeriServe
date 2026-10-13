@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 import numpy as np
 from veriserve_research.artifacts.io import read_json, stable_hash, atomic_bytes, save_npz, digest
-from veriserve_research.trajectory import STEP, FINAL, ANSWER_STEP, boundaries, boxed, decode
+from veriserve_research.trajectory import STEP, FINAL, ANSWER_STEP, boundaries, boxed, decode, thinking_view, thinking_error
 from veriserve_research.probe.materials import record_path
 from ...artifacts.materials import material_key
 
@@ -16,9 +16,8 @@ def load_source(stage2_run):
     folder = Path(stage2_run)
     manifest = read_json(folder / "manifest.json")
     cfg = manifest["config"]
-    if (cfg["model"] != "Qwen/Qwen2.5-7B-Instruct" or cfg["do_sample"] is not False
-            or cfg["dtype"] != "bfloat16" or cfg["attention"] != "sdpa" or cfg["batch_size"] != 1):
-        raise ValueError("Source must be the frozen Qwen BF16 SDPA batch=1 greedy run")
+    if cfg["dtype"] != "bfloat16" or cfg["attention"] != "sdpa" or cfg["batch_size"] != 1:
+        raise ValueError("Source must be a frozen BF16 SDPA batch=1 run")
     if len(manifest["splits"]["test"]) != 200 or len(manifest["splits"]["smoke"]) < 4:
         raise ValueError("Expected the original 200 test questions and at least four smoke questions")
     splits = {"pilot": manifest["splits"]["smoke"][:4], "test": manifest["splits"]["test"]}
@@ -32,18 +31,21 @@ def _probe(folder):
     meta = read_json(folder / "probe_B.json")
     with np.load(folder / "probe_B.npz", allow_pickle=False) as data:
         probe = {k: data[k].astype(np.float64) for k in ("mean", "scale", "w", "b")}
-    if (meta.get("layer") != 19 or meta.get("method") != "B"
+    if (type(meta.get("layer")) is not int or meta["layer"] < 1 or meta.get("method") != "B"
             or not np.isclose(float(probe["b"]), meta["b"], atol=0, rtol=0)
             or probe["mean"].ndim != 1 or probe["mean"].shape != probe["scale"].shape
             or probe["mean"].shape != probe["w"].shape
             or not all(np.isfinite(v).all() for v in probe.values())
             or not np.all(probe["scale"] > 0)):
         raise ValueError("Frozen B JSON/NPZ mismatch or invalid hidden_states[19] parameters")
+    probe["layer"] = meta["layer"]
     return probe
 
 
 def _reference_bounds(record, tokenizer):
     """Validate completion/format without consulting the gold or original outcome."""
+    if record.get('enable_thinking') and thinking_error(record.get('raw_text',''),terminal=True):
+        raise ValueError('REFERENCE_THINKING_FORMAT_ERROR')
     if record.get("completion") != "EOS":
         raise ValueError("REFERENCE_" + str(record.get("completion", "INCOMPLETE")))
     prompt, generated = record.get("prompt_ids"), record.get("generated_ids")
@@ -72,6 +74,7 @@ def _reference_bounds(record, tokenizer):
             raise ValueError("INVALID_REFERENCE_EOS_SUFFIX")
         if re.search(r"<\|(?:im_start|im_end|endoftext)\|>", text):
             raise ValueError("REFERENCE_INTERIOR_CONTROL_TOKEN")
+    text = thinking_view(text)
     if "[Verification feedback]" in text:
         raise ValueError("INTERVENED_REFERENCE")
     if bounds.get("format_errors"):
@@ -104,7 +107,7 @@ def _reference_bounds(record, tokenizer):
     return bounds
 
 
-def _saved_vectors(path, record, width, material):
+def _saved_vectors(path, record, width, material, layer=19):
     """NPZ layers/positions are authoritative; never infer layer 19 by array offset."""
     if not record.get("feature_files"):
         raise ValueError("FEATURES_MISSING")
@@ -131,7 +134,7 @@ def _saved_vectors(path, record, width, material):
                     or len(set(layers.tolist())) != len(layers)):
                 raise ValueError("FEATURE_LAYERS_OR_POSITIONS_MISMATCH")
             seen.update(int(layer) for layer in layers)
-            indices = np.flatnonzero(layers == 19)
+            indices = np.flatnonzero(layers == layer)
             if len(indices):
                 hidden = data["hidden"]
                 if hidden.shape != (len(layers), len(positions), width):
@@ -152,10 +155,10 @@ def _saved_scores(folder, uid):
     return rows, path
 
 
-def _cached_vectors(path, record, bounds, width, revision):
+def _cached_vectors(path, record, bounds, width, revision, layer=19):
     with np.load(path, allow_pickle=False) as data:
         expected = [len(record["prompt_ids"]) + s["end_token_index"] for s in bounds["steps"]]
-        if (data["layers"].tolist() != [19] or not np.issubdtype(data["layers"].dtype, np.integer)
+        if (data["layers"].tolist() != [layer] or not np.issubdtype(data["layers"].dtype, np.integer)
                 or not np.issubdtype(data["positions"].dtype, np.integer)
                 or data["positions"].tolist() != expected
                 or str(data["token_sha256"].item()) != record["token_sha256"]
@@ -203,6 +206,8 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
               "status": "EXCLUDED", "exclusion_reasons": [], "positions": {},
               "source_material_hashes": material, "hidden_state_index": 19,
               "selection_semantics": "offline whole-trajectory B error-risk extrema; not online or local error"}
+    layer = read_json(folder / "probe_B.json")["layer"]
+    result["hidden_state_index"] = layer
     record = reference if reference is not None else original
     if record is None:
         result.update(status="NEEDS_REFERENCE", exclusion_reasons=["SOURCE_RECORD_MISSING"])
@@ -221,6 +226,7 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
     result.update(prompt_ids=record["prompt_ids"], generated_ids=record["generated_ids"],
                   reference_token_sha256=record["token_sha256"],
                   reference_origin=record.get("reference_origin", "stage2_original_unintervened_greedy"),
+                  generation_seed=record.get("generation_seed"), sampling=record.get("sampling"),
                   reference_sha256=stable_hash(record), candidates=[], feature_repair_reasons=[])
     feature_started = time.perf_counter()
     vectors = np.full((len(bounds["steps"]), len(probe["w"])), np.nan)
@@ -230,7 +236,7 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
         if (original is None or original.get("config_hash") != manifest["config_hash"]
                 or original.get("token_sha256") != stable_hash({k: original[k] for k in ("prompt_ids", "generated_ids")})):
             raise ValueError("ORIGINAL_FEATURE_TOKEN_PROVENANCE_UNAVAILABLE")
-        saved_vectors = _saved_vectors(path, original, len(probe["w"]), material)
+        saved_vectors = _saved_vectors(path, original, len(probe["w"]), material, layer)
         original_steps = {(s["step_number"], s["prefix_token_count"]): i
                           for i, s in enumerate(original["boundaries"]["steps"])}
         for i, step in enumerate(bounds["steps"]):
@@ -239,7 +245,7 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
             if (old_index is not None and original["prompt_ids"] == record["prompt_ids"]
                     and original["generated_ids"][:count] == record["generated_ids"][:count]):
                 vectors[i], reused[i] = saved_vectors[old_index], True
-                feature_sources[i] = "stage2_saved_hidden_states[19]"
+                feature_sources[i] = f"stage2_saved_hidden_states[{layer}]"
         if not reused.all():
             result["feature_repair_reasons"].append("REFERENCE_PREFIX_TOKENS_CHANGED")
     except (OSError, ValueError, KeyError, EOFError) as exc:
@@ -250,10 +256,10 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
         cache = Path(feature_cache_path) if feature_cache_path is not None else None
         if cache is not None and cache.exists():
             try:
-                cached = _cached_vectors(cache, record, bounds, len(probe["w"]), manifest["revisions"]["model"])
+                cached = _cached_vectors(cache, record, bounds, len(probe["w"]), manifest["revisions"]["model"], layer)
                 for i in missing:
                     vectors[i] = cached[i]
-                    feature_sources[i] = "stage3_cached_independent_original_prefixes_hidden_states[19]"
+                    feature_sources[i] = f"stage3_cached_independent_original_prefixes_hidden_states[{layer}]"
                 missing = []
             except (OSError, ValueError, KeyError, EOFError) as cache_error:
                 result["feature_repair_reasons"].append(str(cache_error))
@@ -267,14 +273,14 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
             torch.cuda.synchronize()
             for i in missing:
                 step = bounds["steps"][i]
-                vectors[i] = feature(model, record["prompt_ids"] + record["generated_ids"][:step["prefix_token_count"]])
-                feature_sources[i] = "stage3_reextracted_independent_original_prefixes_hidden_states[19]"
+                vectors[i] = feature(model, record["prompt_ids"] + record["generated_ids"][:step["prefix_token_count"]], layer=layer)
+                feature_sources[i] = f"stage3_reextracted_independent_original_prefixes_hidden_states[{layer}]"
             torch.cuda.synchronize()
             if cache is not None:
                 # Preserve an invalid cache before replacing it with verified prefix features.
                 if cache.exists():
                     atomic_bytes(cache.with_suffix(f".preserved-{time.time_ns()}.npz"), cache.read_bytes())
-                save_npz(cache, layers=np.asarray([19]),
+                save_npz(cache, layers=np.asarray([layer]),
                              positions=np.asarray([len(record["prompt_ids"]) + s["end_token_index"] for s in bounds["steps"]]),
                              hidden=vectors[np.newaxis].astype(np.float32),
                              token_sha256=np.asarray(record["token_sha256"]),
@@ -311,7 +317,7 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
     return _finish(result, started, feature_seconds)
 
 
-def self_check():
+def self_check(layer=19):
     """One CPU fixture catches endpoint, saturation, tie and outcome-filter regressions."""
     import tempfile
     from veriserve_research.artifacts.io import atomic_json
@@ -331,7 +337,7 @@ def self_check():
             "test": [row] + [{"unique_id": f"test/{i}"} for i in range(1, 200)],
             "train": [{"unique_id": "train/0"}]}}
         atomic_json(folder / "manifest.json", manifest)
-        atomic_json(folder / "probe_B.json", {"method": "B", "layer": 19, "b": 0.})
+        atomic_json(folder / "probe_B.json", {"method": "B", "layer": layer, "b": 0.})
         save_npz(folder / "probe_B.npz", mean=np.zeros(2), scale=np.ones(2), w=np.array([1., 0.]), b=np.array(0.))
         text = "Step 1: one\n\nStep 2: two\n\nStep 3: three\n\nFinal answer: \\boxed{3}"
         ids = list(map(ord, text)) + [0]
@@ -345,7 +351,7 @@ def self_check():
         positions = [1 + s["end_token_index"] for s in bounds["steps"] + [bounds["end"]]]
         hidden = np.zeros((3, len(positions), 2))
         hidden[1, :3, 0] = [1000., 1001., -1000.]
-        save_npz(feature_path, layers=np.array([18, 19, 20]), positions=np.array(positions), hidden=hidden)
+        save_npz(feature_path, layers=np.array([layer-1, layer, layer+1]), positions=np.array(positions), hidden=hidden)
         record["feature_files"] = [{"name": feature_path.name, "sha256": digest(feature_path)}]
         atomic_json(path, record)
         selected = freeze_reference(folder, "test", row, tokenizer)
@@ -371,22 +377,22 @@ def self_check():
         assert changed_prefix["status"] == "NEEDS_FEATURES" and changed_prefix["reused_original_feature_prefixes"] == 2
         assert changed_prefix["missing_feature_step_numbers"] == [3]
         hidden[1, :, :] = 0.
-        save_npz(feature_path, layers=np.array([18, 19, 20]), positions=np.array(positions), hidden=hidden)
+        save_npz(feature_path, layers=np.array([layer-1, layer, layer+1]), positions=np.array(positions), hidden=hidden)
         record["feature_files"][0]["sha256"] = digest(feature_path)
         atomic_json(path, record)
         tied = freeze_reference(folder, "test", row, tokenizer)
         assert tied["all_same_z"] and tied["high_low_same_position"]
         assert tied["positions"]["HIGH"]["step_number"] == 1
-        save_npz(feature_path, layers=np.array([18, 19, 20]), positions=np.array(positions) + 1, hidden=hidden)
+        save_npz(feature_path, layers=np.array([layer-1, layer, layer+1]), positions=np.array(positions) + 1, hidden=hidden)
         record["feature_files"][0]["sha256"] = digest(feature_path)
         atomic_json(path, record)
         assert freeze_reference(folder, "test", row, tokenizer)["status"] == "NEEDS_FEATURES"
         cache = folder / "selected.npz"
-        save_npz(cache, layers=np.asarray([19]), positions=np.asarray(positions[:3]), hidden=hidden[1:2, :3],
+        save_npz(cache, layers=np.asarray([layer]), positions=np.asarray(positions[:3]), hidden=hidden[1:2, :3],
                      token_sha256=np.asarray(record["token_sha256"]), model_revision=np.asarray("fixture"),
                      extraction=np.asarray("independent_original_prefixes"))
         assert freeze_reference(folder, "test", row, tokenizer, feature_cache_path=cache)["status"] == "ELIGIBLE"
-        save_npz(cache, layers=np.asarray([19]), positions=np.asarray(positions[:3]), hidden=hidden[1:2, :3],
+        save_npz(cache, layers=np.asarray([layer]), positions=np.asarray(positions[:3]), hidden=hidden[1:2, :3],
                      token_sha256=np.asarray("different_reference"), model_revision=np.asarray("fixture"),
                      extraction=np.asarray("independent_original_prefixes"))
         assert freeze_reference(folder, "test", row, tokenizer, feature_cache_path=cache)["status"] == "NEEDS_FEATURES"

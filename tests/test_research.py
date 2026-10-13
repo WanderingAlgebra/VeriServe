@@ -268,3 +268,91 @@ def test_no_research_library_imports_stage_runners():
         for node in ast.walk(ast.parse(path.read_text())):
             if isinstance(node, ast.ImportFrom):
                 assert not (node.module or "").startswith(("stages.stage2", "stages.stage3")), path
+
+
+def test_qwen35_shared_sampling_thinking_and_full_snapshots():
+    from veriserve_research.inference import migration_self_check
+    assert migration_self_check()['status'] == 'PASS'
+
+
+def test_rule_dataset_deduplicates_and_preserves_conflicts(tmp_path):
+    import hashlib
+    from veriserve_research.probe.collect import rule_rows
+    rows = [dict(problem='Question '+str(i),answer='2',solution='Offline only') for i in range(5)]
+    rows.append(rows[0])
+    raw = '\n'.join(json.dumps(row) for row in rows).encode()
+    atomic_json(tmp_path/'not-used.json',{})
+    (tmp_path/'omni_math_rule.jsonl').write_bytes(raw)
+    cfg = dict(dataset_url='https://example.invalid/fixed',dataset_blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest(),
+               revisions={'dataset':'a'*40},dataset_expected_rows=6,dataset_expected_unique=5,score_timeout_seconds=5)
+    unique,info = rule_rows(cfg,tmp_path)
+    assert info['rows'] == 6 and info['unique'] == 5 and not info['invalid_gold_count']
+    assert unique[0]['unique_id'] == hashlib.sha256(rows[0]['problem'].encode()).hexdigest()
+    rows[-1] = {**rows[0],'answer':'3'}
+    raw = '\n'.join(json.dumps(row) for row in rows).encode()
+    (tmp_path/'omni_math_rule.jsonl').write_bytes(raw)
+    cfg['dataset_blob'] = hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+    with pytest.raises(ValueError,match='counts/conflicts'):
+        rule_rows(cfg,tmp_path)
+    assert read_json(tmp_path/'dataset_integrity.json')['conflicting_answers']
+
+
+def test_high_low_layer_comes_from_probe():
+    from veriserve_research.intervention.high_low.selection import self_check
+    assert self_check(layer=7)['status'] == 'PASS'
+
+
+def test_generative_check_pass_fail_uncertain_and_accounting(tmp_path,monkeypatch):
+    from veriserve_research.intervention.high_low import runtime
+    from veriserve_research.inference import Session
+    from types import SimpleNamespace
+    cfg=read_json(ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
+    monkeypatch.setattr(runtime,'clock',lambda:0.)
+    class Tok:
+        def decode(self,ids,**kwargs):
+            return ''.join({1:'prompt',2:'Step 1:',3:' x',4:'\nStep 2:',5:' y',8:'feedback'}[i] for i in ids)
+        def encode(self,text,**kwargs):
+            return [8]
+    class Verifier:
+        def input_ids(self,problem,prefix,current_step,feedback,kind):
+            assert problem == 'problem' and kind in ('intermediate','terminal')
+            assert 'GOLD' not in prefix
+            return [1,2]
+    class Active:
+        def __init__(self):
+            self.ids=[1,2,3]
+            self.cached_length=2
+            self.prompt_checkpoint={'ids':[1]}
+            self.pass_checkpoint=None
+        def ensure(self):
+            charge=len(self.ids)-self.cached_length
+            self.cached_length=len(self.ids)
+            return charge
+        def snapshot(self):
+            return {'ids':self.ids.copy()}
+        def restore(self,snapshot,feedback):
+            self.ids=snapshot['ids']+feedback
+            self.cached_length=len(self.ids)
+            return len(feedback)
+    selected={'phase':'pilot','prompt_ids':[1],'positions':{'HIGH':{}}}
+    state=runtime.initial_state({'unique_id':'id','problem':'problem'},selected,'HIGH',{})
+    state.update(reasoning_ids=[2,3],reasoning_positions=[1,2],context_ids=[1,2,3])
+    state['budget'].update(generated_tokens=2,attempt_tokens=2)
+    session=Active()
+    assert runtime.check_generative(cfg,state,session,Verifier(),Tok(),2,False,forced={'verdict':'PASS'}) is None
+    assert state['checkpoint_ids']==[1,2,3] and state['budget']['forward_tokens']==4
+    # A later FAIL contradicting the PASS becomes UNCERTAIN and cannot submit.
+    state['reasoning_ids'] += [4,5]
+    state['reasoning_positions'] += [3,4]
+    state['context_ids'] += [4,5]
+    session.ids += [4,5]
+    state['budget'].update(generated_tokens=4,attempt_tokens=4)
+    conflict={'verdict':'FAIL','first_error_step':1,'diagnosis':'bad','hint':'fix'}
+    assert runtime.check_generative(cfg,state,session,Verifier(),Tok(),4,True,forced=conflict)=='TERMINAL_UNCERTAIN'
+    assert state['budget']['rollbacks']==0 and 'submitted_reasoning_ids' not in state
+    assert runtime.check_generative(cfg,state,session,Verifier(),Tok(),4,True,
+        forced={**conflict,'first_error_step':2}) is None
+    assert session.ids==[1,2,3,8] and state['budget']['rollbacks']==1
+    assert state['budget']['generated_tokens']==4 and state['budget']['attempt_tokens']==0
+    assert state['budget']['revoked_tokens']==2 and state['budget']['feedback_tokens']==1
+    assert session.pass_checkpoint['ids']==[1,2,3]

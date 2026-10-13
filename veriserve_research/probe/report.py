@@ -111,4 +111,17 @@ def report(run, manifest, counts, metrics=None, rows=None, coverage=None, failur
               "python -m stages.stage2.run_probe --config stages/stage2/config.json --smoke --resume",
               "python -m stages.stage2.run_probe --config stages/stage2/config.json --resume",
               "python -m stages.stage2.run_probe --config stages/stage2/config.json --fit-only --resume", "```", ""]
+    if cfg.get('enable_thinking'):
+        lines = [line for line in lines if not any(phrase in line for phrase in (
+            '剩余 190', 'greedy；4096', '原单次整段重前向', 'Qwen2 的索引 L', 'Qwen2 的索引 L'))]
+        lines[10:10] = [f"原生 Thinking；采样与逐题种子见记录；新 token {cfg['max_new_tokens']}，总上下文 {cfg['max_total_tokens']}。",
+                        f"按题去重后排序、固定种子划分：{cfg['split_sizes']}；数据完整性见 dataset_integrity.json。",
+                        "hidden_states[1..L] 排除 embedding；实际层数、维度和末层 final norm 约定见模型检查。",
+                        "presence penalty 对生成与反馈后缀的每个已见 token 施加一次，不作用于题目 prompt。",
+                        "探索实验；旧结果只作历史参照，不能将差异归因于单一变化。", ""]
+        if metrics:
+            lines += ['## 固定阈值 0.5（正类=最终答错，按题等权）', '', '```json',
+                      json.dumps({k: {'methods': {m: v.get('threshold_0_5') for m,v in metrics[k]['methods'].items()},
+                                      'all_final_correct_baseline': metrics[k].get('all_final_correct_baseline')}
+                                  for k in ('step_1','step_2','step_3','intermediate_all','full_trajectory_end')}, indent=2), '```']
     atomic_bytes(run / "report.md", "\n".join(lines).encode())

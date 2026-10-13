@@ -6,7 +6,31 @@
 
 返回[项目首页](../../README.md)，或继续阅读 [stage3 的真实检查时机比较](../stage3/README.md)。
 
-## 当前结果
+## 新实验：Qwen3.5-4B × Omni-MATH-Rule
+
+新配置为 [qwen35_4b_omni_config.json](qwen35_4b_omni_config.json)，环境与锁文件在 [environments/qwen35](../../environments/qwen35/)。旧结果保留在下节；新实验进度见 [qwen35_status.json](qwen35_status.json)。
+
+作者固定提交的 Rule JSONL 已核对：2821 条记录、2816 道不同题、5 条完全重复、无冲突答案。SHA256 为 `d566d5b5a9865a04b507fdc4c0669cf0ff391748e13f190ecc925e78b584b172`。20 个标准答案未通过 Math-Verify 预解析，清单随 run 保存；不据此重抽题。正式 100 train、200 test、10 smoke 之外另留 20 verifier_dev 和 20 verifier_audit。
+
+保留原生 Thinking，步骤在思考块内，关闭后只输出一行 `Final answer`。stage2/stage3 共用逐 token 采样与逐题种子；presence penalty 对生成和反馈后缀的已见 token 施加一次，不作用于题目 prompt。A/B 在训练题内部五折选层，固定阈值 0.5 的分类指标与模型解题正确率分开报告。
+
+```bash
+# 新环境复用本机已安装且版本与锁一致的依赖；独立安装可用 uv sync。
+uv sync --project environments/qwen35 --locked
+QWEN_PYTHON=environments/qwen35/.venv/bin/python
+$QWEN_PYTHON -m veriserve_research probe --config stages/stage2/qwen35_4b_omni_config.json --self-check
+$QWEN_PYTHON -m veriserve_research probe --config stages/stage2/qwen35_4b_omni_config.json --prepare-only --resume
+$QWEN_PYTHON -m veriserve_research probe --config stages/stage2/qwen35_4b_omni_config.json --smoke --resume --stop-after 1
+$QWEN_PYTHON -m veriserve_research probe --config stages/stage2/qwen35_4b_omni_config.json --smoke --resume
+$QWEN_PYTHON -m veriserve_research probe --config stages/stage2/qwen35_4b_omni_config.json --smoke --resume
+$QWEN_PYTHON -m veriserve_research probe --config stages/stage2/qwen35_4b_omni_config.json --resume
+```
+
+真实模型接口与混合缓存检查单独使用 `$QWEN_PYTHON tests/qwen35_migration_check.py --gpu`；增加 `--capacity` 检查两模型、长输入和两个快照同时驻留。它只记录实现诊断，不代替 10 题 smoke、正式采集或验证器质量核验。
+
+新实验仍要求初始推送、批次备份及远端 LFS 取回核验；推送失败会停止采集。采集后的实质源码或配置变化生成新 run 身份，不混入已冻结轨迹。
+
+## 历史结果：Qwen2.5-7B × MATH-500
 
 本轮已采集 **300/300 道正式题**，包括 100 道训练题和 200 道测试题，另有 10 道流程检查题（smoke）。结论与原始统计见[完整报告](runs/20261004-36fe9009f1f5/report.md)、[指标](runs/20261004-36fe9009f1f5/metrics.json)和[正式特征远端核验](runs/20261004-36fe9009f1f5/formal_feature_remote_verification.json)。
 

@@ -4,7 +4,7 @@ import gc
 import math
 from pathlib import Path
 from veriserve_research.artifacts.io import atomic_json, stable_hash, now, safe_error
-from veriserve_research.trajectory import STEP, FINAL, boundaries, decode
+from veriserve_research.trajectory import STEP, FINAL, boundaries, decode, thinking_view, thinking_error
 from veriserve_research.artifacts import storage
 from veriserve_research.intervention import protocol, fixed_step as fixed
 from . import source_hashes
@@ -126,6 +126,8 @@ def strict_result(result, numbers, prior, threshold, synthetic=False):
 
 def check(cfg, state, session, verifier, tokenizer, prefix_count, final, *, prm_text=None, forced=None):
     """One strict check; crop only to the most recent PASS and prefill feedback."""
+    if cfg.get('verifier', {}).get('kind') == 'generative':
+        return check_generative(cfg, state, session, verifier, tokenizer, prefix_count, final, forced=forced)
     if not final and state['intermediate_checks']:
         raise AssertionError('Second intermediate check is forbidden')
     prefix = state['reasoning_ids'][:prefix_count]
@@ -242,11 +244,25 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
     path = Path(run) / 'arms' / f'{fixed.key(row["unique_id"])}.{arm}.json'
     selected = selection['positions'][arm]
     session = None
+    if cfg.get('enable_thinking'):
+        import torch
+        torch.cuda.reset_peak_memory_stats()
     start = clock()
     try:
         reason = budget(cfg, state, context_tokens=len(state['prompt_ids']))
         if not reason:
-            session = Session(model, state['prompt_ids'])
+            if cfg.get('enable_thinking'):
+                if selection.get('generation_seed') is None:
+                    raise RuntimeError('Frozen sampled reference lacks generation_seed')
+                session = Session(model, state['prompt_ids'], cfg, selection['generation_seed'])
+                snapshot_start = clock()
+                session.prompt_checkpoint = session.snapshot()
+                session.pass_checkpoint = None
+                state['generation_seed'] = selection['generation_seed']
+                state['sampling'] = session.settings
+                state['timing']['prompt_snapshot_seconds'] = clock()-snapshot_start
+            else:
+                session = Session(model, state['prompt_ids'])
             atomic_json(path, state)
             while True:
                 reason = budget(cfg, state, generation_tokens=1, context_tokens=len(session.ids) + 1)
@@ -270,6 +286,9 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
                                                      actual=token, before_first_check=True))
                 if token in eos_tokens(model):
                     state['eos'] = True
+                    if cfg.get('enable_thinking') and thinking_error(reasoning_text(state,tokenizer),terminal=True):
+                        reason = 'THINKING_FORMAT_ERROR'
+                        break
                     endpoint = protocol.terminal(tokenizer, state['reasoning_ids'], True,
                                                  text=reasoning_text(state, tokenizer))
                     if not endpoint or endpoint['reason'] != 'FINAL':
@@ -286,7 +305,12 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
                     continue
                 if not state['first_check_done']:
                     try:
-                        boundary = closed_boundary(tokenizer, state['reasoning_ids'], selected['step_number'])
+                        if cfg.get('enable_thinking'):
+                            count = selected['prefix_token_count']
+                            boundary = dict(prefix_ids=state['reasoning_ids'].copy(), pending_ids=[],
+                                            prm_text=reasoning_text(state, tokenizer)) if len(state['reasoning_ids']) == count else None
+                        else:
+                            boundary = closed_boundary(tokenizer, state['reasoning_ids'], selected['step_number'])
                     except ValueError as exc:
                         reason = 'STEP_FORMAT_ERROR: ' + str(exc)
                         break
@@ -310,6 +334,9 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
                                                     len(state['submitted_reasoning_ids']))
         atomic_json(path, state)
         state['timing']['T_request'] = clock() - start
+        if cfg.get('enable_thinking'):
+            import torch
+            state['peak_allocated_bytes'] = torch.cuda.max_memory_allocated()
         state['timing']['definition'] = ('fresh prompt prefill through submission/termination; includes '
                                          'in-path atomic saves; excludes grading and final timing metadata save')
         fixed.finish_arm(cfg, state, row)
@@ -536,6 +563,8 @@ def self_check(cfg):
 def gpu_checks(cfg, run, row, selection, model, tokenizer, verifier):
     """Pilot-only real streaming, pause/PASS and forced crop checks; no scientific Y."""
     import torch
+    if cfg.get('verifier', {}).get('kind') == 'generative':
+        return generative_gpu_checks(cfg, run, row, selection, model, tokenizer, verifier)
     target = max(selection['positions'].values(), key=lambda p: p['step_number'])
     state = initial_state(row, selection, 'HIGH', {})
     session = Session(model, state['prompt_ids'])
@@ -628,3 +657,135 @@ def gpu_checks(cfg, run, row, selection, model, tokenizer, verifier):
         del session
         gc.collect()
         torch.cuda.empty_cache()
+
+
+
+def check_generative(cfg, state, session, verifier, tokenizer, prefix_count, final, forced=None):
+    if not final and state['intermediate_checks']:
+        raise AssertionError('Second intermediate check forbidden')
+    prefix = state['reasoning_ids'][:prefix_count]
+    text = reasoning_text(state, tokenizer, 0, prefix_count)
+    numbers = [int(m.group(1)) for m in STEP.finditer(thinking_view(text))]
+    if not numbers:
+        return 'NO_SCORABLE_STEPS'
+    kind = 'terminal' if final else 'intermediate'
+    feedback = [decode(tokenizer, ids) for ids in state['feedback_tokens']]
+    ids = verifier.input_ids(state['problem'], text, max(numbers), feedback, kind)
+    reason = budget(cfg, state, prm_input_tokens=len(ids), prm_calls=1)
+    if reason:
+        return reason
+    if len(ids) + cfg['verifier']['max_new_tokens'] > cfg['verifier']['max_total_tokens']:
+        return 'VERIFIER_CONTEXT_LIMIT'
+    start = clock()
+    result = verifier.verify(ids, state['unique_id'], numbers, state['checkpoint_step'], kind) if forced is None else dict(forced)
+    if forced is not None:
+        raw = result['verdict']
+        result.update(raw_verdict=raw, effective_verdict=protocol.effective_verdict(raw, result.get('first_error_step'), state['checkpoint_step']),
+                      checkpoint_conflict=raw == 'FAIL' and result.get('first_error_step', 0) <= state['checkpoint_step'],
+                      output_tokens=0, synthetic=True)
+    verdict = result['effective_verdict']
+    state['budget']['prm_calls'] += 1
+    state['budget']['forward_tokens'] += len(ids)
+    state['budget']['verifier_generated_tokens'] = state['budget'].get('verifier_generated_tokens', 0) + result['output_tokens']
+    entry = dict(kind='CHECK', position='FINAL' if final else 'STEP', current_step=max(numbers),
+                 reasoning_tokens=prefix_count, prefix_ids=prefix.copy(), input_ids=ids, input_tokens=len(ids),
+                 seconds=clock()-start, is_first=not state['first_check_done'], **result)
+    state['checks'].append(entry)
+    state['events'].append(entry.copy())
+    state['first_check_done'] = True
+    if not final:
+        state['intermediate_checks'] += 1
+    if verdict == 'PASS':
+        if final:
+            state['submitted_reasoning_ids'] = prefix.copy()
+            return 'FINAL_PASS'
+        # Exact selected raw-token prefix, no generated future/lookahead in snapshot.
+        if session.ids != state['prompt_ids'] + prefix:
+            raise RuntimeError('PASS snapshot includes unchecked tokens')
+        missing = len(session.ids)-session.cached_length
+        reason = budget(cfg, state, prefill_tokens=missing)
+        if reason:
+            return reason
+        start = clock()
+        charged = session.ensure()
+        session.pass_checkpoint = None
+        session.pass_checkpoint = session.snapshot()
+        state['budget']['forward_tokens'] += charged
+        state['timing']['pass_snapshot_seconds'] = clock()-start
+        state['checkpoint_ids'] = session.ids.copy()
+        state['checkpoint_reasoning_ids'] = prefix.copy()
+        state['checkpoint_positions'] = state['reasoning_positions'][:prefix_count]
+        state['checkpoint_step'] = max(numbers)
+        state['checkpoint_breaks'] = [b for b in state['reasoning_breaks'] if b < prefix_count]
+        state['checkpoint_text'] = text
+        entry.update(snapshot_mode='full_state_deepcopy', snapshot_boundary_forward_tokens=charged,
+                     snapshot_seconds=state['timing']['pass_snapshot_seconds'])
+        return None
+    if verdict == 'UNCERTAIN':
+        return 'TERMINAL_UNCERTAIN' if final else None
+    if verdict != 'FAIL':
+        raise RuntimeError('Invalid effective generative verdict')
+    feedback_text = protocol.feedback_text(result['diagnosis'], result['hint'], state['checkpoint_step'])
+    feedback_ids = tokenizer.encode(feedback_text, add_special_tokens=False)
+    checkpoint = session.pass_checkpoint or session.prompt_checkpoint
+    reason = budget(cfg, state, rollbacks=1, prefill_tokens=len(feedback_ids),
+                    context_tokens=len(checkpoint['ids'])+len(feedback_ids))
+    if reason:
+        return reason
+    if state['budget']['generated_tokens'] >= cfg['max_request_tokens'] or state['budget']['prm_calls'] >= cfg['max_prm_calls']:
+        return 'BUDGET_NO_REWORK'
+    revoked = len(state['reasoning_ids'])-len(state['checkpoint_reasoning_ids'])
+    start = clock()
+    charged = session.restore(checkpoint, feedback_ids)
+    elapsed = clock()-start
+    state['budget']['rollbacks'] += 1
+    state['budget']['revoked_tokens'] += revoked
+    state['budget']['forward_tokens'] += charged
+    state['budget']['feedback_tokens'] += len(feedback_ids)
+    state['budget']['attempt_tokens'] = 0
+    state['context_ids'] = session.ids.copy()
+    state['reasoning_ids'] = state['checkpoint_reasoning_ids'].copy()
+    state['reasoning_positions'] = state['checkpoint_positions'].copy()
+    state['reasoning_breaks'] = state['checkpoint_breaks'].copy() + [len(state['reasoning_ids'])]
+    state['feedback_tokens'].append(feedback_ids)
+    state['eos'] = False
+    state['events'].append(dict(kind='ROLLBACK', checkpoint_step=state['checkpoint_step'],
+        checkpoint_length=len(checkpoint['ids']), restore_mode='full_state_deepcopy',
+        feedback_prefill_tokens=charged, revoked_tokens=revoked, feedback_ids=feedback_ids,
+        feedback_text=feedback_text, seconds=elapsed, rng_rewound=False))
+    return None
+
+
+
+def generative_gpu_checks(cfg, run, row, selection, model, tokenizer, verifier):
+    from ...inference import snapshot_gpu_check
+    target = max(selection['positions'].values(),key=lambda p:p['prefix_token_count'])
+    session = Session(model,selection['prompt_ids'],cfg,selection['generation_seed'])
+    try:
+        actual = [session.sample() for _ in range(target['prefix_token_count'])]
+        if actual != selection['generated_ids'][:len(actual)]:
+            raise ReferenceMismatch(dict(unique_id=row['unique_id'],reason='SAMPLED_PILOT_PREFIX_MISMATCH'))
+        control,paused = session.clone(),session.clone()
+        text = decode(tokenizer,actual)
+        numbers = [int(m.group(1)) for m in STEP.finditer(thinking_view(text))]
+        ids = verifier.input_ids(row['problem'],text,max(numbers),[],'intermediate')
+        natural = verifier.verify(ids,row['unique_id'],numbers,0,'intermediate')
+        expected,observed = [],[]
+        for _ in range(min(32,cfg['max_total_tokens']-len(session.ids))):
+            expected.append(control.sample())
+            observed.append(paused.sample())
+            if expected[-1] in eos_tokens(model):
+                break
+        assert expected == observed, 'Verifier pause changed generator continuation'
+        del control,paused
+        recovery = snapshot_gpu_check(session,tokenizer.encode('\nVerification test feedback.\n',add_special_tokens=False),[7,8],cfg)
+        result = dict(status=recovery['status'],source_hashes=source_hashes(),unique_id=row['unique_id'],
+                      reference_prefix_match=True,pause=dict(token_equal=True,continuous_ids=expected,paused_ids=observed,natural_verifier=natural),
+                      full_state_restore=recovery,created=now())
+        atomic_json(Path(run)/'pilot_checks'/f'{fixed.key(row["unique_id"])}.json',result)
+        if result['status'] != 'PASS':
+            raise RuntimeError('Full hybrid restore diagnostics failed; records retained')
+        return result
+    finally:
+        del session
+        gc.collect()

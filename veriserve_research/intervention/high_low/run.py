@@ -23,6 +23,8 @@ ARMS = ("HIGH", "LOW")
 
 def prepare(config_path):
     cfg = storage.safe_read_json(config_path)
+    if not cfg.get('stage2_run'):
+        raise ValueError('stage2_run must point to the completed new stage2 run (with probe_B.json)')
     original, splits = selection.load_source(ROOT / cfg['stage2_run'])
     if cfg.get('experiment_type') != 'within_question_high_low' or cfg['split_sizes'] != {'pilot': 4, 'test': 200}:
         raise ValueError('This entry only supports the frozen 4-pilot/200-test HIGH/LOW diagnostic')
@@ -33,7 +35,16 @@ def prepare(config_path):
     for field in ('model', 'tokenizer', 'dataset'):
         if cfg['revisions'][field] != baseline['revisions'][field]:
             raise ValueError(f'Original revision changed: {field}')
-    legacy_cfg = storage.safe_read_json(HERE / 'config.json')
+    if cfg.get('verifier', {}).get('kind') == 'generative':
+        from ...inference import sampling_config
+        if sampling_config(cfg) != sampling_config(baseline):
+            raise ValueError('stage2/stage3 sampling mismatch')
+        for field in ('enable_thinking','prefill_chunk_size','max_new_tokens','max_total_tokens'):
+            if cfg[field] != baseline[field]:
+                raise ValueError(f'stage2/stage3 setting mismatch: {field}')
+        legacy_cfg = cfg
+    else:
+        legacy_cfg = storage.safe_read_json(HERE / 'config.json')
     for field in ('max_new_tokens', 'max_request_tokens', 'max_total_tokens', 'max_forward_tokens',
                   'max_prm_calls', 'max_prm_input_tokens', 'max_rollbacks', 'verifier'):
         if cfg[field] != legacy_cfg[field]:
@@ -117,6 +128,11 @@ def backup(run, manifest, reason):
 
 
 def cpu_checks(cfg, run):
+    if cfg.get('verifier', {}).get('kind') == 'generative':
+        from ...inference import migration_self_check
+        result = dict(status='PASS', migration=migration_self_check(), source_hashes=source_hashes())
+        atomic_json(run / 'self_check.json', result)
+        return result
     original = fixed.cpu_checks(cfg, run)
     from tempfile import TemporaryDirectory
     with TemporaryDirectory(prefix='high-low-recovery-') as tmp:
@@ -153,6 +169,14 @@ def cpu_checks(cfg, run):
 
 
 def freeze(cfg, run, manifest):
+    if cfg.get('verifier', {}).get('kind') == 'generative':
+        capacity = storage.safe_read_json(run/'capacity_check.json',{})
+        if capacity.get('status') != 'PASS' or capacity.get('source_hashes') != source_hashes():
+            raise RuntimeError('Real simultaneous residency and full-budget capacity check required')
+        audit = storage.safe_read_json(run / 'verifier_audit_gate.json', {})
+        if (audit.get('status') != 'PASS' or audit.get('source_hashes') != source_hashes()
+                or audit.get('config_hash') != manifest['config_hash']):
+            raise RuntimeError('Independent human verifier audit must pass the prespecified quality gate')
     pilot = storage.safe_read_json(run / 'pilot_checks.json', {})
     check = storage.safe_read_json(run / 'self_check.json', {})
     if pilot.get('status') != 'PASS' or check.get('status') != 'PASS':
@@ -209,6 +233,8 @@ def freeze_selection(cfg, run, row, phase, tokenizer, model, reference=None):
 
 def recollect(cfg, run, row, phase, selected, model, tokenizer, mismatch):
     uid = row['unique_id']
+    if cfg.get('do_sample'):
+        raise RuntimeError('Sampled reference mismatch: preserve diagnosis, never recollect or change seed') from mismatch
     if selected.get('reference_source') == 'stage3_streaming' or selected.get('recollected_streaming'):
         raise RuntimeError('A fresh streamed reference is not reproducible; stop without selecting another outcome')
     folder = run / 'reference_history' / fixed.key(uid)
@@ -313,10 +339,12 @@ def run_phase(cfg, run, manifest, phase, model, tokenizer, verifier, backend, st
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config', type=Path, default=HERE / 'high_low_config.json')
-    parser.add_argument('--phase', choices=['prepare', 'self-check', 'pilot', 'freeze', 'test', 'analyze', 'backup', 'all'])
+    parser.add_argument('--phase', choices=['prepare', 'self-check', 'pilot', 'freeze', 'test', 'analyze', 'backup', 'all', 'verifier-smoke', 'verifier-dev', 'verifier-audit', 'audit-report', 'capacity'])
     parser.add_argument('--self-check', action='store_true')
     parser.add_argument('--resume', action='store_true', help='Keep valid completed pairs; restart both arms of incomplete pairs')
     parser.add_argument('--stop-after', type=int)
+    parser.add_argument('--human-labels',type=Path,help='Confirmed independent human audit labels JSON array')
+    parser.add_argument('--review-output',type=Path,help='Verifier review folder')
     parser.add_argument('--run', type=Path, help='Saved run for --phase analyze, including legacy runs')
     args = parser.parse_args(argv)
     phase = 'self-check' if args.self_check else args.phase
@@ -326,6 +354,8 @@ def main(argv=None):
         parser.error('--run is only for analysis; legacy execution uses its recorded commit')
     if args.stop_after is not None and args.stop_after < 1:
         parser.error('--stop-after must be positive')
+    if phase in ('verifier-smoke','verifier-dev','verifier-audit','audit-report'):
+        return verifier_review(read_json(args.config),phase,args.review_output,args.human_labels)
     if phase == 'self-check':
         with tempfile.TemporaryDirectory(prefix='veriserve-high-low-check-') as folder:
             return cpu_checks(read_json(args.config), Path(folder))
@@ -362,6 +392,8 @@ def main(argv=None):
                    'torch': torch.__version__, 'transformers': importlib.metadata.version('transformers'),
                    'bitsandbytes': importlib.metadata.version('bitsandbytes'), 'source_sha256': stable_hash(source_hashes())}
         model, tokenizer, verifier = fixed.load_resident(cfg, run)
+        if phase == 'capacity':
+            return
         storage.archive_diagnostic(run, 'runtime_environment.json')
         atomic_json(run / 'runtime_environment.json', {'environment': environment(True), 'backend': backend,
                     'effective_generation_config': model.generation_config.to_dict(),
@@ -379,3 +411,170 @@ def main(argv=None):
                     'resume_command': f'python -m stages.stage3.high_low --config {args.config} --phase {phase} --resume'})
         analyze.analyze(cfg, run, manifest)
         raise
+
+
+def verifier_review(cfg, phase, output=None, human_labels=None):
+    """Fixed length-position samples, blind human review export and held-out gate."""
+    import json
+    import numpy as np
+    from ...inference import load_model, GenerativeVerifier
+    from ...probe.collect import collect_one
+    from ...trajectory import decode, STEP, thinking_view
+    if not cfg.get('stage2_run'):
+        raise ValueError('Prepare new stage2 and set its actual stage2_run first')
+    stage2 = ROOT/cfg['stage2_run']
+    source = read_json(stage2/'manifest.json')
+    if not source or source['config']['model'] != cfg['model']:
+        raise ValueError('New stage2 manifest required')
+    folder = output or HERE/'runs'/('verifier-'+run_identity(cfg,'high-low',{'stage2_manifest':digest(stage2/'manifest.json')}))
+    folder.mkdir(parents=True,exist_ok=True)
+    identity = dict(config_hash=stable_hash(cfg),source_hashes=source_hashes(),stage2_manifest_sha256=digest(stage2/'manifest.json'))
+    saved = read_json(folder/'identity.json')
+    if saved and saved != identity:
+        raise ValueError('Verifier review execution changed; use new review folder')
+    atomic_json(folder/'identity.json',identity)
+    if phase == 'audit-report':
+        return verifier_audit_report(cfg,folder,human_labels)
+    split = {'verifier-smoke':'smoke','verifier-dev':'verifier_dev','verifier-audit':'verifier_audit'}[phase]
+    generator=tokenizer=verifier=None
+    try:
+        generator,tokenizer=load_model(source['config'])
+        verifier=GenerativeVerifier(cfg)
+        review=[]
+        for row in source['splits'][split]:
+            record,_=collect_one(source['config'],stage2,split,row,generator,tokenizer,environment(True),features=False)
+            steps=record['boundaries']['steps']
+            counts=[]
+            for fraction in (.25,.75):
+                if steps:
+                    target=fraction*len(record['generated_ids'])
+                    counts.append((min(steps,key=lambda s:abs(s['prefix_token_count']-target))['prefix_token_count'],'intermediate'))
+            if record['completion']=='EOS' and record['boundaries'].get('end'):
+                counts.append((record['boundaries']['end']['prefix_token_count'],'terminal'))
+            for count,kind in dict.fromkeys(counts):
+                prefix=decode(tokenizer,record['generated_ids'][:count])
+                numbers=[int(m.group(1)) for m in STEP.finditer(thinking_view(prefix))]
+                if not numbers:
+                    continue
+                ids=verifier.input_ids(row['problem'],prefix,max(numbers),[],kind)
+                item=dict(unique_id=row['unique_id'],split=split,problem=row['problem'],prefix=prefix,
+                          prefix_ids=record['generated_ids'][:count],check_type=kind,input_ids=ids,
+                          input_sha256=stable_hash(ids),identity=identity,reference_token_sha256=record['token_sha256'])
+                path=folder/'checks'/f'{split}-{fixed.key(row["unique_id"])}-{count}.json'
+                existing=read_json(path)
+                if existing:
+                    if existing['input_sha256'] != item['input_sha256'] or existing['identity'] != identity:
+                        raise ValueError('Saved verifier input changed')
+                    item=existing
+                else:
+                    repetitions=2 if split=='verifier_audit' else 1
+                    results=[]
+                    for _ in range(repetitions):
+                        if len(ids)>cfg['verifier']['max_input_tokens']:
+                            results.append(dict(verdict='UNCERTAIN',parser_error='INPUT_LIMIT',output_tokens=0,input_tokens=len(ids),seconds=0.))
+                        else:
+                            start=fixed.clock()
+                            # Repeated audit calls use independently derived deterministic seeds,
+                            # while the formal protocol always uses repetition index zero.
+                            result=verifier.verify(ids,row['unique_id'],numbers,0,kind,audit_repeat=len(results))
+                            result['seconds']=fixed.clock()-start
+                            results.append(result)
+                    item['results']=results
+                    atomic_json(path,item)
+                review.append(dict(input_sha256=item['input_sha256'],unique_id=row['unique_id'],problem=row['problem'],
+                                   quoted_prefix=prefix,check_type=kind,reference_answer=row['answer'],
+                                   reference_solution=row['solution'],label=None,first_error_step=None,reviewer=None,confirmed=False))
+        # Keep judgments separate from blind review inputs and from online model inputs.
+        atomic_json(folder/f'{split}_review_inputs.json',review)
+        result=dict(status='AWAITING_HUMAN_REVIEW' if split=='verifier_audit' else 'COLLECTED',split=split,
+                    questions=len(source['splits'][split]),checks=len(review),folder=str(folder),**identity)
+        atomic_json(folder/f'{split}_status.json',result)
+        print(result,flush=True)
+        return result
+    finally:
+        del generator,tokenizer,verifier
+        gc.collect()
+
+
+def verifier_audit_report(cfg,folder,human_labels):
+    import numpy as np
+    from ...artifacts.io import write_csv
+    records=[read_json(p) for p in sorted((folder/'checks').glob('verifier_audit-*.json'))]
+    labels=read_json(human_labels,[]) if human_labels else []
+    if not isinstance(labels,list):
+        raise ValueError('Human labels must be a JSON array with explicit reviewer and confirmed=true')
+    by_hash={}
+    for label in labels:
+        key=label.get('input_sha256')
+        if key in by_hash:
+            raise ValueError('Duplicate human label')
+        if label.get('confirmed') is True and isinstance(label.get('reviewer'),str) and label['reviewer'].strip():
+            if label.get('label') not in ('CORRECT','INCORRECT','UNDETERMINABLE'):
+                raise ValueError('Invalid human label enum')
+            if label['label']=='INCORRECT' and type(label.get('first_error_step')) is not int:
+                raise ValueError('Human INCORRECT needs error step')
+            by_hash[key]=label
+    items=[]
+    for record in records:
+        label=by_hash.get(record['input_sha256'])
+        if label:
+            items.append(dict(unique_id=record['unique_id'],human=label['label'],result=record['results'][0],
+                              consistent=record['results'][0]['verdict']==record['results'][1]['verdict']))
+    valid=[x for x in items if x['human']!='UNDETERMINABLE']
+    def metrics(rows):
+        from collections import Counter
+        counts=Counter(x['unique_id'] for x in rows)
+        def mean(values):
+            pairs=[(float(value),1/counts[item['unique_id']]) for item,value in values]
+            return sum(v*w for v,w in pairs)/sum(w for _,w in pairs) if pairs else None
+        correct=[x for x in rows if x['human']=='CORRECT']
+        wrong=[x for x in rows if x['human']=='INCORRECT']
+        fp=mean([(x,x['result']['verdict']=='PASS') for x in wrong])
+        ff=mean([(x,x['result']['verdict']=='FAIL') for x in correct])
+        recalls=[mean([(x,x['result']['verdict']==verdict) for x in cohort]) for cohort,verdict in ((correct,'PASS'),(wrong,'FAIL'))]
+        return dict(accuracy=mean([(x,x['result']['verdict']==('PASS' if x['human']=='CORRECT' else 'FAIL')) for x in rows]),
+                    balanced_accuracy=sum(recalls)/2 if all(r is not None for r in recalls) else None,
+                    incorrect_pass_rate=fp,correct_fail_rate=ff,
+                    uncertain_or_format_or_truncated_rate=mean([(x,x['result']['verdict']=='UNCERTAIN' or bool(x['result'].get('parser_error')) or x['result'].get('completion','EOS')!='EOS') for x in rows]),
+                    consistency=mean([(x,x['consistent']) for x in rows]),
+                    **{key:mean([(x,x['result'][key]) for x in rows]) for key in ('input_tokens','output_tokens','seconds')})
+    point=metrics(valid)
+    rng=np.random.default_rng(cfg['seed'])
+    ids=sorted({x['unique_id'] for x in valid})
+    samples={k:[] for k in point}
+    if ids:
+        for _ in range(cfg['bootstrap']):
+            sampled=rng.choice(ids,len(ids),replace=True)
+            replica=[dict(x,unique_id=str(i)) for i,uid in enumerate(sampled) for x in valid if x['unique_id']==uid]
+            values=metrics(replica)
+            for k,v in values.items():
+                if v is not None:
+                    samples[k].append(v)
+    correct=sum(x['human']=='CORRECT' for x in valid)
+    wrong=sum(x['human']=='INCORRECT' for x in valid)
+    passed=(len(items)==len(records) and len(records)>0 and correct>=20 and wrong>=20
+            and all(point[k] is not None and point[k]<=.2 for k in ('incorrect_pass_rate','correct_fail_rate','uncertain_or_format_or_truncated_rate')))
+    result=dict(status='PASS' if passed else 'INSUFFICIENT_OR_FAILED',source_hashes=source_hashes(),
+                config_hash=stable_hash(cfg),human_labels_sha256=digest(human_labels) if human_labels else None,
+                review_identity=read_json(folder/'identity.json'),questions=len(ids),checks=len(records),confirmed=len(items),
+                correct_prefixes=correct,incorrect_prefixes=wrong,undeterminable=len(items)-len(valid),
+                metrics={k:dict(value=v,ci95=np.quantile(samples[k],[.025,.975]).tolist() if samples[k] else None,
+                                bootstrap_valid=len(samples[k])) for k,v in point.items()},
+                prespecified_gate='>=20 correct and >=20 incorrect; incorrect PASS, correct FAIL and UNCERTAIN/format/truncation each <=20%')
+    atomic_json(folder/'verifier_audit_gate.json',result)
+    write_csv(folder/'verifier_audit_checks.csv',[dict(unique_id=x['unique_id'],human=x['human'],verdict=x['result']['verdict'],
+        input_tokens=x['result']['input_tokens'],output_tokens=x['result']['output_tokens'],seconds=x['result']['seconds']) for x in items],
+        ['unique_id','human','verdict','input_tokens','output_tokens','seconds'])
+    if passed:
+        _,run,manifest=prepare_config_for_review_gate(cfg)
+        atomic_json(run/'verifier_audit_gate.json',result)
+    print(result,flush=True)
+    return result
+
+
+def prepare_config_for_review_gate(cfg):
+    # Reuse the runner's exact manifest identity; never create a separate gate identity.
+    with tempfile.TemporaryDirectory(prefix='verifier-gate-config-') as folder:
+        path=Path(folder)/'config.json'
+        atomic_json(path,cfg)
+        return prepare(path)

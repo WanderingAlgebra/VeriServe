@@ -4,7 +4,39 @@
 
 这里引用的逐步风险探针 B 来自 stage2，预测的是**未经干预的整条轨迹最终答错风险**。它与 stage1 的前缀重算方式 B 无关，也不直接预测当前步骤错误或检查收益。返回[项目首页](../../README.md)。
 
-## 两类实验与当前结果
+## 新实验：Qwen3.5 原生 Thinking 的同题 HIGH/LOW
+
+新配置为 [qwen35_4b_omni_high_low_config.json](qwen35_4b_omni_high_low_config.json)。`stage2_run` 必须指向新 stage2 的实际 run；层号直接读取新 `probe_B.json`，不固定为 19。新实验进度见 [qwen35_status.json](qwen35_status.json)。下文数值均是旧模型历史结果。
+
+生成器为 Qwen3.5-4B，验证器为 Qwen3.5-9B，均为纯文本 BF16、原生 Thinking。HIGH/LOW 首检前继承参考记录的生成种子并逐 token 核对；不一致时保留诊断并停止，不重抽参考。中途 PASS 保存精确原 token 前缀的完整混合缓存；FAIL 恢复最近 PASS，否则恢复 prompt，再追加 diagnosis/hint。恢复不退回生成 RNG、不清零累计预算。中途 UNCERTAIN 继续，终点 UNCERTAIN 不提交；与已 PASS 步骤冲突的 FAIL 转为 UNCERTAIN。
+
+验证器只读取题目、当前前缀、步号、已有反馈与检查类型，不读取探针分数、路径名、标准答案、标准解答或未来推理。仅严格解析其 Thinking 关闭后的最终 JSON；格式错误、截断和输入超限分别记录。
+
+```bash
+QWEN_PYTHON=environments/qwen35/.venv/bin/python
+QWEN_CONFIG=stages/stage3/qwen35_4b_omni_high_low_config.json
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --self-check
+# 先完成新 stage2，配置其实际 stage2_run，再运行 prepare 与后续阶段。
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase prepare --resume
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase capacity --resume
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase verifier-smoke --resume
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase verifier-dev --resume
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase verifier-audit --resume
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase pilot --resume
+```
+
+核验输入按长度选早期、后期和终点，最多三个，不按预测或 HIGH/LOW 筛选。`verifier_audit_review_inputs.json` 包含供人工离线查看的标准解答；这些字段不进入在线验证。人工填写 `label`（`CORRECT` / `INCORRECT` / `UNDETERMINABLE`）、错误步号、`reviewer` 和 `confirmed=true`，另存 JSON 数组。模型建议不能充当人工确认。
+
+```bash
+# 用实际核验目录及人工标签文件替换示例路径。
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase audit-report --review-output <review_run> --human-labels <confirmed_labels.json>
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase freeze --resume
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase test --resume
+```
+
+启动正式 stage3 前须完成独立人工核验（至少 20 个正确和 20 个错误前缀；错误判 PASS、正确判 FAIL、不确定/格式/截断三类比例分别不超过 20%）、4 道真实配对 pilot、完整快照恢复及实际容量检查。核验不足或未通过时只交付 stage2 和诊断，不启动 200 题正式配对。
+
+## 两类历史实验与结果
 
 本阶段有两类独立实验，分别称为“固定第二步”和“同题 HIGH/LOW”。下文用实验名称区分它们；代码重构后的版本统一称为 v2。
 

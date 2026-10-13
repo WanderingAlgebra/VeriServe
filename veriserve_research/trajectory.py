@@ -31,6 +31,7 @@ def boxed(text):
 def grade(text, gold, completion, timeout):
     from math_verify import LatexExtractionConfig, parse, verify
     from math_verify.utils import TimeoutException
+    text = thinking_view(text)
     result = {"answer": None, "label": None, "exclusion": None}
     lines = list(FINAL.finditer(text))
     if lines:
@@ -111,12 +112,38 @@ def aligned_end(tokenizer, ids, text, char_end, char_start=0):
             "boundary_aligned_back": len(prefix(n)) != char_end}
 
 
+def thinking_view(text):
+    """Mask known wrappers at their original character offsets; never re-tokenize."""
+    return re.sub(r"</?think>", lambda m: "\n" * len(m.group()), text)
+
+
+def thinking_error(raw, terminal=False):
+    if raw.count('<think>') > 1 or raw.count('</think>') > 1:
+        return 'MULTIPLE_THINKING_WRAPPERS'
+    if '<think>' in raw and raw[:raw.index('<think>')].strip():
+        return 'MISPLACED_THINKING_OPEN'
+    if terminal and raw.count('</think>') != 1:
+        return 'UNCLOSED_THINKING'
+    if '</think>' in raw:
+        closed = raw.index('</think>')
+        view = thinking_view(raw)
+        if any(m.start() < closed for m in FINAL.finditer(view)) or any(m.start() > closed for m in STEP.finditer(view)):
+            return 'STEPS_OR_FINAL_OUTSIDE_THINKING_CONTRACT'
+    return None
+
+
+def control_ids(tokenizer):
+    vocab = tokenizer.get_vocab() if hasattr(tokenizer, 'get_vocab') else {}
+    return set(tokenizer.all_special_ids) - {vocab.get('<think>'), vocab.get('</think>')}
+
+
 def boundaries(tokenizer, generated_ids):
-    special = set(tokenizer.all_special_ids)
+    special = control_ids(tokenizer)
     content_ids = list(generated_ids)
     while content_ids and content_ids[-1] in special:
         content_ids.pop()
-    text = decode(tokenizer, content_ids)
+    raw = decode(tokenizer, content_ids)
+    text = thinking_view(raw)
     result = {"steps": [], "excluded_steps": [], "format_errors": [], "end": None}
     if not text.rstrip():
         result["format_errors"].append("FORMAT_ERROR: empty generation")
@@ -125,7 +152,7 @@ def boundaries(tokenizer, generated_ids):
         result["format_errors"].append("FORMAT_ERROR: interior control token")
         return text, result
     try:
-        result["end"] = aligned_end(tokenizer, content_ids, text, len(text))
+        result["end"] = aligned_end(tokenizer, content_ids, raw, len(raw))
     except ValueError as exc:
         result["format_errors"].append(str(exc))
     matches = list(STEP.finditer(text))
@@ -152,7 +179,7 @@ def boundaries(tokenizer, generated_ids):
             result["format_errors"].append(f"FORMAT_ERROR: empty Step {step['step_number']}")
             continue
         try:
-            step.update(aligned_end(tokenizer, content_ids, text,
+            step.update(aligned_end(tokenizer, content_ids, raw,
                                     match.start() + len(segment), match.end()))
             step["effective_step"] = len(result["steps"]) + 1
             step["near_end"] = False

@@ -143,6 +143,16 @@ def bootstrap_metrics(rows, cfg, paired=True):
     methods = [m for m in ("A", "B", "C") if all(r.get(m) is not None for r in rows)]
     predictions = {m: np.asarray([r[m] for r in rows]) for m in methods}
     point = {m: auc(y, predictions[m], weights) for m in methods}
+    threshold = {}
+    if cfg.get('threshold_metrics'):
+        from sklearn.metrics import accuracy_score, balanced_accuracy_score, precision_score, recall_score
+        def classify(pred):
+            return dict(accuracy=float(accuracy_score(y,pred,sample_weight=weights)),
+                        balanced_accuracy=float(balanced_accuracy_score(y,pred,sample_weight=weights)),
+                        precision=float(precision_score(y,pred,sample_weight=weights,zero_division=0)),
+                        recall=float(recall_score(y,pred,sample_weight=weights,zero_division=0)))
+        threshold = {m: classify(predictions[m] >= .5) for m in methods}
+        threshold['all_final_correct_baseline'] = classify(np.zeros(len(y),dtype=int))
     samples = {m: [] for m in methods}
     differences = {f"{m}-{n}": [] for m, n in (("A", "C"), ("B", "C"), ("B", "A"))
                    if m in methods and n in methods and paired}
@@ -163,9 +173,11 @@ def bootstrap_metrics(rows, cfg, paired=True):
     labels = {r["id"]: r["label"] for r in rows}
     return {"questions": len(ids), "positions": len(rows), "correct": sum(v == 0 for v in labels.values()),
             "wrong": sum(v == 1 for v in labels.values()),
-            "methods": {m: {"auroc": point[m], "ci95": interval(samples[m]),
+            "methods": {m: {**({"threshold_0_5": threshold[m]} if threshold else {}),
+                            "auroc": point[m], "ci95": interval(samples[m]),
                             "bootstrap_valid": len(samples[m]), "bootstrap_skipped": cfg["bootstrap"] - len(samples[m])}
                         for m in methods},
+            **({"all_final_correct_baseline": threshold["all_final_correct_baseline"]} if threshold else {}),
             "paired": {key: {"difference": point[key[0]] - point[key[2]] if point[key[0]] is not None else None,
                               "ci95": interval(values), "bootstrap_valid": len(values),
                               "bootstrap_skipped": cfg["bootstrap"] - len(values)}

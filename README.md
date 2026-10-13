@@ -120,3 +120,5 @@ stage1 内的 `pyproject.toml`、`uv.lock`、`.python-version` 是迁移时保�
 重构保留原实验方法、预算、PRM 判决规则、按题重抽样统计和计时范围。迁移时的 41 项 pytest、探针重拟合和独立 GPU smoke/pilot 均通过，见[验收记录](docs/refactor_validation.json)。这些验证没有冻结正式实验；每个 v2 run 仍需通过自身真实 GPU 检查后才能固定协议并正式执行。
 
 CPU 自检使用临时目录。独立 GPU 验证命令为 `python tests/research_gpu_check.py`，在 `.cache/refactor-validation/` 保存 10 题 smoke、20 题固定步骤 pilot 和 4 题 HIGH/LOW pilot；它直接调用执行函数，不触发自动备份或正式协议冻结。
+
+Qwen3.5-4B / Omni-MATH-Rule 的新实验入口见 [stage2 迁移说明](stages/stage2/README.md#新实验qwen35-4b--omni-math-rule) 与 [stage3 迁移说明](stages/stage3/README.md#新实验qwen35-原生-thinking-的同题-highlow)。历史结果保留；新结果须以独立 run 的状态与报告为准。
