@@ -1,6 +1,6 @@
 """Real-model interface/restore diagnostics; no scientific trajectories or backup bypass.
 
-python tests/qwen35_migration_check.py --gpu [--capacity] [--saved-run RUN] [--benchmark-run RUN]
+python tests/qwen35_migration_check.py --gpu [--capacity] [--verifier-interface] [--saved-run RUN] [--benchmark-run RUN]
 """
 from __future__ import annotations
 import argparse
@@ -19,12 +19,13 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--gpu',action='store_true')
     parser.add_argument('--capacity',action='store_true')
+    parser.add_argument('--verifier-interface',action='store_true',help='Run three synthetic 9B JSON controls; not a human quality audit')
     parser.add_argument('--saved-run',type=Path,help='Compare first smoke record NPZ endpoints with independent original prefixes')
     parser.add_argument('--benchmark-run',type=Path,help='Time fixed original prefixes under the active backend; diagnostic only')
     parser.add_argument('--output',type=Path)
     args=parser.parse_args()
-    if (args.saved_run or args.benchmark_run) and not args.gpu:
-        parser.error('--saved-run and --benchmark-run require --gpu')
+    if (args.capacity or args.verifier_interface or args.saved_run or args.benchmark_run) and not args.gpu:
+        parser.error('--capacity, --verifier-interface, --saved-run and --benchmark-run require --gpu')
     sources={k:source_hashes(k) for k in ('probe','high-low')}
     output=args.output or ROOT/'.cache/qwen35-validation'/stable_hash({'sources':sources,'validator':digest(__file__)})[:12]
     output.mkdir(parents=True,exist_ok=True)
@@ -190,6 +191,31 @@ def main():
                 verifier_output=high_cfg['verifier']['max_new_tokens'],prefill_chunk_size=cfg['prefill_chunk_size'],
                 simultaneous_residency=True,two_immutable_checkpoints=True,precision='bfloat16')
             del active,verifier_session,prompt_checkpoint,pass_checkpoint
+        if args.verifier_interface:
+            from veriserve_research.trajectory import verification_units
+            high_cfg=read_json(ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
+            if verifier is None:
+                verifier=GenerativeVerifier(high_cfg)
+            result['verifier_loading']=verifier.model.research_loading_info
+            cases=[('intermediate','Adding 2 and 2 gives 4.','PASS'),
+                   ('intermediate','Adding 2 and 2 gives 5.','FAIL'),
+                   ('terminal','Adding 2 and 2 gives 4.\n</think>\n\nFinal answer: \\boxed{4}','PASS')]
+            result['verifier_interface']=dict(status='RUNNING',cases=[],
+                scope='Three predeclared synthetic JSON controls only; no experimental gold or confirmed human labels; not a quality gate.')
+            for kind,prefix,expected in cases:
+                numbers,_=verification_units(prefix,high_cfg.get('boundary_mode','steps'),terminal=kind=='terminal')
+                ids=verifier.input_ids('Compute 2 + 2.',prefix,max(numbers),[],kind)
+                uid=stable_hash(['synthetic-interface','Compute 2 + 2.',prefix,kind])
+                response=verifier.verify(ids,uid,numbers,0,kind)
+                result['verifier_interface']['cases'].append(dict(unique_id=uid,check_type=kind,
+                    quoted_prefix=prefix,input_ids=ids,expected_synthetic_verdict=expected,result=response))
+                atomic_json(output/'validation.json',result)
+                print('SYNTHETIC_VERIFIER',kind,response['verdict'],response.get('parser_error'),flush=True)
+            passed=all(c['result']['verdict']==c['expected_synthetic_verdict'] and not c['result'].get('parser_error')
+                       for c in result['verifier_interface']['cases'])
+            result['verifier_interface']['status']='SYNTHETIC_CONTROLS_PASS' if passed else 'FORMAT_OR_CONTROL_FAILURE'
+            if not passed:
+                raise RuntimeError('Synthetic 9B JSON control failed; raw outputs retained, not a human quality audit')
         result.update(status='PASS',finished=now())
         atomic_json(output/'validation.json',result)
         print(f'QWEN35 GPU CHECK PASS {output}',flush=True)

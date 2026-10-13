@@ -1,0 +1,13 @@
+{
+  "command": [
+    "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+    "-u",
+    "/root/project/VeriServe-step-hidden-probe/tests/qwen35_migration_check.py",
+    "--gpu",
+    "--capacity",
+    "--output",
+    "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-resident-capacity"
+  ],
+  "created": "2026-10-13T18:35:27.978369+00:00",
+  "pid": 104070
+}

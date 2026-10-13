@@ -61,9 +61,11 @@
     "unchanged_files": 20
   },
   "kernel_validation": {
+    "decode_speedup": 1.048012326421378,
     "path": "stages/stage2/diagnostics/qwen35-kernel-check",
     "pid": 98041,
-    "status": "STARTING"
+    "status": "COMPLETE_KEEP_REFERENCE",
+    "warm_reforward_speedup": 1.4949245349261684
   },
   "models_downloaded": {
     "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
@@ -76,6 +78,16 @@
   "previous_run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
   "real_model_interface_restore": "PASS",
   "real_model_smoke": "TEN_TRAJECTORIES_COMPLETE_WITH_POOR_FORMAT",
+  "resident_capacity": {
+    "free_total_bytes": [
+      5344526336,
+      50866487296
+    ],
+    "path": "stages/stage2/diagnostics/qwen35-resident-capacity",
+    "peak_allocated_bytes": 34694786048,
+    "pid": 104070,
+    "status": "PASS"
+  },
   "run": "stages/stage2/runs/v2-20261013-da5c802342ee",
   "saved_feature_validation": {
     "max_abs": 0.0,
@@ -114,7 +126,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "KERNEL_VALIDATION_RUNNING_FORMAT_DECISION_PENDING",
+  "status": "VERIFIER_INTERFACE_PREPARED_FORMAT_DECISION_PENDING",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T18:23:48.793413+00:00"
+  "updated": "2026-10-13T18:53:08.579972+00:00"
 }
