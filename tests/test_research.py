@@ -392,7 +392,8 @@ def test_text_loading_unpacks_model_and_serializes_loading_info(monkeypatch):
         parameters=lambda:iter([sample]),model=lambda **kwargs:SimpleNamespace(hidden_states=[sample,sample],last_hidden_state=sample))
     model.to=lambda device:(moves.append(device) or model)
     model.eval=lambda:model
-    tokenizer=SimpleNamespace(eos_token_id=0)
+    model.generation_config=SimpleNamespace(eos_token_id=98)
+    tokenizer=SimpleNamespace(eos_token_id=0,get_vocab=lambda:{'<|im_end|>':99})
     info=dict(missing_keys=set(),unexpected_keys=set(),mismatched_keys=set(),error_msgs=[])
     monkeypatch.setattr(torch.cuda,'is_available',lambda:True)
     monkeypatch.setattr(torch.cuda,'is_bf16_supported',lambda:True)
@@ -401,9 +402,10 @@ def test_text_loading_unpacks_model_and_serializes_loading_info(monkeypatch):
     monkeypatch.setattr(transformers.AutoConfig,'from_pretrained',lambda *args,**kwargs:SimpleNamespace(model_type='fixture'))
     monkeypatch.setattr(transformers.AutoTokenizer,'from_pretrained',lambda *args,**kwargs:tokenizer)
     monkeypatch.setattr(transformers.AutoModelForCausalLM,'from_pretrained',lambda *args,**kwargs:(model,info))
-    cfg=dict(model='fixture',revisions={'model':'a'*40,'tokenizer':'a'*40})
+    cfg=dict(model='fixture',enable_thinking=True,revisions={'model':'a'*40,'tokenizer':'a'*40})
     assert load_model(cfg)==(model,tokenizer) and moves==['cuda:0']
     json.dumps(model.research_loading_info)
+    assert model.generation_config.eos_token_id==[98,0,99]
     moves.clear()
     info['missing_keys']={'model.layers.0.weight'}
     with pytest.raises(RuntimeError,match='Incomplete text checkpoint'):
@@ -415,10 +417,13 @@ def test_chat_templates_explicitly_request_original_id_lists():
     from veriserve_research.inference import prompt_tokens,GenerativeVerifier
     class Tokenizer:
         def apply_chat_template(self,messages,**kwargs):
+            self.messages=messages
             assert kwargs['return_dict'] is False and kwargs['tokenize'] is True
             return [1,2,3]
     tokenizer=Tokenizer()
     assert prompt_tokens({'prompt':'Problem: {problem}','enable_thinking':True},tokenizer,'1+1')==[1,2,3]
+    assert prompt_tokens({'prompt':'{problem}','enable_thinking':True,'system_prompt':'Strict format'},tokenizer,'1+1')==[1,2,3]
+    assert tokenizer.messages==[{'role':'system','content':'Strict format'},{'role':'user','content':'1+1'}]
     verifier=object.__new__(GenerativeVerifier)
     verifier.tokenizer=tokenizer
     assert verifier.input_ids('1+1','Step 1: 1+1=2',1,[],'intermediate')==[1,2,3]

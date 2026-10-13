@@ -31,8 +31,12 @@ def sampling_config(cfg):
 
 def prompt_tokens(cfg, tokenizer, problem):
     kwargs = {"enable_thinking": cfg["enable_thinking"]} if "enable_thinking" in cfg else {}
+    messages = []
+    if cfg.get('system_prompt'):
+        messages.append({'role': 'system', 'content': cfg['system_prompt']})
+    messages.append({"role": "user", "content": cfg["prompt"].replace("{problem}", problem)})
     return tokenizer.apply_chat_template(
-        [{"role": "user", "content": cfg["prompt"].replace("{problem}", problem)}],
+        messages,
         tokenize=True, add_generation_prompt=True, return_dict=False, **kwargs)
 
 
@@ -166,6 +170,13 @@ def load_model(cfg):
     if unexpected:
         raise RuntimeError(f'Unexpected text weights: {unexpected}')
     model = model.to("cuda:0").eval()
+    if cfg.get('enable_thinking'):
+        eos = model.generation_config.eos_token_id
+        eos = eos if isinstance(eos, list) else [eos]
+        # Text subconfig may name endoftext; the native chat turn ends at im_end.
+        chat_end = tokenizer.get_vocab().get('<|im_end|>')
+        model.generation_config.eos_token_id = list(dict.fromkeys(
+            token for token in [*eos, tokenizer.eos_token_id, chat_end] if token is not None))
     if any(p.dtype != torch.bfloat16 for p in model.parameters()):
         raise RuntimeError("Model parameters are not uniformly BF16")
     with torch.inference_mode():

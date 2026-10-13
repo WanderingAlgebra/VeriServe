@@ -1,0 +1,19 @@
+{
+  "validation_only": true,
+  "scientific_results": false,
+  "smoke_only": true,
+  "reference_run": "v2-20261013-2f15553ff1e5",
+  "prompt_diagnostics": [
+    "qwen35-format-calibration-1.json",
+    "qwen35-format-calibration-prefill.json",
+    "qwen35-format-short-False.json",
+    "qwen35-format-short-True.json",
+    "qwen35-format-minimal.json"
+  ],
+  "passed": false,
+  "reason": "No candidate establishes continuous Step N inside native Thinking and final-answer-only outside. Short diagnostic limits do not establish full-budget failure or success. Prefill trials are diagnostics only; prefilling Step 1 is not implemented in official collection.",
+  "next_action": "Await protocol choice: preserve strict Step markers, or explicitly authorize fixed natural-paragraph boundaries with original-token alignment.",
+  "source_change_requires_new_run": true,
+  "formal_generated": 0,
+  "updated": "2026-10-13T14:15:35.910097+00:00"
+}

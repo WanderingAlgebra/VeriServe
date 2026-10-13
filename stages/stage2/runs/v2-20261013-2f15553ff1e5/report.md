@@ -1,6 +1,6 @@
 # 第二阶段：逐步 hidden 最终答错风险探针
 
-运行：`v2-20261013-2f15553ff1e5`；报告更新于 2026-10-13T21:29:33.361160+08:00。
+运行：`v2-20261013-2f15553ff1e5`；报告更新于 2026-10-13T21:30:04.779285+08:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途步骤；不是局部错误标签。
 
@@ -53,6 +53,36 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
 
 ```json
 {
+  "train": {
+    "generated": 0,
+    "completed": 0,
+    "correct": 0,
+    "wrong": 0,
+    "truncated": 0,
+    "unscorable": 0,
+    "no_steps": 0,
+    "format_error_trajectories": 0,
+    "features_missing_or_corrupt": 0,
+    "planned": 100,
+    "not_generated": 100,
+    "analyzable_end": 0,
+    "analyzable_intermediate": 0
+  },
+  "test": {
+    "generated": 0,
+    "completed": 0,
+    "correct": 0,
+    "wrong": 0,
+    "truncated": 0,
+    "unscorable": 0,
+    "no_steps": 0,
+    "format_error_trajectories": 0,
+    "features_missing_or_corrupt": 0,
+    "planned": 200,
+    "not_generated": 200,
+    "analyzable_end": 0,
+    "analyzable_intermediate": 0
+  },
   "smoke": {
     "generated": 10,
     "completed": 5,
@@ -67,13 +97,11 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
     "STEP_FORMAT_ERROR": 10,
     "analyzable_end": 0,
     "analyzable_intermediate": 0
-  },
-  "formal_generated": 0,
-  "formal_planned": 300
+  }
 }
 ```
 
-未完成原因：Smoke checks incomplete
+未完成原因：Run all ten smoke questions and a separate --smoke --resume restart first
 
 ## 自检与备份
 
@@ -322,14 +350,14 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
     "unchanged_files": 10
   },
   "backup": {
-    "commit": "d9791b7e9fc2bddf494064ad4b971a3ab721374d",
+    "commit": "3a74b4157e890cea9295539fff48d756c091159c",
     "feature_remote_verification": {
       "path": "stages/stage2/runs/v2-20261013-2f15553ff1e5/records/smoke/29fb09aef2d2b8192e12.features-de122e3170ec.npz",
       "remote_commit": "9239e3a8e1faca29435f4ac3d4ce70a1eac9eccd",
       "sha256": "2907ba34439550e71eb702dfb44d624b4d292c48c98b3338a84dd7c5bcad9a4c",
       "verified_at": "2026-10-13T13:29:10.847709+00:00"
     },
-    "pushed_at": "2026-10-13T13:29:26.408373+00:00",
+    "pushed_at": "2026-10-13T13:30:04.669887+00:00",
     "status": "PUSHED"
   }
 }
@@ -348,7 +376,7 @@ AUROC / CI / 所选层：NA；正式数据不足或未采集，不能回答是�
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`d9791b7e9fc2bddf494064ad4b971a3ab721374d`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`3a74b4157e890cea9295539fff48d756c091159c`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 

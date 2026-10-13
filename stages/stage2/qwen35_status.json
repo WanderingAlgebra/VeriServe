@@ -19,10 +19,16 @@
     "url": "https://raw.githubusercontent.com/KbsdJames/omni-math-rule/bda09972374225ab2186582615307d909965b864/omni_math_rule.jsonl"
   },
   "formal_generated": 0,
-  "note": "4B weights verified; actual GPU interface, sampling, full restore and independent same-schedule replay passed; one-shot BF16 differences retained",
-  "pipeline_pid": 29216,
+  "format_diagnostics": "stages/stage2/diagnostics/qwen35-format/summary.json",
+  "models_downloaded": {
+    "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
+    "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
+  },
+  "next_action": "Await protocol choice: preserve strict Step markers, or explicitly authorize fixed natural-paragraph boundaries with original-token alignment.",
+  "note": "10 smoke trajectories preserved; none has a valid intermediate boundary; 5 reached max_new_tokens. EOS fix and optional shared system prompt passed 31 regression tests. Short prompt diagnostics use smoke questions only and are not scientific results.",
+  "pipeline_pid": null,
   "pipeline_status": "stages/stage2/runs/v2-20261013-2f15553ff1e5/pipeline_status.json",
-  "real_model_smoke": "STARTING",
+  "real_model_smoke": "FAILED",
   "run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
   "smoke_generated": 10,
   "source_hashes": {
@@ -54,7 +60,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
+  "status": "STOPPED_SMOKE_FORMAT_FAILURE",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T13:29:50.299822+00:00"
+  "updated": "2026-10-13T14:14:40.120030+00:00"
 }

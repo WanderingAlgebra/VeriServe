@@ -39,6 +39,8 @@ def prepare(config_path):
         from ...inference import sampling_config
         if sampling_config(cfg) != sampling_config(baseline):
             raise ValueError('stage2/stage3 sampling mismatch')
+        if cfg.get('system_prompt') != baseline.get('system_prompt'):
+            raise ValueError('stage2/stage3 system prompt mismatch')
         for field in ('enable_thinking','prefill_chunk_size','max_new_tokens','max_total_tokens'):
             if cfg[field] != baseline[field]:
                 raise ValueError(f'stage2/stage3 setting mismatch: {field}')

@@ -406,6 +406,9 @@ def main(argv=None):
             smoke = read_json(run / "smoke_checks.json", {})
             resume = read_json(run / "resume_check.json", {})
             if not smoke.get("passed") or not resume.get("passed"):
+                questions=smoke.get('questions',{})
+                if len(questions)==cfg['split_sizes']['smoke'] and not any(v.get('applicable') for v in questions.values()):
+                    raise RuntimeError('All smoke questions generated but no valid intermediate steps; fix generation format before formal collection')
                 raise RuntimeError("Run all ten smoke questions and a separate --smoke --resume restart first")
             if smoke.get("source_code") != source_code() or resume.get("source_code") != source_code():
                 raise RuntimeError("Smoke/resume checks refer to different code; rerun --smoke --resume")
