@@ -14,6 +14,8 @@
 
 验证器只读取题目、当前前缀、步号、已有反馈与检查类型，不读取探针分数、路径名、标准答案、标准解答或未来推理。仅严格解析其 Thinking 关闭后的最终 JSON；格式错误、截断和输入超限分别记录。
 
+本轮已按用户授权采用 `thinking_paragraphs` 检查点，与 stage2 共用固定的系统提示、格式示例和边界规则。HIGH/LOW 的候选来自原生 Thinking 内真实双换行闭合段，去除明确答案段；“步号”在本轮表示外部检查点序号，不能把段落当作已认证的完整数学步骤。验证器按序接收带编号的引用单元，各单元文本拼接还原完整原始前缀，不输入未来分隔符，也不改写生成 token。终点答案有单独序号；PASS 冲突保护和完整混合快照规则保持有效。
+
 ```bash
 QWEN_PYTHON=environments/qwen35/.venv/bin/python
 QWEN_CONFIG=stages/stage3/qwen35_4b_omni_high_low_config.json

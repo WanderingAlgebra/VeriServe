@@ -280,7 +280,7 @@ def finish_arm(cfg, state, row):
         state['grading']={'answer':None,'label':1,'exclusion':state['termination']}
     else:
         text=state['submitted_text']
-        grade=grade_answer(text,row['answer'],'EOS',cfg['score_timeout_seconds'])
+        grade=grade_answer(text,row['answer'],'EOS',cfg['score_timeout_seconds'],cfg.get('boundary_mode','steps'))
         state['grading']=grade
         reason=grade.get('exclusion')
         state['Y']=None if reason and (reason.startswith('GOLD_') or reason.endswith('_TIMEOUT') or reason=='VERIFY_ERROR') else (

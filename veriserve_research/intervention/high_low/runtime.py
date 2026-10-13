@@ -4,7 +4,7 @@ import gc
 import math
 from pathlib import Path
 from veriserve_research.artifacts.io import atomic_json, stable_hash, now, safe_error
-from veriserve_research.trajectory import STEP, FINAL, boundaries, decode, thinking_view, thinking_error
+from veriserve_research.trajectory import STEP, FINAL, boundaries, decode, thinking_view, thinking_error, verification_units
 from veriserve_research.artifacts import storage
 from veriserve_research.intervention import protocol, fixed_step as fixed
 from . import source_hashes
@@ -286,11 +286,11 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
                                                      actual=token, before_first_check=True))
                 if token in eos_tokens(model):
                     state['eos'] = True
-                    if cfg.get('enable_thinking') and thinking_error(reasoning_text(state,tokenizer),terminal=True):
+                    if cfg.get('enable_thinking') and thinking_error(reasoning_text(state,tokenizer),terminal=True,mode=cfg.get('boundary_mode','steps')):
                         reason = 'THINKING_FORMAT_ERROR'
                         break
                     endpoint = protocol.terminal(tokenizer, state['reasoning_ids'], True,
-                                                 text=reasoning_text(state, tokenizer))
+                                                 text=reasoning_text(state, tokenizer),mode=cfg.get('boundary_mode','steps'))
                     if not endpoint or endpoint['reason'] != 'FINAL':
                         reason = endpoint.get('termination', 'FINAL_FORMAT_ERROR') if endpoint else 'EOS_FORMAT_FAILURE'
                         break
@@ -665,7 +665,7 @@ def check_generative(cfg, state, session, verifier, tokenizer, prefix_count, fin
         raise AssertionError('Second intermediate check forbidden')
     prefix = state['reasoning_ids'][:prefix_count]
     text = reasoning_text(state, tokenizer, 0, prefix_count)
-    numbers = [int(m.group(1)) for m in STEP.finditer(thinking_view(text))]
+    numbers,_ = verification_units(text,cfg.get('boundary_mode','steps'),terminal=final)
     if not numbers:
         return 'NO_SCORABLE_STEPS'
     kind = 'terminal' if final else 'intermediate'
@@ -725,7 +725,7 @@ def check_generative(cfg, state, session, verifier, tokenizer, prefix_count, fin
         return 'TERMINAL_UNCERTAIN' if final else None
     if verdict != 'FAIL':
         raise RuntimeError('Invalid effective generative verdict')
-    feedback_text = protocol.feedback_text(result['diagnosis'], result['hint'], state['checkpoint_step'])
+    feedback_text = protocol.feedback_text(result['diagnosis'], result['hint'], state['checkpoint_step'],cfg.get('boundary_mode','steps'))
     feedback_ids = tokenizer.encode(feedback_text, add_special_tokens=False)
     checkpoint = session.pass_checkpoint or session.prompt_checkpoint
     reason = budget(cfg, state, rollbacks=1, prefill_tokens=len(feedback_ids),
@@ -767,7 +767,7 @@ def generative_gpu_checks(cfg, run, row, selection, model, tokenizer, verifier):
             raise ReferenceMismatch(dict(unique_id=row['unique_id'],reason='SAMPLED_PILOT_PREFIX_MISMATCH'))
         control,paused = session.clone(),session.clone()
         text = decode(tokenizer,actual)
-        numbers = [int(m.group(1)) for m in STEP.finditer(thinking_view(text))]
+        numbers,_ = verification_units(text,cfg.get('boundary_mode','steps'))
         ids = verifier.input_ids(row['problem'],text,max(numbers),[],'intermediate')
         natural = verifier.verify(ids,row['unique_id'],numbers,0,'intermediate')
         expected,observed = [],[]

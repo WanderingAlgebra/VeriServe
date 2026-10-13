@@ -34,6 +34,7 @@ def prompt_tokens(cfg, tokenizer, problem):
     messages = []
     if cfg.get('system_prompt'):
         messages.append({'role': 'system', 'content': cfg['system_prompt']})
+    messages.extend(cfg.get('format_examples',[]))
     messages.append({"role": "user", "content": cfg["prompt"].replace("{problem}", problem)})
     return tokenizer.apply_chat_template(
         messages,
@@ -355,10 +356,22 @@ class GenerativeVerifier:
     def input_ids(self, problem, prefix, current_step, feedback, kind):
         import json
         from .intervention.protocol import VERIFIER_PROMPT
+        from .trajectory import verification_units, PARAGRAPHS
+        mode = getattr(self,'cfg',{}).get('boundary_mode','steps')
+        prompt = VERIFIER_PROMPT
+        if mode == PARAGRAPHS:
+            numbers, units = verification_units(prefix,mode,terminal=kind=='terminal')
+            if not numbers or current_step != numbers[-1]:
+                raise ValueError('Verifier checkpoint numbering differs from the exact prefix')
+            prefix = units
+            prompt += ('\nThe quoted prefix is an ordered array of externally numbered checkpoint units. '
+                       'Concatenating quoted_text restores the original prefix exactly. Numbers are metadata, '
+                       'not model-generated Step markers. A paragraph need not be one complete mathematical step. '
+                       'Use checkpoint_number as first_error_step; do not confuse it with numbers inside the quoted text.')
         message = json.dumps(dict(problem=problem, quoted_prefix=prefix, current_step=current_step,
                                   retained_feedback=feedback, check_type=kind), ensure_ascii=False)
         return self.tokenizer.apply_chat_template(
-            [{'role':'system','content':VERIFIER_PROMPT}, {'role':'user','content':message}],
+            [{'role':'system','content':prompt}, {'role':'user','content':message}],
             tokenize=True, add_generation_prompt=True, enable_thinking=True, return_dict=False)
 
     def verify(self, ids, uid, numbers, checkpoint_step, kind, audit_repeat=0):

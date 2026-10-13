@@ -302,15 +302,20 @@ def test_high_low_layer_comes_from_probe():
     assert self_check(layer=7)['status'] == 'PASS'
 
 
-def test_generative_check_pass_fail_uncertain_and_accounting(tmp_path,monkeypatch):
+@pytest.mark.parametrize('boundary_mode',('steps','thinking_paragraphs'))
+def test_generative_check_pass_fail_uncertain_and_accounting(tmp_path,monkeypatch,boundary_mode):
     from veriserve_research.intervention.high_low import runtime
     from veriserve_research.inference import Session
     from types import SimpleNamespace
     cfg=read_json(ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
+    cfg['boundary_mode']=boundary_mode
     monkeypatch.setattr(runtime,'clock',lambda:0.)
     class Tok:
         def decode(self,ids,**kwargs):
-            return ''.join({1:'prompt',2:'Step 1:',3:' x',4:'\nStep 2:',5:' y',8:'feedback'}[i] for i in ids)
+            parts={1:'prompt',2:'Step 1:',3:' x',4:'\nStep 2:',5:' y',8:'feedback'}
+            if boundary_mode == 'thinking_paragraphs':
+                parts.update({2:'Compute',3:' 1+1=2.',4:'\n\n',5:'Verify 2=2.'})
+            return ''.join(parts[i] for i in ids)
         def encode(self,text,**kwargs):
             return [8]
     class Verifier:
@@ -356,6 +361,54 @@ def test_generative_check_pass_fail_uncertain_and_accounting(tmp_path,monkeypatc
     assert state['budget']['generated_tokens']==4 and state['budget']['attempt_tokens']==0
     assert state['budget']['revoked_tokens']==2 and state['budget']['feedback_tokens']==1
     assert session.pass_checkpoint['ids']==[1,2,3]
+
+
+def test_paragraph_checkpoint_selection_verifier_and_terminal_contract():
+    from veriserve_research.trajectory import boundaries,decode,grade,verification_units,PARAGRAPHS
+    from veriserve_research.intervention import protocol
+    from veriserve_research.intervention.high_low.selection import _reference_bounds
+    from veriserve_research.inference import GenerativeVerifier
+    class Tok:
+        all_special_ids=[0]
+        def encode(self,text,**kwargs):return [ord(c)+1 for c in text]
+        def decode(self,ids,**kwargs):return ''.join(chr(i-1) if i else '<|im_end|>' for i in ids)
+        def apply_chat_template(self,messages,**kwargs):
+            self.messages=messages
+            return [1,2]
+    tok=Tok()
+    raw='计算 $1+1=2$。\n\nStep 1: Verify 2=2.\n\nFinal answer: \\boxed{2}\n\n</think>\nFinal answer: \\boxed{2}'
+    ids=tok.encode(raw)+[0]
+    text,bounds=boundaries(tok,ids,PARAGRAPHS)
+    assert len(bounds['steps'])==2 and len(bounds['excluded_steps'])==1
+    assert bounds['steps'][-1]['near_end'] and not bounds['format_errors']
+    for point in bounds['steps']:
+        prefix=decode(tok,ids[:point['prefix_token_count']])
+        assert len(prefix)==point['char_end'] and raw.startswith(prefix)
+        assert point['delimiter_char_start']>=len(prefix)
+    prefix=decode(tok,ids[:bounds['steps'][1]['prefix_token_count']])
+    numbers,units=verification_units(prefix,PARAGRAPHS)
+    assert numbers==[1,2] and ''.join(u['quoted_text'] for u in units)==prefix
+    verifier=object.__new__(GenerativeVerifier)
+    verifier.cfg={'boundary_mode':PARAGRAPHS}
+    verifier.tokenizer=tok
+    assert verifier.input_ids('problem',prefix,2,[],'intermediate')==[1,2]
+    payload=json.loads(tok.messages[1]['content'])
+    assert payload['quoted_prefix']==units and 'HIGH' not in json.dumps(payload)
+    endpoint=protocol.terminal(tok,ids,True,mode=PARAGRAPHS)
+    assert endpoint['reason']=='FINAL' and endpoint['answer']=='2'
+    assert grade(text,'2','EOS',5,PARAGRAPHS)['label']==0
+    bad=raw.replace('</think>\n','</think>\nHere is my solution.\n')
+    assert protocol.terminal(tok,tok.encode(bad)+[0],True,mode=PARAGRAPHS)['reason']=='FORMAT_ERROR'
+    assert grade(bad,'2','EOS',5,PARAGRAPHS)['exclusion']=='FINAL_FORMAT_ERROR'
+    assert grade(bad,'2','LENGTH_TRUNCATED',5,PARAGRAPHS)['exclusion']=='LENGTH_TRUNCATED'
+    record=dict(prompt_ids=[1],generated_ids=ids,raw_text=decode(tok,ids),completion='EOS',
+                boundaries=bounds,enable_thinking=True,boundary_mode=PARAGRAPHS)
+    record['token_sha256']=stable_hash({'prompt_ids':[1],'generated_ids':ids})
+    assert _reference_bounds(record,tok,PARAGRAPHS)==bounds
+    unfinished=tok.encode('A complete paragraph.\n\nUnfinished $x')
+    assert len(boundaries(tok,unfinished,PARAGRAPHS)[1]['steps'])==1
+    assert not boundaries(tok,tok.encode('<think>\n</think>'),PARAGRAPHS)[1]['steps']
+    assert 'Step ' not in protocol.feedback_text('bad','recompute',2,PARAGRAPHS)
 
 
 def test_verifier_quality_gate_requires_confirmed_independent_humans(tmp_path):
@@ -424,6 +477,9 @@ def test_chat_templates_explicitly_request_original_id_lists():
     assert prompt_tokens({'prompt':'Problem: {problem}','enable_thinking':True},tokenizer,'1+1')==[1,2,3]
     assert prompt_tokens({'prompt':'{problem}','enable_thinking':True,'system_prompt':'Strict format'},tokenizer,'1+1')==[1,2,3]
     assert tokenizer.messages==[{'role':'system','content':'Strict format'},{'role':'user','content':'1+1'}]
+    examples=[{'role':'user','content':'2+2?'},{'role':'assistant','content':'Final answer: \\boxed{4}'}]
+    prompt_tokens({'prompt':'{problem}','format_examples':examples},tokenizer,'question')
+    assert tokenizer.messages==examples+[{'role':'user','content':'question'}]
     verifier=object.__new__(GenerativeVerifier)
     verifier.tokenizer=tokenizer
     assert verifier.input_ids('1+1','Step 1: 1+1=2',1,[],'intermediate')==[1,2,3]

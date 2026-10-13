@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 import numpy as np
 from veriserve_research.artifacts.io import read_json, stable_hash, atomic_bytes, save_npz, digest
-from veriserve_research.trajectory import STEP, FINAL, ANSWER_STEP, boundaries, boxed, decode, thinking_view, thinking_error
+from veriserve_research.trajectory import STEP, FINAL, ANSWER_STEP, boundaries, boxed, decode, thinking_view, thinking_error, PARAGRAPHS, paragraph_spans
 from veriserve_research.probe.materials import record_path
 from ...artifacts.materials import material_key
 
@@ -42,9 +42,9 @@ def _probe(folder):
     return probe
 
 
-def _reference_bounds(record, tokenizer):
+def _reference_bounds(record, tokenizer, mode='steps'):
     """Validate completion/format without consulting the gold or original outcome."""
-    if record.get('enable_thinking') and thinking_error(record.get('raw_text',''),terminal=True):
+    if record.get('enable_thinking') and thinking_error(record.get('raw_text',''),terminal=True,mode=mode):
         raise ValueError('REFERENCE_THINKING_FORMAT_ERROR')
     if record.get("completion") != "EOS":
         raise ValueError("REFERENCE_" + str(record.get("completion", "INCOMPLETE")))
@@ -55,7 +55,7 @@ def _reference_bounds(record, tokenizer):
     if record.get("token_sha256") != stable_hash({"prompt_ids": prompt, "generated_ids": generated}):
         raise ValueError("REFERENCE_TOKEN_HASH_MISMATCH")
     if tokenizer is not None:
-        text, bounds = boundaries(tokenizer, generated)
+        text, bounds = boundaries(tokenizer, generated, mode)
         if decode(tokenizer, generated) != record.get("raw_text"):
             raise ValueError("REFERENCE_TEXT_TOKEN_MISMATCH")
         saved = record.get("boundaries")
@@ -74,11 +74,44 @@ def _reference_bounds(record, tokenizer):
             raise ValueError("INVALID_REFERENCE_EOS_SUFFIX")
         if re.search(r"<\|(?:im_start|im_end|endoftext)\|>", text):
             raise ValueError("REFERENCE_INTERIOR_CONTROL_TOKEN")
+    raw = text
     text = thinking_view(text)
     if "[Verification feedback]" in text:
         raise ValueError("INTERVENED_REFERENCE")
     if bounds.get("format_errors"):
         raise ValueError("; ".join(bounds["format_errors"]))
+    if mode == PARAGRAPHS:
+        final = raw.split('</think>',1)[1].strip() if '</think>' in raw else ''
+        if not FINAL.fullmatch(final) or boxed(final) is None:
+            raise ValueError('REFERENCE_FINAL_FORMAT_ERROR')
+        if record.get('boundary_mode') != mode or bounds.get('mode') != mode:
+            raise ValueError('REFERENCE_CHECKPOINT_MODE_MISMATCH')
+        spans = paragraph_spans(raw)
+        points = sorted(bounds['steps']+bounds['excluded_steps'],key=lambda p:p['step_number'])
+        if len(points) != len(spans):
+            raise ValueError('REFERENCE_CHECKPOINT_COVERAGE_MISMATCH')
+        for n,(point,span) in enumerate(zip(points,spans),1):
+            if (point['step_number'] != n or any(point[k] != v for k,v in span.items())
+                    or point['text'] != raw[span['char_start']:span['char_end']]):
+                raise ValueError('REFERENCE_CANDIDATE_METADATA_MISMATCH')
+        ordinary = [(s['step_number'],s['text'],s['char_start']) for s in bounds['steps']]
+    else:
+        ordinary = _ordinary_steps(text)
+    steps = bounds.get("steps", [])
+    if [(s["step_number"], s["text"], s["char_start"]) for s in steps] != ordinary:
+        raise ValueError("REFERENCE_CANDIDATE_METADATA_MISMATCH")
+    for step in steps:
+        count = step["prefix_token_count"]
+        if (type(count) is not int or not 0 < count <= len(generated)
+                or step["end_token_index"] != count - 1
+                or step["char_end"] != step["char_start"] + len(step["text"])):
+            raise ValueError("REFERENCE_ENDPOINT_MISMATCH")
+    if len(steps) < 2:
+        raise ValueError("FEWER_THAN_TWO_COMPLETE_NORMAL_STEPS")
+    return bounds
+
+
+def _ordinary_steps(text):
     finals, markers = list(FINAL.finditer(text)), list(STEP.finditer(text))
     if (len(finals) != 1 or text[finals[0].end():].strip()
             or boxed(finals[0].group()) is None):
@@ -93,18 +126,7 @@ def _reference_bounds(record, tokenizer):
         segment = text[marker.start():stop].rstrip()
         if not re.search(r"\\boxed\s*\{", segment) and not ANSWER_STEP.search(segment):
             ordinary.append((int(marker.group(1)), segment, marker.start()))
-    steps = bounds.get("steps", [])
-    if [(s["step_number"], s["text"], s["char_start"]) for s in steps] != ordinary:
-        raise ValueError("REFERENCE_CANDIDATE_METADATA_MISMATCH")
-    for step in steps:
-        count = step["prefix_token_count"]
-        if (type(count) is not int or not 0 < count <= len(generated)
-                or step["end_token_index"] != count - 1
-                or step["char_end"] != step["char_start"] + len(step["text"])):
-            raise ValueError("REFERENCE_ENDPOINT_MISMATCH")
-    if len(steps) < 2:
-        raise ValueError("FEWER_THAN_TWO_COMPLETE_NORMAL_STEPS")
-    return bounds
+    return ordinary
 
 
 def _saved_vectors(path, record, width, material, layer=19):
@@ -218,7 +240,7 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
     if reference is not None and record.get("reference_origin") != "stage3_stream_unintervened_greedy":
         raise ValueError("Replacement reference must record untouched stage3 streaming origin")
     try:
-        bounds = _reference_bounds(record, tokenizer)
+        bounds = _reference_bounds(record, tokenizer, manifest['config'].get('boundary_mode','steps'))
     except (ValueError, KeyError, TypeError) as exc:
         result["exclusion_reasons"] = [str(exc)]
         return _finish(result, started)

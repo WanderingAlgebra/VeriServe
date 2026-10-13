@@ -124,4 +124,10 @@ def report(run, manifest, counts, metrics=None, rows=None, coverage=None, failur
                       json.dumps({k: {'methods': {m: v.get('threshold_0_5') for m,v in metrics[k]['methods'].items()},
                                       'all_final_correct_baseline': metrics[k].get('all_final_correct_baseline')}
                                   for k in ('step_1','step_2','step_3','intermediate_all','full_trajectory_end')}, indent=2), '```']
+    if cfg.get('boundary_mode') == 'thinking_paragraphs':
+        lines = [line.replace('明确 Step 标记','固定双换行检查点').replace('步骤','检查点') for line in lines]
+        lines[2:2] = ['原生 Thinking 内的真实双换行定义候选检查点，不保证每段是完整数学推理单元。',
+            'step_1/2/3 等历史字段在本 run 中表示第 1/2/3 个有效检查点；HIGH/LOW 是离线参考位置诊断。',
+            f"格式示例固定在配置中（{len(cfg.get('format_examples',[]))//2} 个简单问答），不来自实验题集；stage2/stage3 输入一致。",
+            '最终答案只从 Thinking 闭合后的严格单行 Final answer 读取，Thinking 内引用该格式不参与评分。','']
     atomic_bytes(run / "report.md", "\n".join(lines).encode())

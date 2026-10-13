@@ -12,7 +12,7 @@
 
 作者固定提交的 Rule JSONL 已核对：2821 条记录、2816 道不同题、5 条完全重复、无冲突答案。SHA256 为 `d566d5b5a9865a04b507fdc4c0669cf0ff391748e13f190ecc925e78b584b172`。20 个标准答案未通过 Math-Verify 预解析，清单随 run 保存；不据此重抽题。正式 100 train、200 test、10 smoke 之外另留 20 verifier_dev 和 20 verifier_audit。
 
-保留原生 Thinking，步骤在思考块内，关闭后只输出一行 `Final answer`。stage2/stage3 共用逐 token 采样与逐题种子；presence penalty 对生成和反馈后缀的已见 token 施加一次，不作用于题目 prompt。A/B 在训练题内部五折选层，固定阈值 0.5 的分类指标与模型解题正确率分开报告。
+保留原生 Thinking，用户已授权把连续 Step 编号改为思考块内的真实双换行候选检查点；段落不保证是完整数学步骤。关闭 Thinking 后仍严格要求只输出一行 `Final answer`。stage2/stage3 共用逐 token 采样、逐题种子、系统提示和两个固定的简单问答格式示例（2+2、2+3），示例不来自实验题集。presence penalty 对生成和反馈后缀的已见 token 施加一次，不作用于整个题目输入。A/B 在训练题内部五折选层，固定阈值 0.5 的分类指标与模型解题正确率分开报告。
 
 ```bash
 # 新环境复用本机已安装且版本与锁一致的依赖；独立安装可用 uv sync。
@@ -30,7 +30,9 @@ $QWEN_PYTHON -m veriserve_research probe --config stages/stage2/qwen35_4b_omni_c
 
 用户已授权试验原生 Thinking 的双换行候选检查点，诊断见 [summary.json](diagnostics/qwen35-paragraphs/summary.json)。旧 10 条 smoke 中找到 305 个排除明确答案段后的候选，原始 token 对齐无失败或正文损失，源记录 SHA 保持不变；检查点可能稀疏，某条截断轨迹在最后一个候选之后又生成了 31582 token。候选不等同完整数学步骤，词法风险标记和模型辅助抽查不替代独立人工审计。
 
-移除 Step 编号要求后的前 3 条 smoke 短生成（2048 token）分别有 1、4、21 个闭合段，但都未结束 Thinking。进一步对同一道 smoke 题采用官方简短数学提示和原 32768 token 上限，在 2959 token 正常 EOS，Thinking 内有 24 个双换行闭合段；前 2048 token 与短测试完全一致。最终回复仍含解题过程，未满足旧的单行 `Final answer:` 要求。以上均为独立诊断；正式配置、旧轨迹和正式采集门槛保持原样，正式生成仍为 0/300。共享 stage2/stage3 检查点规则、终点格式与新 run 的完整 smoke 尚待适配。
+早期诊断中，前 3 条短生成（2048 token）分别有 1、4、21 个闭合段，但均未结束 Thinking；官方简短数学提示的一道完整题在 2959 token 正常 EOS，仍在最终回复重复解题过程。随后加入两个固定格式示例，同一道 smoke 题在 1083 token 正常 EOS，Thinking 后只有 `Final answer: \boxed{3}` 一行。诊断原始输出均保留，不能替代新 run 的完整 smoke。
+
+共享 stage2/stage3 解析现已支持 `boundary_mode=thinking_paragraphs`，新运行入口为 [v2-20261013-da5c802342ee](runs/v2-20261013-da5c802342ee)。中途特征对齐原始内容 token；段落分隔符属于稍后的观察，HIGH/LOW 使用离线冻结端点精确暂停，不宣称在线自动发现边界。验证器通过外部段落序号引用错误位置，其引用文本拼接后等于原始前缀；编号不写入生成器 token。最终答案只读取 Thinking 后的严格单行，内部引用答案格式不参与评分。旧诊断与旧 run 保留，正式采集仍须通过新 run 的 10 题 smoke、独立恢复和远端 LFS 核验。
 
 离线检查可复现：`$QWEN_PYTHON stages/stage2/diagnostics/qwen35-paragraphs/check.py`。它只读原始 smoke，输出独立诊断文件，不重新采样或评分。
 

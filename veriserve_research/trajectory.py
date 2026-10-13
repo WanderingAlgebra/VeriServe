@@ -5,6 +5,47 @@ from .artifacts.io import safe_error
 STEP = re.compile(r"(?m)^Step ([1-9]\d*):")
 FINAL = re.compile(r"(?m)^Final answer:[^\n]*")
 ANSWER_STEP = re.compile(r"(?i)\b(?:final answer|(?:the|our) answer\s+(?:is|equals)|answer is)\b")
+PARAGRAPHS = 'thinking_paragraphs'
+BLANK = re.compile(r'\r?\n[ \t]*(?:\r?\n[ \t]*)+')
+
+
+def paragraph_spans(raw, include_tail=False):
+    """Original character spans; only real blank lines close offline checkpoints."""
+    opening = re.match(r'\s*<think>', raw)
+    cursor = opening.end() if opening else 0
+    stop = raw.find('</think>', cursor)
+    stop = len(raw) if stop < 0 else stop
+    spans = []
+    for delimiter in BLANK.finditer(raw, cursor, stop):
+        segment = raw[cursor:delimiter.start()]
+        if segment.strip():
+            spans.append(dict(char_start=cursor+len(segment)-len(segment.lstrip()),
+                              char_end=cursor+len(segment.rstrip()),
+                              delimiter_char_start=delimiter.start(), delimiter_char_end=delimiter.end()))
+        cursor = delimiter.end()
+    tail = raw[cursor:stop]
+    if include_tail and tail.strip():
+        spans.append(dict(char_start=cursor+len(tail)-len(tail.lstrip()),
+                          char_end=cursor+len(tail.rstrip())))
+    return spans
+
+
+def verification_units(raw, mode='steps', terminal=False):
+    """External checkpoint labels for the verifier; never alter generator token IDs."""
+    if mode != PARAGRAPHS:
+        return [int(m.group(1)) for m in STEP.finditer(thinking_view(raw))], None
+    spans = paragraph_spans(raw, include_tail=True)
+    if terminal and '</think>' in raw:
+        start = raw.index('</think>')+len('</think>')
+        if raw[start:].strip():
+            spans.append(dict(char_start=start))
+    numbers = list(range(1, len(spans)+1))
+    # Retain every character, including wrappers and separators, exactly once.
+    starts = [0]+[span['char_start'] for span in spans[1:]]+[len(raw)] if spans else []
+    units = [dict(checkpoint_number=n, quoted_text=raw[a:b])
+             for n,a,b in zip(numbers,starts,starts[1:])]
+    assert ''.join(u['quoted_text'] for u in units) == raw or not spans
+    return numbers, units
 
 
 def boxed(text):
@@ -28,9 +69,13 @@ def boxed(text):
     return found[-1] if found else None
 
 
-def grade(text, gold, completion, timeout):
+def grade(text, gold, completion, timeout, mode='steps'):
     from math_verify import LatexExtractionConfig, parse, verify
     from math_verify.utils import TimeoutException
+    if mode == PARAGRAPHS:
+        text = text.split('</think>', 1)[1].strip() if '</think>' in text else ''
+        if completion == 'EOS' and text and not FINAL.fullmatch(text):
+            return dict(answer=None,label=None,exclusion='FINAL_FORMAT_ERROR')
     text = thinking_view(text)
     result = {"answer": None, "label": None, "exclusion": None}
     lines = list(FINAL.finditer(text))
@@ -117,13 +162,15 @@ def thinking_view(text):
     return re.sub(r"</?think>", lambda m: "\n" * len(m.group()), text)
 
 
-def thinking_error(raw, terminal=False):
+def thinking_error(raw, terminal=False, mode='steps'):
     if raw.count('<think>') > 1 or raw.count('</think>') > 1:
         return 'MULTIPLE_THINKING_WRAPPERS'
     if '<think>' in raw and raw[:raw.index('<think>')].strip():
         return 'MISPLACED_THINKING_OPEN'
     if terminal and raw.count('</think>') != 1:
         return 'UNCLOSED_THINKING'
+    if mode == PARAGRAPHS:
+        return None  # Native thoughts may quote final-answer syntax or restart numbering.
     if '</think>' in raw:
         closed = raw.index('</think>')
         view = thinking_view(raw)
@@ -137,7 +184,9 @@ def control_ids(tokenizer):
     return set(tokenizer.all_special_ids) - {vocab.get('<think>'), vocab.get('</think>')}
 
 
-def boundaries(tokenizer, generated_ids):
+def boundaries(tokenizer, generated_ids, mode='steps'):
+    if mode not in ('steps',PARAGRAPHS):
+        raise ValueError(f'Unknown boundary mode: {mode}')
     special = control_ids(tokenizer)
     content_ids = list(generated_ids)
     while content_ids and content_ids[-1] in special:
@@ -155,6 +204,30 @@ def boundaries(tokenizer, generated_ids):
         result["end"] = aligned_end(tokenizer, content_ids, raw, len(raw))
     except ValueError as exc:
         result["format_errors"].append(str(exc))
+    if mode == PARAGRAPHS:
+        result['mode'] = mode
+        result['selection_semantics'] = 'offline reference paragraph endpoints; delimiter observed later'
+        for number,span in enumerate(paragraph_spans(raw),1):
+            segment = raw[span['char_start']:span['char_end']]
+            point = dict(step_number=number,text=segment,near_end=False,**span)
+            if re.search(r'\\boxed\s*\{',segment) or ANSWER_STEP.search(segment):
+                point['reason'] = 'EXPLICIT_FINAL_OR_BOXED'
+                result['excluded_steps'].append(point)
+                continue
+            try:
+                point.update(aligned_end(tokenizer,content_ids,raw,span['char_end'],span['char_start']))
+                if raw[point['aligned_char_end']:span['char_end']].strip():
+                    raise ValueError('CHECKPOINT_TOKEN_CROSSES_CONTENT')
+                if result['steps'] and point['prefix_token_count'] <= result['steps'][-1]['prefix_token_count']:
+                    raise ValueError('NONINCREASING_CHECKPOINT_TOKENS')
+                point['effective_step'] = len(result['steps'])+1
+                result['steps'].append(point)
+            except ValueError as exc:
+                point['reason'] = str(exc)
+                result['excluded_steps'].append(point)
+        if result['steps']:
+            result['steps'][-1]['near_end'] = True
+        return raw, result
     matches = list(STEP.finditer(text))
     final = list(FINAL.finditer(text))
     final_start = final[0].start() if final else len(text)

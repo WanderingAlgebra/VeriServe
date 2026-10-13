@@ -2,7 +2,7 @@
 from __future__ import annotations
 import math
 import re
-from ..trajectory import FINAL, STEP, boundaries, boxed, decode, thinking_view, control_ids, thinking_error
+from ..trajectory import FINAL, STEP, boundaries, boxed, decode, thinking_view, control_ids, thinking_error, verification_units, PARAGRAPHS
 from ..artifacts.legacy import prm_components, stage1_feedback
 _FEEDBACK = re.compile(
     r"(?ms)^\[Verification feedback\]\n.*?^\[Continue\]\n"
@@ -77,7 +77,7 @@ def delay_boundary(tokenizer, generated_ids):
     return None
 
 
-def terminal(tokenizer, generated_ids, eos=False, text=None):
+def terminal(tokenizer, generated_ids, eos=False, text=None, mode='steps'):
     """Submit a complete standalone Final answer only after EOS, using stage2 format."""
     if not eos:
         return None
@@ -86,7 +86,9 @@ def terminal(tokenizer, generated_ids, eos=False, text=None):
     while ids and ids[-1] in specials:
         ids.pop()
     if text is None:
-        text = thinking_view(decode(tokenizer, ids))
+        text = decode(tokenizer, ids)
+        if mode != PARAGRAPHS:
+            text = thinking_view(text)
     else:
         # Dedicated reasoning buffers may need a newline where feedback was
         # removed. Strip EOS by its original decoded suffix, never re-tokenize.
@@ -95,7 +97,17 @@ def terminal(tokenizer, generated_ids, eos=False, text=None):
         suffix = original[len(content):] if original.startswith(content) else ""
         if suffix and text.endswith(suffix):
             text = text[:-len(suffix)]
-    wrapper_error = thinking_error(text,terminal=True) if '</think>' in text or '<think>' in text else None
+    wrapper_error = thinking_error(text,terminal=True,mode=mode) if '</think>' in text or '<think>' in text else None
+    if mode == PARAGRAPHS:
+        final = text.split('</think>',1)[1].strip() if '</think>' in text else ''
+        numbers,_ = verification_units(text,mode,terminal=True)
+        answer = boxed(final)
+        error = wrapper_error or ('INTERIOR_CONTROL_TOKEN' if any(t in specials for t in ids) else None)
+        error = error or ('FINAL_FORMAT_ERROR' if not FINAL.fullmatch(final) else None)
+        error = error or ('MISSING_OR_INCOMPLETE_BOXED' if answer is None else None)
+        return dict(reason='FORMAT_ERROR' if error else 'FINAL',termination=error,
+                    answer=None if error else answer,text=text,current_step=numbers[-1] if numbers else 0,
+                    prefix_ids=ids,pending_ids=[])
     text = thinking_view(text)
     finals = list(FINAL.finditer(text))
     matches = list(STEP.finditer(text))
@@ -180,7 +192,12 @@ def verdict_from_scores(scores, numbers, prior_count, threshold=.35):
             "verifier_output_kind": "deterministic_adapter_from_process_reward"}
 
 
-def feedback_text(diagnosis, hint, checkpoint_step):
+def feedback_text(diagnosis, hint, checkpoint_step, mode='steps'):
+    if mode == PARAGRAPHS:
+        accepted = (f'Keep the accepted prefix through checkpoint {checkpoint_step}. Continue reasoning from there.'
+                    if checkpoint_step else 'No reasoning prefix has been accepted. Restart reasoning from the problem.')
+        return (f'\n[Verification feedback]\nDiagnosis: {diagnosis}\nHint: {hint}\n'
+                f'[Continue]\n{accepted}\nThe later attempt has been discarded.\n')
     value = stage1_feedback(diagnosis, hint, checkpoint_step)
     if checkpoint_step == 0:
         value = value.replace("Keep the accepted Steps 1–0. The later attempt has been discarded.",

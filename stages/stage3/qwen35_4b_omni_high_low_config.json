@@ -3,6 +3,7 @@
   "backup_every": 25,
   "batch_size": 1,
   "bootstrap": 1000,
+  "boundary_mode": "thinking_paragraphs",
   "cache_backend": "full_state_snapshot",
   "causal_atol": 0.03125,
   "causal_rtol": 0.008,
@@ -19,6 +20,24 @@
   "expected_hidden_size": 2560,
   "experiment_type": "within_question_high_low",
   "feature_extraction": "independent_original_prefixes; selected layer from probe_B.json",
+  "format_examples": [
+    {
+      "content": "What is 2+2?",
+      "role": "user"
+    },
+    {
+      "content": "Final answer: \\boxed{4}",
+      "role": "assistant"
+    },
+    {
+      "content": "What is 2+3?",
+      "role": "user"
+    },
+    {
+      "content": "Final answer: \\boxed{5}",
+      "role": "assistant"
+    }
+  ],
   "max_forward_tokens": 262144,
   "max_new_tokens": 32768,
   "max_prm_calls": 4,
@@ -31,7 +50,7 @@
   "model_cache_dir": "/root/autodl-tmp/hf-qwen35",
   "prefill_chunk_size": 2048,
   "presence_penalty": 1.5,
-  "prompt": "Solve the following math problem using your native Thinking. Inside the thinking block, write all reasoning as consecutive \"Step 1:\", \"Step 2:\", etc., separated by blank lines. Do not box intermediate results. After closing the thinking block, output only one line: Final answer: \\boxed{your final answer}. Do not repeat the reasoning in the final response.\n\nProblem:\n{problem}",
+  "prompt": "{problem}",
   "reference_policy": "strict shared sampled reference; never recollect on mismatch",
   "repetition_penalty": 1.0,
   "revisions": {
@@ -41,14 +60,15 @@
     "verifier": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
     "verifier_tokenizer": "c202236235762e1c871ad0ccb60c8ee5ba337b9a"
   },
-  "run_note": "PASS checkpoint preserves scored tail in original crossing token; logical reasoning removes only unscored following-marker overlap after rollback",
+  "run_note": "Authorized natural Thinking paragraph checkpoints; strict final-only line; two fixed synthetic format examples; exact original token endpoints selected offline.",
   "score_timeout_seconds": 5,
   "seed": 20261013,
   "split_sizes": {
     "pilot": 4,
     "test": 200
   },
-  "stage2_run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
+  "stage2_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
+  "system_prompt": "Your final response must be exactly one line: Final answer: \\boxed{answer}. No explanation or working in the final response.",
   "temperature": 1.0,
   "terminal_policy": "PASS only; checkpoint conflict becomes UNCERTAIN; restore full nearest PASS state",
   "threshold_metrics": true,

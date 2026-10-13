@@ -126,6 +126,12 @@ def prepare(config_path):
                 "grading": {"library": "Math-Verify", "extraction": "last complete boxed on separate Final answer line",
                             "parse": "LatexExtractionConfig(boxed_match_priority=0), no_fallback, first_match, raise_on_error",
                             "gold_wrapper": "$...$", "timeout_seconds": cfg["score_timeout_seconds"]}}
+    if cfg.get('boundary_mode') == 'thinking_paragraphs':
+        manifest['checkpoint_definition'] = dict(unit='actual double-newline-closed paragraph within native Thinking',
+            token_alignment='last complete original content token; no retokenization; unalignable content excluded',
+            selection='offline reference endpoints; delimiter occurs later and is not supplied to online checks',
+            verifier_numbering='external paragraph ordinals; terminal answer has its own final ordinal',
+            terminal_format='exactly one Final answer line after native Thinking; internal quoted answer syntax ignored')
     atomic_json(run / "manifest.json", manifest)
     event(run, "PREPARED", sizes={k: len(v) for k, v in splits.items()})
     return cfg, run, manifest
@@ -180,15 +186,17 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=Tr
                   "code_commit": git("rev-parse", "HEAD"), "script_sha256": digest(__file__),
                   "config_hash": stable_hash(cfg), "generation_seed": seed,
                   "sampling": sampling_config(cfg), "enable_thinking": cfg.get("enable_thinking", False),
+                  "boundary_mode": cfg.get('boundary_mode','steps'),
                   "token_sha256": stable_hash({"prompt_ids": prompt_ids, "generated_ids": generated_ids}),
                   "timings": {"generation_seconds": time.perf_counter() - start},
                   "generation_peak_bytes": torch.cuda.max_memory_allocated()}
         atomic_json(path, record)  # Save tokens before scoring or hidden extraction.
     start = time.perf_counter()
-    text, bounds = boundaries(tokenizer, record["generated_ids"])
+    mode = cfg.get('boundary_mode','steps')
+    text, bounds = boundaries(tokenizer, record["generated_ids"], mode)
     record["boundaries"] = bounds
-    record.update(grade(text, row["answer"], record["completion"], cfg["score_timeout_seconds"]))
-    if cfg.get('enable_thinking') and thinking_error(record['raw_text'], terminal=True):
+    record.update(grade(text, row["answer"], record["completion"], cfg["score_timeout_seconds"], mode))
+    if cfg.get('enable_thinking') and thinking_error(record['raw_text'], terminal=True, mode=mode):
         record.update(label=None, exclusion='THINKING_FORMAT_ERROR')
     if cfg.get('enable_thinking') and bounds['format_errors']:
         record.update(label=None, exclusion='STEP_FORMAT_ERROR')
@@ -446,10 +454,16 @@ def main(argv=None):
                 completed += 1
                 if args.smoke and needs_causal:
                     checks["questions"][row["unique_id"]] = causal_check(model, record, cfg)
+                    if cfg.get('boundary_mode') == 'thinking_paragraphs':
+                        checks['questions'][row['unique_id']].update(completion=record['completion'],
+                            scorable=record.get('label') is not None,exclusion=record.get('exclusion'))
                     applicable = [v for v in checks["questions"].values() if v.get("applicable", True)]
                     checks["passed"] = (len(checks["questions"]) == cfg["split_sizes"]["smoke"]
                                         and bool(applicable) and all(v["passed"] for v in applicable))
                     checks["not_applicable"] = len(checks["questions"]) - len(applicable)
+                    if cfg.get('boundary_mode') == 'thinking_paragraphs':
+                        checks['scorable_questions'] = sum(v.get('scorable',False) for v in checks['questions'].values())
+                        checks['passed'] = checks['passed'] and checks['scorable_questions'] > 0
                     checks["updated_at"] = now()
                     atomic_json(run / "smoke_checks.json", checks)
                     if checks["questions"][row["unique_id"]]["passed"] is False:

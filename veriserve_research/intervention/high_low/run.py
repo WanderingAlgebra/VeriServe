@@ -41,6 +41,10 @@ def prepare(config_path):
             raise ValueError('stage2/stage3 sampling mismatch')
         if cfg.get('system_prompt') != baseline.get('system_prompt'):
             raise ValueError('stage2/stage3 system prompt mismatch')
+        if cfg.get('format_examples',[]) != baseline.get('format_examples',[]):
+            raise ValueError('stage2/stage3 format examples mismatch')
+        if cfg.get('boundary_mode','steps') != baseline.get('boundary_mode','steps'):
+            raise ValueError('stage2/stage3 checkpoint rule mismatch')
         for field in ('enable_thinking','prefill_chunk_size','max_new_tokens','max_total_tokens'):
             if cfg[field] != baseline[field]:
                 raise ValueError(f'stage2/stage3 setting mismatch: {field}')
@@ -422,7 +426,7 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
     import numpy as np
     from ...inference import load_model, GenerativeVerifier
     from ...probe.collect import collect_one
-    from ...trajectory import decode, STEP, thinking_view
+    from ...trajectory import decode, verification_units
     if not cfg.get('stage2_run'):
         raise ValueError('Prepare new stage2 and set its actual stage2_run first')
     stage2 = ROOT/cfg['stage2_run']
@@ -470,7 +474,7 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
                 counts.append((record['boundaries']['end']['prefix_token_count'],'terminal'))
             for count,kind in dict.fromkeys(counts):
                 prefix=decode(tokenizer,record['generated_ids'][:count])
-                numbers=[int(m.group(1)) for m in STEP.finditer(thinking_view(prefix))]
+                numbers,_=verification_units(prefix,cfg.get('boundary_mode','steps'),terminal=kind=='terminal')
                 if not numbers:
                     continue
                 ids=verifier.input_ids(row['problem'],prefix,max(numbers),[],kind)
