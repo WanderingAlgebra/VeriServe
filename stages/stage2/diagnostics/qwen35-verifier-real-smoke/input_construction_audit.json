@@ -395,7 +395,7 @@
       "input_sha256": "a2f20f380f38be1c48d16d5b4121edea2952f21feab85d48e78a24081ceb4164",
       "input_tokens": 4992,
       "prefix_token_count": 4249,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "df9af8a321516208b329d6aea7e7e313cda29ccc9e67811a8b20ac10ca2b1b46"
     },
     {
@@ -430,7 +430,7 @@
       "input_sha256": "1ccd28dfd4be8e5c1ce1200c1d524b65823f6e9ac699d21a487efd5accac7e08",
       "input_tokens": 15238,
       "prefix_token_count": 13833,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "df9af8a321516208b329d6aea7e7e313cda29ccc9e67811a8b20ac10ca2b1b46"
     },
     {
@@ -478,7 +478,7 @@
       "input_sha256": "427b2a2006a444799941df7eb2583b1331164d974d80bf5729d177ba74b55b62",
       "input_tokens": 20136,
       "prefix_token_count": 18326,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "df9af8a321516208b329d6aea7e7e313cda29ccc9e67811a8b20ac10ca2b1b46"
     },
     {
@@ -491,7 +491,7 @@
       "input_sha256": "969252a5be7f4daa0b2cdd014f59a2c3e9ee011d1fb3d79bd74ef98b40eb3963",
       "input_tokens": 11187,
       "prefix_token_count": 10213,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "da479a3d912813cafd000d6da2242458f8d38e1ce9cb95bf0de0f3b01794aef3"
     },
     {
@@ -503,7 +503,7 @@
       "input_sha256": "9cbd1ba71782410cafc06c1353cbee60e57a34d6c69089f705f2aa8e252aa75a",
       "input_tokens": 23902,
       "prefix_token_count": 22545,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "8d921bb20bae08d9cc071dea699a7fa358f8ceb4d5c04595b7ff7cfa4ea5e51d"
     },
     {
@@ -519,7 +519,7 @@
       "input_sha256": "275f0b282288bba51ff3fe81e2f82627819a37c848920bdb0a8b14613f286204",
       "input_tokens": 10644,
       "prefix_token_count": 9527,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "768eae894c4b077e6491275907b34520b257d7725b86b6364c24392f7dfe50c0"
     },
     {
@@ -630,7 +630,7 @@
   ],
   "scope": "CPU input construction audit of all 21 predeclared real smoke checkpoints; no model loading, generation, mathematics labels, formal reference migration, or human quality claims.",
   "status": "PASS",
-  "saved_inputs_matched": 10,
+  "saved_inputs_matched": 16,
   "saved_input_matching": "Join by unique_id, exact prefix token count and check_type; native review filenames use their own existing key helper.",
-  "updated": "2026-10-13T20:54:02.082654+00:00"
+  "updated": "2026-10-13T21:06:28.163972+00:00"
 }

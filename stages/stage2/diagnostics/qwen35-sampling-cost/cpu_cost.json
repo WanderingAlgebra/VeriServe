@@ -29,5 +29,11 @@
     }
   ],
   "scope": "Read-only CPU Python-list tensor-construction microbenchmark, one torch CPU thread; no GPU calls, generation, sampler changes or overall speedup claim.",
-  "status": "CPU_CONSTRUCTION_COST_MEASURED"
+  "status": "CPU_CONSTRUCTION_COST_MEASURED",
+  "sources": [
+    "https://docs.pytorch.org/docs/2.8/generated/torch.tensor.html",
+    "https://docs.pytorch.org/docs/2.8/tensor_view.html"
+  ],
+  "candidate": "Reuse tokens[0,prompt_length:] for presence-penalty unique IDs; the complete history tensor is already constructed in sample_token.",
+  "gpu_measurement": "Queued behind confirmed-live native verifier PID 125544; no code adopted until output and RNG equality plus isolated CUDA timing are checked."
 }

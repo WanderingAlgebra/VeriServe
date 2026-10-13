@@ -159,7 +159,7 @@
     "strict_format_valid": false
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T20:45:16.668822+00:00",
+  "updated": "2026-10-13T21:07:03.552336+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,
@@ -199,7 +199,15 @@
     "native_command": "verifier-smoke",
     "source_run_is_superseded_for_formal_collection": true,
     "pid": 125544,
-    "saved_checks": 4,
+    "saved_checks": 16,
     "planned_checks": 21
+  },
+  "sampling_cost_diagnostic": {
+    "path": "stages/stage2/diagnostics/qwen35-sampling-cost",
+    "status": "CPU_COST_MEASURED_GPU_COMPARISON_QUEUED",
+    "queue_pid": 133900,
+    "source_modified": false,
+    "adopted": false,
+    "max_observed_duplicate_cpu_copy_ms": 2.6311062276363373
   }
 }
