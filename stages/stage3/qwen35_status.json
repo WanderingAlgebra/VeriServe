@@ -4,10 +4,10 @@
   "formal_pairs": 0,
   "human_audit": "NOT_RUN",
   "note": "Formal HIGH/LOW requires independent confirmed human labels, capacity and four GPU pilots",
-  "phase": "Implementation and CPU checks complete; official weights downloading",
+  "phase": "9B download resumed; waiting for stage2 and human audit",
   "pilot_pairs": 0,
   "real_model_capacity": "NOT_RUN",
-  "stage2_run": "stages/stage2/runs/v2-20261013-ac98a06f1a89",
+  "stage2_run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
   "status": "AWAITING_STAGE2_AND_HUMAN_AUDIT",
-  "updated": "2026-10-13T09:57:49.523942+00:00"
+  "updated": "2026-10-13T11:35:33.975707+00:00"
 }
