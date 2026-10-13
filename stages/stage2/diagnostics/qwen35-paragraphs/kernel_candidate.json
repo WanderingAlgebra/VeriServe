@@ -10,6 +10,11 @@
     "transformers": "5.19.0",
     "triton": "3.4.0"
   },
+  "isolated_target": "/root/project/VeriServe-step-hidden-probe/.cache/qwen35-fla-candidate/site-packages",
+  "isolated_versions": {
+    "einops": "0.8.1",
+    "fla-core": "0.3.2"
+  },
   "notes": "Candidate is outside sys.path. Before use: isolated GPU speed and full-cache restoration checks, then a new execution identity; never change the active run backend.",
   "packages": [
     {
@@ -33,6 +38,7 @@
     }
   ],
   "primary_documentation": "https://huggingface.co/docs/transformers/v5.19.0/model_doc/qwen3_5#usage-tips-and-notes",
-  "scope": "Static package compatibility only; no package installed or imported, no performance or numerical-equivalence claim.",
-  "status": "STAGED_WHEELS_ONLY"
+  "scope": "Only isolated target installation verified; target absent from active sys.path. No GPU speed, numerical or restoration checks performed yet.",
+  "status": "ISOLATED_TARGET_PREPARED",
+  "updated": "2026-10-13T17:52:26.368431+00:00"
 }

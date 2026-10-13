@@ -5,3 +5,5 @@ PUSHED a39ede66e4f6972792f774ab1c50fef3249227e9 remote_feature_verified=True
 [transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
 [transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
 8cbe0c48c29d 13936 EOS final_format_valid False
+PUSHED 98dd0b067b567ae05797aedc6f380a2bddf272a4 remote_feature_verified=True
+6113b9f050d6 12876 EOS final_format_valid False
