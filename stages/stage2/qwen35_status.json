@@ -54,7 +54,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "SMOKE_ALL_RECORDS_RESUME_AUDIT",
+  "status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T13:29:12.231061+00:00"
+  "updated": "2026-10-13T13:29:50.299822+00:00"
 }

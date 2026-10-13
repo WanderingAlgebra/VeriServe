@@ -1,5 +1,5 @@
 {
-  "phase": "SMOKE_ALL_RECORDS_RESUME_AUDIT",
+  "phase": "STAGE2_FORMAL_COLLECTION_AND_FIT",
   "pid": 29216,
   "run": "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-2f15553ff1e5",
   "source_hashes": {
@@ -24,5 +24,5 @@
     "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
     "veriserve_research/trajectory.py": "21b74f7b2d70b3ec1282aa2ac352868a3b485357e7fbde2ee157e1c93a65beed"
   },
-  "updated": "2026-10-13T13:29:12.229729+00:00"
+  "updated": "2026-10-13T13:29:50.297717+00:00"
 }
