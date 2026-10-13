@@ -1,12 +1,23 @@
 {
   "exclusions": {
-    "FINAL_FORMAT_ERROR": 2,
+    "FINAL_FORMAT_ERROR": 3,
     "SCORABLE": 1,
-    "THINKING_FORMAT_ERROR": 1
+    "THINKING_FORMAT_ERROR": 3
   },
   "expected_questions": 10,
-  "note": "Descriptive engineering coverage only; full smoke and resume gate not yet passed; formal supervisor held.",
+  "note": "Engineering coverage only; full smoke and resume gate not passed; supervisor held.",
   "questions": [
+    {
+      "candidates": 1,
+      "completion": "LENGTH_TRUNCATED",
+      "exclusion": "THINKING_FORMAT_ERROR",
+      "generated_tokens": 32768,
+      "max_checkpoint_gap_tokens": 22545,
+      "scorable": false,
+      "stage": "FEATURES",
+      "trailing_tokens_after_last_candidate": 10223,
+      "unique_id": "8d921bb20bae08d9cc071dea699a7fa358f8ceb4d5c04595b7ff7cfa4ea5e51d"
+    },
     {
       "candidates": 8,
       "completion": "EOS",
@@ -17,6 +28,28 @@
       "stage": "FEATURES",
       "trailing_tokens_after_last_candidate": 68,
       "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+    },
+    {
+      "candidates": 36,
+      "completion": "EOS",
+      "exclusion": "FINAL_FORMAT_ERROR",
+      "generated_tokens": 18327,
+      "max_checkpoint_gap_tokens": 2543,
+      "scorable": false,
+      "stage": "FEATURES",
+      "trailing_tokens_after_last_candidate": 994,
+      "unique_id": "df9af8a321516208b329d6aea7e7e313cda29ccc9e67811a8b20ac10ca2b1b46"
+    },
+    {
+      "candidates": 3,
+      "completion": "LENGTH_TRUNCATED",
+      "exclusion": "THINKING_FORMAT_ERROR",
+      "generated_tokens": 32768,
+      "max_checkpoint_gap_tokens": 22555,
+      "scorable": false,
+      "stage": "FEATURES",
+      "trailing_tokens_after_last_candidate": 22555,
+      "unique_id": "da479a3d912813cafd000d6da2242458f8d38e1ce9cb95bf0de0f3b01794aef3"
     },
     {
       "candidates": 57,
@@ -53,5 +86,5 @@
     }
   ],
   "status": "INCOMPLETE",
-  "updated": "2026-10-13T16:21:27.078992+00:00"
+  "updated": "2026-10-13T16:59:01.225132+00:00"
 }

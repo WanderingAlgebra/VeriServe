@@ -1,0 +1,38 @@
+{
+  "active_environment_modified": false,
+  "created": "2026-10-13T16:59:01.214606+00:00",
+  "cuda_compiler_available": false,
+  "future_execution_identity_required": true,
+  "gpu_validation": "NOT_RUN",
+  "installed_versions": {
+    "einops": null,
+    "torch": "2.8.0+cu128",
+    "transformers": "5.19.0",
+    "triton": "3.4.0"
+  },
+  "notes": "Candidate is outside sys.path. Before use: isolated GPU speed and full-cache restoration checks, then a new execution identity; never change the active run backend.",
+  "packages": [
+    {
+      "metadata_url": "https://pypi.org/pypi/fla-core/0.3.2/json",
+      "name": "fla-core",
+      "requires": [
+        "torch>=2.5",
+        "einops"
+      ],
+      "sha256": "e751d5a41e33eee721a6fb6588bd857f6f36e0d14719a23b1ebdbd617d307209",
+      "version": "0.3.2",
+      "wheel": ".cache/qwen35-fla-candidate/fla_core-0.3.2-py3-none-any.whl"
+    },
+    {
+      "metadata_url": "https://pypi.org/pypi/einops/0.8.1/json",
+      "name": "einops",
+      "requires": null,
+      "sha256": "919387eb55330f5757c6bea9165c5ff5cfe63a642682ea788a6d472576d81737",
+      "version": "0.8.1",
+      "wheel": ".cache/qwen35-fla-candidate/einops-0.8.1-py3-none-any.whl"
+    }
+  ],
+  "primary_documentation": "https://huggingface.co/docs/transformers/v5.19.0/model_doc/qwen3_5#usage-tips-and-notes",
+  "scope": "Static package compatibility only; no package installed or imported, no performance or numerical-equivalence claim.",
+  "status": "STAGED_WHEELS_ONLY"
+}
