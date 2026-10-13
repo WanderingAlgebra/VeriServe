@@ -130,7 +130,11 @@ def counts(run, manifest):
 
 
 def backup(run, manifest, reason):
-    return backup_high_low(run, counts(run, manifest), reason)
+    status=backup_high_low(run, counts(run, manifest), reason)
+    if (manifest.get('config',{}).get('verifier',{}).get('kind')=='generative'
+            and status.get('status')!='PUSHED'):
+        raise RuntimeError('Generative HIGH/LOW remote backup failed; local data retained, collection stopped')
+    return status
 
 
 def cpu_checks(cfg, run):
@@ -298,6 +302,8 @@ def run_phase(cfg, run, manifest, phase, model, tokenizer, verifier, backend, st
     if phase == 'pilot' and checks.get('status') == 'PASS' and all(complete_pair(run, row) for row in manifest['splits']['pilot']):
         print('pilot all valid completed pairs skipped; frozen GPU checks preserved', flush=True)
         return
+    if cfg.get('verifier',{}).get('kind')=='generative':
+        backup(run,manifest,f'{phase} before paired requests')
     done = 0
     for index, row in enumerate(manifest['splits'][phase]):
         if complete_pair(run, row):
@@ -380,6 +386,8 @@ def main(argv=None):
                     for row in rows:
                         freeze_selection(cfg, run, row, split, None, None)
             analyze.analyze(cfg, run, manifest)
+            if cfg.get('verifier',{}).get('kind')=='generative':
+                backup(run,manifest,'prepared frozen inputs before model requests')
             return
         if phase == 'backup':
             backup(run, manifest, 'manual backup')
@@ -420,6 +428,15 @@ def main(argv=None):
         raise
 
 
+def backup_verifier_review(stage2, folder, reason):
+    """Both reference tokens and verifier judgments must reach the native remote."""
+    from ...artifacts.backup import backup_probe
+    backup_probe(stage2, f'Qwen3.5 verifier references: {reason}')
+    status = backup_high_low(folder, {}, f'verifier review {reason}')
+    if status.get('status') != 'PUSHED':
+        raise RuntimeError('Verifier review remote backup failed; local data retained, stop before next question')
+
+
 def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
     """Fixed length-position samples, blind human review export and held-out gate."""
     import json
@@ -434,6 +451,9 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
     if not source or source['config']['model'] != cfg['model']:
         raise ValueError('New stage2 manifest required')
     folder = output or HERE/'runs'/('verifier-'+run_identity(cfg,'high-low',{'stage2_manifest':digest(stage2/'manifest.json')}))
+    folder=Path(folder).resolve()
+    if not folder.is_relative_to(ROOT.resolve()):
+        raise ValueError('Verifier review output must be inside the repository for required native backup')
     folder.mkdir(parents=True,exist_ok=True)
     identity = dict(config_hash=stable_hash(cfg),source_hashes=source_hashes(),stage2_manifest_sha256=digest(stage2/'manifest.json'))
     saved = read_json(folder/'identity.json')
@@ -459,10 +479,11 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
     atomic_json(folder/f'{split}_ordered_ids.json',[r['unique_id'] for r in cohort])
     generator=tokenizer=verifier=None
     try:
+        backup_verifier_review(stage2,folder,f'{phase} prepared inputs')
         generator,tokenizer=load_model(source['config'])
         verifier=GenerativeVerifier(cfg)
         review=[]
-        for row in cohort:
+        for index,row in enumerate(cohort,1):
             record,_=collect_one(source['config'],stage2,split,row,generator,tokenizer,environment(True),features=False)
             steps=record['boundaries']['steps']
             counts=[]
@@ -505,11 +526,13 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
                 review.append(dict(input_sha256=item['input_sha256'],unique_id=row['unique_id'],problem=row['problem'],
                                    quoted_prefix=prefix,check_type=kind,reference_answer=row['answer'],
                                    reference_solution=row['solution'],label=None,first_error_step=None,reviewer=None,confirmed=False))
+            backup_verifier_review(stage2,folder,f'{phase} question {index}/{len(cohort)}')
         # Keep judgments separate from blind review inputs and from online model inputs.
         atomic_json(folder/f'{split}_review_inputs.json',review)
         result=dict(status='AWAITING_HUMAN_REVIEW' if split=='verifier_audit' else 'COLLECTED',split=split,
                     questions=len(cohort),checks=len(review),folder=str(folder),**identity)
         atomic_json(folder/f'{split}_status.json',result)
+        backup_verifier_review(stage2,folder,f'{phase} review export')
         print(result,flush=True)
         return result
     finally:

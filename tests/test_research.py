@@ -434,6 +434,47 @@ def test_verifier_quality_gate_requires_confirmed_independent_humans(tmp_path):
     assert failed['status']=='INSUFFICIENT_OR_FAILED'
 
 
+@pytest.mark.parametrize('fail_at',(1,2))
+def test_verifier_review_backup_failure_stops_before_next_question(tmp_path,monkeypatch,fail_at):
+    from veriserve_research.intervention.high_low import run as high_low
+    from veriserve_research import inference
+    from veriserve_research.probe import collect
+    monkeypatch.setattr(high_low,'ROOT',tmp_path)
+    monkeypatch.setattr(high_low,'environment',lambda *args,**kwargs:{})
+    rows=[dict(unique_id='first'),dict(unique_id='second')]
+    atomic_json(tmp_path/'stage2/manifest.json',dict(config={'model':'fixture'},splits={'smoke':rows}))
+    cfg=dict(stage2_run='stage2',model='fixture')
+    collected=[]
+    def collect_row(*args,**kwargs):
+        collected.append(args[3]['unique_id'])
+        return dict(boundaries={'steps':[]},completion='LENGTH_TRUNCATED',generated_ids=[1]),True
+    monkeypatch.setattr(collect,'collect_one',collect_row)
+    monkeypatch.setattr(inference,'load_model',lambda cfg:(object(),object()))
+    monkeypatch.setattr(inference,'GenerativeVerifier',lambda cfg:object())
+    pushed=[]
+    monkeypatch.setattr(backup,'backup_probe',lambda *args:pushed.append('references'))
+    def push_review(*args):
+        pushed.append('judgments')
+        count=pushed.count('judgments')
+        return {'status':'LOCAL_ONLY' if count==fail_at else 'PUSHED'}
+    monkeypatch.setattr(high_low,'backup_high_low',push_review)
+    with pytest.raises(RuntimeError,match='remote backup failed'):
+        high_low.verifier_review(cfg,'verifier-smoke',tmp_path/'review')
+    assert collected==([] if fail_at==1 else ['first'])
+    assert pushed==['references','judgments']*fail_at
+
+
+def test_generative_pilot_rejects_local_only_backup_before_requests(tmp_path,monkeypatch):
+    from veriserve_research.intervention.high_low import run as high_low
+    cfg={'verifier':{'kind':'generative'}}
+    manifest={'config':cfg,'splits':{'pilot':[{'unique_id':'first'}]}}
+    atomic_json(tmp_path/'self_check.json',{'status':'PASS','source_hashes':high_low.source_hashes()})
+    monkeypatch.setattr(high_low,'backup_high_low',lambda *args:{'status':'LOCAL_ONLY'})
+    monkeypatch.setattr(high_low,'freeze_selection',lambda *args:pytest.fail('Backup failure started a request'))
+    with pytest.raises(RuntimeError,match='remote backup failed'):
+        high_low.run_phase(cfg,tmp_path,manifest,'pilot',None,None,None,{})
+
+
 def test_text_loading_unpacks_model_and_serializes_loading_info(monkeypatch):
     import torch
     import transformers

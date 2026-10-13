@@ -16,6 +16,8 @@
 
 本轮已按用户授权采用 `thinking_paragraphs` 检查点，与 stage2 共用固定的系统提示、格式示例和边界规则。HIGH/LOW 的候选来自原生 Thinking 内真实双换行闭合段，去除明确答案段；“步号”在本轮表示外部检查点序号，不能把段落当作已认证的完整数学步骤。验证器按序接收带编号的引用单元，各单元文本拼接还原完整原始前缀，不输入未来分隔符，也不改写生成 token。终点答案有单独序号；PASS 冲突保护和完整混合快照规则保持有效。
 
+新 Qwen3.5 实验在配对请求前要求 Git/LFS 远端备份成功；验证器 smoke、开发和核验在启动前、每题结束及人工审阅文件导出后备份参考记录与验证结果。备份失败保留本地材料并停止后续采集，恢复时先重试备份。审阅输出目录须位于仓库内。
+
 ```bash
 QWEN_PYTHON=environments/qwen35/.venv/bin/python
 QWEN_CONFIG=stages/stage3/qwen35_4b_omni_high_low_config.json
@@ -204,7 +206,7 @@ python -m veriserve_research analyze --run stages/stage3/runs/20261004-109173095
 
 两类实验每 10 个完整题报告进度，并在计时外做 Git/LFS 备份，使用现有分支 `experiment/step-hidden-probe`。固定第二步备份包含 stage3、当前实现及必要环境 / LFS 元数据；推送失败停止下一批，恢复先重试备份。第一批完整配对从独立临时 checkout 取回快照、两条路径和 NPZ，核对 SHA-256。损坏 JSON 保留原字节并优先从已提交备份恢复，不能恢复则停止。
 
-同题 HIGH/LOW 在无远端权限时保存本地状态。它的备份失败处理与固定第二步不同，不能把两者当作同一个恢复协议。长期快照只保存 token 和 CPU 特征，不保存 GPU KV，也不改写 stage1/stage2 的原材料。
+旧 PRM 同题 HIGH/LOW 在无远端权限时保存本地状态；新 Qwen3.5 生成式验证器实验要求远端备份成功后才继续采集。长期快照只保存 token 和 CPU 特征，不保存 GPU KV，也不改写 stage1/stage2 的原材料。
 
 ### 恢复历史执行
 

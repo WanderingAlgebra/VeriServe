@@ -1,0 +1,7 @@
+{
+  "child_pid": 70604,
+  "created": "2026-10-13T16:07:26.519649+00:00",
+  "reason": "Review complete smoke format coverage before formal freeze; current two of first three outputs are unscorable. Smoke child continues unchanged.",
+  "status": "WAITING_FOR_COMPLETE_SMOKE",
+  "supervisor_pid": 65456
+}
