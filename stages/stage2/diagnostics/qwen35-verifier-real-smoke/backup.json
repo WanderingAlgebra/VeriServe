@@ -1,8 +1,6 @@
 {
-  "commit": "111eb70bf30b7ff8d8a8846197b64131202e8a68",
   "completed_pairs": {},
-  "created": "2026-10-13T20:37:05.657571+00:00",
-  "pushed_at": "2026-10-13T20:37:13.126982+00:00",
-  "reason": "verifier review verifier-smoke prepared inputs",
-  "status": "PUSHED"
+  "created": "2026-10-13T20:42:36.716733+00:00",
+  "reason": "verifier review verifier-smoke question 1/10",
+  "status": "PENDING"
 }
