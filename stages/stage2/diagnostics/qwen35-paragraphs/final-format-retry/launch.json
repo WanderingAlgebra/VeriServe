@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+    "-u",
+    "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-paragraphs/final-format-retry/trial.py",
+    "--wait-pid",
+    "70604"
+  ],
+  "created": "2026-10-13T16:37:20.711157+00:00",
+  "pid": 80001,
+  "source_commit": "1c499f6b88513658c37674f588f0a5050e3a0209"
+}

@@ -1,5 +1,12 @@
 {
   "checkpoint_trial": {
+    "final_format_retry": {
+      "path": "stages/stage2/diagnostics/qwen35-paragraphs/final-format-retry",
+      "pid": 80001,
+      "questions": 4,
+      "selection": "original smoke first four; no outcome-based order",
+      "status": "QUEUED_AFTER_COMPLETE_SMOKE"
+    },
     "format_calibration": "stages/stage2/diagnostics/qwen35-paragraphs/few_shot_final_only_prompt_trial.json",
     "format_calibration_final_one_line": true,
     "format_calibration_generated_tokens": 1083,
@@ -54,7 +61,7 @@
     "scope": "first smoke first checkpoint and trajectory end, all 32 layers",
     "status": "PASS"
   },
-  "smoke_generated": 4,
+  "smoke_generated": 5,
   "smoke_scorable": 1,
   "source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
@@ -87,5 +94,5 @@
   },
   "status": "SMOKE_RUNNING_WITH_FORMAL_HOLD",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T16:21:27.079994+00:00"
+  "updated": "2026-10-13T16:37:20.722420+00:00"
 }
