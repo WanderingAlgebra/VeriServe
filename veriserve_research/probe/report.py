@@ -49,7 +49,7 @@ def report(run, manifest, counts, metrics=None, rows=None, coverage=None, failur
              f"运行：`{source_run.name}`；报告更新于 {datetime.now(ZoneInfo('Asia/Shanghai')).isoformat()}。", "",
              "标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途步骤；不是局部错误标签。", "",
              f"模型 `{cfg['model']}`，revision `{cfg['revisions']['model']}`；tokenizer `{cfg['revisions']['tokenizer']}`。",
-             f"数据 `{cfg['dataset']}` / test，revision `{cfg['revisions']['dataset']}`。",
+             f"数据 `{cfg['dataset']}` / {cfg['dataset_split']}，revision `{cfg['revisions']['dataset']}`。",
              f"按 unique_id 排序后用种子 {cfg['seed']} 洗牌：100 train / 200 test / 10 smoke，剩余 190 不使用；原始字段见 manifest.json。",
              "BF16 / 单卡 / batch 1 / SDPA / greedy；4096 新 token、8192 总 token；C=0.1、max_iter=2000；所有 Transformer 层分别做训练内五折选层。", "",
              "这是采用逐步训练、题目权重、明确 Step 标记和独立测试的适配实验，不宣称完全复现论文。", "",

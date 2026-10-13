@@ -20,6 +20,8 @@
   },
   "formal_generated": 0,
   "note": "No scientific result yet; full checkpoint download and GPU smoke pending",
+  "pipeline_pid": 17854,
+  "pipeline_status": "stages/stage2/runs/v2-20261013-ac98a06f1a89/pipeline_status.json",
   "real_model_smoke": "NOT_RUN",
   "run": "stages/stage2/runs/v2-20261013-ac98a06f1a89",
   "smoke_generated": 0,
@@ -52,7 +54,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "PREPARED_WEIGHTS_DOWNLOADING",
+  "status": "WAITING_FOR_4B_WEIGHTS",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T09:53:42.417999+00:00"
+  "updated": "2026-10-13T09:58:43.176263+00:00"
 }
