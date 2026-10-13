@@ -3,11 +3,15 @@
   "cpu_regression_tests_passed": 29,
   "formal_pairs": 0,
   "human_audit": "NOT_RUN",
+  "models_downloaded": {
+    "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
+    "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
+  },
   "note": "Formal HIGH/LOW requires independent confirmed human labels, capacity and four GPU pilots",
-  "phase": "9B download resumed; waiting for stage2 and human audit",
+  "phase": "9B weights verified; waiting for shared paragraph-checkpoint adaptation, new stage2 smoke and human audit",
   "pilot_pairs": 0,
   "real_model_capacity": "NOT_RUN",
   "stage2_run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
   "status": "AWAITING_STAGE2_AND_HUMAN_AUDIT",
-  "updated": "2026-10-13T11:35:33.975707+00:00"
+  "updated": "2026-10-13T14:43:02.801302+00:00"
 }
