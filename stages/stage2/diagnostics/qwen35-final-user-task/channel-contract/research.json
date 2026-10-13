@@ -1,0 +1,14 @@
+{
+  "sources": [
+    {
+      "url": "https://huggingface.co/Qwen/Qwen3.5-4B/blob/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/README.md",
+      "scope": "Official pinned model card: native Thinking followed by final response; recommends boxed math answers. Exact one-line final-response compliance is not guaranteed by that documentation."
+    },
+    {
+      "url": "https://github.com/QwenLM/Qwen3/discussions/1789",
+      "scope": "Primary user discussion about unwanted reasoning under Qwen3; anecdotal and a different model family, not evidence that any proposed fix works on this pinned Qwen3.5 run."
+    }
+  ],
+  "decision": "Keep original model, native Thinking, sampler, seeds and strict parser. Diagnose explicit reasoning/final channel wording once on the already-declared second smoke question; never inject, delete or repair generated tokens. Real verifier smoke uses existing fixed length-based checks and no human correctness claims.",
+  "formal_protocol_changed": false
+}

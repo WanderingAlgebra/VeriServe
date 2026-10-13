@@ -1,0 +1,169 @@
+{
+  "status": "PREDECLARED_WAITING_FOR_GPU",
+  "validation_only": true,
+  "scientific_results": false,
+  "human_audit": false,
+  "source_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
+  "source_manifest_sha256": "3f08eeedbdbb39f8dee5f8c944500fba02f5b70cba5c7c1b270d5514f2a9deba",
+  "before_original_files_sha256": {
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/0015809f6341a9656a0b.json": "8f49c9fc49d77464f938cb17d7d80e4b79bd3fe277c4ceabe27d1242ed90d978",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/29fb09aef2d2b8192e12.json": "fddfe994d3fefff964aa5128034ab02b800840f28a46b0f7bc3928a4c8e8b3e4",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/5bc5cc06c5ec1e5c60a2.json": "c5872f39c089c56b0b4064e573788f9e6df7183d1cb4805a0f8d86dd10b91680",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/722fbccd50c4dbcfee15.json": "5b073eba8b51c696ebefe4c9d0d526b7b1cb63330f91f703bd4ee4182c61d266",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/8fe8ba3e885ab91a95bb.json": "db91be48ced63f90e3577f3e71240be7287e0bcd70f63d6ff79043af35886e65",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/9ccccfe8203576afba40.json": "4b03ab03300c533aab5b2808dab68a85c8ab0a5b69ad3f6ccc2f8456a33cf467",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/d3d76e355f0a3a408887.json": "ddfdbb39b16881002c7c776e1b8873035353d73c5298e0dab3477d72366b3a39",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/eca310ad5d6fad19fe38.json": "c16e1989a6ce4876a0bd3497b772e8253714d660fae97c68f9f7462fd9fa4e14",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/f45649608d5fd4570df0.json": "a46b7b922b5217ed3421eb001bd0c8f239dc3296afda963a0ea25df9b4aa2902",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/fcf507d339715cc9c36e.json": "7e4c12f9c408a0dcf5e52b4f48b6ef2c85f75d94ac2eb631e410dd39eaa8fc40",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/0015809f6341a9656a0b.features-793814c0c3f6.npz": "25618dc78b14d93249ce78f294dccbfa6cc34b3285980097937f5d3580a94dd7",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/29fb09aef2d2b8192e12.features-793814c0c3f6.npz": "d5f95a912e78d73d58bb5bc0ab85b6f9f9badb3c61e896d67787026afc8568d3",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/5bc5cc06c5ec1e5c60a2.features-793814c0c3f6.npz": "0cc18f4d4c9ea37fa51ff4d32e3aae925e928ab34159dd8a6b491de643d453bc",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/722fbccd50c4dbcfee15.features-793814c0c3f6.npz": "d960d17bcbb0949966a28031c893b97cde4b20cdf5148756ca1a263d1607ba6b",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/8fe8ba3e885ab91a95bb.features-793814c0c3f6.npz": "65d55c6b1d964d30d45f45850b8e69a05bec8a0ed4c1930e60246a70f05807a2",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/9ccccfe8203576afba40.features-793814c0c3f6.npz": "b9a46475adc48af68817721df8aea2053e11ab420df13c86a097c760a9d2d16c",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/d3d76e355f0a3a408887.features-793814c0c3f6.npz": "3be8278400d23b452a42f7e2e9a3a59c7f6c34437e26cebf39f4696d52728d88",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/eca310ad5d6fad19fe38.features-793814c0c3f6.npz": "d9c85afbf16a3ae139f902bff769c81bd11209f7a42c78a351325612601dc177",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/f45649608d5fd4570df0.features-793814c0c3f6.npz": "2c032c95c28f187c24b12c1b73f0fa5a631075ea09c63c898e960026c797b043",
+    "stages/stage2/runs/v2-20261013-da5c802342ee/records/smoke/fcf507d339715cc9c36e.features-793814c0c3f6.npz": "a26ef37177569b47224293831718c3c325f196c1b6bdd63052b4b66dec0033cb"
+  },
+  "selection": "All ten original smoke questions in fixed manifest order; native verifier-smoke length-position sampling; no probe/verdict/gold selection. Source run remains superseded for formal collection.",
+  "ordered_checks": [
+    {
+      "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69",
+      "selected_checks": [
+        [
+          7532,
+          "intermediate"
+        ],
+        [
+          21051,
+          "intermediate"
+        ],
+        [
+          27343,
+          "terminal"
+        ]
+      ]
+    },
+    {
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355",
+      "selected_checks": [
+        [
+          5047,
+          "intermediate"
+        ],
+        [
+          15373,
+          "intermediate"
+        ],
+        [
+          20286,
+          "terminal"
+        ]
+      ]
+    },
+    {
+      "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c",
+      "selected_checks": [
+        [
+          230,
+          "intermediate"
+        ],
+        [
+          802,
+          "intermediate"
+        ],
+        [
+          1082,
+          "terminal"
+        ]
+      ]
+    },
+    {
+      "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2",
+      "selected_checks": [
+        [
+          3532,
+          "intermediate"
+        ]
+      ]
+    },
+    {
+      "unique_id": "df9af8a321516208b329d6aea7e7e313cda29ccc9e67811a8b20ac10ca2b1b46",
+      "selected_checks": [
+        [
+          4249,
+          "intermediate"
+        ],
+        [
+          13833,
+          "intermediate"
+        ],
+        [
+          18326,
+          "terminal"
+        ]
+      ]
+    },
+    {
+      "unique_id": "da479a3d912813cafd000d6da2242458f8d38e1ce9cb95bf0de0f3b01794aef3",
+      "selected_checks": [
+        [
+          10213,
+          "intermediate"
+        ]
+      ]
+    },
+    {
+      "unique_id": "8d921bb20bae08d9cc071dea699a7fa358f8ceb4d5c04595b7ff7cfa4ea5e51d",
+      "selected_checks": [
+        [
+          22545,
+          "intermediate"
+        ]
+      ]
+    },
+    {
+      "unique_id": "768eae894c4b077e6491275907b34520b257d7725b86b6364c24392f7dfe50c0",
+      "selected_checks": [
+        [
+          9527,
+          "intermediate"
+        ],
+        [
+          24958,
+          "intermediate"
+        ]
+      ]
+    },
+    {
+      "unique_id": "b06dd6f0e8140ab15e5f660bc6712886b667213459eb3739c23eded89f8c459a",
+      "selected_checks": [
+        [
+          11713,
+          "intermediate"
+        ],
+        [
+          25163,
+          "intermediate"
+        ]
+      ]
+    },
+    {
+      "unique_id": "66e9762e872ce0fd44499350967561202d4c7450fb2762d8d4fbee382e857432",
+      "selected_checks": [
+        [
+          9250,
+          "intermediate"
+        ],
+        [
+          24025,
+          "intermediate"
+        ]
+      ]
+    }
+  ],
+  "generator_trial_pid": 123193,
+  "supervisor_pid": 123836
+}

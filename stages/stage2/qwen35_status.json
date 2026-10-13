@@ -150,7 +150,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "FORMAT_DECISION_PENDING_AFTER_THREE_PROMPT_FAILURES",
+  "status": "STRICT_CHANNEL_PROMPT_AND_REAL_VERIFIER_DIAGNOSIS",
   "strict_user_prompt_trial": {
     "generated_tokens": 23795,
     "path": "stages/stage2/diagnostics/qwen35-final-user-task",
@@ -159,7 +159,7 @@
     "strict_format_valid": false
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T20:28:09.854586+00:00",
+  "updated": "2026-10-13T20:32:29.815967+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,
@@ -178,8 +178,22 @@
     "status": "SYNTHETIC_CONTROLS_PASS"
   },
   "strict_channel_prompt_trial": {
-    "status": "PREDECLARED",
+    "status": "RUNNING",
     "path": "stages/stage2/diagnostics/qwen35-final-user-task/channel-contract",
-    "selection": "Original second smoke UID; same seed, sampler, model revision and native backend; final-line rule unchanged."
+    "selection": "Original second smoke UID; same seed, sampler, model revision and native backend; final-line rule unchanged.",
+    "pid": 123193,
+    "max_new_tokens": 49152,
+    "original_final_line_rule_retained": true
+  },
+  "real_verifier_smoke": {
+    "status": "QUEUED_AFTER_CHANNEL_PROMPT",
+    "supervisor_pid": 123836,
+    "path": "stages/stage2/diagnostics/qwen35-verifier-real-smoke",
+    "questions": 10,
+    "checks": 21,
+    "validation_only": true,
+    "human_audit": false,
+    "native_command": "verifier-smoke",
+    "source_run_is_superseded_for_formal_collection": true
   }
 }
