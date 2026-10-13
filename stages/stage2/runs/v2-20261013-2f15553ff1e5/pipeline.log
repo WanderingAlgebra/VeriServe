@@ -31,3 +31,14 @@ RUN v2-20261013-2f15553ff1e5
   warnings.warn(
 SKIP smoke self-check
 SELF_CHECK passed (34 checks)
+PUSHED 3e3645a2a7fa1ba7a34b82a20526ed08d1c21785 remote_feature_verified=False
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 12056.18it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+DONE smoke 0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2 label=None exclusion=STEP_FORMAT_ERROR steps=0 tokens=32768
+DONE smoke da479a3d912813cafd000d6da2242458f8d38e1ce9cb95bf0de0f3b01794aef3 label=None exclusion=STEP_FORMAT_ERROR steps=0 tokens=32768
+DONE smoke 8d921bb20bae08d9cc071dea699a7fa358f8ceb4d5c04595b7ff7cfa4ea5e51d label=None exclusion=STEP_FORMAT_ERROR steps=0 tokens=32768
+DONE smoke 768eae894c4b077e6491275907b34520b257d7725b86b6364c24392f7dfe50c0 label=None exclusion=STEP_FORMAT_ERROR steps=0 tokens=32768
+DONE smoke 66e9762e872ce0fd44499350967561202d4c7450fb2762d8d4fbee382e857432 label=None exclusion=STEP_FORMAT_ERROR steps=0 tokens=32768
