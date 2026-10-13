@@ -1,8 +1,9 @@
 {
-  "completed": 2,
+  "completed": 4,
   "created": "2026-10-13T16:37:20.804632+00:00",
-  "current_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c",
+  "current_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2",
   "driver_sha256": "71950f392bd4837fd79c19137997459e5e81eb368ff94e91e00490af39e68041",
+  "error": "'NoneType' object has no attribute 'get'",
   "execution_commit": "a39ede66e4f6972792f774ab1c50fef3249227e9",
   "execution_source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
@@ -26,6 +27,7 @@
     "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
     "veriserve_research/trajectory.py": "0e2fa62e8b6b778b00b35fcc490008cbbb5c9dcade1c6fcfb71222d1f5ac1d2a"
   },
+  "finished": "2026-10-13T18:20:46.748203+00:00",
   "limitations": "No correctness tuning or formal labels; does not replace ten fresh smoke or resume checks.",
   "new_smoke_passed": false,
   "ordered_ids": [
@@ -34,11 +36,18 @@
     "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c",
     "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
   ],
+  "parser_failure": {
+    "error": "'NoneType' object has no attribute 'get'",
+    "finished": "2026-10-13T18:12:44.562470+00:00",
+    "status": "FAILED"
+  },
+  "parser_recovered_without_generation": true,
   "pid": 80001,
+  "postprocess_driver_sha256": "e71534476f1e457e5de34b092b7775754270f31f5ef071e5a0a180c126c12621",
   "scientific_results": false,
   "selection": "Original first four smoke questions in manifest order; format-only calibration.",
   "source_manifest_sha256": "3f08eeedbdbb39f8dee5f8c944500fba02f5b70cba5c7c1b270d5514f2a9deba",
-  "status": "GENERATING",
+  "status": "DIAGNOSTIC_COMPLETE",
   "validation_only": true,
   "wait_pid": 70604
 }

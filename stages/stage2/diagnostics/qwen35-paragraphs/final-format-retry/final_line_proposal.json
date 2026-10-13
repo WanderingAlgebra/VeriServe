@@ -1,0 +1,53 @@
+{
+  "approved": false,
+  "created": "2026-10-13T18:03:47.731662+00:00",
+  "note": "Independent human verifier audit, mathematics equivalence checks, fixed datasets, seeds and all quality gates remain required. Any approved change needs a new execution identity.",
+  "original_plan": "/root/.codex/attachments/093046d1-7bbe-4e50-ac96-ae38d7cb42a0/已粘贴的文本.txt",
+  "original_requirement": "关闭思考块后只输出一行 Final answer: \\boxed{...}",
+  "proposed_parseable_questions": 3,
+  "proposed_requirement": "Allow native final explanation, then require exactly one complete Final answer line at the end after native Thinking; preserve all original tokens, EOS and truncation rules.",
+  "rows": [
+    {
+      "explanation_chars_before_final": 1555,
+      "final_answer_line_count": 1,
+      "limitation": "Format diagnosis only; no correctness labels or changes to official grading.",
+      "proposed_format_parseable": true,
+      "record_sha256": "8d84e78144dbebe7e2250f56d5c5d06552009c7c548f045a503cff9532c27c77",
+      "strict_final_only_valid": false,
+      "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+    },
+    {
+      "explanation_chars_before_final": 2466,
+      "final_answer_line_count": 1,
+      "limitation": "Format diagnosis only; no correctness labels or changes to official grading.",
+      "proposed_format_parseable": true,
+      "record_sha256": "d1207f1d77435e59bdc466570b7fb2acb6ca155973630dd4dff19ef7832238a1",
+      "strict_final_only_valid": false,
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+    },
+    {
+      "explanation_chars_before_final": 1304,
+      "final_answer_line_count": 1,
+      "limitation": "Format diagnosis only; no correctness labels or changes to official grading.",
+      "proposed_format_parseable": true,
+      "record_sha256": "dc3127d44fdc9efe36fc19fc98ac02847cb79cb2a932a03f477f18c179afc770",
+      "strict_final_only_valid": false,
+      "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+    },
+    {
+      "completion": "LENGTH_TRUNCATED",
+      "limitation": "Truncation remains excluded under both rules.",
+      "proposed_format_parseable": false,
+      "strict_final_only_valid": false,
+      "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+    }
+  ],
+  "sources": [
+    "https://huggingface.co/Qwen/Qwen3.5-4B/blob/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a/README.md",
+    "https://github.com/huggingface/Math-Verify"
+  ],
+  "status": "PROPOSAL_ONLY_NOT_APPLIED",
+  "strict_parseable_questions": 0,
+  "total_questions": 4,
+  "updated": "2026-10-13T18:23:48.790597+00:00"
+}

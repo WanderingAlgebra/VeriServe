@@ -9,3 +9,11 @@ PUSHED 98dd0b067b567ae05797aedc6f380a2bddf272a4 remote_feature_verified=True
 6113b9f050d6 12876 EOS final_format_valid False
 PUSHED f07198fc148a7ff24714ab10489384125ff82def remote_feature_verified=True
 30908b652875 3499 EOS final_format_valid False
+PUSHED dbdfb5bf1d1dd528f5aef67db77791fad9089d47 remote_feature_verified=True
+Traceback (most recent call last):
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-paragraphs/final-format-retry/trial.py", line 111, in <module>
+    main()
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-paragraphs/final-format-retry/trial.py", line 98, in main
+    final_format_valid=endpoint.get('reason')=='FINAL',finished=now())
+                       ^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'

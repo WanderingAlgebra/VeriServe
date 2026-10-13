@@ -95,7 +95,7 @@ def main():
         endpoint = terminal(tokenizer,generated,eos,mode=PARAGRAPHS)
         record.update(stage='PARSED',boundaries=bounds,terminal=endpoint,
             thinking_error=thinking_error(raw,terminal=True,mode=PARAGRAPHS),
-            final_format_valid=endpoint.get('reason')=='FINAL',finished=now())
+            final_format_valid=(endpoint or {}).get('reason')=='FINAL',finished=now())
         atomic_json(path,record)
         print(row['unique_id'][:12],len(generated),record['completion'],
               'final_format_valid',record['final_format_valid'],flush=True)

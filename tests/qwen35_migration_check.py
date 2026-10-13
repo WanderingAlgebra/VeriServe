@@ -1,6 +1,6 @@
 """Real-model interface/restore diagnostics; no scientific trajectories or backup bypass.
 
-python tests/qwen35_migration_check.py --gpu [--capacity] [--saved-run RUN]
+python tests/qwen35_migration_check.py --gpu [--capacity] [--saved-run RUN] [--benchmark-run RUN]
 """
 from __future__ import annotations
 import argparse
@@ -20,10 +20,11 @@ def main():
     parser.add_argument('--gpu',action='store_true')
     parser.add_argument('--capacity',action='store_true')
     parser.add_argument('--saved-run',type=Path,help='Compare first smoke record NPZ endpoints with independent original prefixes')
+    parser.add_argument('--benchmark-run',type=Path,help='Time fixed original prefixes under the active backend; diagnostic only')
     parser.add_argument('--output',type=Path)
     args=parser.parse_args()
-    if args.saved_run and not args.gpu:
-        parser.error('--saved-run requires --gpu')
+    if (args.saved_run or args.benchmark_run) and not args.gpu:
+        parser.error('--saved-run and --benchmark-run require --gpu')
     sources={k:source_hashes(k) for k in ('probe','high-low')}
     output=args.output or ROOT/'.cache/qwen35-validation'/stable_hash({'sources':sources,'validator':digest(__file__)})[:12]
     output.mkdir(parents=True,exist_ok=True)
@@ -108,6 +109,64 @@ def main():
             atomic_json(output/'validation.json',result)
             if not check['passed'] or not check['source_unchanged']:
                 raise RuntimeError('Disk features differ from original-prefix reconstruction; original tolerances retained')
+        if args.benchmark_run:
+            import inspect
+            import numpy as np
+            from transformers.models.qwen3_5 import modeling_qwen3_5 as kernels
+            from veriserve_research.probe.materials import record_path,read_record
+            run=args.benchmark_run.resolve()
+            manifest=read_json(run/'manifest.json')
+            if manifest['config']!=cfg or manifest['source_hashes']!=sources['probe']:
+                raise RuntimeError('Benchmark source differs from the frozen model/config/source')
+            path=record_path(run,'smoke',manifest['splits']['smoke'][0]['unique_id'])
+            before=digest(path)
+            record=read_record(path,run,recover=False)
+            backend={}
+            for name in ('torch_chunk_gated_delta_rule','torch_recurrent_gated_delta_rule'):
+                fn=getattr(kernels,name)
+                while fn is not None:
+                    closure=inspect.getclosurevars(fn).nonlocals
+                    if 'implementation' in closure:
+                        break
+                    fn=getattr(fn,'__wrapped__',None)
+                if fn is None:
+                    raise RuntimeError('Cannot identify the pinned Transformer kernel dispatcher')
+                backend[name]=dict(module=closure['implementation'].__module__,
+                                   optimized=closure['is_new_implementation'])
+            forced=record['generated_ids'][:256]
+            assert len(forced)==256
+            repetitions=[]
+            torch.cuda.empty_cache()
+            torch.cuda.reset_peak_memory_stats()
+            for _ in range(2):
+                start=clock()
+                bench=Session(model,record['prompt_ids'],cfg,record['generation_seed'])
+                prefill=clock()-start
+                start=clock()
+                for token in forced:
+                    bench.ids.append(token)
+                    assert bench.ensure()==1
+                seconds=clock()-start
+                repetitions.append(dict(prefill_seconds=prefill,teacher_forced_decode_seconds=seconds,
+                                        tokens_per_second=len(forced)/seconds))
+                del bench
+            steps=record['boundaries']['steps']
+            targets=[steps[0],steps[len(steps)//2],record['boundaries'].get('end') or steps[-1]]
+            positions=sorted({len(record['prompt_ids'])+s['end_token_index'] for s in targets})
+            reforward=[]
+            for _ in range(2):
+                start=clock()
+                hidden=extract(model,record['prompt_ids']+record['generated_ids'],positions)
+                reforward.append(clock()-start)
+                assert hidden.shape==(32,len(positions),2560) and np.isfinite(hidden).all()
+                del hidden
+            result['benchmark']=dict(unique_id=record['unique_id'],record_sha256=before,backend=backend,
+                forced_token_sha256=stable_hash(forced),decode_tokens=len(forced),repetitions=repetitions,
+                independent_prefix_positions=positions,reforward_seconds=reforward,
+                peak_allocated_bytes=torch.cuda.max_memory_allocated(),source_unchanged=digest(path)==before,
+                scope='Fixed-token decoder and original-prefix extraction only; no sampling, labels or T_request comparison.')
+            assert result['benchmark']['source_unchanged']
+            atomic_json(output/'validation.json',result)
         if args.capacity:
             high_cfg=read_json(ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
             verifier=GenerativeVerifier(high_cfg)

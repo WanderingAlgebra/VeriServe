@@ -1,12 +1,16 @@
 {
   "checkpoint_trial": {
     "final_format_retry": {
-      "completed": 0,
+      "completed": 4,
+      "eos": 3,
+      "parser_recovered_without_generation": true,
       "path": "stages/stage2/diagnostics/qwen35-paragraphs/final-format-retry",
       "pid": 80001,
       "questions": 4,
       "selection": "original smoke first four; no outcome-based order",
-      "status": "GENERATING"
+      "status": "DIAGNOSTIC_COMPLETE",
+      "strict_format_valid": 0,
+      "truncated": 1
     },
     "format_calibration": "stages/stage2/diagnostics/qwen35-paragraphs/few_shot_final_only_prompt_trial.json",
     "format_calibration_final_one_line": true,
@@ -42,6 +46,11 @@
     "unique": 2816,
     "url": "https://raw.githubusercontent.com/KbsdJames/omni-math-rule/bda09972374225ab2186582615307d909965b864/omni_math_rule.jsonl"
   },
+  "final_format_decision": {
+    "applied": false,
+    "proposal": "stages/stage2/diagnostics/qwen35-paragraphs/final-format-retry/final_line_proposal.json",
+    "status": "AWAITING_USER"
+  },
   "formal_generated": 0,
   "formal_hold": "stages/stage2/runs/v2-20261013-da5c802342ee/smoke_format_review_hold.json",
   "format_diagnostics": "stages/stage2/diagnostics/qwen35-format/summary.json",
@@ -51,17 +60,22 @@
     "status": "PASS",
     "unchanged_files": 20
   },
+  "kernel_validation": {
+    "path": "stages/stage2/diagnostics/qwen35-kernel-check",
+    "pid": 98041,
+    "status": "STARTING"
+  },
   "models_downloaded": {
     "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
-  "next_action": "Finish separate first-four format calibration. If generator config/source changes, retire the held obsolete supervisor and launch a fresh matching identity; formal collection remains zero.",
+  "next_action": "Complete isolated reference/FLA diagnostics; await final-format decision before setting a new generator protocol. Preserve original runs and retire the held supervisor if identity changes.",
   "note": "Natural Thinking paragraph checkpoints and two synthetic format examples integrated; strict final-only line retained. Old ten failed smoke trajectories preserved in prior run; new run requires its own GPU validation and complete smoke.",
   "pipeline_pid": 65456,
   "pipeline_status": "stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
   "real_model_interface_restore": "PASS",
-  "real_model_smoke": "RUNNING",
+  "real_model_smoke": "TEN_TRAJECTORIES_COMPLETE_WITH_POOR_FORMAT",
   "run": "stages/stage2/runs/v2-20261013-da5c802342ee",
   "saved_feature_validation": {
     "max_abs": 0.0,
@@ -100,7 +114,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "FORMAT_CALIBRATION_RUNNING_AFTER_TEN_SMOKE",
+  "status": "KERNEL_VALIDATION_RUNNING_FORMAT_DECISION_PENDING",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T17:49:11.988106+00:00"
+  "updated": "2026-10-13T18:23:48.793413+00:00"
 }
