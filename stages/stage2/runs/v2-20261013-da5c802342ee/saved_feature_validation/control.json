@@ -1,0 +1,7 @@
+{
+  "child_pid": 65557,
+  "created": "2026-10-13T15:36:04.347682+00:00",
+  "reason": "Serial additional saved-NPZ/original-prefix validation at the planned first-smoke pause; generator remains running.",
+  "state": "WAITING_FOR_FIRST_SMOKE_EXIT",
+  "supervisor_pid": 65456
+}

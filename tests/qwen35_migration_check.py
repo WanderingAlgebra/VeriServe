@@ -1,6 +1,6 @@
 """Real-model interface/restore diagnostics; no scientific trajectories or backup bypass.
 
-python tests/qwen35_migration_check.py --gpu [--capacity]
+python tests/qwen35_migration_check.py --gpu [--capacity] [--saved-run RUN]
 """
 from __future__ import annotations
 import argparse
@@ -19,8 +19,11 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--gpu',action='store_true')
     parser.add_argument('--capacity',action='store_true')
+    parser.add_argument('--saved-run',type=Path,help='Compare first smoke record NPZ endpoints with independent original prefixes')
     parser.add_argument('--output',type=Path)
     args=parser.parse_args()
+    if args.saved_run and not args.gpu:
+        parser.error('--saved-run requires --gpu')
     sources={k:source_hashes(k) for k in ('probe','high-low')}
     output=args.output or ROOT/'.cache/qwen35-validation'/stable_hash({'sources':sources,'validator':digest(__file__)})[:12]
     output.mkdir(parents=True,exist_ok=True)
@@ -65,6 +68,46 @@ def main():
         del session
         session=None
         gc.collect()
+        if args.saved_run:
+            import numpy as np
+            from veriserve_research.probe.materials import record_path,read_record
+            run=args.saved_run.resolve()
+            manifest=read_json(run/'manifest.json')
+            if manifest['config']!=cfg or manifest['source_hashes']!=sources['probe']:
+                raise RuntimeError('Saved feature run differs from the frozen model/config/source')
+            path=record_path(run,'smoke',manifest['splits']['smoke'][0]['unique_id'])
+            before=digest(path)
+            record=read_record(path,run,recover=False)
+            steps=record['boundaries']['steps']
+            positions=[len(record['prompt_ids'])+s['end_token_index'] for s in steps]
+            if record['boundaries'].get('end') is not None:
+                positions.append(len(record['prompt_ids'])+record['boundaries']['end']['end_token_index'])
+            if not steps or not record.get('feature_files'):
+                raise RuntimeError('First smoke has no saved intermediate features to verify')
+            targets=sorted({0,len(positions)-1})
+            saved={}
+            for entry in record['feature_files']:
+                file=path.parent/entry['name']
+                if digest(file)!=entry['sha256']:
+                    raise RuntimeError('Saved NPZ hash mismatch')
+                with np.load(file,allow_pickle=False) as data:
+                    assert data['positions'].tolist()==positions
+                    for layer,values in zip(data['layers'],data['hidden']):
+                        assert int(layer) not in saved
+                        saved[int(layer)]=values[targets].copy()
+            assert sorted(saved)==list(range(1,model.config.num_hidden_layers+1))
+            actual=extract(model,record['prompt_ids']+record['generated_ids'],[positions[i] for i in targets])
+            stored=np.stack([saved[layer] for layer in sorted(saved)])
+            delta=np.abs(actual-stored)
+            check=dict(passed=bool(np.allclose(actual,stored,atol=cfg['causal_atol'],rtol=cfg['causal_rtol'])),
+                record_sha256=before,unique_id=record['unique_id'],positions=[positions[i] for i in targets],
+                layers=sorted(saved),shape=list(actual.shape),max_abs=float(delta.max()),
+                rms=float(np.sqrt(np.mean(delta**2))),atol=cfg['causal_atol'],rtol=cfg['causal_rtol'],
+                source_unchanged=digest(path)==before,feature_hashes=record['feature_files'])
+            result['saved_features']=check
+            atomic_json(output/'validation.json',result)
+            if not check['passed'] or not check['source_unchanged']:
+                raise RuntimeError('Disk features differ from original-prefix reconstruction; original tolerances retained')
         if args.capacity:
             high_cfg=read_json(ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
             verifier=GenerativeVerifier(high_cfg)
