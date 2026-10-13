@@ -1,6 +1,8 @@
 {
-  "phase": "SMOKE_RESTART_AND_COMPLETE",
+  "phase": "SUPERSEDED_AFTER_VERIFIER_INPUT_FIX",
   "pid": 65456,
+  "previous_phase": "SMOKE_RESTART_AND_COMPLETE",
+  "retired": true,
   "run": "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-da5c802342ee",
   "source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
@@ -24,5 +26,5 @@
     "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
     "veriserve_research/trajectory.py": "0e2fa62e8b6b778b00b35fcc490008cbbb5c9dcade1c6fcfb71222d1f5ac1d2a"
   },
-  "updated": "2026-10-13T15:50:47.866214+00:00"
+  "updated": "2026-10-13T19:17:27.239225+00:00"
 }

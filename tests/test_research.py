@@ -394,6 +394,13 @@ def test_paragraph_checkpoint_selection_verifier_and_terminal_contract():
     assert verifier.input_ids('problem',prefix,2,[],'intermediate')==[1,2]
     payload=json.loads(tok.messages[1]['content'])
     assert payload['quoted_prefix']==units and 'HIGH' not in json.dumps(payload)
+    terminal_numbers,terminal_units=verification_units(raw,PARAGRAPHS,terminal=True)
+    verifier.input_ids('Check x < 2.',raw,max(terminal_numbers),[],'terminal')
+    encoded=tok.messages[1]['content']
+    restored=json.loads(encoded)
+    assert '<' not in encoded and '>' not in encoded
+    assert restored['problem']=='Check x < 2.' and restored['quoted_prefix']==terminal_units
+    assert ''.join(unit['quoted_text'] for unit in restored['quoted_prefix'])==raw
     endpoint=protocol.terminal(tok,ids,True,mode=PARAGRAPHS)
     assert endpoint['reason']=='FINAL' and endpoint['answer']=='2'
     assert grade(text,'2','EOS',5,PARAGRAPHS)['label']==0

@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-10-13T19:14:07.814176+00:00",
+  "checks": [
+    {
+      "check_type": "intermediate",
+      "input_ids_unchanged": true,
+      "new_input_close_tokens": 0,
+      "new_input_open_tokens": 1,
+      "old_input_close_tokens": 0
+    },
+    {
+      "check_type": "intermediate",
+      "input_ids_unchanged": true,
+      "new_input_close_tokens": 0,
+      "new_input_open_tokens": 1,
+      "old_input_close_tokens": 0
+    },
+    {
+      "check_type": "terminal",
+      "input_ids_unchanged": false,
+      "new_input_close_tokens": 0,
+      "new_input_open_tokens": 1,
+      "old_input_close_tokens": 1
+    }
+  ],
+  "generator_functions_unchanged": [
+    "sampling_config",
+    "sample_token",
+    "Session",
+    "prompt_tokens",
+    "load_model",
+    "full_forward",
+    "extract",
+    "generation_seed"
+  ],
+  "old_validation_sha256": "a6b42f9e1257fdcb03a5cfdf64267d7aafbc9b05cc6e95c3b63413c91de948da",
+  "status": "CPU_PASS_GPU_RETEST_PENDING",
+  "strict_verdict_parser_unchanged": true,
+  "warning": "AST comparison is a provenance diagnostic only; official execution identities still use complete source SHA-256, never semantic hashes."
+}

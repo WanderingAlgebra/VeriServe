@@ -370,6 +370,8 @@ class GenerativeVerifier:
                        'Use checkpoint_number as first_error_step; do not confuse it with numbers inside the quoted text.')
         message = json.dumps(dict(problem=problem, quoted_prefix=prefix, current_step=current_step,
                                   retained_feedback=feedback, check_type=kind), ensure_ascii=False)
+        # Reversible JSON escapes keep quoted chat delimiters from becoming control-token IDs.
+        message = message.replace('<', '\\u003c').replace('>', '\\u003e')
         return self.tokenizer.apply_chat_template(
             [{'role':'system','content':prompt}, {'role':'user','content':message}],
             tokenize=True, add_generation_prompt=True, enable_thinking=True, return_dict=False)
