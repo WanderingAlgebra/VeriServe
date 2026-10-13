@@ -1,22 +1,51 @@
 {
+  "active_environment_has_fla": false,
+  "candidate_checkpoints": 241,
+  "causal_checks_passed": true,
+  "causal_questions": 10,
+  "completion_counts": {
+    "EOS": 4,
+    "LENGTH_TRUNCATED": 6
+  },
   "exclusions": {
     "FINAL_FORMAT_ERROR": 3,
+    "LENGTH_TRUNCATED": 2,
     "SCORABLE": 1,
-    "THINKING_FORMAT_ERROR": 3
+    "THINKING_FORMAT_ERROR": 4
   },
   "expected_questions": 10,
-  "note": "Engineering coverage only; full smoke and resume gate not passed; supervisor held.",
+  "full_api_resume_audit": "all_records_resume_audit.json",
+  "note": "Descriptive engineering coverage only. Fixed pilot references qualify 1/4; formal collection remains held pending separate format calibration.",
   "questions": [
     {
-      "candidates": 1,
-      "completion": "LENGTH_TRUNCATED",
-      "exclusion": "THINKING_FORMAT_ERROR",
-      "generated_tokens": 32768,
-      "max_checkpoint_gap_tokens": 22545,
+      "candidates": 57,
+      "completion": "EOS",
+      "exclusion": "FINAL_FORMAT_ERROR",
+      "generated_tokens": 27344,
+      "max_checkpoint_gap_tokens": 3298,
+      "record_sha256": "ddfdbb39b16881002c7c776e1b8873035353d73c5298e0dab3477d72366b3a39",
       "scorable": false,
-      "stage": "FEATURES",
-      "trailing_tokens_after_last_candidate": 10223,
-      "unique_id": "8d921bb20bae08d9cc071dea699a7fa358f8ceb4d5c04595b7ff7cfa4ea5e51d"
+      "thinking_close_positions": [
+        26424
+      ],
+      "tokens_after_thinking_close": 919,
+      "trailing_tokens_after_last_candidate": 933,
+      "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+    },
+    {
+      "candidates": 65,
+      "completion": "EOS",
+      "exclusion": "FINAL_FORMAT_ERROR",
+      "generated_tokens": 20287,
+      "max_checkpoint_gap_tokens": 2034,
+      "record_sha256": "7e4c12f9c408a0dcf5e52b4f48b6ef2c85f75d94ac2eb631e410dd39eaa8fc40",
+      "scorable": false,
+      "thinking_close_positions": [
+        19086
+      ],
+      "tokens_after_thinking_close": 1200,
+      "trailing_tokens_after_last_candidate": 1210,
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
     },
     {
       "candidates": 8,
@@ -24,10 +53,27 @@
       "exclusion": null,
       "generated_tokens": 1083,
       "max_checkpoint_gap_tokens": 237,
+      "record_sha256": "c5872f39c089c56b0b4064e573788f9e6df7183d1cb4805a0f8d86dd10b91680",
       "scorable": true,
-      "stage": "FEATURES",
+      "thinking_close_positions": [
+        1072
+      ],
+      "tokens_after_thinking_close": 10,
       "trailing_tokens_after_last_candidate": 68,
       "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+    },
+    {
+      "candidates": 2,
+      "completion": "LENGTH_TRUNCATED",
+      "exclusion": "THINKING_FORMAT_ERROR",
+      "generated_tokens": 32768,
+      "max_checkpoint_gap_tokens": 29236,
+      "record_sha256": "c16e1989a6ce4876a0bd3497b772e8253714d660fae97c68f9f7462fd9fa4e14",
+      "scorable": false,
+      "thinking_close_positions": [],
+      "tokens_after_thinking_close": null,
+      "trailing_tokens_after_last_candidate": 29236,
+      "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
     },
     {
       "candidates": 36,
@@ -35,8 +81,12 @@
       "exclusion": "FINAL_FORMAT_ERROR",
       "generated_tokens": 18327,
       "max_checkpoint_gap_tokens": 2543,
+      "record_sha256": "5b073eba8b51c696ebefe4c9d0d526b7b1cb63330f91f703bd4ee4182c61d266",
       "scorable": false,
-      "stage": "FEATURES",
+      "thinking_close_positions": [
+        17343
+      ],
+      "tokens_after_thinking_close": 983,
       "trailing_tokens_after_last_candidate": 994,
       "unique_id": "df9af8a321516208b329d6aea7e7e313cda29ccc9e67811a8b20ac10ca2b1b46"
     },
@@ -46,45 +96,72 @@
       "exclusion": "THINKING_FORMAT_ERROR",
       "generated_tokens": 32768,
       "max_checkpoint_gap_tokens": 22555,
+      "record_sha256": "db91be48ced63f90e3577f3e71240be7287e0bcd70f63d6ff79043af35886e65",
       "scorable": false,
-      "stage": "FEATURES",
+      "thinking_close_positions": [],
+      "tokens_after_thinking_close": null,
       "trailing_tokens_after_last_candidate": 22555,
       "unique_id": "da479a3d912813cafd000d6da2242458f8d38e1ce9cb95bf0de0f3b01794aef3"
     },
     {
-      "candidates": 57,
-      "completion": "EOS",
-      "exclusion": "FINAL_FORMAT_ERROR",
-      "generated_tokens": 27344,
-      "max_checkpoint_gap_tokens": 3298,
-      "scorable": false,
-      "stage": "FEATURES",
-      "trailing_tokens_after_last_candidate": 933,
-      "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
-    },
-    {
-      "candidates": 2,
+      "candidates": 1,
       "completion": "LENGTH_TRUNCATED",
       "exclusion": "THINKING_FORMAT_ERROR",
       "generated_tokens": 32768,
-      "max_checkpoint_gap_tokens": 29236,
+      "max_checkpoint_gap_tokens": 22545,
+      "record_sha256": "fddfe994d3fefff964aa5128034ab02b800840f28a46b0f7bc3928a4c8e8b3e4",
       "scorable": false,
-      "stage": "FEATURES",
-      "trailing_tokens_after_last_candidate": 29236,
-      "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+      "thinking_close_positions": [],
+      "tokens_after_thinking_close": null,
+      "trailing_tokens_after_last_candidate": 10223,
+      "unique_id": "8d921bb20bae08d9cc071dea699a7fa358f8ceb4d5c04595b7ff7cfa4ea5e51d"
     },
     {
-      "candidates": 65,
-      "completion": "EOS",
-      "exclusion": "FINAL_FORMAT_ERROR",
-      "generated_tokens": 20287,
-      "max_checkpoint_gap_tokens": 2034,
+      "candidates": 9,
+      "completion": "LENGTH_TRUNCATED",
+      "exclusion": "THINKING_FORMAT_ERROR",
+      "generated_tokens": 32768,
+      "max_checkpoint_gap_tokens": 7810,
+      "record_sha256": "4b03ab03300c533aab5b2808dab68a85c8ab0a5b69ad3f6ccc2f8456a33cf467",
       "scorable": false,
-      "stage": "FEATURES",
-      "trailing_tokens_after_last_candidate": 1210,
-      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+      "thinking_close_positions": [],
+      "tokens_after_thinking_close": null,
+      "trailing_tokens_after_last_candidate": 7810,
+      "unique_id": "768eae894c4b077e6491275907b34520b257d7725b86b6364c24392f7dfe50c0"
+    },
+    {
+      "candidates": 20,
+      "completion": "LENGTH_TRUNCATED",
+      "exclusion": "LENGTH_TRUNCATED",
+      "generated_tokens": 32768,
+      "max_checkpoint_gap_tokens": 7279,
+      "record_sha256": "8f49c9fc49d77464f938cb17d7d80e4b79bd3fe277c4ceabe27d1242ed90d978",
+      "scorable": false,
+      "thinking_close_positions": [
+        31892
+      ],
+      "tokens_after_thinking_close": 875,
+      "trailing_tokens_after_last_candidate": 885,
+      "unique_id": "b06dd6f0e8140ab15e5f660bc6712886b667213459eb3739c23eded89f8c459a"
+    },
+    {
+      "candidates": 40,
+      "completion": "LENGTH_TRUNCATED",
+      "exclusion": "LENGTH_TRUNCATED",
+      "generated_tokens": 32768,
+      "max_checkpoint_gap_tokens": 6112,
+      "record_sha256": "a46b7b922b5217ed3421eb001bd0c8f239dc3296afda963a0ea25df9b4aa2902",
+      "scorable": false,
+      "thinking_close_positions": [
+        32414
+      ],
+      "tokens_after_thinking_close": 353,
+      "trailing_tokens_after_last_candidate": 564,
+      "unique_id": "66e9762e872ce0fd44499350967561202d4c7450fb2762d8d4fbee382e857432"
     }
   ],
-  "status": "INCOMPLETE",
-  "updated": "2026-10-13T16:59:01.225132+00:00"
+  "questions_with_two_candidates": 9,
+  "scorable_questions": 1,
+  "status": "TEN_TRAJECTORIES_COMPLETE_WITH_FULL_API_RESUME_AUDIT",
+  "updated": "2026-10-13T17:49:11.987419+00:00"
 }

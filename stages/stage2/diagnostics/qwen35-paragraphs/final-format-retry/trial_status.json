@@ -1,6 +1,9 @@
 {
+  "completed": 0,
   "created": "2026-10-13T16:37:20.804632+00:00",
+  "current_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69",
   "driver_sha256": "71950f392bd4837fd79c19137997459e5e81eb368ff94e91e00490af39e68041",
+  "execution_commit": "a39ede66e4f6972792f774ab1c50fef3249227e9",
   "execution_source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
@@ -35,7 +38,7 @@
   "scientific_results": false,
   "selection": "Original first four smoke questions in manifest order; format-only calibration.",
   "source_manifest_sha256": "3f08eeedbdbb39f8dee5f8c944500fba02f5b70cba5c7c1b270d5514f2a9deba",
-  "status": "WAITING_FOR_PRIOR_SMOKE",
+  "status": "GENERATING",
   "validation_only": true,
   "wait_pid": 70604
 }
