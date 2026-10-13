@@ -62,7 +62,7 @@
     "scope": "first smoke first checkpoint and trajectory end, all 32 layers",
     "status": "PASS"
   },
-  "smoke_generated": 7,
+  "smoke_generated": 9,
   "smoke_scorable": 1,
   "source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
@@ -95,5 +95,5 @@
   },
   "status": "SMOKE_RUNNING_WITH_FORMAL_HOLD",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T16:59:01.225828+00:00"
+  "updated": "2026-10-13T17:37:43.656096+00:00"
 }

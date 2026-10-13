@@ -1,7 +1,10 @@
 {
   "child_pid": 70604,
   "created": "2026-10-13T16:07:26.519649+00:00",
+  "frozen_config_hash": "b5a7763c99b3fb2114660eb629dd3977e8f6e01b9bca714e0bfb722ffce37016",
   "reason": "Review complete smoke format coverage before formal freeze; current two of first three outputs are unscorable. Smoke child continues unchanged.",
+  "restart_constraint": "Before releasing this supervisor, verify original config and source identity. If generator config or source changes, preserve this run, terminate the held obsolete supervisor and launch a fresh matching pipeline; do not resume this driver against another run identity.",
   "status": "WAITING_FOR_COMPLETE_SMOKE",
-  "supervisor_pid": 65456
+  "supervisor_pid": 65456,
+  "updated": "2026-10-13T17:37:43.637576+00:00"
 }
