@@ -1,0 +1,21 @@
+{
+  "status": "RUNNING",
+  "updated": "2026-10-13T20:45:16.668822+00:00",
+  "native_process_pid": 125544,
+  "planned_questions": 10,
+  "planned_checks": 21,
+  "saved_checks": 4,
+  "questions_with_saved_checks": 2,
+  "verdicts": {
+    "UNCERTAIN": 3,
+    "PASS": 1
+  },
+  "parser_errors": {
+    "VERIFIER_LENGTH_TRUNCATED": 3
+  },
+  "verified_human_labels": 0,
+  "quality_accuracy": "NOT_ESTIMATED_WITHOUT_HUMAN_LABELS",
+  "source_run_is_superseded_for_formal_collection": true,
+  "final_line_policy_amended": false,
+  "scope": "Diagnostic verifier smoke only; no formal stage2/stage3 records or mathematics labels. Saved results are read-only observations of the fixed native command."
+}

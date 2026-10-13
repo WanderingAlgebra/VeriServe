@@ -150,7 +150,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "FORMAT_DECISION_PENDING_REAL_VERIFIER_SMOKE_STARTING",
+  "status": "REAL_VERIFIER_SMOKE_RUNNING_FORMAT_AMENDMENT_PENDING",
   "strict_user_prompt_trial": {
     "generated_tokens": 23795,
     "path": "stages/stage2/diagnostics/qwen35-final-user-task",
@@ -159,7 +159,7 @@
     "strict_format_valid": false
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T20:37:13.881944+00:00",
+  "updated": "2026-10-13T20:45:16.668822+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,
@@ -189,7 +189,7 @@
     "strict_format_valid": false
   },
   "real_verifier_smoke": {
-    "status": "STARTING_NATIVE_COMMAND",
+    "status": "RUNNING",
     "supervisor_pid": 123836,
     "path": "stages/stage2/diagnostics/qwen35-verifier-real-smoke",
     "questions": 10,
@@ -197,6 +197,9 @@
     "validation_only": true,
     "human_audit": false,
     "native_command": "verifier-smoke",
-    "source_run_is_superseded_for_formal_collection": true
+    "source_run_is_superseded_for_formal_collection": true,
+    "pid": 125544,
+    "saved_checks": 4,
+    "planned_checks": 21
   }
 }
