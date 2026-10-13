@@ -1,0 +1,38 @@
+{
+  "not_applicable": 1,
+  "passed": false,
+  "questions": {
+    "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69": {
+      "applicable": false,
+      "passed": null,
+      "reason": "no intermediate position; trajectory retained"
+    }
+  },
+  "source_code": {
+    "common_sha256": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "execution_sources": {
+      "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
+      "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+      "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c",
+      "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+      "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+      "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+      "veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650",
+      "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336",
+      "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "veriserve_research/artifacts/backup.py": "7da2d0989965ca5032ccb9d1a3133a6f0d561ec17540027ec7b86eb35b299981",
+      "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb",
+      "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
+      "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
+      "veriserve_research/artifacts/provenance.py": "33399d2d5e37dea42b875768f4eab4690e6b927d5a60f940ff71b41dab5b12ea",
+      "veriserve_research/inference.py": "f9d73ca6ff97ad4128426e9d47168087386f52abfed4553c0e31d516b60e1e3c",
+      "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "veriserve_research/probe/collect.py": "c84a8bd997df9c957ef7a662dd5df7066b8a5f3d3abd98a50b73403b63cc50c9",
+      "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
+      "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
+      "veriserve_research/trajectory.py": "21b74f7b2d70b3ec1282aa2ac352868a3b485357e7fbde2ee157e1c93a65beed"
+    },
+    "script_sha256": "de122e3170ec57b4ba1380ededd25f261f242cf1820ce81b7265d6b63439c9da"
+  },
+  "updated_at": "2026-10-13T11:51:35.567414+00:00"
+}
