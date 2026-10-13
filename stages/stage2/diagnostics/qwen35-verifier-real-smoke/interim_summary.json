@@ -1,17 +1,17 @@
 {
   "status": "RUNNING",
-  "updated": "2026-10-13T20:45:16.668822+00:00",
+  "updated": "2026-10-13T20:54:02.082654+00:00",
   "native_process_pid": 125544,
   "planned_questions": 10,
   "planned_checks": 21,
-  "saved_checks": 4,
-  "questions_with_saved_checks": 2,
+  "saved_checks": 10,
+  "questions_with_saved_checks": 4,
   "verdicts": {
-    "UNCERTAIN": 3,
-    "PASS": 1
+    "UNCERTAIN": 5,
+    "PASS": 5
   },
   "parser_errors": {
-    "VERIFIER_LENGTH_TRUNCATED": 3
+    "VERIFIER_LENGTH_TRUNCATED": 5
   },
   "verified_human_labels": 0,
   "quality_accuracy": "NOT_ESTIMATED_WITHOUT_HUMAN_LABELS",

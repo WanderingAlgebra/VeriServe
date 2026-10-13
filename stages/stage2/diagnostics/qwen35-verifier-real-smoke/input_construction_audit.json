@@ -304,7 +304,7 @@
       "input_sha256": "3c1ca921dae9be9375b737e4c806ac2ac1438747230556a509f8467072438ff6",
       "input_tokens": 22409,
       "prefix_token_count": 20286,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
     },
     {
@@ -317,7 +317,7 @@
       "input_sha256": "dbb9aeeeaa8929baae64c2886f50be539f8d91838a9b9e61aa5f1ec86ceb48e0",
       "input_tokens": 710,
       "prefix_token_count": 230,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
     },
     {
@@ -336,7 +336,7 @@
       "input_sha256": "eb49cc46620ef3ac3599ca879b8e4ffdecf9272cb8de85f6d39ba414f5fdb405",
       "input_tokens": 1383,
       "prefix_token_count": 802,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
     },
     {
@@ -361,7 +361,7 @@
       "input_sha256": "ac135ccb51b98d12a29eca5adf982cb53ca9b25c4dcd720637abcde96e4a44a6",
       "input_tokens": 1767,
       "prefix_token_count": 1082,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
     },
     {
@@ -373,7 +373,7 @@
       "input_sha256": "37d72a01719c83fe5e40cc875c1916995becd30f62a437e184a9fb259d9b075c",
       "input_tokens": 4359,
       "prefix_token_count": 3532,
-      "saved_result_matched_at_audit": false,
+      "saved_result_matched_at_audit": true,
       "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
     },
     {
@@ -630,6 +630,7 @@
   ],
   "scope": "CPU input construction audit of all 21 predeclared real smoke checkpoints; no model loading, generation, mathematics labels, formal reference migration, or human quality claims.",
   "status": "PASS",
-  "saved_inputs_matched": 5,
-  "saved_input_matching": "Join by unique_id, exact prefix token count and check_type; native review filenames use their own existing key helper."
+  "saved_inputs_matched": 10,
+  "saved_input_matching": "Join by unique_id, exact prefix token count and check_type; native review filenames use their own existing key helper.",
+  "updated": "2026-10-13T20:54:02.082654+00:00"
 }
