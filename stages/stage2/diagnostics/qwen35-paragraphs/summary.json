@@ -1,0 +1,69 @@
+{
+  "artifacts": [
+    "offline_check.json",
+    "short_trial.json",
+    "native_prompt_trial.json",
+    "native_prompt_complete_trial.json",
+    "qualitative_review.json",
+    "history/01-point-metadata-error.json"
+  ],
+  "boundary_self_check": "PASS",
+  "conclusion": "Paragraph checkpoint extraction works on these outputs without token rewriting. This is a prototype, not a completed smoke gate or evidence that every checkpoint is semantically complete.",
+  "created": "2026-10-13T14:43:02.801302+00:00",
+  "new_smoke_passed": false,
+  "official_prompt_full_budget": {
+    "candidates_excluding_explicit_answers": 20,
+    "closed_paragraphs": 24,
+    "completion": "EOS",
+    "content_tail_loss": 0,
+    "first_2048_tokens_match_short_trial": true,
+    "generated_tokens": 2959,
+    "max_new_tokens": 32768,
+    "meets_legacy_final_one_line_contract": false,
+    "thinking_closed": true,
+    "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+  },
+  "offline": {
+    "alignment_errors": 0,
+    "candidates": 305,
+    "closed_paragraphs": 336,
+    "completion_counts": {
+      "EOS": 5,
+      "LENGTH_TRUNCATED": 5
+    },
+    "content_tail_loss": 0,
+    "lexical_flags": {
+      "CONTINUATION_PUNCTUATION": 3,
+      "OPEN_MATH_OR_CODE_AT_BOUNDARY": 31,
+      "POSSIBLE_FORMAT_DISCUSSION": 15
+    },
+    "max_generated_tokens_after_last_candidate": 31582,
+    "paragraph_gap_max_tokens": 15971,
+    "paragraph_gap_median_tokens": 160.0,
+    "questions": 10,
+    "questions_with_two_distinct_candidates": 10
+  },
+  "remaining": [
+    "Shared stage2/stage3 checkpoint parsing, verifier checkpoint numbering and frozen new-run identity are not implemented.",
+    "Official short prompt emits final explanatory reasoning plus boxed answer, incompatible with the old final-one-line contract.",
+    "Checkpoints may be sparse; one old truncated trace has 31582 generated tokens after its last candidate.",
+    "Independent human verification and full 10-question smoke still required."
+  ],
+  "scientific_results": false,
+  "short_trial": {
+    "closed_paragraphs": [
+      1,
+      4,
+      21
+    ],
+    "completion_counts": {
+      "SHORT_DIAGNOSTIC_LIMIT": 3
+    },
+    "content_tail_loss": 0,
+    "max_new_tokens": 2048,
+    "questions": 3
+  },
+  "source_records_unchanged": true,
+  "status": "DIAGNOSTIC_COMPLETE",
+  "validation_only": true
+}

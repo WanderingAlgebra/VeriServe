@@ -28,6 +28,12 @@ $QWEN_PYTHON -m veriserve_research probe --config stages/stage2/qwen35_4b_omni_c
 
 真实模型接口与混合缓存检查单独使用 `$QWEN_PYTHON tests/qwen35_migration_check.py --gpu`；增加 `--capacity` 检查两模型、长输入和两个快照同时驻留。它只记录实现诊断，不代替 10 题 smoke、正式采集或验证器质量核验。
 
+用户已授权试验原生 Thinking 的双换行候选检查点，诊断见 [summary.json](diagnostics/qwen35-paragraphs/summary.json)。旧 10 条 smoke 中找到 305 个排除明确答案段后的候选，原始 token 对齐无失败或正文损失，源记录 SHA 保持不变；检查点可能稀疏，某条截断轨迹在最后一个候选之后又生成了 31582 token。候选不等同完整数学步骤，词法风险标记和模型辅助抽查不替代独立人工审计。
+
+移除 Step 编号要求后的前 3 条 smoke 短生成（2048 token）分别有 1、4、21 个闭合段，但都未结束 Thinking。进一步对同一道 smoke 题采用官方简短数学提示和原 32768 token 上限，在 2959 token 正常 EOS，Thinking 内有 24 个双换行闭合段；前 2048 token 与短测试完全一致。最终回复仍含解题过程，未满足旧的单行 `Final answer:` 要求。以上均为独立诊断；正式配置、旧轨迹和正式采集门槛保持原样，正式生成仍为 0/300。共享 stage2/stage3 检查点规则、终点格式与新 run 的完整 smoke 尚待适配。
+
+离线检查可复现：`$QWEN_PYTHON stages/stage2/diagnostics/qwen35-paragraphs/check.py`。它只读原始 smoke，输出独立诊断文件，不重新采样或评分。
+
 新实验仍要求初始推送、批次备份及远端 LFS 取回核验；推送失败会停止采集。采集后的实质源码或配置变化生成新 run 身份，不混入已冻结轨迹。
 
 ## 历史结果：Qwen2.5-7B × MATH-500

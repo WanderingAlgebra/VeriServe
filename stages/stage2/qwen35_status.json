@@ -1,4 +1,16 @@
 {
+  "checkpoint_trial": {
+    "full_budget_completion": "EOS",
+    "full_budget_generated_tokens": 2959,
+    "full_budget_smoke_questions": 1,
+    "new_smoke_passed": false,
+    "offline_candidates": 305,
+    "scientific_results": false,
+    "short_generation_questions": 3,
+    "status": "DIAGNOSTIC_COMPLETE",
+    "summary": "stages/stage2/diagnostics/qwen35-paragraphs/summary.json",
+    "user_authorized": true
+  },
   "config": "stages/stage2/qwen35_4b_omni_config.json",
   "cpu_regression_tests_passed": 31,
   "dataset": {
@@ -24,7 +36,7 @@
     "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
-  "next_action": "Await protocol choice: preserve strict Step markers, or explicitly authorize fixed natural-paragraph boundaries with original-token alignment.",
+  "next_action": "Use checkpoint diagnostic findings to adapt shared stage2/stage3 rules and final-answer format in a new run; do not reuse old failed smoke or count prototype diagnostics as gate completion.",
   "note": "10 smoke trajectories preserved; none has a valid intermediate boundary; 5 reached max_new_tokens. EOS fix and optional shared system prompt passed 31 regression tests. Short prompt diagnostics use smoke questions only and are not scientific results.",
   "pipeline_pid": null,
   "pipeline_status": "stages/stage2/runs/v2-20261013-2f15553ff1e5/pipeline_status.json",
@@ -62,5 +74,5 @@
   },
   "status": "STOPPED_SMOKE_FORMAT_FAILURE",
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-13T14:14:40.120030+00:00"
+  "updated": "2026-10-13T14:43:02.801302+00:00"
 }
