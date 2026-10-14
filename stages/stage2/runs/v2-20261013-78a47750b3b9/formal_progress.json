@@ -1,6 +1,6 @@
 {
-  "features_completed": 7,
-  "generated": 7,
+  "features_completed": 10,
+  "generated": 10,
   "note": "Partial original fixed cohorts. No outcome-based replacements; no probe fit or final coverage claim yet.",
   "planned": 300,
   "splits": {
@@ -13,14 +13,16 @@
       "scorable": 0
     },
     "train": {
-      "eos": 7,
-      "exclusions": {},
-      "features_completed": 7,
-      "generated": 7,
+      "eos": 9,
+      "exclusions": {
+        "LENGTH_TRUNCATED": 1
+      },
+      "features_completed": 10,
+      "generated": 10,
       "planned": 100,
-      "scorable": 7
+      "scorable": 9
     }
   },
   "status": "COLLECTING_FIXED_COHORT",
-  "updated": "2026-10-14T11:19:40.737947+00:00"
+  "updated": "2026-10-14T12:15:39.356963+00:00"
 }
