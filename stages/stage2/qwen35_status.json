@@ -203,7 +203,7 @@
     "status": "PASS"
   },
   "smoke_engineering_checked": 10,
-  "smoke_generated": 1,
+  "smoke_generated": 10,
   "split_sizes": {
     "smoke": 10,
     "test": 200,
@@ -211,7 +211,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "SMOKE_RESTART_AND_COMPLETE",
+  "status": "SMOKE_ALL_RECORDS_RESUME_AUDIT",
   "strict_channel_prompt_trial": {
     "completion": "EOS",
     "generated_tokens": 19498,
@@ -232,7 +232,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-14T14:18:35.543293+00:00",
+  "updated": "2026-10-14T15:48:36.014044+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
