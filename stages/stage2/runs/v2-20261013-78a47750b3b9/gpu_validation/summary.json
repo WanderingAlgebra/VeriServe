@@ -1,0 +1,34 @@
+{
+  "created": "2026-10-14T01:13:40.142554+00:00",
+  "generator": {
+    "context_tokens": 131072,
+    "hidden_prefix_tokens": 81989,
+    "hidden_shape": [
+      32,
+      1,
+      2560
+    ],
+    "peak_allocated_bytes": 40865973760,
+    "restore": "PASS"
+  },
+  "human_quality_evidence": false,
+  "status": "PASS",
+  "verifier_synthetic_controls": {
+    "direct": {
+      "status": "SYNTHETIC_CONTROLS_PASS",
+      "verdicts": [
+        "PASS",
+        "FAIL",
+        "PASS"
+      ]
+    },
+    "thinking": {
+      "status": "SYNTHETIC_CONTROLS_PASS",
+      "verdicts": [
+        "PASS",
+        "FAIL",
+        "PASS"
+      ]
+    }
+  }
+}

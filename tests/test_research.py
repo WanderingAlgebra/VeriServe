@@ -506,6 +506,55 @@ def test_verifier_quality_gate_requires_confirmed_independent_humans(tmp_path):
     assert failed['correct_prefixes']==failed['incorrect_prefixes']==20
     assert failed['metrics']['incorrect_pass_rate']['value']==1.
     assert failed['status']=='INSUFFICIENT_OR_FAILED'
+    # All three error-rate gates pass, but UNCERTAIN must also reduce balanced accuracy.
+    for i in range(40):
+        verdict=('UNCERTAIN' if i//2<6 else 'PASS') if i%2==0 else ('PASS' if i//2<4 else 'FAIL')
+        result=dict(verdict=verdict,input_tokens=10,output_tokens=2,seconds=.1)
+        atomic_json(tmp_path/'checks'/f'verifier_audit-{i}.json',dict(unique_id=str(i//2),
+            input_sha256=str(i),results=[result] if i%2 else [result,result]))
+    low_balanced=verifier_audit_report(cfg,tmp_path,path)
+    assert low_balanced['metrics']['balanced_accuracy']['value']==pytest.approx(.75)
+    assert low_balanced['metrics']['uncertain_or_format_or_truncated_rate']['value']==pytest.approx(.15)
+    assert low_balanced['repeated_prefixes']==20
+    assert low_balanced['status']=='INSUFFICIENT_OR_FAILED'
+    # Unknown human labels do not remove uncertain calls from the all-input denominator.
+    atomic_json(path,[])
+    unlabelled=verifier_audit_report(cfg,tmp_path,path)
+    assert unlabelled['confirmed']==0
+    assert unlabelled['metrics']['uncertain_or_format_or_truncated_rate']['value']==pytest.approx(.15)
+
+
+def test_development_comparison_preserves_human_table_and_selects_by_full_cost(tmp_path,monkeypatch):
+    from veriserve_research.intervention.high_low import run as high_low
+    monkeypatch.setattr(high_low,'ROOT',tmp_path)
+    atomic_json(tmp_path/'stage2/manifest.json',{})
+    official=tmp_path/'official.json'
+    atomic_json(official,{'verifier':{'selection_status':'AWAITING_DEVELOPMENT_COMPARISON'}})
+    folders=[tmp_path/'modes/direct',tmp_path/'modes/thinking']
+    for mode,folder in enumerate(folders):
+        cfg=dict(seed=7,bootstrap=5,stage2_run='stage2',verifier={'enable_thinking':bool(mode)})
+        atomic_json(folder/'review_config.json',cfg)
+        atomic_json(folder/'identity.json',dict(config_hash=stable_hash(cfg),source_hashes=high_low.source_hashes(),
+            stage2_manifest_sha256=digest(tmp_path/'stage2/manifest.json')))
+        atomic_json(folder/'verifier_dev_ordered_ids.json',[str(i) for i in range(20)])
+        table=[]
+        for i in range(20):
+            result=dict(verdict='PASS' if i<10 else 'FAIL',input_tokens=10,output_tokens=2,seconds=2.-mode)
+            atomic_json(folder/'checks'/f'verifier_dev-{i}.json',dict(unique_id=str(i),review_key=str(i),
+                input_sha256=f'{mode}-{i}',prefix_ids=[i],check_type='intermediate',results=[result]))
+            table.append(dict(review_key=str(i),label=None,confirmed=False,reviewer=None))
+        atomic_json(folder/'verifier_dev_review_inputs.json',table)
+    waiting=high_low.compare_verifiers(*folders,None,official)
+    assert waiting['status']=='AWAITING_HUMAN_LABELS'
+    path=tmp_path/'modes/development_human_review.json'
+    labels=read_json(path)
+    for i,item in enumerate(labels):
+        item.update(label='CORRECT' if i<10 else 'INCORRECT',confirmed=True,reviewer='human',first_error_step=1 if i>=10 else None)
+    atomic_json(path,labels)
+    selected=high_low.compare_verifiers(*folders,path,official)
+    assert selected['selected_mode']=='thinking'
+    assert read_json(path)==labels
+    assert read_json(official)['verifier']['selection_status']=='SELECTED_BY_DEVELOPMENT'
 
 
 @pytest.mark.parametrize('fail_at',(1,2))

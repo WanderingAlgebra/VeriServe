@@ -34,7 +34,7 @@ $QWEN_PYTHON -m veriserve_research probe --config stages/stage2/qwen35_4b_omni_c
 
 早期诊断中，前 3 条短生成（2048 token）分别有 1、4、21 个闭合段，但均未结束 Thinking；官方简短数学提示的一道完整题在 2959 token 正常 EOS，仍在最终回复重复解题过程。随后加入两个固定格式示例，同一道 smoke 题在 1083 token 正常 EOS，Thinking 后只有 `Final answer: \boxed{3}` 一行。诊断原始输出均保留，不能替代新 run 的完整 smoke。
 
-共享 stage2/stage3 解析现已支持 `boundary_mode=thinking_paragraphs`，历史预跑入口为 [v2-20261013-da5c802342ee](runs/v2-20261013-da5c802342ee)。中途特征对齐原始内容 token；段落分隔符属于稍后的观察，HIGH/LOW 使用离线冻结端点精确暂停，不宣称在线自动发现边界。验证器通过外部段落序号引用错误位置，其引用文本拼接后等于原始前缀；编号不写入生成器 token。最终答案只读取 Thinking 后的严格单行，内部引用答案格式不参与评分。旧诊断与旧 run 保留，正式采集仍须通过新 run 的 10 题 smoke、独立恢复和远端 LFS 核验。
+共享 stage2/stage3 解析现已支持 `boundary_mode=thinking_paragraphs`，历史预跑入口为 [v2-20261013-da5c802342ee](runs/v2-20261013-da5c802342ee)。中途特征对齐原始内容 token；段落分隔符属于稍后的观察，HIGH/LOW 使用离线冻结端点精确暂停，不宣称在线自动发现边界。验证器通过外部段落序号引用错误位置，其引用文本拼接后等于原始前缀；编号不写入生成器 token。最终评分只读取 Thinking 后末尾严格的答案行，允许该行之前有解释；内部引用答案格式不参与评分。旧诊断与旧 run 保留，正式采集仍须通过新 run 的 10 题 smoke、独立恢复和远端 LFS 核验。
 
 离线检查可复现：`$QWEN_PYTHON stages/stage2/diagnostics/qwen35-paragraphs/check.py`。它只读原始 smoke，输出独立诊断文件，不重新采样或评分。
 

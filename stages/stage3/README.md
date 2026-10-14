@@ -10,11 +10,11 @@
 
 新配置为 [qwen35_4b_omni_high_low_config.json](qwen35_4b_omni_high_low_config.json)。`stage2_run` 必须指向新 stage2 的实际 run；层号直接读取新 `probe_B.json`，不固定为 19。新实验进度见 [qwen35_status.json](qwen35_status.json)。下文数值均是旧模型历史结果。
 
-生成器为 Qwen3.5-4B，验证器为 Qwen3.5-9B，均为纯文本 BF16、原生 Thinking。HIGH/LOW 首检前继承参考记录的生成种子并逐 token 核对；不一致时保留诊断并停止，不重抽参考。中途 PASS 保存精确原 token 前缀的完整混合缓存；FAIL 恢复最近 PASS，否则恢复 prompt，再追加 diagnosis/hint。恢复不退回生成 RNG、不清零累计预算。中途 UNCERTAIN 继续，终点 UNCERTAIN 不提交；与已 PASS 步骤冲突的 FAIL 转为 UNCERTAIN。
+生成器为原生 Thinking 的 Qwen3.5-4B，验证器为 Qwen3.5-9B，均为纯文本 BF16。验证器先比较直接判断与 Thinking 两种模式，再冻结一组。HIGH/LOW 首检前继承参考记录的生成种子并逐 token 核对；不一致时保留诊断并停止，不重抽参考。中途 PASS 保存精确原 token 前缀的完整混合缓存；FAIL 恢复最近 PASS，否则恢复 prompt，再追加 diagnosis/hint。恢复不退回生成 RNG、不清零累计预算。中途 UNCERTAIN 继续，终点 UNCERTAIN 不提交；与已 PASS 步骤冲突的 FAIL 转为 UNCERTAIN。
 
 真实 4B 的短输入 GPU 接口检查已通过。当前 BF16 后端的一次性 prefill 与逐 token 解码存在正常数值差异，原始失败对照保留；完整状态恢复必须与未生成失败后缀的克隆一致，并通过从原 prompt 独立重放相同 token 前缀和前向顺序的对照，容差不变。这项检查不代替 10 题 smoke、4 题 pilot 或长上下文容量检查。
 
-验证器只读取题目、当前前缀、步号、已有反馈与检查类型，不读取探针分数、路径名、标准答案、标准解答或未来推理。仅严格解析其 Thinking 关闭后的最终 JSON；格式错误、截断和输入超限分别记录。
+验证器只读取题目、当前前缀、步号、已有反馈与检查类型，不读取探针分数、路径名、标准答案、标准解答或未来推理。Thinking 模式严格解析关闭 Thinking 后的完整 JSON，直接模式严格解析整个生成响应；两者都要求 EOS。格式错误、截断和输入超限分别记录。
 
 本轮已按用户授权采用 `thinking_paragraphs` 检查点，与 stage2 共用固定的系统提示、格式示例和边界规则。HIGH/LOW 的候选来自原生 Thinking 内真实双换行闭合段，去除明确答案段；“步号”在本轮表示外部检查点序号，不能把段落当作已认证的完整数学步骤。验证器按序接收带编号的数学文本视图：仅把已知 Thinking 包装映射为等长空白，保留全部数学正文、原字符位置与检查点序号；JSON 再以可逆转义防止引用内容成为聊天控制 token。完整原始前缀与生成 token 另行保留并直接用于特征和快照，不输入未来分隔符。终点答案有单独序号；PASS 冲突保护和完整混合快照规则保持有效。此输入处理不放宽验证器输出的 Thinking／JSON 严格解析。
 
@@ -23,17 +23,20 @@
 ```bash
 QWEN_PYTHON=environments/qwen35/.venv/bin/python
 QWEN_CONFIG=stages/stage3/qwen35_4b_omni_high_low_config.json
-$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --self-check
-# 先完成新 stage2，配置其实际 stage2_run，再运行 prepare 与后续阶段。
+MODE_DIR=stages/stage2/diagnostics/qwen35-verifier-modes
+# 先采集同一批新开发参考；同一 GPU 顺序执行。
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$MODE_DIR/direct_config.json" --phase verifier-dev --review-output "$MODE_DIR/direct" --resume
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$MODE_DIR/thinking_config.json" --phase verifier-dev --review-output "$MODE_DIR/thinking" --resume
+$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase compare-verifiers --review-output "$MODE_DIR/direct" --compare-review "$MODE_DIR/thinking"
+# 人工标签就绪后重跑比较，加 --human-labels <confirmed_labels.json>。
+# 只有开发选定后才允许新 Stage3 prepare；它还需要新 Stage2 的 probe_B。
 $QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase prepare --resume
 $QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase capacity --resume
-$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase verifier-smoke --resume
-$QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase verifier-dev --resume
 $QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase verifier-audit --resume
 $QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase pilot --resume
 ```
 
-核验输入按长度选早期、后期和终点，最多三个，不按预测或 HIGH/LOW 筛选。`verifier_audit_review_inputs.json` 包含供人工离线查看的标准解答，以及与在线验证相同编号的 `checkpoint_units` 引用单元；标准解答不进入在线验证。人工填写 `label`（`CORRECT` / `INCORRECT` / `UNDETERMINABLE`）、错误检查点号 `first_error_step`、`reviewer` 和 `confirmed=true`，另存 JSON 数组。模型建议不能充当人工确认。类别数量不足时，报告保留不足诊断；使用 `--phase verifier-audit --audit-extra N` 按 manifest 未使用题目的固定顺序追加前 N 道核验题，不按验证器预测选样本。
+核验输入按长度选早期、后期和终点，最多三个，不按预测或 HIGH/LOW 筛选。`verifier_audit_review_inputs.json` 包含供人工离线查看的标准解答，以及与在线验证相同编号的 `checkpoint_units` 引用单元；标准解答不进入在线验证。人工填写 `label`（`CORRECT` / `INCORRECT` / `UNDETERMINABLE`）、错误检查点号 `first_error_step`、`reviewer` 和 `confirmed=true`，另存 JSON 数组。模型建议不能充当人工确认。类别数量不足时，报告保留不足诊断；开发与核验均可用 `--review-extra N` 追加题目：分别使用 manifest 未用题固定顺序的偶数/奇数位置（从 0 开始），保持隔离。独立核验题一经预留不会供另一配置复用；核验失败后改配置必须使用新的独立题目，不按验证器预测选样本。每道核验题只对第一个固定前缀用第二种子复查。两候选共用 `development_human_review.json` 待核验表，用 `review_key` 关联同一数学输入；不必重复标注两份。
 
 ```bash
 # 用实际核验目录及人工标签文件替换示例路径。
@@ -42,7 +45,7 @@ $QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QW
 $QWEN_PYTHON -m veriserve_research intervene --experiment high-low --config "$QWEN_CONFIG" --phase test --resume
 ```
 
-启动正式 stage3 前须完成独立人工核验（至少 20 个正确和 20 个错误前缀；错误判 PASS、正确判 FAIL、不确定/格式/截断三类比例分别不超过 20%）、4 道真实配对 pilot、完整快照恢复及实际容量检查。核验不足或未通过时只交付 stage2 和诊断，不启动 200 题正式配对。
+启动正式 stage3 前须完成独立人工核验（至少 20 个正确和 20 个错误前缀；错误判 PASS、正确判 FAIL、所有输入不确定/格式/截断比例不超过 20%，Balanced Accuracy 至少 80%，UNCERTAIN 计为未正确判断）、4 道真实配对 pilot、完整快照恢复及实际容量检查。核验不足或未通过时只交付 stage2 和诊断，不启动 200 题正式配对。
 
 ## 两类历史实验与结果
 

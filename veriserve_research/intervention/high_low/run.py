@@ -412,6 +412,11 @@ def main(argv=None):
         if phase == 'freeze':
             freeze(cfg, run, manifest)
             return
+        if phase in ('pilot','all') and cfg.get('final_response_mode')=='explanation_then_final_line':
+            audit=read_json(run/'verifier_audit_gate.json',{})
+            if (audit.get('status')!='PASS' or audit.get('source_hashes')!=source_hashes()
+                    or audit.get('config_hash')!=manifest['config_hash']):
+                raise RuntimeError('Revised Stage3 pilots require the selected verifier independent human audit first')
         import torch
         if not torch.cuda.is_available() or not torch.cuda.is_bf16_supported():
             atomic_json(run / 'execution_status.json', {'status': 'NOT_EXECUTED', 'reason': 'BF16 CUDA unavailable', 'created': now()})
@@ -655,6 +660,9 @@ def verifier_audit_report(cfg,folder,human_labels,split='verifier_audit'):
                 raw_counts=dict(incorrect_pass=sum(x['human']=='INCORRECT' and x['result']['verdict']=='PASS' for x in items),
                     correct_fail=sum(x['human']=='CORRECT' and x['result']['verdict']=='FAIL' for x in items),
                     uncertain_or_format_or_truncated=sum(x['result']['verdict']=='UNCERTAIN' or bool(x['result'].get('parser_error')) or x['result'].get('completion','EOS')!='EOS' for x in items)),
+                completion_counts=dict(Counter(x['result'].get('completion','EOS') for x in items)),
+                verdict_counts=dict(Counter(x['result']['verdict'] for x in items)),
+                parser_error_counts=dict(Counter(x['result'].get('parser_error') for x in items if x['result'].get('parser_error'))),
                 full_call_seconds=dict(mean=float(np.mean(seconds)) if seconds else None,
                     quantiles=dict(zip(('p50','p90','p95'),np.quantile(seconds,[.5,.9,.95]).tolist())) if seconds else {}),
                 metrics={k:dict(value=v,ci95=np.quantile(samples[k],[.025,.975]).tolist() if samples[k] else None,

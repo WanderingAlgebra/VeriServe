@@ -1,0 +1,61 @@
+{
+  "commands": [
+    [
+      "tail",
+      "--pid=167411",
+      "-f",
+      "/dev/null"
+    ],
+    [
+      "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+      "-m",
+      "veriserve_research",
+      "intervene",
+      "--experiment",
+      "high-low",
+      "--config",
+      "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/direct_config.json",
+      "--phase",
+      "verifier-dev",
+      "--review-output",
+      "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/direct",
+      "--resume"
+    ],
+    [
+      "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+      "-m",
+      "veriserve_research",
+      "intervene",
+      "--experiment",
+      "high-low",
+      "--config",
+      "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/thinking_config.json",
+      "--phase",
+      "verifier-dev",
+      "--review-output",
+      "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/thinking",
+      "--resume"
+    ],
+    [
+      "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+      "-m",
+      "veriserve_research",
+      "intervene",
+      "--experiment",
+      "high-low",
+      "--config",
+      "/root/project/VeriServe-step-hidden-probe/stages/stage3/qwen35_4b_omni_high_low_config.json",
+      "--phase",
+      "compare-verifiers",
+      "--review-output",
+      "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/direct",
+      "--compare-review",
+      "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/thinking"
+    ]
+  ],
+  "created": "2026-10-14T01:17:38.131088+00:00",
+  "note": "Native tail waits for existing pipeline; then existing CLI candidates run sequentially on the same GPU. No new runner or human labels.",
+  "pid": 169394,
+  "status": "WAITING_FOR_STAGE2_PROCESS",
+  "wait_pid": 167411
+}

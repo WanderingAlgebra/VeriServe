@@ -12,7 +12,7 @@ from veriserve_research import ROOT
 from veriserve_research.artifacts.io import read_json,atomic_json,now,digest,safe_error,stable_hash
 from veriserve_research.artifacts.provenance import environment,source_hashes
 from veriserve_research.inference import (load_model,Session,GenerativeVerifier,prompt_tokens,migration_self_check,
-    snapshot_gpu_check,extract,clock,cache_state)
+    snapshot_gpu_check,extract,clock,cache_state,sampling_config)
 
 
 def main():
