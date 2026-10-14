@@ -1,17 +1,22 @@
 {
   "config": "stages/stage3/qwen35_4b_omni_high_low_config.json",
-  "cpu_regression_tests_passed": 33,
+  "cpu_regression_tests_passed": 38,
   "formal_pairs": 0,
   "human_audit": "NOT_RUN",
   "models_downloaded": {
     "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
-  "note": "Formal HIGH/LOW requires independent confirmed human labels, capacity and four GPU pilots",
-  "phase": "Shared paragraph checkpoint implementation ready; waiting for new stage2 smoke and probes",
+  "note": "Revised final format is authorized. Stage2 proceeds independently. Stage3 requires development selection, fresh independent human audit, new-budget residency and four real pilots.",
+  "phase": "Generator smoke running; both verifier synthetic interfaces passed; real development data and human labels pending",
   "pilot_pairs": 0,
-  "real_model_capacity": "NOT_RUN",
-  "stage2_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
-  "status": "AWAITING_STAGE2_AND_HUMAN_AUDIT",
-  "updated": "2026-10-13T15:21:57.151362+00:00"
+  "real_model_capacity": "NEW_PROFILE_CAPACITY_NOT_RUN",
+  "stage2_run": "stages/stage2/runs/v2-20261013-78a47750b3b9",
+  "status": "AWAITING_NEW_STAGE2_AND_DEVELOPMENT_COMPARISON",
+  "updated": "2026-10-14T01:18:56.024660+00:00",
+  "verifier_candidates": {
+    "direct": "stages/stage2/diagnostics/qwen35-verifier-modes/direct_config.json",
+    "thinking": "stages/stage2/diagnostics/qwen35-verifier-modes/thinking_config.json"
+  },
+  "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json"
 }
