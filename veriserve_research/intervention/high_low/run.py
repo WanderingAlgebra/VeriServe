@@ -568,7 +568,9 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
                     repetitions=2 if split=='verifier_audit' and check_index==0 else 1
                     results=[]
                     for _ in range(repetitions):
+                        started=fixed.clock()
                         result=verifier.verify(ids,row['unique_id'],numbers,0,kind,audit_repeat=len(results))
+                        result['seconds']=fixed.clock()-started
                         results.append(result)
                     item['results']=results
                     atomic_json(path,item)

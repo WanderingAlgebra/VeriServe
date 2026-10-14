@@ -580,7 +580,7 @@ def test_verifier_review_backup_failure_stops_before_next_question(tmp_path,monk
     from veriserve_research.probe import collect
     monkeypatch.setattr(high_low,'ROOT',tmp_path)
     monkeypatch.setattr(high_low,'environment',lambda *args,**kwargs:{})
-    rows=[dict(unique_id='first'),dict(unique_id='second')]
+    rows=[dict(unique_id=uid,problem='fixture',answer='2',solution='offline only') for uid in ('first','second')]
     atomic_json(tmp_path/'stage2/manifest.json',dict(config={'model':'fixture'},splits={'smoke':rows}))
     cfg=dict(stage2_run='stage2',model='fixture')
     cfg['final_response_mode']='explanation_then_final_line'
@@ -590,10 +590,22 @@ def test_verifier_review_backup_failure_stops_before_next_question(tmp_path,monk
     collected=[]
     def collect_row(*args,**kwargs):
         collected.append(args[3]['unique_id'])
-        return dict(boundaries={'steps':[]},completion='LENGTH_TRUNCATED',generated_ids=[1]),True
+        return dict(boundaries={'steps':[{'prefix_token_count':1}]},completion='LENGTH_TRUNCATED',
+                    generated_ids=[1],token_sha256=stable_hash(args[3]['unique_id'])),True
     monkeypatch.setattr(collect,'collect_one',collect_row)
-    monkeypatch.setattr(inference,'load_model',lambda cfg:(object(),object()))
-    monkeypatch.setattr(inference,'GenerativeVerifier',lambda cfg:object())
+    class Tok:
+        def decode(self,ids,**kwargs):return 'Step 1: compute 1+1=2.'
+    elapsed=[0.]
+    class Verifier:
+        def input_ids(self,*args):return [1]
+        def verify(self,*args,**kwargs):
+            try:
+                return dict(verdict='PASS',input_tokens=1,output_tokens=1,seconds=.25)
+            finally:
+                elapsed[0]+=.5  # Includes request cleanup after the inner timer was read.
+    monkeypatch.setattr(high_low.fixed,'clock',lambda:elapsed[0])
+    monkeypatch.setattr(inference,'load_model',lambda cfg:(object(),Tok()))
+    monkeypatch.setattr(inference,'GenerativeVerifier',lambda cfg:Verifier())
     pushed=[]
     monkeypatch.setattr(backup,'backup_probe',lambda *args:pushed.append('references'))
     def push_review(*args):
@@ -605,6 +617,9 @@ def test_verifier_review_backup_failure_stops_before_next_question(tmp_path,monk
         high_low.verifier_review(cfg,'verifier-smoke',tmp_path/'review')
     assert collected==([] if fail_at==1 else ['first'])
     assert pushed==['references','judgments']*fail_at
+    if fail_at==2:
+        check=read_json(next((tmp_path/'review/checks').glob('*.json')))
+        assert check['results'][0]['seconds']==.5
 
 
 def test_generative_pilot_rejects_local_only_backup_before_requests(tmp_path,monkeypatch):

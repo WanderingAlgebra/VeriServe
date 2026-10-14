@@ -1,0 +1,5 @@
+{
+  "created": "2026-10-14T04:48:58.143555+00:00",
+  "reason": "No verifier model request ran; preserved earlier transport preflight identity before complete-call timing correction",
+  "verifier_calls": 0
+}

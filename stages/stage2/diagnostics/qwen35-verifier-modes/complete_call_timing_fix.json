@@ -1,0 +1,9 @@
+{
+  "change": "CUDA synchronized caller clock before verify until after return, including prefill/decode/strict parse/cleanup. Kept separate prefill/decode values.",
+  "created": "2026-10-14T04:48:58.144516+00:00",
+  "generator_sources_unchanged": true,
+  "issue": "Inner return value timer excludes finally request cleanup; mode selection requires complete call cost.",
+  "reference": "https://docs.python.org/3/reference/compound_stmts.html#finally-clause",
+  "regression": "Inner 0.25 s vs complete 0.5 s mocked cleanup reproduced; full review record now persists 0.5 s.",
+  "status": "PASS"
+}
