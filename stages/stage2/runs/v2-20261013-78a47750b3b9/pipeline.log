@@ -176,3 +176,5 @@ RUN v2-20261013-78a47750b3b9
   warnings.warn(
 SKIP smoke self-check
 SELF_CHECK passed (34 checks)
+PUSHED da19ebe5a6aeee3c195317b63a49cd047c75ba1a remote_feature_verified=True
+SKIP smoke 8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69
