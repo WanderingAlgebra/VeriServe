@@ -156,3 +156,10 @@ RUN v2-20261013-78a47750b3b9
   warnings.warn(
 SKIP smoke self-check
 SELF_CHECK passed (34 checks)
+PUSHED 2fa7d39cd9acf0f5129e8ba5c79b6ed6c71c528e remote_feature_verified=True
+SKIP smoke 8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights:  20%|██        | 87/426 [00:00<00:00, 863.57it/s]Loading weights:  41%|████      | 174/426 [00:00<00:00, 786.03it/s]Loading weights:  60%|█████▉    | 254/426 [00:00<00:00, 727.37it/s]Loading weights:  81%|████████▏ | 347/426 [00:00<00:00, 790.04it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 791.73it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.

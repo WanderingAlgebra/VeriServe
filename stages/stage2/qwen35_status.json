@@ -130,6 +130,7 @@
   "new_official_identity_required": false,
   "next_action": "Native pipeline continues smoke/restart validation, then formal 300 and A/B/C only if gates pass. Native verifier candidate development commands wait for that GPU process to exit.",
   "note": "2026-10-14 plan supersedes old strict final-only policy and old budgets. New run imports fixed splits and verified data bytes only; no old generated tokens or features.",
+  "pipeline_exec_session_id": 4508,
   "pipeline_pid": 181717,
   "pipeline_status": "stages/stage2/runs/v2-20261013-78a47750b3b9/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
@@ -208,7 +209,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-14T04:37:17.121837+00:00",
+  "updated": "2026-10-14T04:42:38.012572+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
