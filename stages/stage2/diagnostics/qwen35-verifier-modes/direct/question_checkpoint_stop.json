@@ -1,0 +1,15 @@
+{
+  "backup_observed": {
+    "commit": "8ff06c297f1a22e6d2f5de7f20a27f879ecb2e41",
+    "completed_pairs": {},
+    "created": "2026-10-14T06:04:42.000441+00:00",
+    "pushed_at": "2026-10-14T06:04:48.703979+00:00",
+    "reason": "verifier review verifier-dev question 5/20",
+    "status": "PUSHED"
+  },
+  "created": "2026-10-14T06:04:49.269776+00:00",
+  "question": 5,
+  "reason": "Resume Stage2 after managed process interruption; preserve completed development inputs",
+  "selection": "Next manifest question, independent of mathematical labels and verifier verdicts",
+  "status": "INTERRUPT_REQUESTED_AT_FIXED_QUESTION_BOUNDARY"
+}

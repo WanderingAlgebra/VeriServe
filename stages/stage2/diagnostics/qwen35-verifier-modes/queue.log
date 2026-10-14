@@ -67,3 +67,62 @@ PUSHED 10d0dd0fa1a1f81c6e58cca9e8f1b72da108b7f6 remote_feature_verified=True
 PUSHED 639925d773d17abc90a2bfa8c8fd83234b4d788b remote_feature_verified=True
 PUSHED e99cff6f72914d8eb68be698e7e0e159615fbd1a remote_feature_verified=True
 PUSHED a7cb3516e6ea15d5328cc6cd00292a1997e73133 remote_feature_verified=True
+PUSHED 8a9bf6b5130c382e8676472ef283ecc5ca7ca375 remote_feature_verified=True
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/__main__.py", line 65, in <module>
+    main()
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/__main__.py", line 52, in main
+    return run(flags)
+           ^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/intervention/high_low/run.py", line 388, in main
+    return verifier_review(read_json(args.config),phase,args.review_output,args.human_labels,args.audit_extra)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/intervention/high_low/run.py", line 541, in verifier_review
+    record,_=collect_one(source['config'],stage2,split,row,generator,tokenizer,environment(True),features=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/probe/collect.py", line 183, in collect_one
+    token = session.sample()
+            ^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/inference.py", line 104, in sample
+    self.ensure()
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/inference.py", line 100, in ensure
+    self.forward(missing)
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/inference.py", line 88, in forward
+    output = self.model.model(input_ids=x, past_key_values=self.cache, use_cache=True,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 1081, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/lib/python3.12/site-packages/transformers/utils/output_capturing.py", line 287, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/lib/python3.12/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 1282, in forward
+    hidden_states = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/lib/python3.12/site-packages/transformers/modeling_layers.py", line 110, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1879, in _call_impl
+    return inner()
+           ^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1827, in inner
+    result = forward_call(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/lib/python3.12/site-packages/transformers/models/qwen3_5/modeling_qwen3_5.py", line 900, in forward
+    hidden_states = self.post_attention_layernorm(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1949, in __getattr__
+    def __getattr__(self, name: str) -> Union[Tensor, "Module"]:
+
+KeyboardInterrupt

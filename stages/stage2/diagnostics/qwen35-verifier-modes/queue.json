@@ -180,9 +180,11 @@
       "wait_pid": 180052
     }
   ],
+  "next_stage2_pid": 199547,
   "note": "Existing CLI sequence, no new runner.",
   "pid": 183836,
-  "status": "WAITING_FOR_STAGE2_PROCESS",
+  "status": "CHECKPOINTED_AFTER_DEVELOPMENT_QUESTION_5_FOR_STAGE2_RECOVERY",
+  "stopped_at": "2026-10-14T06:06:10.037161+00:00",
   "transport": "AutoDL platform academic proxy; native Git/LFS",
   "wait_pid": 181717
 }
