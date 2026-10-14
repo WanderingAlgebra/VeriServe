@@ -5,7 +5,7 @@ step_1/2/3 等历史字段在本 run 中表示第 1/2/3 个有效检查点；HIG
 格式示例固定在配置中（0 个简单问答），不来自实验题集；stage2/stage3 输入一致。
 最终响应允许解释，仅评分末尾唯一且完整的 Final answer boxed 行；Thinking 内引用不参与评分。
 
-运行：`v2-20261013-78a47750b3b9`；报告更新于 2026-10-14T17:50:40.077301+08:00。
+运行：`v2-20261013-78a47750b3b9`；报告更新于 2026-10-14T17:51:15.026421+08:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途检查点；不是局部错误标签。
 
@@ -89,7 +89,7 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
 ```json
 {
   "cpu_self_check": {
-    "checked_at": "2026-10-14T06:06:39.084092+00:00",
+    "checked_at": "2026-10-14T09:51:00.459680+00:00",
     "checks": [
       "grade \\frac{1}{2} vs 0.5",
       "grade \\sqrt{8} vs 2\\sqrt{2}",
@@ -2348,14 +2348,52 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
     "updated_at": "2026-10-14T09:50:37.792262+00:00"
   },
   "resume": {
-    "checked_at": "2026-10-14T09:50:38.725318+00:00",
+    "checked_at": "2026-10-14T09:51:13.660330+00:00",
     "hashes_after_for_existing": {
+      "records/smoke/0015809f6341a9656a0b.features-91655842d384.layers1-26.npz": "e0c41d8cdc6c21b745408ae4897a152e74c174de639e80fa7f8d976928516a3e",
+      "records/smoke/0015809f6341a9656a0b.features-91655842d384.layers27-32.npz": "22eef90a2b864f63f88814aec1386b9667f623cf31664c96206936031fa27df9",
+      "records/smoke/0015809f6341a9656a0b.json": "2fd24b26dd2b41c93b495879eb97d640f4ca4d3c7f069834c270b19938a30a07",
+      "records/smoke/29fb09aef2d2b8192e12.features-91655842d384.npz": "5bdec8955122075d109efa986adafc2befd1c869f27fb7fc10ff637b6756b10f",
+      "records/smoke/29fb09aef2d2b8192e12.json": "13ea3b87dc03a64653c9d569c6da45fb33847cfcb2b68e7aa352950ddb4cd9ef",
+      "records/smoke/5bc5cc06c5ec1e5c60a2.features-91655842d384.npz": "e0dc71aa005bcba92875f9e871b836180670ead4d07eaf3cadaaa1420449b233",
+      "records/smoke/5bc5cc06c5ec1e5c60a2.json": "07cea1ae10bf264a54bd13a5c58a4463f1713334fe60a776f126cfc8e076502a",
+      "records/smoke/722fbccd50c4dbcfee15.features-91655842d384.npz": "1c6c4d08c27f321fa5cdc19af1c1ee883b6faea399a9c4d71253d11c200b87c4",
+      "records/smoke/722fbccd50c4dbcfee15.json": "c51480335e2e81d8996f1cd560e56be9d099beb02fd8edf7401760ba11468614",
+      "records/smoke/8fe8ba3e885ab91a95bb.features-91655842d384.npz": "5bc089bae41f01014894843ec870592ae9ef2e970cbb29e35b424b3881f62290",
+      "records/smoke/8fe8ba3e885ab91a95bb.json": "6f82049d69d59d9722ce609e1902eb120953346554baf69bfa9f198648b26ce1",
+      "records/smoke/9ccccfe8203576afba40.features-91655842d384.npz": "d7fa43926c9086506be7cf34d6f9b2217575f21c97e692b4a1aa438fac08d8f1",
+      "records/smoke/9ccccfe8203576afba40.json": "5d366047e5e2fef0e33a5ffab976d36450b9b65bbc366a21878c1052d830b4f5",
       "records/smoke/d3d76e355f0a3a408887.features-91655842d384.npz": "d0a295e9ce15b392682666232f2949cf05de52596c90864c74943f45d5dff02f",
-      "records/smoke/d3d76e355f0a3a408887.json": "3e400211f65212c210b76089ff1155886e7d29dcbe32eecc0a389137b04ac966"
+      "records/smoke/d3d76e355f0a3a408887.json": "3e400211f65212c210b76089ff1155886e7d29dcbe32eecc0a389137b04ac966",
+      "records/smoke/eca310ad5d6fad19fe38.features-91655842d384.npz": "838bcdc014306f7b7ccb17890615eb4208bbcc5ab940a89a5481aff80ed6d698",
+      "records/smoke/eca310ad5d6fad19fe38.json": "29c719176abc7929fe7c2c9e726d6e398615fd4a9b369289fc98e291c6ffe3a6",
+      "records/smoke/f45649608d5fd4570df0.features-91655842d384.npz": "bf9b62bb36b6eaa10eec8bc333eb9928209fb2e0e9848e53bcff491540a8f5c6",
+      "records/smoke/f45649608d5fd4570df0.json": "5167204a06f3a3ccf5f74036bbaee9c39ef39d29074da998cfe375a515daa9f2",
+      "records/smoke/fcf507d339715cc9c36e.features-91655842d384.npz": "7b01bc0db093ffa109d9fb722a14fc5e11ed9d65286311c31a314dfac93eb80b",
+      "records/smoke/fcf507d339715cc9c36e.json": "ca3ed945e00bc7317e4452b8c4dbc4e6275d1458b9e194d10682c8a47f1f89ba"
     },
     "hashes_before": {
+      "records/smoke/0015809f6341a9656a0b.features-91655842d384.layers1-26.npz": "e0c41d8cdc6c21b745408ae4897a152e74c174de639e80fa7f8d976928516a3e",
+      "records/smoke/0015809f6341a9656a0b.features-91655842d384.layers27-32.npz": "22eef90a2b864f63f88814aec1386b9667f623cf31664c96206936031fa27df9",
+      "records/smoke/0015809f6341a9656a0b.json": "2fd24b26dd2b41c93b495879eb97d640f4ca4d3c7f069834c270b19938a30a07",
+      "records/smoke/29fb09aef2d2b8192e12.features-91655842d384.npz": "5bdec8955122075d109efa986adafc2befd1c869f27fb7fc10ff637b6756b10f",
+      "records/smoke/29fb09aef2d2b8192e12.json": "13ea3b87dc03a64653c9d569c6da45fb33847cfcb2b68e7aa352950ddb4cd9ef",
+      "records/smoke/5bc5cc06c5ec1e5c60a2.features-91655842d384.npz": "e0dc71aa005bcba92875f9e871b836180670ead4d07eaf3cadaaa1420449b233",
+      "records/smoke/5bc5cc06c5ec1e5c60a2.json": "07cea1ae10bf264a54bd13a5c58a4463f1713334fe60a776f126cfc8e076502a",
+      "records/smoke/722fbccd50c4dbcfee15.features-91655842d384.npz": "1c6c4d08c27f321fa5cdc19af1c1ee883b6faea399a9c4d71253d11c200b87c4",
+      "records/smoke/722fbccd50c4dbcfee15.json": "c51480335e2e81d8996f1cd560e56be9d099beb02fd8edf7401760ba11468614",
+      "records/smoke/8fe8ba3e885ab91a95bb.features-91655842d384.npz": "5bc089bae41f01014894843ec870592ae9ef2e970cbb29e35b424b3881f62290",
+      "records/smoke/8fe8ba3e885ab91a95bb.json": "6f82049d69d59d9722ce609e1902eb120953346554baf69bfa9f198648b26ce1",
+      "records/smoke/9ccccfe8203576afba40.features-91655842d384.npz": "d7fa43926c9086506be7cf34d6f9b2217575f21c97e692b4a1aa438fac08d8f1",
+      "records/smoke/9ccccfe8203576afba40.json": "5d366047e5e2fef0e33a5ffab976d36450b9b65bbc366a21878c1052d830b4f5",
       "records/smoke/d3d76e355f0a3a408887.features-91655842d384.npz": "d0a295e9ce15b392682666232f2949cf05de52596c90864c74943f45d5dff02f",
-      "records/smoke/d3d76e355f0a3a408887.json": "3e400211f65212c210b76089ff1155886e7d29dcbe32eecc0a389137b04ac966"
+      "records/smoke/d3d76e355f0a3a408887.json": "3e400211f65212c210b76089ff1155886e7d29dcbe32eecc0a389137b04ac966",
+      "records/smoke/eca310ad5d6fad19fe38.features-91655842d384.npz": "838bcdc014306f7b7ccb17890615eb4208bbcc5ab940a89a5481aff80ed6d698",
+      "records/smoke/eca310ad5d6fad19fe38.json": "29c719176abc7929fe7c2c9e726d6e398615fd4a9b369289fc98e291c6ffe3a6",
+      "records/smoke/f45649608d5fd4570df0.features-91655842d384.npz": "bf9b62bb36b6eaa10eec8bc333eb9928209fb2e0e9848e53bcff491540a8f5c6",
+      "records/smoke/f45649608d5fd4570df0.json": "5167204a06f3a3ccf5f74036bbaee9c39ef39d29074da998cfe375a515daa9f2",
+      "records/smoke/fcf507d339715cc9c36e.features-91655842d384.npz": "7b01bc0db093ffa109d9fb722a14fc5e11ed9d65286311c31a314dfac93eb80b",
+      "records/smoke/fcf507d339715cc9c36e.json": "ca3ed945e00bc7317e4452b8c4dbc4e6275d1458b9e194d10682c8a47f1f89ba"
     },
     "passed": true,
     "source_code": {
@@ -2384,17 +2422,17 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
       },
       "script_sha256": "91655842d384255d989ca7401bff22e55117f732e9447e4c87eb6a5232fa30c8"
     },
-    "unchanged_files": 2
+    "unchanged_files": 21
   },
   "backup": {
-    "commit": "de5dfa68ee4d65b8dcbc0c0cb5d31f173df00ed9",
+    "commit": "15b8bc0f933a2ee722be57c9175e079ef2806d5f",
     "feature_remote_verification": {
       "path": "stages/stage2/runs/v2-20261013-78a47750b3b9/records/smoke/d3d76e355f0a3a408887.features-91655842d384.npz",
       "remote_commit": "00a2a5b42c9903d2fc86c2c5fca8d8c0f53827c2",
       "sha256": "d0a295e9ce15b392682666232f2949cf05de52596c90864c74943f45d5dff02f",
       "verified_at": "2026-10-14T04:26:12.806854+00:00"
     },
-    "pushed_at": "2026-10-14T09:36:03.688146+00:00",
+    "pushed_at": "2026-10-14T09:51:09.889411+00:00",
     "status": "PUSHED"
   }
 }
@@ -2413,7 +2451,7 @@ AUROC / CI / 所选层：NA；正式数据不足或未采集，不能回答是�
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`de5dfa68ee4d65b8dcbc0c0cb5d31f173df00ed9`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`15b8bc0f933a2ee722be57c9175e079ef2806d5f`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 
