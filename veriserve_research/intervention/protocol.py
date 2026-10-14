@@ -81,6 +81,7 @@ def terminal(tokenizer, generated_ids, eos=False, text=None, mode='steps', final
     """Submit a complete standalone Final answer only after EOS, using stage2 format."""
     if not eos:
         return None
+    raw_for_final = (decode(tokenizer,generated_ids) if text is None else text) if final_response_mode == EXPLANATION_FINAL else None
     ids = list(generated_ids)
     specials = control_ids(tokenizer)
     while ids and ids[-1] in specials:
@@ -100,7 +101,7 @@ def terminal(tokenizer, generated_ids, eos=False, text=None, mode='steps', final
     wrapper_error = thinking_error(text,terminal=True,mode=mode) if '</think>' in text or '<think>' in text else None
     if mode == PARAGRAPHS:
         if final_response_mode == EXPLANATION_FINAL:
-            parsed = final_answer_line(text)
+            parsed = final_answer_line(raw_for_final)
             error = parsed['exclusion'] or ('INTERIOR_CONTROL_TOKEN' if any(t in specials for t in ids) else None)
             numbers, _ = verification_units(text, mode, terminal=True)
             return dict(reason='FORMAT_ERROR' if error else 'FINAL', termination=error,

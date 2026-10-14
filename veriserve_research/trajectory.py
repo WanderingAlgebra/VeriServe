@@ -81,6 +81,8 @@ def final_answer_line(raw, completion='EOS'):
     if completion != 'EOS':
         return dict(result, exclusion=completion)
     raw = re.sub(r'(?:(?:<\|im_end\|>|<\|endoftext\|>)\s*)+$', '', raw).rstrip()
+    if re.search(r'<\|[^<>]*\|>', raw):
+        return dict(result, exclusion='INTERIOR_CONTROL_TOKEN')
     error = thinking_error(raw, terminal=True, mode=PARAGRAPHS)
     if error:
         return dict(result, exclusion=error)

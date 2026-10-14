@@ -214,7 +214,8 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=Tr
     mode = cfg.get('boundary_mode','steps')
     text, bounds = boundaries(tokenizer, record["generated_ids"], mode)
     record["boundaries"] = bounds
-    record.update(grade(text, row["answer"], record["completion"], cfg["score_timeout_seconds"], mode,
+    record.update(grade(record['raw_text'] if cfg.get('final_response_mode') == EXPLANATION_FINAL else text,
+                        row["answer"], record["completion"], cfg["score_timeout_seconds"], mode,
                         cfg.get('final_response_mode')))
     if record['completion'] == 'EOS' and cfg.get('enable_thinking') and thinking_error(record['raw_text'], terminal=True, mode=mode):
         record.update(label=None, exclusion='THINKING_FORMAT_ERROR')
@@ -488,6 +489,7 @@ def main(argv=None):
                         if cfg.get('final_response_mode') == EXPLANATION_FINAL:
                             checks['questions'][row['unique_id']]['completed_parseable'] = (
                                 record['completion'] == 'EOS' and record.get('answer_parseable',False)
+                                and not record['boundaries']['format_errors']
                                 and not final_answer_line(record['raw_text'])['exclusion'])
                     applicable = [v for v in checks["questions"].values() if v.get("applicable", True)]
                     checks["passed"] = (len(checks["questions"]) == cfg["split_sizes"]["smoke"]

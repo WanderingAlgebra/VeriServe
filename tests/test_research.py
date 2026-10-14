@@ -24,6 +24,7 @@ def test_revised_final_response_shared_contract():
     raw='A draft \\boxed{999}.\n</think>\nAn explanation with \\boxed{7}.\nFinal answer: \\boxed{\\frac{1}{2}}'
     assert final_answer_line(raw+'<|im_end|>')['answer']==r'\frac{1}{2}'
     assert final_answer_line(raw+'<|im_end|>\n<|endoftext|>')['answer']==r'\frac{1}{2}'
+    assert final_answer_line(raw+'<|unknown_control|><|im_end|>')['exclusion']
     assert grade(raw,'0.5','EOS',5,PARAGRAPHS,EXPLANATION_FINAL)['label']==0
     assert grade(raw,'0.5','EOS',5,PARAGRAPHS)['exclusion']=='FINAL_FORMAT_ERROR'
     assert terminal(tok,[ord(c) for c in raw]+[0],True,mode=PARAGRAPHS,final_response_mode=EXPLANATION_FINAL)['answer']==r'\frac{1}{2}'

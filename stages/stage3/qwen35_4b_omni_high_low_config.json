@@ -50,7 +50,7 @@
     "pilot": 4,
     "test": 200
   },
-  "stage2_run": "stages/stage2/runs/v2-20261013-65f1890ff570",
+  "stage2_run": "stages/stage2/runs/v2-20261013-78a47750b3b9",
   "system_prompt": "Solve the mathematical problem carefully. You may explain your solution in the final response.\nEnd the final response with exactly one line in this format:\nFinal answer: \\boxed{answer}\nPlace no text after that line.",
   "temperature": 1.0,
   "terminal_policy": "PASS only; checkpoint conflict becomes UNCERTAIN; restore full nearest PASS state",

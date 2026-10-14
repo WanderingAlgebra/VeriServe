@@ -82,7 +82,7 @@ def _reference_bounds(record, tokenizer, mode='steps', final_response_mode=None)
         raise ValueError("; ".join(bounds["format_errors"]))
     if mode == PARAGRAPHS:
         final = raw.split('</think>',1)[1].strip() if '</think>' in raw else ''
-        if (final_answer_line(raw)['exclusion'] if final_response_mode == EXPLANATION_FINAL
+        if (final_answer_line(record['raw_text'])['exclusion'] if final_response_mode == EXPLANATION_FINAL
                 else not FINAL.fullmatch(final) or boxed(final) is None):
             raise ValueError('REFERENCE_FINAL_FORMAT_ERROR')
         if record.get('boundary_mode') != mode or bounds.get('mode') != mode:
