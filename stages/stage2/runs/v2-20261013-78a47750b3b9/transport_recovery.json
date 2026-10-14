@@ -1,0 +1,11 @@
+{
+  "created": "2026-10-14T04:22:06.567256+00:00",
+  "direct_github_http": 200,
+  "failed_proxy": "127.0.0.1:17897",
+  "note": "Clear HTTP/HTTPS/ALL proxy only in experiment child environments; do not change sampler, models, budgets, or frozen source identity.",
+  "preserved_sha256": {
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/smoke/d3d76e355f0a3a408887.features-91655842d384.npz": "d0a295e9ce15b392682666232f2949cf05de52596c90864c74943f45d5dff02f",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/smoke/d3d76e355f0a3a408887.json": "3e400211f65212c210b76089ff1155886e7d29dcbe32eecc0a389137b04ac966"
+  },
+  "status": "RETRYING_DIRECT_TRANSPORT"
+}

@@ -545,9 +545,9 @@ def test_development_comparison_preserves_human_table_and_selects_by_full_cost(t
             stage2_manifest_sha256=digest(tmp_path/'stage2/manifest.json')))
         atomic_json(folder/'verifier_dev_ordered_ids.json',[str(i) for i in range(20)])
         table=[]
-        for i in range(20):
-            result=dict(verdict='PASS' if i<10 else 'FAIL',input_tokens=10,output_tokens=2,seconds=2.-mode)
-            atomic_json(folder/'checks'/f'verifier_dev-{i}.json',dict(unique_id=str(i),review_key=str(i),
+        for i in range(21):
+            result=dict(verdict='UNCERTAIN' if i==20 else 'PASS' if i<10 else 'FAIL',input_tokens=10,output_tokens=2,seconds=2.-mode)
+            atomic_json(folder/'checks'/f'verifier_dev-{i}.json',dict(unique_id=str(i%20),review_key=str(i),
                 input_sha256=f'{mode}-{i}',prefix_ids=[i],check_type='intermediate',results=[result]))
             table.append(dict(review_key=str(i),label=None,confirmed=False,reviewer=None))
         atomic_json(folder/'verifier_dev_review_inputs.json',table)
@@ -556,10 +556,13 @@ def test_development_comparison_preserves_human_table_and_selects_by_full_cost(t
     path=tmp_path/'modes/development_human_review.json'
     labels=read_json(path)
     for i,item in enumerate(labels):
-        item.update(label='CORRECT' if i<10 else 'INCORRECT',confirmed=True,reviewer='human',first_error_step=1 if i>=10 else None)
+        if i<20:
+            item.update(label='CORRECT' if i<10 else 'INCORRECT',confirmed=True,reviewer='human',first_error_step=1 if i>=10 else None)
     atomic_json(path,labels)
     selected=high_low.compare_verifiers(*folders,path,official)
     assert selected['selected_mode']=='thinking'
+    assert selected['candidate_reports'][0]['confirmed']==20
+    assert selected['candidate_reports'][0]['unconfirmed']==1
     assert read_json(path)==labels
     assert read_json(official)['verifier']['selection_status']=='SELECTED_BY_DEVELOPMENT'
 
