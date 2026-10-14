@@ -213,10 +213,13 @@ def main():
             active=Session(model,[tokenizer.eos_token_id]*cfg['max_total_tokens'],cfg,0)
             pass_checkpoint=active.snapshot()
             verifier_ids=[verifier.tokenizer.eos_token_id]*high_cfg['verifier']['max_input_tokens']
-            # Capacity requires all 4096 decode tokens, regardless of early synthetic EOS.
-            verifier_session=Session(verifier.model,verifier_ids,high_cfg,0)
+            # Capacity requires the complete selected output budget, even after synthetic EOS.
+            verifier_session=Session(verifier.model,verifier_ids,
+                {**high_cfg['verifier'].get('sampling',sampling_config(high_cfg)),
+                 'prefill_chunk_size':high_cfg['prefill_chunk_size']},0)
             for _ in range(high_cfg['verifier']['max_new_tokens']):
                 verifier_session.sample()
+            verifier_session.ensure()
             result['capacity']=dict(status='PASS',seconds=clock()-start,
                 peak_allocated_bytes=torch.cuda.max_memory_allocated(),free_total_bytes=list(torch.cuda.mem_get_info()),
                 generator_context=cfg['max_total_tokens'],verifier_input=len(verifier_ids),

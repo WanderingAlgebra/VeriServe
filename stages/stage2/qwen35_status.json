@@ -97,7 +97,7 @@
   "new_official_identity_required": false,
   "next_action": "Run official-weight long-context generator checks and both fixed verifier interface controls, then new fixed ten-question smoke. Only >=8 completed parseable smoke and all engineering checks permit formal Stage2. No final-format approval pending.",
   "note": "2026-10-14 plan supersedes old strict final-only policy and old budgets. New run imports fixed splits and verified data bytes only; no old generated tokens or features.",
-  "pipeline_pid": null,
+  "pipeline_pid": 167411,
   "pipeline_status": "stages/stage2/runs/v2-20261013-78a47750b3b9/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
   "real_model_interface_restore": "PASS",
@@ -185,7 +185,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "REVISED_PLAN_PREPARED_MODEL_CHECKS_NEXT",
+  "status": "SMOKE_FIRST_QUESTION",
   "strict_channel_prompt_trial": {
     "completion": "EOS",
     "generated_tokens": 19498,
@@ -205,7 +205,7 @@
     "strict_format_valid": false
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-14T01:06:39.895260+00:00",
+  "updated": "2026-10-14T01:10:23.389526+00:00",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
     "pid": 107226,

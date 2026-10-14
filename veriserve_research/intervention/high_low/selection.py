@@ -240,6 +240,10 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
         return _finish(result, started)
     if reference is not None and record.get("reference_origin") != "stage3_stream_unintervened_greedy":
         raise ValueError("Replacement reference must record untouched stage3 streaming origin")
+    if (manifest['config'].get('final_response_mode') == 'explanation_then_final_line'
+            and record.get('label') is None):
+        result['exclusion_reasons'] = ['REFERENCE_NOT_SCORABLE']
+        return _finish(result, started)
     try:
         bounds = _reference_bounds(record, tokenizer, manifest['config'].get('boundary_mode','steps'),
                                    manifest['config'].get('final_response_mode'))
