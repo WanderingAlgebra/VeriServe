@@ -117,9 +117,10 @@
       "wait_pid": 167411
     }
   ],
+  "interrupted_at": "2026-10-14T04:34:09.057752+00:00",
   "note": "Native CLI sequence unchanged; no duplicated live jobs, no resampling.",
   "pid": 180053,
-  "status": "WAITING_FOR_STAGE2_PROCESS",
+  "status": "INTERRUPTED_BEFORE_VERIFIER_DATA_FOR_TRANSPORT_DIAGNOSIS",
   "transport": "Direct HTTPS in child environments",
   "wait_pid": 180052
 }

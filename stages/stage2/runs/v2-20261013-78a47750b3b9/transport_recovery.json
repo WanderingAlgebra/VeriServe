@@ -19,5 +19,7 @@
     "sha256": "d0a295e9ce15b392682666232f2949cf05de52596c90864c74943f45d5dff02f",
     "verified_at": "2026-10-14T04:26:12.806854+00:00"
   },
-  "status": "PASS_DIRECT_TRANSPORT_AND_INDEPENDENT_LFS_RETRIEVAL"
+  "retry_reason": "Direct github.com TLS connect timed out; existing proxy reaches GitHub HTTP 200",
+  "status": "RETRYING_PROXY_IN_MANAGED_EXEC_SESSION",
+  "updated": "2026-10-14T04:36:49.127348+00:00"
 }

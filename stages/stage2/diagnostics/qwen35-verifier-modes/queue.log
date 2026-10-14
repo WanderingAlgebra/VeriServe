@@ -27,3 +27,32 @@ Traceback (most recent call last):
     raise RuntimeError(f"Backup failed; local files retained, collection stopped: {safe_error(exc)}") from exc
 RuntimeError: Backup failed; local files retained, collection stopped: Post "[redacted URL] proxyconnect tcp: dial tcp 127.0.0.1:17897: connect: connection refused
 
+Traceback (most recent call last):
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/artifacts/backup.py", line 65, in backup_probe
+    git("lfs", "push", "origin", "HEAD", env=env)
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/artifacts/io.py", line 59, in git
+    raise RuntimeError(safe_error(result.stderr))
+RuntimeError: Post "[redacted URL] dial tcp 20.205.243.166:443: i/o timeout
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/__main__.py", line 65, in <module>
+    main()
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/__main__.py", line 52, in main
+    return run(flags)
+           ^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/intervention/high_low/run.py", line 388, in main
+    return verifier_review(read_json(args.config),phase,args.review_output,args.human_labels,args.audit_extra)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/intervention/high_low/run.py", line 536, in verifier_review
+    backup_verifier_review(stage2,folder,f'{phase} prepared inputs')
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/intervention/high_low/run.py", line 456, in backup_verifier_review
+    backup_probe(stage2, f'Qwen3.5 verifier references: {reason}')
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/artifacts/backup.py", line 83, in backup_probe
+    raise RuntimeError(f"Backup failed; local files retained, collection stopped: {safe_error(exc)}") from exc
+RuntimeError: Backup failed; local files retained, collection stopped: Post "[redacted URL] dial tcp 20.205.243.166:443: i/o timeout
+
