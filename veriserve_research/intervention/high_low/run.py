@@ -472,6 +472,8 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
     source = read_json(stage2/'manifest.json')
     if not source or source['config']['model'] != cfg['model']:
         raise ValueError('New stage2 manifest required')
+    if cfg.get('final_response_mode')=='explanation_then_final_line':
+        require_current(source,'probe')
     folder = output or HERE/'runs'/('verifier-'+run_identity(cfg,'high-low',{'stage2_manifest':digest(stage2/'manifest.json')}))
     folder=Path(folder).resolve()
     if not folder.is_relative_to(ROOT.resolve()):

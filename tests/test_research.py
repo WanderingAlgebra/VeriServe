@@ -389,6 +389,11 @@ def test_generative_check_pass_fail_uncertain_and_accounting(tmp_path,monkeypatc
             assert problem == 'problem' and kind in ('intermediate','terminal')
             assert 'GOLD' not in prefix
             return [1,2]
+        def verify(self,ids,uid,numbers,checkpoint_step,kind):
+            payload=json.dumps(dict(verdict='PASS',first_error_step=None,diagnosis='',hint=''))
+            result=runtime.protocol.parse_verdict('Checked.</think>'+payload,numbers,checkpoint_step)
+            result.update(input_tokens=len(ids),output_tokens=7,seconds=.25,prefill_seconds=.05,decode_seconds=.2)
+            return result
     class Active:
         def __init__(self):
             self.ids=[1,2,3]
@@ -410,8 +415,10 @@ def test_generative_check_pass_fail_uncertain_and_accounting(tmp_path,monkeypatc
     state.update(reasoning_ids=[2,3],reasoning_positions=[1,2],context_ids=[1,2,3])
     state['budget'].update(generated_tokens=2,attempt_tokens=2)
     session=Active()
-    assert runtime.check_generative(cfg,state,session,Verifier(),Tok(),2,False,forced={'verdict':'PASS'}) is None
+    assert runtime.check_generative(cfg,state,session,Verifier(),Tok(),2,False) is None
     assert state['checkpoint_ids']==[1,2,3] and state['budget']['forward_tokens']==4
+    assert state['checks'][0]['input_tokens']==2 and state['checks'][0]['prefill_seconds']==.05
+    assert state['budget']['verifier_generated_tokens']==7
     # A later FAIL contradicting the PASS becomes UNCERTAIN and cannot submit.
     state['reasoning_ids'] += [4,5]
     state['reasoning_positions'] += [3,4]
@@ -567,6 +574,10 @@ def test_verifier_review_backup_failure_stops_before_next_question(tmp_path,monk
     rows=[dict(unique_id='first'),dict(unique_id='second')]
     atomic_json(tmp_path/'stage2/manifest.json',dict(config={'model':'fixture'},splits={'smoke':rows}))
     cfg=dict(stage2_run='stage2',model='fixture')
+    cfg['final_response_mode']='explanation_then_final_line'
+    with pytest.raises(ValueError,match='Legacy execution'):
+        high_low.verifier_review(cfg,'verifier-smoke',tmp_path/'review')
+    cfg.pop('final_response_mode')
     collected=[]
     def collect_row(*args,**kwargs):
         collected.append(args[3]['unique_id'])

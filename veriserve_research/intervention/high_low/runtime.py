@@ -688,9 +688,9 @@ def check_generative(cfg, state, session, verifier, tokenizer, prefix_count, fin
     state['budget']['prm_calls'] += 1
     state['budget']['forward_tokens'] += len(ids)
     state['budget']['verifier_generated_tokens'] = state['budget'].get('verifier_generated_tokens', 0) + result['output_tokens']
-    entry = dict(kind='CHECK', position='FINAL' if final else 'STEP', current_step=max(numbers),
+    entry = dict(result, kind='CHECK', position='FINAL' if final else 'STEP', current_step=max(numbers),
                  reasoning_tokens=prefix_count, prefix_ids=prefix.copy(), input_ids=ids, input_tokens=len(ids),
-                 seconds=clock()-start, is_first=not state['first_check_done'], **result)
+                 seconds=clock()-start, is_first=not state['first_check_done'])
     state['checks'].append(entry)
     state['events'].append(entry.copy())
     state['first_check_done'] = True
