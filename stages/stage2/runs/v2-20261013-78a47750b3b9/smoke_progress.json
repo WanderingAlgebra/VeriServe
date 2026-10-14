@@ -1,5 +1,5 @@
 {
-  "completed_parseable": 6,
+  "completed_parseable": 7,
   "generated": 9,
   "note": "All original ten questions still run; no replacements, no extra token budget. Truncated mathematical labels stay missing.",
   "planned": 10,
@@ -165,16 +165,17 @@
       "label_available": true,
       "longest_position_gap": 3381,
       "primary_exclusion": null,
-      "stage": "SCORED",
+      "stage": "FEATURES",
       "thinking_error": null,
       "timings": {
         "boundary_and_grading_seconds": 16.339183934032917,
-        "generation_seconds": 1639.0229473803192
+        "generation_seconds": 1639.0229473803192,
+        "reforward_seconds": 839.5931776147336
       },
       "token_sha256": "26eed5155750e5595fc9c91824ede584c211ff580bb1cb1e08c5df9b0d2bbab4",
       "unique_id": "b06dd6f0e8140ab15e5f660bc6712886b667213459eb3739c23eded89f8c459a"
     }
   ],
   "status": "PARTIAL_FIXED_TEN_QUESTION_SMOKE",
-  "updated": "2026-10-14T09:21:49.322984+00:00"
+  "updated": "2026-10-14T09:35:46.314177+00:00"
 }
