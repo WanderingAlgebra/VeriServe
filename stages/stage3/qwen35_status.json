@@ -1,19 +1,22 @@
 {
   "config": "stages/stage3/qwen35_4b_omni_high_low_config.json",
   "cpu_regression_tests_passed": 38,
+  "development_references_preserved": 5,
   "formal_pairs": 0,
+  "historical_direct_checks_preserved": 14,
+  "historical_direct_folder": "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z",
   "human_audit": "NOT_RUN",
   "models_downloaded": {
     "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
-  "note": "Revised final format is authorized. Stage2 proceeds independently. Stage3 requires development selection, fresh independent human audit, new-budget residency and four real pilots.",
+  "note": "Stage2 continues with 4B only. Verifier metadata fixes preserve old outputs and use a new source identity; new mode comparison requires complete fixed cohorts and human process labels.",
   "phase": "Generator smoke running; both verifier synthetic interfaces passed; real development data and human labels pending",
   "pilot_pairs": 0,
   "real_model_capacity": "NEW_PROFILE_CAPACITY_NOT_RUN",
   "stage2_run": "stages/stage2/runs/v2-20261013-78a47750b3b9",
-  "status": "AWAITING_NEW_STAGE2_AND_DEVELOPMENT_COMPARISON",
-  "updated": "2026-10-14T01:18:56.024660+00:00",
+  "status": "AWAITING_STAGE2_WITH_DEV_REFERENCES_CHECKPOINTED",
+  "updated": "2026-10-14T06:19:03.970695+00:00",
   "verifier_candidates": {
     "direct": "stages/stage2/diagnostics/qwen35-verifier-modes/direct_config.json",
     "thinking": "stages/stage2/diagnostics/qwen35-verifier-modes/thinking_config.json"
