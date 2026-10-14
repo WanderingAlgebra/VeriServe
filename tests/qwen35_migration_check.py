@@ -83,7 +83,10 @@ def main():
             context_peak=torch.cuda.max_memory_allocated()
             del long
             gc.collect()
-            long_hidden=extract(model,long_ids,[len(long_ids)-1])
+            # Stage2 has one attempt: its largest prefix is the output budget plus prompt.
+            # Full 131072 context above is a cache capacity check, not a larger Stage2 trajectory.
+            hidden_ids=long_ids[:cfg['max_new_tokens']+len(ids)]
+            long_hidden=extract(model,hidden_ids,[len(hidden_ids)-1])
             assert long_hidden.shape==(32,1,2560)
             restore_ids=long_ids[:cfg['max_new_tokens']]
             long=Session(model,restore_ids,cfg,1234)
@@ -91,11 +94,11 @@ def main():
             assert restoration['status']=='PASS'
             result['long_generator']=dict(status='PASS',official_weights=True,synthetic_input=True,
                 context_tokens=len(long_ids)+16,configured_context=cfg['max_total_tokens'],
-                hidden_prefix_tokens=len(long_ids),hidden_shape=list(long_hidden.shape),
+                hidden_prefix_tokens=len(hidden_ids),hidden_shape=list(long_hidden.shape),
                 restore_prefix_tokens=len(restore_ids),restore=restoration,
                 peak_allocated_bytes=max(context_peak,torch.cuda.max_memory_allocated()),
                 prefill_chunk_size=cfg['prefill_chunk_size'])
-            del long,long_hidden,long_ids,restore_ids
+            del long,long_hidden,long_ids,restore_ids,hidden_ids
             gc.collect()
             torch.cuda.empty_cache()
             atomic_json(output/'validation.json',result)
