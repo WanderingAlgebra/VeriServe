@@ -109,4 +109,11 @@ def load_examples(run, manifest, split):
                          "record": record})
     counts["analyzable_end"] = sum(x["has_end"] for x in examples)
     counts["analyzable_intermediate"] = sum(bool(x["steps"]) for x in examples)
+    if manifest.get('config',{}).get('final_response_mode') == 'explanation_then_final_line':
+        planned = counts['planned']
+        counts['normal_completion_rate'] = counts['completed']/planned if planned else None
+        counts['scorable_rate'] = (counts['correct']+counts['wrong'])/planned if planned else None
+        counts['correct_submission_rate'] = counts['correct']/planned if planned else None
+        labelled = counts['correct']+counts['wrong']
+        counts['mathematical_accuracy_scorable'] = counts['correct']/labelled if labelled else None
     return examples, dict(counts)

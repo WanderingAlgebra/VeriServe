@@ -129,5 +129,5 @@ def report(run, manifest, counts, metrics=None, rows=None, coverage=None, failur
         lines[2:2] = ['原生 Thinking 内的真实双换行定义候选检查点，不保证每段是完整数学推理单元。',
             'step_1/2/3 等历史字段在本 run 中表示第 1/2/3 个有效检查点；HIGH/LOW 是离线参考位置诊断。',
             f"格式示例固定在配置中（{len(cfg.get('format_examples',[]))//2} 个简单问答），不来自实验题集；stage2/stage3 输入一致。",
-            '最终答案只从 Thinking 闭合后的严格单行 Final answer 读取，Thinking 内引用该格式不参与评分。','']
+            ('最终响应允许解释，仅评分末尾唯一且完整的 Final answer boxed 行；Thinking 内引用不参与评分。' if cfg.get('final_response_mode') == 'explanation_then_final_line' else '最终答案只从 Thinking 闭合后的严格单行 Final answer 读取，Thinking 内引用该格式不参与评分。'),'']
     atomic_bytes(run / "report.md", "\n".join(lines).encode())

@@ -23,6 +23,9 @@ ARMS = ("HIGH", "LOW")
 
 def prepare(config_path):
     cfg = storage.safe_read_json(config_path)
+    status = cfg.get('verifier',{}).get('selection_status')
+    if status is not None and status != 'SELECTED_BY_DEVELOPMENT':
+        raise RuntimeError('Select a verifier from the fixed development comparison before Stage3 prepare; Stage2 can proceed independently')
     if not cfg.get('stage2_run'):
         raise ValueError('stage2_run must point to the completed new stage2 run (with probe_B.json)')
     original, splits = selection.load_source(ROOT / cfg['stage2_run'])
@@ -45,8 +48,8 @@ def prepare(config_path):
             raise ValueError('stage2/stage3 format examples mismatch')
         if cfg.get('boundary_mode','steps') != baseline.get('boundary_mode','steps'):
             raise ValueError('stage2/stage3 checkpoint rule mismatch')
-        for field in ('enable_thinking','prefill_chunk_size','max_new_tokens','max_total_tokens'):
-            if cfg[field] != baseline[field]:
+        for field in ('enable_thinking','prefill_chunk_size','max_new_tokens','max_total_tokens','final_response_mode'):
+            if cfg.get(field) != baseline.get(field):
                 raise ValueError(f'stage2/stage3 setting mismatch: {field}')
         legacy_cfg = cfg
     else:

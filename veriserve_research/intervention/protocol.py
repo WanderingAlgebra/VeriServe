@@ -2,7 +2,7 @@
 from __future__ import annotations
 import math
 import re
-from ..trajectory import FINAL, STEP, boundaries, boxed, decode, thinking_view, control_ids, thinking_error, verification_units, PARAGRAPHS
+from ..trajectory import FINAL, STEP, boundaries, boxed, decode, thinking_view, control_ids, thinking_error, verification_units, PARAGRAPHS, EXPLANATION_FINAL, final_answer_line
 from ..artifacts.legacy import prm_components, stage1_feedback
 _FEEDBACK = re.compile(
     r"(?ms)^\[Verification feedback\]\n.*?^\[Continue\]\n"
@@ -77,7 +77,7 @@ def delay_boundary(tokenizer, generated_ids):
     return None
 
 
-def terminal(tokenizer, generated_ids, eos=False, text=None, mode='steps'):
+def terminal(tokenizer, generated_ids, eos=False, text=None, mode='steps', final_response_mode=None):
     """Submit a complete standalone Final answer only after EOS, using stage2 format."""
     if not eos:
         return None
@@ -99,6 +99,13 @@ def terminal(tokenizer, generated_ids, eos=False, text=None, mode='steps'):
             text = text[:-len(suffix)]
     wrapper_error = thinking_error(text,terminal=True,mode=mode) if '</think>' in text or '<think>' in text else None
     if mode == PARAGRAPHS:
+        if final_response_mode == EXPLANATION_FINAL:
+            parsed = final_answer_line(text)
+            error = parsed['exclusion'] or ('INTERIOR_CONTROL_TOKEN' if any(t in specials for t in ids) else None)
+            numbers, _ = verification_units(text, mode, terminal=True)
+            return dict(reason='FORMAT_ERROR' if error else 'FINAL', termination=error,
+                        answer=None if error else parsed['answer'], text=text,
+                        current_step=numbers[-1] if numbers else 0, prefix_ids=ids, pending_ids=[])
         final = text.split('</think>',1)[1].strip() if '</think>' in text else ''
         numbers,_ = verification_units(text,mode,terminal=True)
         answer = boxed(final)
@@ -330,7 +337,7 @@ PASS means the active reasoning is confirmed with no unresolved error found. FAI
 After your own thinking, emit exactly one JSON object with required fields verdict, first_error_step, diagnosis, hint. verdict is PASS, FAIL or UNCERTAIN. PASS: first_error_step=null and diagnosis=hint="". UNCERTAIN: first_error_step=null, reason in diagnosis, hint="". FAIL: first_error_step is a current step number and nonempty diagnosis/hint, each at most 300 characters. Do not output markdown fences or other text outside the JSON."""
 
 
-def parse_verdict(raw, numbers, checkpoint_step=0, completion='EOS'):
+def parse_verdict(raw, numbers, checkpoint_step=0, completion='EOS', enable_thinking=True):
     import json
     result = dict(verdict='UNCERTAIN', raw_verdict='UNCERTAIN', effective_verdict='UNCERTAIN',
                   first_error_step=None, diagnosis='', hint='', checkpoint_conflict=False,
@@ -338,9 +345,12 @@ def parse_verdict(raw, numbers, checkpoint_step=0, completion='EOS'):
     try:
         if completion != 'EOS':
             raise ValueError('VERIFIER_' + completion)
-        if raw.count('</think>') != 1 or raw.count('<think>') > 1:
-            raise ValueError('Expected one closed native Thinking block')
-        final = raw.split('</think>', 1)[1].strip()
+        if enable_thinking:
+            if thinking_error(raw, terminal=True, mode=PARAGRAPHS):
+                raise ValueError('Expected one closed native Thinking block')
+            final = raw.split('</think>', 1)[1].strip()
+        else:
+            final = raw.strip()
         def unique_fields(pairs):
             value = {}
             for key,item in pairs:

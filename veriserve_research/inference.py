@@ -374,25 +374,38 @@ class GenerativeVerifier:
                                   retained_feedback=feedback, check_type=kind), ensure_ascii=False)
         # Reversible JSON escapes keep quoted chat delimiters from becoming control-token IDs.
         message = message.replace('<', '\\u003c').replace('>', '\\u003e')
+        thinking = getattr(self, 'cfg', {}).get('verifier', {}).get('enable_thinking', True)
+        if not thinking:
+            prompt = prompt.replace('After your own thinking, emit', 'Emit')
         return self.tokenizer.apply_chat_template(
             [{'role':'system','content':prompt}, {'role':'user','content':message}],
-            tokenize=True, add_generation_prompt=True, enable_thinking=True, return_dict=False)
+            tokenize=True, add_generation_prompt=True, enable_thinking=thinking, return_dict=False)
 
     def verify(self, ids, uid, numbers, checkpoint_step, kind, audit_repeat=0):
         from .artifacts.io import stable_hash
         from .trajectory import decode
         from .intervention.protocol import parse_verdict
         vc = self.cfg['verifier']
-        seed_input = [uid, ids, kind]
+        thinking = vc.get('enable_thinking', True)
+        seed_input = [uid, ids, kind, thinking] if 'sampling' in vc else [uid, ids, kind]
         if audit_repeat:
             seed_input.append(['audit_repeat',audit_repeat])
         seed = generation_seed(self.cfg['seed'], stable_hash(seed_input))
-        session = Session(self.model, ids, self.cfg, seed)
+        settings = {**vc.get('sampling', sampling_config(self.cfg)),
+                    'prefill_chunk_size': self.cfg.get('prefill_chunk_size', 2048)}
+        if len(ids)>vc.get('max_input_tokens',vc['max_total_tokens']) or len(ids)+vc['max_new_tokens']>vc['max_total_tokens']:
+            result = parse_verdict('',numbers,checkpoint_step,'INPUT_LIMIT',thinking)
+            result.update(raw_text='',generated_ids=[],generation_seed=seed,input_tokens=len(ids),output_tokens=0,
+                          sampling=sampling_config(settings),enable_thinking=thinking,seconds=0.,prefill_seconds=0.,decode_seconds=0.)
+            return result
+        start = clock()
+        session = Session(self.model, ids, settings, seed)
+        prefill_seconds = clock()-start
         output = []
         completion = 'LENGTH_TRUNCATED'
         eos = self.model.generation_config.eos_token_id
         eos = set(eos if isinstance(eos, list) else [eos])
-        start = clock()
+        decode_start = clock()
         try:
             for _ in range(min(vc['max_new_tokens'], vc['max_total_tokens']-len(ids))):
                 token = session.sample()
@@ -401,10 +414,12 @@ class GenerativeVerifier:
                     completion = 'EOS'
                     break
             raw = decode(self.tokenizer, output[:-1] if output and output[-1] in eos else output)
-            result = parse_verdict(raw, numbers, checkpoint_step, completion)
+            result = parse_verdict(raw, numbers, checkpoint_step, completion, thinking)
             result.update(raw_text=raw, generated_ids=output, generation_seed=seed,
-                          input_tokens=len(ids), output_tokens=len(output), sampling=sampling_config(self.cfg),
-                          decode_seconds=clock()-start, verifier_output_kind='generative_native_thinking_json')
+                          input_tokens=len(ids), output_tokens=len(output), sampling=sampling_config(settings),
+                          enable_thinking=thinking, prefill_seconds=prefill_seconds,
+                          decode_seconds=clock()-decode_start, seconds=clock()-start,
+                          verifier_output_kind='generative_native_thinking_json' if thinking else 'generative_direct_json')
             return result
         finally:
             del session
@@ -600,9 +615,12 @@ def generative_capacity_check(cfg, generator, tokenizer, verifier, run):
         active = Session(generator,[tokenizer.eos_token_id]*cfg['max_total_tokens'],cfg,0)
         pass_snapshot = active.snapshot()
         vc=cfg['verifier']
-        verify_session = Session(verifier.model,[verifier.tokenizer.eos_token_id]*vc['max_input_tokens'],cfg,0)
+        verify_session = Session(verifier.model,[verifier.tokenizer.eos_token_id]*vc['max_input_tokens'],
+                                 {**vc.get('sampling',sampling_config(cfg)),
+                                  'prefill_chunk_size':cfg.get('prefill_chunk_size',2048)},0)
         for _ in range(vc['max_new_tokens']):
             verify_session.sample()
+        verify_session.ensure()
         result.update(status='PASS',seconds=clock()-start,peak_allocated_bytes=torch.cuda.max_memory_allocated(),
                       free_total_bytes=list(torch.cuda.mem_get_info()),generator_context=cfg['max_total_tokens'],
                       verifier_input=vc['max_input_tokens'],verifier_output=vc['max_new_tokens'],

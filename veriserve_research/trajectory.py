@@ -6,6 +6,7 @@ STEP = re.compile(r"(?m)^Step ([1-9]\d*):")
 FINAL = re.compile(r"(?m)^Final answer:[^\n]*")
 ANSWER_STEP = re.compile(r"(?i)\b(?:final answer|(?:the|our) answer\s+(?:is|equals)|answer is)\b")
 PARAGRAPHS = 'thinking_paragraphs'
+EXPLANATION_FINAL = 'explanation_then_final_line'
 BLANK = re.compile(r'\r?\n[ \t]*(?:\r?\n[ \t]*)+')
 
 
@@ -48,8 +49,8 @@ def verification_units(raw, mode='steps', terminal=False):
     return numbers, units
 
 
-def boxed(text):
-    """Last complete boxed expression; nested and escaped braces are handled, never math itself."""
+def boxed_spans(text):
+    """Complete boxed expressions and their original character spans."""
     found = []
     for match in re.finditer(r"\\boxed\s*\{", text):
         start = match.end()
@@ -64,15 +65,49 @@ def boxed(text):
                 continue
             depth += (text[i] == "{") - (text[i] == "}")
             if depth == 0:
-                found.append(text[start:i])
+                found.append((text[start:i], match.start(), i + 1))
                 break
-    return found[-1] if found else None
+    return found
 
 
-def grade(text, gold, completion, timeout, mode='steps'):
+def boxed(text):
+    found = boxed_spans(text)
+    return found[-1][0] if found else None
+
+
+def final_answer_line(raw, completion='EOS'):
+    """The revised native final-response contract, shared by grading and submission."""
+    result = dict(answer=None, exclusion=None)
+    if completion != 'EOS':
+        return dict(result, exclusion=completion)
+    raw = re.sub(r'(?:(?:<\|im_end\|>|<\|endoftext\|>)\s*)+$', '', raw).rstrip()
+    error = thinking_error(raw, terminal=True, mode=PARAGRAPHS)
+    if error:
+        return dict(result, exclusion=error)
+    final = raw.split('</think>', 1)[1]
+    lines = list(re.finditer(r'(?m)^[ \t]*Final answer:[^\r\n]*', final))
+    if not lines:
+        return dict(result, exclusion='NO_FINAL_ANSWER')
+    if len(lines) != 1 or final[lines[0].end():].strip():
+        return dict(result, exclusion='FINAL_FORMAT_ERROR')
+    payload = lines[0].group().strip()[len('Final answer:'):].strip()
+    boxes = boxed_spans(payload)
+    if not boxes:
+        return dict(result, exclusion='MISSING_OR_INCOMPLETE_BOXED')
+    if len(boxes) != 1 or boxes[0][1:] != (0, len(payload)):
+        return dict(result, exclusion='FINAL_FORMAT_ERROR')
+    return dict(result, answer=boxes[0][0])
+
+
+def grade(text, gold, completion, timeout, mode='steps', final_response_mode=None):
     from math_verify import LatexExtractionConfig, parse, verify
     from math_verify.utils import TimeoutException
-    if mode == PARAGRAPHS:
+    if final_response_mode == EXPLANATION_FINAL:
+        result = dict(label=None, **final_answer_line(text, completion))
+        if result['exclusion']:
+            return result
+        text = 'Final answer: \\boxed{' + result['answer'] + '}'
+    elif mode == PARAGRAPHS:
         text = text.split('</think>', 1)[1].strip() if '</think>' in text else ''
         if completion == 'EOS' and text and not FINAL.fullmatch(text):
             return dict(answer=None,label=None,exclusion='FINAL_FORMAT_ERROR')
@@ -96,14 +131,23 @@ def grade(text, gold, completion, timeout, mode='steps'):
     options = {"extraction_config": [LatexExtractionConfig(boxed_match_priority=0)],
                "fallback_mode": "no_fallback", "extraction_mode": "first_match",
                "parsing_timeout": timeout, "raise_on_error": True}
-    phase = "GOLD"
+    phase = "PREDICTION" if final_response_mode == EXPLANATION_FINAL else "GOLD"
     try:
+        predicted = None
+        if final_response_mode == EXPLANATION_FINAL:
+            predicted = parse(f"${result['answer']}$", **options)
+            result['answer_parseable'] = bool(predicted)
+            if not predicted:
+                result['exclusion'] = 'PREDICTION_UNPARSEABLE'
+                return result
+        phase = 'GOLD'
         expected = parse(f"${gold}$", **options)
         if not expected:
             result["exclusion"] = "GOLD_UNPARSEABLE"
             return result
         phase = "PREDICTION"
-        predicted = parse(f"${result['answer']}$", **options)
+        if predicted is None:
+            predicted = parse(f"${result['answer']}$", **options)
         if not predicted:
             result["exclusion"] = "PREDICTION_UNPARSEABLE"
             return result

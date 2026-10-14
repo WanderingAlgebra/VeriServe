@@ -20,6 +20,7 @@ def main():
     parser.add_argument('--gpu',action='store_true')
     parser.add_argument('--capacity',action='store_true')
     parser.add_argument('--verifier-interface',action='store_true',help='Run three synthetic 9B JSON controls; not a human quality audit')
+    parser.add_argument('--verifier-config',type=Path,help='Independent verifier candidate configuration')
     parser.add_argument('--saved-run',type=Path,help='Compare first smoke record NPZ endpoints with independent original prefixes')
     parser.add_argument('--benchmark-run',type=Path,help='Time fixed original prefixes under the active backend; diagnostic only')
     parser.add_argument('--output',type=Path)
@@ -70,6 +71,34 @@ def main():
         del session
         session=None
         gc.collect()
+        if (cfg.get('final_response_mode') == 'explanation_then_final_line'
+                and not (args.capacity or args.verifier_interface or args.saved_run or args.benchmark_run)):
+            # Official weights with synthetic long inputs; real smoke feature lengths are audited separately.
+            torch.cuda.reset_peak_memory_stats()
+            long_ids=[tokenizer.encode('a',add_special_tokens=False)[0]]*(cfg['max_total_tokens']-16)
+            long=Session(model,long_ids,cfg,1234)
+            for _ in range(16):
+                long.sample()
+            long.ensure()
+            context_peak=torch.cuda.max_memory_allocated()
+            del long
+            gc.collect()
+            long_hidden=extract(model,long_ids,[len(long_ids)-1])
+            assert long_hidden.shape==(32,1,2560)
+            restore_ids=long_ids[:cfg['max_new_tokens']]
+            long=Session(model,restore_ids,cfg,1234)
+            restoration=snapshot_gpu_check(long,feedback,[7,8],cfg)
+            assert restoration['status']=='PASS'
+            result['long_generator']=dict(status='PASS',official_weights=True,synthetic_input=True,
+                context_tokens=len(long_ids)+16,configured_context=cfg['max_total_tokens'],
+                hidden_prefix_tokens=len(long_ids),hidden_shape=list(long_hidden.shape),
+                restore_prefix_tokens=len(restore_ids),restore=restoration,
+                peak_allocated_bytes=max(context_peak,torch.cuda.max_memory_allocated()),
+                prefill_chunk_size=cfg['prefill_chunk_size'])
+            del long,long_hidden,long_ids,restore_ids
+            gc.collect()
+            torch.cuda.empty_cache()
+            atomic_json(output/'validation.json',result)
         if args.saved_run:
             import numpy as np
             from veriserve_research.probe.materials import record_path,read_record
@@ -169,7 +198,7 @@ def main():
             assert result['benchmark']['source_unchanged']
             atomic_json(output/'validation.json',result)
         if args.capacity:
-            high_cfg=read_json(ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
+            high_cfg=read_json(args.verifier_config or ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
             verifier=GenerativeVerifier(high_cfg)
             result['verifier_loading']=verifier.model.research_loading_info
             # Actual simultaneous residency at fixed context/output budgets. No quantization.
@@ -191,31 +220,42 @@ def main():
                 verifier_output=high_cfg['verifier']['max_new_tokens'],prefill_chunk_size=cfg['prefill_chunk_size'],
                 simultaneous_residency=True,two_immutable_checkpoints=True,precision='bfloat16')
             del active,verifier_session,prompt_checkpoint,pass_checkpoint
-        if args.verifier_interface:
+        compare_modes = cfg.get('final_response_mode') == 'explanation_then_final_line' and not (
+            args.capacity or args.verifier_interface or args.saved_run or args.benchmark_run)
+        if args.verifier_interface or compare_modes:
             from veriserve_research.trajectory import verification_units
-            high_cfg=read_json(ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
+            high_cfg=read_json(args.verifier_config or ROOT/'stages/stage3/qwen35_4b_omni_high_low_config.json')
             if verifier is None:
                 verifier=GenerativeVerifier(high_cfg)
             result['verifier_loading']=verifier.model.research_loading_info
             cases=[('intermediate','Adding 2 and 2 gives 4.','PASS'),
                    ('intermediate','Adding 2 and 2 gives 5.','FAIL'),
                    ('terminal','Adding 2 and 2 gives 4.\n</think>\n\nFinal answer: \\boxed{4}','PASS')]
-            result['verifier_interface']=dict(status='RUNNING',cases=[],
-                scope='Three predeclared synthetic JSON controls only; no experimental gold or confirmed human labels; not a quality gate.')
-            for kind,prefix,expected in cases:
-                numbers,_=verification_units(prefix,high_cfg.get('boundary_mode','steps'),terminal=kind=='terminal')
-                ids=verifier.input_ids('Compute 2 + 2.',prefix,max(numbers),[],kind)
-                uid=stable_hash(['synthetic-interface','Compute 2 + 2.',prefix,kind])
-                response=verifier.verify(ids,uid,numbers,0,kind)
-                result['verifier_interface']['cases'].append(dict(unique_id=uid,check_type=kind,
-                    quoted_prefix=prefix,input_ids=ids,expected_synthetic_verdict=expected,result=response))
-                atomic_json(output/'validation.json',result)
-                print('SYNTHETIC_VERIFIER',kind,response['verdict'],response.get('parser_error'),flush=True)
-            passed=all(c['result']['verdict']==c['expected_synthetic_verdict'] and not c['result'].get('parser_error')
-                       for c in result['verifier_interface']['cases'])
-            result['verifier_interface']['status']='SYNTHETIC_CONTROLS_PASS' if passed else 'FORMAT_OR_CONTROL_FAILURE'
-            if not passed:
-                raise RuntimeError('Synthetic 9B JSON control failed; raw outputs retained, not a human quality audit')
+            profiles = ([read_json(ROOT/'stages/stage2/diagnostics/qwen35-verifier-modes'/f'{name}_config.json')
+                         for name in ('direct','thinking')] if compare_modes else [high_cfg])
+            result['verifier_interfaces']={}
+            for profile in profiles:
+                verifier.cfg=profile
+                name='thinking' if profile['verifier'].get('enable_thinking',True) else 'direct'
+                check=dict(status='RUNNING',cases=[],config=profile,
+                    scope='Three fixed synthetic controls; not independent human quality labels.')
+                result['verifier_interfaces'][name]=check
+                for kind,prefix,expected in cases:
+                    numbers,_=verification_units(prefix,profile.get('boundary_mode','steps'),terminal=kind=='terminal')
+                    ids=verifier.input_ids('Compute 2 + 2.',prefix,max(numbers),[],kind)
+                    uid=stable_hash(['synthetic-interface','Compute 2 + 2.',prefix,kind])
+                    response=verifier.verify(ids,uid,numbers,0,kind)
+                    check['cases'].append(dict(unique_id=uid,check_type=kind,quoted_prefix=prefix,
+                        input_ids=ids,expected_synthetic_verdict=expected,result=response))
+                    atomic_json(output/'validation.json',result)
+                    print('SYNTHETIC_VERIFIER',name,kind,response['verdict'],response.get('parser_error'),flush=True)
+                passed=all(c['result']['verdict']==c['expected_synthetic_verdict'] and not c['result'].get('parser_error')
+                           for c in check['cases'])
+                check['status']='SYNTHETIC_CONTROLS_PASS' if passed else 'FORMAT_OR_CONTROL_FAILURE'
+                if args.verifier_interface:
+                    result['verifier_interface']=check
+                    if not passed:
+                        raise RuntimeError('Synthetic 9B JSON control failed; raw outputs retained, not a human quality audit')
         result.update(status='PASS',finished=now())
         atomic_json(output/'validation.json',result)
         print(f'QWEN35 GPU CHECK PASS {output}',flush=True)

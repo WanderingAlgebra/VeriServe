@@ -28,28 +28,28 @@
     "user_authorized": true
   },
   "config": "stages/stage2/qwen35_4b_omni_config.json",
-  "cpu_regression_tests_passed": 35,
+  "cpu_regression_tests_passed": 37,
   "current_probe_source_hashes": {
-    "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
-    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
-    "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c",
-    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
-    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
-    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
     "veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650",
     "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336",
+    "veriserve_research/trajectory.py": "9f30cc2df43c23d016cefb118e01574e4dbf206302f79be4bcdf1c36218d22c1",
+    "veriserve_research/inference.py": "b6e7d4efe65bd004ee3797379f3b11290e5048229c896c34fbd74278891ab8e9",
     "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "veriserve_research/artifacts/backup.py": "7da2d0989965ca5032ccb9d1a3133a6f0d561ec17540027ec7b86eb35b299981",
     "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb",
     "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
-    "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
     "veriserve_research/artifacts/provenance.py": "33399d2d5e37dea42b875768f4eab4690e6b927d5a60f940ff71b41dab5b12ea",
-    "veriserve_research/inference.py": "7bdf60f326b69b86d8f5addd52b0480c14acdeb1dd53a46078308adb263413ec",
+    "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
+    "veriserve_research/artifacts/backup.py": "7da2d0989965ca5032ccb9d1a3133a6f0d561ec17540027ec7b86eb35b299981",
     "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "veriserve_research/probe/collect.py": "07b07cb72ab08de44b3e105fb19b768c6c4af7dd31b8f686b705fc9b9826770f",
+    "veriserve_research/probe/materials.py": "3ba86c6aa63b8f8f5d5848a506027e0dc1e167bcc75c1b2162fb44b35a3991bb",
     "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
-    "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
-    "veriserve_research/trajectory.py": "63c9abdb6a15a4abb9ff28e883f0c16ff1380f4399fbe105288ec73faf27f56f"
+    "veriserve_research/probe/collect.py": "1a9ab034b31c3171f4353963698bcd69d6ef86a8a3fd98bf6bfe3becdbd64794",
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665"
   },
   "dataset": {
     "conflicting_answers": [],
@@ -69,9 +69,8 @@
     "url": "https://raw.githubusercontent.com/KbsdJames/omni-math-rule/bda09972374225ab2186582615307d909965b864/omni_math_rule.jsonl"
   },
   "final_format_decision": {
-    "applied": false,
-    "proposal": "stages/stage2/diagnostics/qwen35-paragraphs/final-format-retry/final_line_proposal.json",
-    "status": "AWAITING_USER"
+    "applied": true,
+    "status": "AUTHORIZED_BY_USER_20261014_REVISED_PLAN"
   },
   "formal_generated": 0,
   "formal_hold": "stages/stage2/runs/v2-20261013-da5c802342ee/smoke_format_review_hold.json",
@@ -93,12 +92,12 @@
     "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
-  "new_official_identity_required": true,
-  "next_action": "Await final-answer format protocol decision, then prepare a fresh execution identity and fresh smoke before formal stage2. Develop verifier output budget/prompt only on the fixed verifier_dev cohort, then independently human-audit before formal stage3.",
-  "note": "Natural Thinking paragraph checkpoints work, but original strict final-only format remains unreliable. Four prompt variants failed on the same complex smoke question; no final-format amendment applied. Ten real verifier smoke questions completed: 6 PASS and 15 output-truncated checks; no human accuracy claim. Sampler suffix-view optimization adopted after 96 matching outputs/RNG states and 35 CPU regression checks.",
+  "new_official_identity_required": false,
+  "next_action": "Run official-weight long-context generator checks and both fixed verifier interface controls, then new fixed ten-question smoke. Only >=8 completed parseable smoke and all engineering checks permit formal Stage2. No final-format approval pending.",
+  "note": "2026-10-14 plan supersedes old strict final-only policy and old budgets. New run imports fixed splits and verified data bytes only; no old generated tokens or features.",
   "pipeline_pid": null,
   "pipeline_status": "stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_status.json",
-  "previous_run": "stages/stage2/runs/v2-20261013-2f15553ff1e5",
+  "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
   "real_model_interface_restore": "PASS",
   "real_model_smoke": "TEN_TRAJECTORIES_COMPLETE_WITH_POOR_FORMAT",
   "real_verifier_smoke": {
@@ -135,7 +134,7 @@
     "status": "PASS"
   },
   "retired_pipeline_pid": 65456,
-  "run": "stages/stage2/runs/v2-20261013-da5c802342ee",
+  "run": "stages/stage2/runs/v2-20261013-65f1890ff570",
   "sampling_cost_diagnostic": {
     "adopted": true,
     "adoption": "stages/stage2/diagnostics/qwen35-sampling-cost/adoption.json",
@@ -153,8 +152,8 @@
     "scope": "first smoke first checkpoint and trajectory end, all 32 layers",
     "status": "PASS"
   },
-  "smoke_generated": 10,
-  "smoke_scorable": 1,
+  "smoke_generated": 0,
+  "smoke_scorable": 0,
   "source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
@@ -184,7 +183,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "FORMAT_PROTOCOL_DECISION_REQUIRED_NO_ACTIVE_PROCESS",
+  "status": "REVISED_PLAN_PREPARED_MODEL_CHECKS_NEXT",
   "strict_channel_prompt_trial": {
     "completion": "EOS",
     "generated_tokens": 19498,
@@ -222,5 +221,6 @@
     "pid": 115492,
     "status": "SYNTHETIC_CONTROLS_PASS"
   },
-  "protocol_decision_audit": "stages/stage2/diagnostics/qwen35-final-user-task/protocol_decision_audit.json"
+  "protocol_decision_audit": "stages/stage2/diagnostics/qwen35-final-user-task/protocol_decision_audit.json",
+  "execution_plan": "stages/stage2/qwen35_execution_plan_20261014.txt"
 }

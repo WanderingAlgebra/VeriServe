@@ -13,6 +13,71 @@ from veriserve_research.artifacts.io import atomic_json, digest, read_json, stab
 from veriserve_research.artifacts.materials import material_key, material_path, validate_materials
 
 
+def test_revised_final_response_shared_contract():
+    from veriserve_research.trajectory import final_answer_line,grade,PARAGRAPHS,EXPLANATION_FINAL
+    from veriserve_research.intervention.protocol import terminal
+    class Tokenizer:
+        all_special_ids=[0]
+        def get_vocab(self):return {}
+        def decode(self,ids,**kwargs):return ''.join(chr(i) if i else '<|im_end|>' for i in ids)
+    tok=Tokenizer()
+    raw='A draft \\boxed{999}.\n</think>\nAn explanation with \\boxed{7}.\nFinal answer: \\boxed{\\frac{1}{2}}'
+    assert final_answer_line(raw+'<|im_end|>')['answer']==r'\frac{1}{2}'
+    assert final_answer_line(raw+'<|im_end|>\n<|endoftext|>')['answer']==r'\frac{1}{2}'
+    assert grade(raw,'0.5','EOS',5,PARAGRAPHS,EXPLANATION_FINAL)['label']==0
+    assert grade(raw,'0.5','EOS',5,PARAGRAPHS)['exclusion']=='FINAL_FORMAT_ERROR'
+    assert terminal(tok,[ord(c) for c in raw]+[0],True,mode=PARAGRAPHS,final_response_mode=EXPLANATION_FINAL)['answer']==r'\frac{1}{2}'
+    for bad in (raw+'\nExtra.',raw+'\nFinal answer: \\boxed{1}',
+                raw+' prose',raw.replace(r'\boxed{\frac{1}{2}}',r'\boxed{\frac{1}{2}'),
+                raw.replace(r'\boxed{\frac{1}{2}}',r'\boxed{1} \\boxed{2}'),
+                raw.split('</think>')[0],raw.replace('</think>','')):
+        assert final_answer_line(bad)['exclusion']
+    assert final_answer_line(raw,'LENGTH_TRUNCATED')['exclusion']=='LENGTH_TRUNCATED'
+    from veriserve_research.trajectory import boundaries
+    from veriserve_research.intervention.high_low.selection import _reference_bounds
+    reference='First assertion.\n\nSecond assertion.\n\n'+raw
+    ids=[ord(c) for c in reference]+[0]
+    _,bounds=boundaries(tok,ids,PARAGRAPHS)
+    record=dict(enable_thinking=True,boundary_mode=PARAGRAPHS,completion='EOS',prompt_ids=[1],
+                generated_ids=ids,raw_text=tok.decode(ids),boundaries=bounds,
+                token_sha256=stable_hash({'prompt_ids':[1],'generated_ids':ids}))
+    assert _reference_bounds(record,tok,PARAGRAPHS,EXPLANATION_FINAL)==bounds
+    with pytest.raises(ValueError,match='REFERENCE_FINAL_FORMAT_ERROR'):
+        _reference_bounds(record,tok,PARAGRAPHS)
+
+
+def test_independent_verifier_modes_and_rng(monkeypatch):
+    from types import SimpleNamespace
+    import torch
+    from veriserve_research import inference
+    from veriserve_research.intervention.protocol import parse_verdict
+    payload='{"verdict":"PASS","first_error_step":null,"diagnosis":"","hint":""}'
+    assert parse_verdict(payload,[1],enable_thinking=False)['verdict']=='PASS'
+    assert parse_verdict('Reasoning</think>'+payload,[1])['verdict']=='PASS'
+    for raw in ('prefix'+payload,'```json\n'+payload+'\n```','Reasoning</think>'+payload,
+                payload.replace('"verdict":"PASS"','"verdict":"PASS","verdict":"FAIL"')):
+        assert parse_verdict(raw,[1],enable_thinking=False)['parser_error']
+    assert parse_verdict(payload,[1],completion='LENGTH_TRUNCATED',enable_thinking=False)['verdict']=='UNCERTAIN'
+    calls=[]
+    class FakeSession:
+        def __init__(self,model,ids,cfg,seed):calls.append((cfg,seed))
+        def sample(self):return 0
+    class Tokenizer:
+        def decode(self,ids,**kwargs):return payload
+        def apply_chat_template(self,messages,**kwargs):calls.append(kwargs);return [1]
+    v=object.__new__(inference.GenerativeVerifier);v.model=SimpleNamespace(generation_config=SimpleNamespace(eos_token_id=[0]));v.tokenizer=Tokenizer()
+    v.cfg={'seed':7,'temperature':1.,'verifier':{'enable_thinking':False,'max_new_tokens':1,'max_total_tokens':10,'sampling':{'do_sample':True,'temperature':.7,'top_p':.8}}}
+    monkeypatch.setattr(inference,'Session',FakeSession);monkeypatch.setattr(inference,'clock',lambda:0.)
+    before=torch.random.get_rng_state().clone();v.input_ids('problem','Step 1: 2+2=4',1,[],'intermediate')
+    assert calls[-1]['enable_thinking'] is False
+    a=v.verify([1],'uid',[1],0,'intermediate');b=v.verify([1],'uid',[1],0,'intermediate')
+    assert a['generation_seed']==b['generation_seed'] and a['sampling']['temperature']==.7
+    assert torch.equal(before,torch.random.get_rng_state())
+    v.cfg['verifier']['enable_thinking']=True
+    c=v.verify([1],'uid',[1],0,'intermediate')
+    assert c['generation_seed']!=a['generation_seed']
+
+
 @pytest.mark.parametrize("experiment", ("probe", "fixed-step", "high-low"))
 def test_cpu_checks(experiment):
     from veriserve_research.__main__ import self_check

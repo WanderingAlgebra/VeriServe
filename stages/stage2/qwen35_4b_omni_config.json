@@ -19,27 +19,10 @@
   "expected_hidden_layers": 32,
   "expected_hidden_size": 2560,
   "folds": 5,
-  "format_examples": [
-    {
-      "content": "What is 2+2?",
-      "role": "user"
-    },
-    {
-      "content": "Final answer: \\boxed{4}",
-      "role": "assistant"
-    },
-    {
-      "content": "What is 2+3?",
-      "role": "user"
-    },
-    {
-      "content": "Final answer: \\boxed{5}",
-      "role": "assistant"
-    }
-  ],
+  "format_examples": [],
   "max_iter": 2000,
-  "max_new_tokens": 32768,
-  "max_total_tokens": 65536,
+  "max_new_tokens": 81920,
+  "max_total_tokens": 131072,
   "min_p": 0.0,
   "model": "Qwen/Qwen3.5-4B",
   "model_cache_dir": "/root/autodl-tmp/hf-qwen35",
@@ -52,7 +35,7 @@
     "model": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
     "tokenizer": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"
   },
-  "run_note": "Authorized natural Thinking paragraph checkpoints; strict final-only line; two fixed synthetic format examples; exact original token endpoints selected offline.",
+  "run_note": "2026-10-14 revised plan: explanation then one strict final line; native Thinking paragraph checkpoints; fixed original IDs and independent reference prefixes.",
   "score_timeout_seconds": 5,
   "seed": 20261013,
   "split_sizes": {
@@ -62,9 +45,12 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "system_prompt": "Your final response must be exactly one line: Final answer: \\boxed{answer}. No explanation or working in the final response.",
+  "system_prompt": "Solve the mathematical problem carefully. You may explain your solution in the final response.\nEnd the final response with exactly one line in this format:\nFinal answer: \\boxed{answer}\nPlace no text after that line.",
   "temperature": 1.0,
   "threshold_metrics": true,
   "top_k": 20,
-  "top_p": 0.95
+  "top_p": 0.95,
+  "final_response_mode": "explanation_then_final_line",
+  "smoke_min_completed_parseable": 8,
+  "split_manifest": "stages/stage2/runs/v2-20261013-da5c802342ee/manifest.json"
 }

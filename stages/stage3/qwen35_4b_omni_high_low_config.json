@@ -20,31 +20,14 @@
   "expected_hidden_size": 2560,
   "experiment_type": "within_question_high_low",
   "feature_extraction": "independent_original_prefixes; selected layer from probe_B.json",
-  "format_examples": [
-    {
-      "content": "What is 2+2?",
-      "role": "user"
-    },
-    {
-      "content": "Final answer: \\boxed{4}",
-      "role": "assistant"
-    },
-    {
-      "content": "What is 2+3?",
-      "role": "user"
-    },
-    {
-      "content": "Final answer: \\boxed{5}",
-      "role": "assistant"
-    }
-  ],
-  "max_forward_tokens": 262144,
-  "max_new_tokens": 32768,
+  "format_examples": [],
+  "max_forward_tokens": 1048576,
+  "max_new_tokens": 81920,
   "max_prm_calls": 4,
-  "max_prm_input_tokens": 65536,
-  "max_request_tokens": 65536,
+  "max_prm_input_tokens": 147456,
+  "max_request_tokens": 163840,
   "max_rollbacks": 2,
-  "max_total_tokens": 65536,
+  "max_total_tokens": 131072,
   "min_p": 0.0,
   "model": "Qwen/Qwen3.5-4B",
   "model_cache_dir": "/root/autodl-tmp/hf-qwen35",
@@ -60,15 +43,15 @@
     "verifier": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
     "verifier_tokenizer": "c202236235762e1c871ad0ccb60c8ee5ba337b9a"
   },
-  "run_note": "Authorized natural Thinking paragraph checkpoints; strict final-only line; two fixed synthetic format examples; exact original token endpoints selected offline.",
+  "run_note": "2026-10-14 revised plan: explanation then one strict final line; native Thinking paragraph checkpoints; fixed original IDs and independent reference prefixes.",
   "score_timeout_seconds": 5,
   "seed": 20261013,
   "split_sizes": {
     "pilot": 4,
     "test": 200
   },
-  "stage2_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
-  "system_prompt": "Your final response must be exactly one line: Final answer: \\boxed{answer}. No explanation or working in the final response.",
+  "stage2_run": "stages/stage2/runs/v2-20261013-65f1890ff570",
+  "system_prompt": "Solve the mathematical problem carefully. You may explain your solution in the final response.\nEnd the final response with exactly one line in this format:\nFinal answer: \\boxed{answer}\nPlace no text after that line.",
   "temperature": 1.0,
   "terminal_policy": "PASS only; checkpoint conflict becomes UNCERTAIN; restore full nearest PASS state",
   "threshold_metrics": true,
@@ -80,8 +63,19 @@
     "enable_thinking": true,
     "id": "Qwen/Qwen3.5-9B",
     "kind": "generative",
-    "max_input_tokens": 65536,
-    "max_new_tokens": 4096,
-    "max_total_tokens": 69632
-  }
+    "max_input_tokens": 147456,
+    "max_new_tokens": 16384,
+    "max_total_tokens": 163840,
+    "sampling": {
+      "do_sample": true,
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "top_k": 20,
+      "min_p": 0.0,
+      "presence_penalty": 1.5,
+      "repetition_penalty": 1.0
+    },
+    "selection_status": "AWAITING_DEVELOPMENT_COMPARISON"
+  },
+  "final_response_mode": "explanation_then_final_line"
 }

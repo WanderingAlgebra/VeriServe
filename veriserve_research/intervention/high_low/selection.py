@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 import numpy as np
 from veriserve_research.artifacts.io import read_json, stable_hash, atomic_bytes, save_npz, digest
-from veriserve_research.trajectory import STEP, FINAL, ANSWER_STEP, boundaries, boxed, decode, thinking_view, thinking_error, PARAGRAPHS, paragraph_spans
+from veriserve_research.trajectory import STEP, FINAL, ANSWER_STEP, boundaries, boxed, decode, thinking_view, thinking_error, PARAGRAPHS, paragraph_spans, EXPLANATION_FINAL, final_answer_line
 from veriserve_research.probe.materials import record_path
 from ...artifacts.materials import material_key
 
@@ -42,7 +42,7 @@ def _probe(folder):
     return probe
 
 
-def _reference_bounds(record, tokenizer, mode='steps'):
+def _reference_bounds(record, tokenizer, mode='steps', final_response_mode=None):
     """Validate completion/format without consulting the gold or original outcome."""
     if record.get('enable_thinking') and thinking_error(record.get('raw_text',''),terminal=True,mode=mode):
         raise ValueError('REFERENCE_THINKING_FORMAT_ERROR')
@@ -82,7 +82,8 @@ def _reference_bounds(record, tokenizer, mode='steps'):
         raise ValueError("; ".join(bounds["format_errors"]))
     if mode == PARAGRAPHS:
         final = raw.split('</think>',1)[1].strip() if '</think>' in raw else ''
-        if not FINAL.fullmatch(final) or boxed(final) is None:
+        if (final_answer_line(raw)['exclusion'] if final_response_mode == EXPLANATION_FINAL
+                else not FINAL.fullmatch(final) or boxed(final) is None):
             raise ValueError('REFERENCE_FINAL_FORMAT_ERROR')
         if record.get('boundary_mode') != mode or bounds.get('mode') != mode:
             raise ValueError('REFERENCE_CHECKPOINT_MODE_MISMATCH')
@@ -240,7 +241,8 @@ def freeze_reference(stage2_run, split, row, tokenizer=None, model=None, referen
     if reference is not None and record.get("reference_origin") != "stage3_stream_unintervened_greedy":
         raise ValueError("Replacement reference must record untouched stage3 streaming origin")
     try:
-        bounds = _reference_bounds(record, tokenizer, manifest['config'].get('boundary_mode','steps'))
+        bounds = _reference_bounds(record, tokenizer, manifest['config'].get('boundary_mode','steps'),
+                                   manifest['config'].get('final_response_mode'))
     except (ValueError, KeyError, TypeError) as exc:
         result["exclusion_reasons"] = [str(exc)]
         return _finish(result, started)

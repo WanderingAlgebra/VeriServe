@@ -11,7 +11,7 @@ from veriserve_research import ROOT
 from ..artifacts.io import atomic_json, read_json, stable_hash, digest, atomic_bytes, save_npz, now, git, event, safe_error
 from ..artifacts.provenance import environment, resolve_revision, SHA, run_identity, source_hashes, manifest_version, require_current
 from ..artifacts.backup import backup_probe as backup
-from ..trajectory import grade, boxed, boundaries, decode, thinking_error
+from ..trajectory import grade, boxed, boundaries, decode, thinking_error, final_answer_line, EXPLANATION_FINAL
 from ..inference import load_model, extract, causal_check, Session, generation_seed, sampling_config, prompt_tokens
 from .materials import record_path, valid_features, read_record, load_examples
 from .fit import select_probes, method_rows, bootstrap_metrics, evaluate, fit_only
@@ -105,19 +105,37 @@ def prepare(config_path):
     rows = sorted(rows, key=lambda x: x["unique_id"])
     if len({r["unique_id"] for r in rows}) != len(rows):
         raise ValueError("Duplicate unique_id in dataset")
-    random.Random(cfg["seed"]).shuffle(rows)
     offset, splits = 0, {}
-    for name in ("train", "test", "smoke", "verifier_dev", "verifier_audit"):
-        if name not in cfg["split_sizes"]:
-            continue
-        size = cfg["split_sizes"][name]
-        splits[name] = rows[offset:offset + size]
-        if len(splits[name]) != size:
-            raise ValueError("Dataset too short")
-        offset += size
+    if cfg.get('split_manifest'):
+        prior = read_json(ROOT/cfg['split_manifest'])
+        if prior['dataset_integrity']['sha256'] != dataset_info['sha256']:
+            raise ValueError('Frozen split dataset differs from verified Rule bytes')
+        lookup = {r['unique_id']:r for r in rows}
+        for name,size in cfg['split_sizes'].items():
+            splits[name] = [lookup[r['unique_id']] for r in prior['splits'][name]]
+            if len(splits[name]) != size:
+                raise ValueError('Frozen split size changed')
+        used = [r['unique_id'] for cohort in splits.values() for r in cohort]
+        if len(used) != len(set(used)):
+            raise ValueError('Frozen splits overlap')
+        unused_ids = prior['unused_ids']
+        if set(unused_ids) & set(used) or set(unused_ids)|set(used) != set(lookup):
+            raise ValueError('Frozen split coverage differs')
+    else:
+        random.Random(cfg["seed"]).shuffle(rows)
+        for name in ("train", "test", "smoke", "verifier_dev", "verifier_audit"):
+            if name not in cfg["split_sizes"]:
+                continue
+            size = cfg["split_sizes"][name]
+            splits[name] = rows[offset:offset + size]
+            if len(splits[name]) != size:
+                raise ValueError("Dataset too short")
+            offset += size
+        unused_ids = [r['unique_id'] for r in rows[offset:]]
     manifest = {**manifest_version("probe"), "run_id": run.name, "created": now(), "config": cfg, "config_hash": cfg_hash,
                 "revisions": revisions, "splits": splits,
-                "unused_ids": [r["unique_id"] for r in rows[offset:]],
+                "unused_ids": unused_ids,
+                "split_manifest_sha256": digest(ROOT/cfg['split_manifest']) if cfg.get('split_manifest') else None,
                 "environment": environment(gpu=True), "code_commit": git("rev-parse", "HEAD"),
                 "script_sha256": digest(__file__), "common_sha256": digest(
                     ROOT / "stages/stage1/veriserve/common.py"),
@@ -131,7 +149,7 @@ def prepare(config_path):
             token_alignment='last complete original content token; no retokenization; unalignable content excluded',
             selection='offline reference endpoints; delimiter occurs later and is not supplied to online checks',
             verifier_numbering='external paragraph ordinals; terminal answer has its own final ordinal',
-            terminal_format='exactly one Final answer line after native Thinking; internal quoted answer syntax ignored')
+            terminal_format=cfg.get('final_response_mode','exactly one Final answer line after native Thinking'))
     atomic_json(run / "manifest.json", manifest)
     event(run, "PREPARED", sizes={k: len(v) for k, v in splits.items()})
     return cfg, run, manifest
@@ -187,6 +205,7 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=Tr
                   "config_hash": stable_hash(cfg), "generation_seed": seed,
                   "sampling": sampling_config(cfg), "enable_thinking": cfg.get("enable_thinking", False),
                   "boundary_mode": cfg.get('boundary_mode','steps'),
+                  "final_response_mode": cfg.get('final_response_mode'),
                   "token_sha256": stable_hash({"prompt_ids": prompt_ids, "generated_ids": generated_ids}),
                   "timings": {"generation_seconds": time.perf_counter() - start},
                   "generation_peak_bytes": torch.cuda.max_memory_allocated()}
@@ -195,10 +214,11 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=Tr
     mode = cfg.get('boundary_mode','steps')
     text, bounds = boundaries(tokenizer, record["generated_ids"], mode)
     record["boundaries"] = bounds
-    record.update(grade(text, row["answer"], record["completion"], cfg["score_timeout_seconds"], mode))
-    if cfg.get('enable_thinking') and thinking_error(record['raw_text'], terminal=True, mode=mode):
+    record.update(grade(text, row["answer"], record["completion"], cfg["score_timeout_seconds"], mode,
+                        cfg.get('final_response_mode')))
+    if record['completion'] == 'EOS' and cfg.get('enable_thinking') and thinking_error(record['raw_text'], terminal=True, mode=mode):
         record.update(label=None, exclusion='THINKING_FORMAT_ERROR')
-    if cfg.get('enable_thinking') and bounds['format_errors']:
+    if record['completion'] == 'EOS' and cfg.get('enable_thinking') and bounds['format_errors']:
         record.update(label=None, exclusion='STEP_FORMAT_ERROR')
     record["timings"]["boundary_and_grading_seconds"] = time.perf_counter() - start
     record["stage"] = "SCORED"
@@ -414,12 +434,20 @@ def main(argv=None):
             smoke = read_json(run / "smoke_checks.json", {})
             resume = read_json(run / "resume_check.json", {})
             if not smoke.get("passed") or not resume.get("passed"):
+                if cfg.get('final_response_mode') == EXPLANATION_FINAL and len(smoke.get('questions',{})) == cfg['split_sizes']['smoke']:
+                    raise RuntimeError(f"New smoke gate failed: {smoke.get('completed_parseable_questions',0)}/10 completed parseable, minimum {cfg['smoke_min_completed_parseable']}; formal Stage2 not started. See smoke_diagnostics.json and resume_check.json")
                 questions=smoke.get('questions',{})
                 if len(questions)==cfg['split_sizes']['smoke'] and not any(v.get('applicable') for v in questions.values()):
                     raise RuntimeError('All smoke questions generated but no valid intermediate steps; fix generation format before formal collection')
                 raise RuntimeError("Run all ten smoke questions and a separate --smoke --resume restart first")
             if smoke.get("source_code") != source_code() or resume.get("source_code") != source_code():
                 raise RuntimeError("Smoke/resume checks refer to different code; rerun --smoke --resume")
+            if cfg.get('final_response_mode') == EXPLANATION_FINAL:
+                validation=read_json(run/'gpu_validation/validation.json',{})
+                if (validation.get('status')!='PASS' or validation.get('sources',{}).get('probe')!=manifest['source_hashes']
+                        or validation.get('long_generator',{}).get('status')!='PASS'
+                        or validation['long_generator'].get('configured_context')!=cfg['max_total_tokens']):
+                    raise RuntimeError('New generator budget requires matching official-weight long-context/restore/hidden checks before formal Stage2')
             if not read_json(run / "backup.json", {}).get("feature_remote_verification"):
                 raise RuntimeError("Smoke NPZ has not been retrieved from the remote and verified")
             current = source_code()
@@ -457,13 +485,19 @@ def main(argv=None):
                     if cfg.get('boundary_mode') == 'thinking_paragraphs':
                         checks['questions'][row['unique_id']].update(completion=record['completion'],
                             scorable=record.get('label') is not None,exclusion=record.get('exclusion'))
+                        if cfg.get('final_response_mode') == EXPLANATION_FINAL:
+                            checks['questions'][row['unique_id']]['completed_parseable'] = (
+                                record['completion'] == 'EOS' and record.get('answer_parseable',False)
+                                and not final_answer_line(record['raw_text'])['exclusion'])
                     applicable = [v for v in checks["questions"].values() if v.get("applicable", True)]
                     checks["passed"] = (len(checks["questions"]) == cfg["split_sizes"]["smoke"]
                                         and bool(applicable) and all(v["passed"] for v in applicable))
                     checks["not_applicable"] = len(checks["questions"]) - len(applicable)
                     if cfg.get('boundary_mode') == 'thinking_paragraphs':
                         checks['scorable_questions'] = sum(v.get('scorable',False) for v in checks['questions'].values())
-                        checks['passed'] = checks['passed'] and checks['scorable_questions'] > 0
+                        minimum = cfg.get('smoke_min_completed_parseable', 1)
+                        checks['completed_parseable_questions'] = sum(v.get('completed_parseable',v.get('scorable',False)) for v in checks['questions'].values())
+                        checks['passed'] = checks['passed'] and checks['completed_parseable_questions'] >= minimum
                     checks["updated_at"] = now()
                     atomic_json(run / "smoke_checks.json", checks)
                     if checks["questions"][row["unique_id"]]["passed"] is False:
@@ -476,6 +510,48 @@ def main(argv=None):
                     print("SMOKE_PAUSED; restart with --smoke --resume", flush=True)
                     return
         if args.smoke:
+            if cfg.get('final_response_mode') == EXPLANATION_FINAL:
+                records = [read_record(record_path(run,'smoke',row['unique_id']),run,recover=False)
+                           for row in manifest['splits']['smoke']]
+                records = [r for r in records if r]
+                rows = []
+                for r in records:
+                    positions = [0] + [p['prefix_token_count'] for p in r['boundaries']['steps']] + [len(r['generated_ids'])]
+                    rows.append(dict(unique_id=r['unique_id'],completion=r['completion'],exclusion=r.get('exclusion'),
+                        answer_parseable=r.get('answer_parseable',False),candidates=len(r['boundaries']['steps']),
+                        near_end_candidates=sum(bool(p.get('near_end')) for p in r['boundaries']['steps']),
+                        thinking_format_error=thinking_error(r['raw_text'],terminal=True,mode=cfg['boundary_mode']),
+                        final_line_format_error=final_answer_line(r['raw_text'])['exclusion'],
+                        longest_position_gap=max(b-a for a,b in zip(positions,positions[1:])),
+                        generated_tokens=len(r['generated_ids']),timings=r['timings'],
+                        generation_peak_bytes=r.get('generation_peak_bytes'),
+                        feature_peak_bytes=r.get('reforward_peak_bytes')))
+                complete = [r for r in records if r['completion']=='EOS']
+                longest = max(complete,key=lambda r:len(r['prompt_ids'])+len(r['generated_ids']),default=None)
+                longest_check = None
+                if longest:
+                    path = record_path(run,'smoke',longest['unique_id'])
+                    if not valid_features(path,longest):
+                        raise RuntimeError('Longest completed smoke hidden features missing or invalid')
+                    expected_position=len(longest['prompt_ids'])+longest['boundaries']['end']['end_token_index']
+                    layers=set()
+                    for entry in longest['feature_files']:
+                        with np.load(path.parent/entry['name'],allow_pickle=False) as arrays:
+                            assert expected_position in arrays['positions']
+                            layers.update(int(layer) for layer in arrays['layers'])
+                            assert arrays['hidden'].shape[-1]==cfg['expected_hidden_size']
+                    assert layers==set(range(1,cfg['expected_hidden_layers']+1))
+                    longest_check = dict(unique_id=longest['unique_id'],
+                        prefix_tokens=expected_position+1,
+                        all_layers_finite=True,feature_files=longest['feature_files'])
+                total = sum(sum(r['timings'].get(k,0) for k in ('generation_seconds','reforward_seconds')) for r in records)
+                atomic_json(run/'smoke_diagnostics.json',dict(rows=rows,source_code=source_code(),
+                    eos=len(complete),truncated=sum(r['completion']!='EOS' for r in records),
+                    completed_parseable=checks.get('completed_parseable_questions',0),minimum=cfg['smoke_min_completed_parseable'],
+                    longest_completed_hidden=longest_check,generation_and_extraction_seconds=total,
+                    estimated_300_gpu_hours=total/max(1,len(records))*300/3600,
+                    estimate_limitation='Fixed smoke only; censored long outputs and independent-prefix extraction affect extrapolation.',
+                    formal_start_allowed=checks['passed'],updated=now()))
             after = snapshot_hashes(run, "smoke")
             audit = {"passed": bool(before) and all(after.get(k) == v for k, v in before.items()),
                      "source_code": source_code(),

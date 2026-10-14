@@ -290,7 +290,8 @@ def execute_path(cfg, run, row, selection, arm, model, tokenizer, verifier, back
                         reason = 'THINKING_FORMAT_ERROR'
                         break
                     endpoint = protocol.terminal(tokenizer, state['reasoning_ids'], True,
-                                                 text=reasoning_text(state, tokenizer),mode=cfg.get('boundary_mode','steps'))
+                                                 text=reasoning_text(state, tokenizer),mode=cfg.get('boundary_mode','steps'),
+                                                 final_response_mode=cfg.get('final_response_mode'))
                     if not endpoint or endpoint['reason'] != 'FINAL':
                         reason = endpoint.get('termination', 'FINAL_FORMAT_ERROR') if endpoint else 'EOS_FORMAT_FAILURE'
                         break
