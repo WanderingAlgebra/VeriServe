@@ -1,0 +1,23 @@
+{
+  "created": "2026-10-14T13:14:39.746091+00:00",
+  "finished": "2026-10-14T13:16:19.010639+00:00",
+  "formal_stage3_started": false,
+  "free_total_bytes": [
+    5277417472,
+    50866487296
+  ],
+  "generator_context": 131072,
+  "not_sampled_verifier_output": true,
+  "peak_allocated_bytes": 43753221120,
+  "phase": "GENERATOR_FULL_WITH_TWO_SNAPSHOTS_VERIFIER_PENDING",
+  "precision": "bfloat16",
+  "prefill_chunk_size": 1024,
+  "seconds": 87.51246429421008,
+  "simultaneous_residency": true,
+  "status": "PASS",
+  "two_immutable_checkpoints": true,
+  "validation_only": true,
+  "verifier_full_budget_teacher_forced": true,
+  "verifier_input": 147456,
+  "verifier_output_capacity": 16384
+}

@@ -1,0 +1,30 @@
+{
+  "device_peak_bytes": 44205604864,
+  "device_peak_sampling_ms": 20,
+  "engine": "vllm",
+  "finish_reason": "length",
+  "generated_ids": [
+    64,
+    64,
+    64,
+    64,
+    198,
+    71093,
+    271,
+    760,
+    4087,
+    369,
+    2972,
+    17,
+    15,
+    16,
+    21,
+    159034
+  ],
+  "generation_with_wake_and_sleep_seconds": 17.3144873958081,
+  "gpu_reserved_mib": 41528,
+  "pure_generation_seconds": 15.345912070944905,
+  "seed": 1234,
+  "stop_reason": null,
+  "wake_seconds": 1.163075851276517
+}

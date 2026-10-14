@@ -1,0 +1,13 @@
+Installed 2026-10-14; original environment and original model snapshots retained.
+Worker interpreter: /root/veriserve-vllm-env/bin/python
+Python 3.12.3; vLLM 0.20.0; torch 2.11.0+cu130; transformers 5.19.0.
+Created with uv venv --system-site-packages using the original CPython interpreter.
+Inherited base packages are read-only; overrides are installed ONLY in the new venv.
+Worker packages are frozen in requirements.freeze.txt. GPU driver: 595.58.03.
+Feature/scoring/fit interpreter remains environments/qwen35/.venv/bin/python:
+torch 2.8.0+cu128 and transformers 5.19.0 (checked again after installation).
+Actual install transcript: stages/stage2/diagnostics/qwen35-vllm-migration/install.log.
+Qwen revision: 851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a, cached local snapshot.
+Text only, BF16, no quantization; GDN temporal state explicitly float32 as in HF.
+Prefix caching disabled. Sleep level=1 between independent Stage2 requests frees
+KV/GDN state and backs weights to CPU; this is NOT a Stage3 full-state snapshot.

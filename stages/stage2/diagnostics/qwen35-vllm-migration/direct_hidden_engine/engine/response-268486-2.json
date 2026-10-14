@@ -1,0 +1,27 @@
+{
+  "device_peak_bytes": 43834343424,
+  "device_peak_sampling_ms": 20,
+  "engine": "vllm",
+  "finish_reason": "length",
+  "generated_ids": [
+    198
+  ],
+  "generation_with_wake_and_sleep_seconds": 3.2657594084739685,
+  "gpu_reserved_mib": 41174,
+  "hidden_capture": [
+    {
+      "path": "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-vllm-migration/direct-endpoint-4518.npz",
+      "position": 4518,
+      "shape": [
+        32,
+        1,
+        2560
+      ],
+      "token_id": 12576
+    }
+  ],
+  "pure_generation_seconds": 1.0556017607450485,
+  "seed": 1234,
+  "stop_reason": null,
+  "wake_seconds": 1.3715947289019823
+}

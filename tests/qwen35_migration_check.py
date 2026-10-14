@@ -18,6 +18,7 @@ from veriserve_research.inference import (load_model,Session,GenerativeVerifier,
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--gpu',action='store_true')
+    parser.add_argument('--generator-only',action='store_true',help='Check generator context/hidden/restore without launching verifier development')
     parser.add_argument('--capacity',action='store_true')
     parser.add_argument('--verifier-interface',action='store_true',help='Run three synthetic 9B JSON controls; not a human quality audit')
     parser.add_argument('--verifier-config',type=Path,help='Independent verifier candidate configuration')
@@ -226,7 +227,7 @@ def main():
                 verifier_output=high_cfg['verifier']['max_new_tokens'],prefill_chunk_size=cfg['prefill_chunk_size'],
                 simultaneous_residency=True,two_immutable_checkpoints=True,precision='bfloat16')
             del active,verifier_session,prompt_checkpoint,pass_checkpoint
-        compare_modes = cfg.get('final_response_mode') == 'explanation_then_final_line' and not (
+        compare_modes = not args.generator_only and cfg.get('final_response_mode') == 'explanation_then_final_line' and not (
             args.capacity or args.verifier_interface or args.saved_run or args.benchmark_run)
         if args.verifier_interface or compare_modes:
             from veriserve_research.trajectory import verification_units

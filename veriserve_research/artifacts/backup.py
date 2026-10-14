@@ -47,7 +47,7 @@ def backup_probe(run, message):
         if git("branch", "--show-current") != BRANCH:
             raise RuntimeError(f"Expected existing branch {BRANCH}; switch safely before running")
         git("lfs", "version")
-        paths = ["stages/stage2", "README.md", ".gitignore", ".gitattributes", "veriserve_research", "environments/stage23", "environments/qwen35", "tests/test_research.py", "tests/qwen35_migration_check.py", "stages/stage3/qwen35_4b_omni_high_low_config.json", "stages/stage3/README.md"]
+        paths = ["stages/stage2", "README.md", ".gitignore", ".gitattributes", "veriserve_research", "environments/stage23", "environments/qwen35", "environments/vllm", "tests/test_research.py", "tests/qwen35_migration_check.py", "tests/qwen35_vllm_check.py", "stages/stage3/qwen35_4b_omni_high_low_config.json", "stages/stage3/README.md"]
         for p in run.glob("records/**/*.npz"):
             relative = str(p.relative_to(ROOT))
             attrs = git("check-attr", "filter", "--", relative)

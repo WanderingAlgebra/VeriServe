@@ -1,0 +1,3 @@
+{
+  "error": "Object of type <class 'function'> is not serializableSet VLLM_ALLOW_INSECURE_SERIALIZATION=1 to allow fallback to pickle-based serialization."
+}

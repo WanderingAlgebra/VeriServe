@@ -1,0 +1,32 @@
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 12111.42it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+Traceback (most recent call last):
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-vllm-migration/direct_hidden_check.py", line 23, in <module>
+    out=engine.generate(ids[:p+1],1,1234,model.generation_config.eos_token_id,ignore_eos=True,capture_path=path.resolve())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/vllm_backend.py", line 54, in generate
+    return self._receive(target,timeout=7200)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/vllm_backend.py", line 45, in _receive
+    raise RuntimeError(data['error'])
+RuntimeError: Object of type <class 'function'> is not serializableSet VLLM_ALLOW_INSECURE_SERIALIZATION=1 to allow fallback to pickle-based serialization.
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 10959.25it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+Traceback (most recent call last):
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-vllm-migration/direct_hidden_check.py", line 23, in <module>
+    out=engine.generate(ids[:p+1],1,1234,model.generation_config.eos_token_id,ignore_eos=True,capture_path=path.resolve())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/vllm_backend.py", line 75, in generate
+    return self._receive(target,timeout=7200)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/vllm_backend.py", line 66, in _receive
+    raise RuntimeError(data['error'])
+RuntimeError: Call to collective_rpc method failed: 'Qwen3_5ForConditionalGeneration' object has no attribute '_probe_last_input'
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 11077.13it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+{'position': 127, 'token_aligned': True, 'max_abs': 0.25, 'rms': 0.009064341895282269, 'max_relative_l2': 0.014117538928985596, 'min_cosine': 0.9999011754989624, 'max_abs_per_layer': [0.0009765625, 0.001953125, 0.0078125, 0.015625, 0.03125, 0.03125, 0.005859375, 0.0078125, 0.0078125, 0.0078125, 0.009765625, 0.015625, 0.015625, 0.015625, 0.015625, 0.015625, 0.03125, 0.03125, 0.0625, 0.09375, 0.0625, 0.0625, 0.0625, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.0625, 0.046875, 0.25], 'passed': False}
+{'position': 4518, 'token_aligned': True, 'max_abs': 0.1875, 'rms': 0.008774924091994762, 'max_relative_l2': 0.014303513802587986, 'min_cosine': 0.9998979568481445, 'max_abs_per_layer': [0.00048828125, 0.0009765625, 0.0078125, 0.001953125, 0.001953125, 0.015625, 0.0078125, 0.0078125, 0.0078125, 0.0078125, 0.0078125, 0.0078125, 0.03125, 0.03125, 0.03125, 0.015625, 0.01953125, 0.01953125, 0.03125, 0.03125, 0.015625, 0.01953125, 0.0234375, 0.03125, 0.03125, 0.0625, 0.0625, 0.0625, 0.125, 0.125, 0.0625, 0.1875], 'passed': False}
+{'position': 55973, 'token_aligned': True, 'max_abs': 0.21875, 'rms': 0.011879374273121357, 'max_relative_l2': 0.020093010738492012, 'min_cosine': 0.9997993111610413, 'max_abs_per_layer': [0.000732421875, 0.0029296875, 0.03125, 0.015625, 0.015625, 0.03125, 0.03125, 0.03125, 0.03125, 0.03125, 0.03125, 0.03125, 0.03125, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.09375, 0.0390625, 0.0390625, 0.0625, 0.125, 0.0390625, 0.125, 0.046875, 0.05859375, 0.21875], 'passed': False}

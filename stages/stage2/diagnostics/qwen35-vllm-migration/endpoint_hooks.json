@@ -1,0 +1,37 @@
+{
+  "complete": true,
+  "rows": [
+    {
+      "exact_equal": true,
+      "max_abs": 0.0,
+      "min_cosine": 0.9999998807907104,
+      "new_peak_bytes": 8560713216,
+      "new_seconds": 0.04991534911096096,
+      "old_peak_bytes": 8579565056,
+      "old_seconds": 0.05389692075550556,
+      "position": 127
+    },
+    {
+      "exact_equal": true,
+      "max_abs": 0.0,
+      "min_cosine": 0.9999998807907104,
+      "new_peak_bytes": 9651673088,
+      "new_seconds": 0.5463988371193409,
+      "old_peak_bytes": 10318625792,
+      "old_seconds": 0.5431537292897701,
+      "position": 4518
+    },
+    {
+      "exact_equal": true,
+      "max_abs": 0.0,
+      "min_cosine": 0.9999998807907104,
+      "new_peak_bytes": 22302705664,
+      "new_seconds": 8.410044927150011,
+      "old_peak_bytes": 30609693696,
+      "old_seconds": 8.36169021576643,
+      "position": 55973
+    }
+  ],
+  "status": "PASS",
+  "updated": "2026-10-14T13:07:52.387484+00:00"
+}

@@ -1,0 +1,119 @@
+{
+  "updated": "2026-10-14T13:36:33.220374+00:00",
+  "new_run": "stages/stage2/runs/v2-20261013-854c63b5c942",
+  "status": "DETACHED_PIPELINE_RUNNING_GENERATOR_VALIDATION",
+  "pipeline_pid": 270082,
+  "formal_started": false,
+  "formal_new_completed": 0,
+  "new_smoke_completed": 0,
+  "dependencies": {
+    "python": "3.12.3",
+    "driver": "595.58.03",
+    "vllm": "0.20.0",
+    "worker_torch": "2.11.0+cu130",
+    "transformers": "5.19.0",
+    "original_torch": "2.8.0+cu128",
+    "original_environment_unchanged": true
+  },
+  "fixed_conditions": {
+    "model": "Qwen/Qwen3.5-4B",
+    "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+    "dtype": "bfloat16",
+    "batch": 1,
+    "thinking": true,
+    "new_tokens": 81920,
+    "context": 131072,
+    "original_splits_and_order": true,
+    "per_question_seed_unchanged": true
+  },
+  "features": {
+    "accepted": "HF independent original prefixes with endpoint-only hooks; NOT incremental",
+    "numerical_exact_all_32_layers": true,
+    "hook_comparison": "endpoint_hooks.json",
+    "incremental_candidate": "FAILED original coordinate tolerance, retained in features.json",
+    "vllm_direct_candidate": "REJECTED_NUMERICAL_EQUIVALENCE; public eager worker hooks, exact token positions, direct_hidden.json",
+    "long_A_hook_max_abs": 0.0,
+    "long_A_hook_peak_old_bytes": 30609693696,
+    "long_A_hook_peak_new_bytes": 22302705664,
+    "long_A_hook_seconds_old": 8.36169021576643,
+    "long_A_hook_seconds_new": 8.410044927150011,
+    "caveat": "Feature extraction memory improves; repeated-prefix compute explicitly remains and showed no meaningful speed gain."
+  },
+  "benchmark": {
+    "new_tokens": 512,
+    "original_generation_seconds": 11.851536555215716,
+    "vllm_generation_seconds": 5.281122589483857,
+    "original_tokens_per_second": 43.20114928681337,
+    "vllm_tokens_per_second": 96.94908446539954,
+    "original_feature_seconds": 0.1880074180662632,
+    "vllm_pipeline_HF_feature_seconds": 0.2485663741827011,
+    "original_combined_seconds": 12.03954397328198,
+    "vllm_combined_seconds": 7.4558156207203865,
+    "measured_combined_speedup": 1.6147856365738171,
+    "original_generation_peak_allocated_bytes": 8634760192,
+    "vllm_generation_peak_device_bytes": 43767234560,
+    "memory_measurement": "HF torch allocated peak; vLLM whole-device NVML sampled peak including resident HF every 20ms; these are different domains",
+    "first_engine_init_and_compile_seconds": 101.67598933167756,
+    "first_torch_compile_seconds": 24.17,
+    "first_profile_warmup_seconds": 47.32,
+    "first_compile_source": "benchmark_engine/engine/worker.log: first engine pid 265589",
+    "cached_initialization_seconds": 20.618373427540064,
+    "full_context_capacity": "PASS",
+    "same_seed_sleep_wake_repeat_equal": true
+  },
+  "provisional_300_estimate": {
+    "hours": 62.33166554352037,
+    "old_fixed_smoke_tokens": 478339,
+    "old_fixed_smoke_feature_seconds": 2525.880141919479,
+    "basis": "New measured short-token speed with old fixed smoke trajectory lengths/extraction costs; NOT a completed new smoke estimate.",
+    "caveat": "Long-context decode and new-engine trajectory lengths can change this substantially; pipeline replaces with new fixed-ten smoke estimate before formal collection."
+  },
+  "old_results": {
+    "formal_generated": 10,
+    "scorable": 9,
+    "truncated": 1,
+    "probe_fit": false,
+    "policy": "preserved; diagnostic raw-token reuse only, no import into new formal train/test statistics",
+    "reason": "Cross-engine 512-token reference differs at zero-based index 313; new run collects original full 100+200 cohort from the beginning"
+  },
+  "stage3": {
+    "formal_started": false,
+    "original_prefill2048_capacity": "OOM",
+    "alternative_prefill1024_expandable_capacity": "PASS",
+    "alternative_peak_allocated_bytes": 43753221120,
+    "capacity_scope": "teacher-forced full 163840 verifier context, simultaneous BF16 residency and two immutable snapshots; not an audit or real pilot",
+    "vllm_snapshot_support": false,
+    "strict_cross_engine_replay": false,
+    "original_config_unchanged": true,
+    "retained_gates": [
+      "verifier development and independent audit",
+      "new B frozen",
+      "real 4-pair pilot",
+      "actual chosen-runtime capacity and complete hybrid/RNG restore"
+    ]
+  },
+  "automation": {
+    "sequence": [
+      "generator budget+restore under frozen source",
+      "first smoke question and independent restart",
+      "remaining fixed ten smoke",
+      "all-record resume hash audit",
+      "8/10 completed parseable and causal/long features gates",
+      "new fixed smoke end-to-end benefit gate",
+      "original fixed 300 collection",
+      "original A/B/C fit/evaluation"
+    ],
+    "stops_on_any_failed_gate": true,
+    "stage3_not_started": true
+  },
+  "evidence_files": {
+    "preflight.json": "cd5412b83b308ca974dd05648c076f3e2744576585c24a2fb8bd41f518128a39",
+    "features.json": "1cc28f5bcd75c8cf5bd276d7dc15892888c6c48f5616754218468c95cdfed286",
+    "endpoint_hooks.json": "516b3e613f6091cd85d48c42a7c63c1ac9fccb9ab4245088c3352233b6cd54a2",
+    "direct_hidden.json": "fbfdc7341796502017a00fcda6a71080ea0d5a49ad1a7e56fb9094348c8e317f",
+    "sampling.json": "5365cc54baa90e2b4ea937794d028f826cc5543e6ff4582db54d23cf957b9fbc",
+    "vllm_benchmark.json": "dbb054a1ef557a416f3605585b256dc21e1145165e0d72c34d8e7c8b6537d96d",
+    "stage3_capacity.json": "1e2ac2330ab03c22e8b0eca008678e38e72deb6c0070dc380c55528f2d1a71b8",
+    "stage3_capacity_chunk1024.json": "a25446d86331cb0c46cda6d20cfca9566d7397c2928e588e96b36dd93043b039"
+  }
+}

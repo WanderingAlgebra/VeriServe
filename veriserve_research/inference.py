@@ -201,12 +201,23 @@ def load_model(cfg):
 
 def full_forward(model, ids, positions):
     import torch
-    with torch.inference_mode():
-        inputs = torch.tensor([ids], device="cuda:0")
-        out = model.model(input_ids=inputs, attention_mask=torch.ones_like(inputs),
-                          use_cache=False, output_hidden_states=True, return_dict=True)
-        hidden = np.stack([h[0, positions].float().cpu().numpy() for h in out.hidden_states[1:]])
-    return hidden
+    saved = []
+    def capture(module, args, output):
+        value = output[0] if isinstance(output, tuple) else output
+        saved.append(value[0, positions].clone())
+    # hidden_states[1..31] are raw decoder outputs 0..30; [32] is final norm.
+    hooks = [m.register_forward_hook(capture) for m in [*model.model.layers[:-1], model.model.norm]]
+    try:
+        with torch.inference_mode():
+            inputs = torch.tensor([ids], device=model.device)
+            model.model(input_ids=inputs, attention_mask=torch.ones_like(inputs),
+                        use_cache=False, output_hidden_states=False, return_dict=True)
+            if len(saved) != model.config.num_hidden_layers:
+                raise RuntimeError('Endpoint hook layer mapping mismatch')
+            return torch.stack(saved).float().cpu().numpy()
+    finally:
+        for hook in hooks:
+            hook.remove()
 
 
 def extract(model, ids, positions, layer=None):
@@ -214,6 +225,33 @@ def extract(model, ids, positions, layer=None):
     # so the saved endpoint has the same computation as an independent prefix.
     hidden = np.stack([full_forward(model, ids[:p + 1], [p])[:, 0] for p in positions], axis=1)
     return hidden if layer is None else hidden[layer-1:layer]
+
+
+def extract_incremental(model, ids, positions, layer=None, chunk_size=2048):
+    """One causal pass over original IDs, ending chunks at requested token endpoints.
+
+    HF hidden_states[1:32] are decoder outputs 0:31; hidden_states[32]
+    replaces the final raw decoder output with final RMSNorm. Embedding is excluded.
+    Only one chunk's hidden states lives on device; only endpoints survive on CPU.
+    """
+    import torch
+    if positions != sorted(set(positions)) or not positions or positions[0] < 0 or positions[-1] >= len(ids):
+        raise ValueError('Expected strictly increasing original-token endpoint indices')
+    cache, cursor, saved = None, 0, []
+    with torch.inference_mode():
+        for position in positions:
+            while cursor <= position:
+                end = min(cursor + chunk_size, position + 1)
+                x = torch.tensor([ids[cursor:end]], device=model.device)
+                out = model.model(input_ids=x, past_key_values=cache, use_cache=True,
+                                  output_hidden_states=True, return_dict=True)
+                cache = out.past_key_values
+                if end == position + 1:
+                    states = out.hidden_states[1:] if layer is None else out.hidden_states[layer:layer+1]
+                    saved.append(np.stack([h[0, -1].float().cpu().numpy().copy() for h in states]))
+                cursor = end
+                del out, x
+    return np.stack(saved, axis=1)
 
 
 def causal_check(model, record, cfg):

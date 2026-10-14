@@ -1,0 +1,23 @@
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 10729.50it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+Traceback (most recent call last):
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-vllm-migration/vllm_benchmark.py", line 15, in <module>
+    model,tok=load_model(cfg);engine=VLLMGenerator(cfg,folder/'benchmark_engine')
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/vllm_backend.py", line 29, in __init__
+    self.ready=self._receive(self.directory/'ready.json',timeout=1800)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/vllm_backend.py", line 35, in _receive
+    raise RuntimeError(f'vLLM worker exited ({self.process.returncode}); see {self.directory}/worker.log')
+RuntimeError: vLLM worker exited (1); see /root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-vllm-migration/benchmark_engine/engine/worker.log
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 12071.57it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+{'repetition': 0, 'new_tokens': 512, 'generation_including_wake_sleep_ipc_seconds': 9.211596220731735, 'pure_generation_seconds': 7.008606322109699, 'tokens_per_second': 73.05304028631474, 'feature_seconds': 0.2907589916139841, 'combined_seconds': 9.50235521234572, 'feature_peak_bytes': 8697772032}
+{'repetition': 1, 'new_tokens': 512, 'generation_including_wake_sleep_ipc_seconds': 7.207539020106196, 'pure_generation_seconds': 5.278181405737996, 'tokens_per_second': 97.00310782107574, 'feature_seconds': 0.2464945912361145, 'combined_seconds': 7.454033611342311, 'feature_peak_bytes': 8697772032}
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 12397.73it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+{'repetition': 0, 'new_tokens': 512, 'generation_including_wake_sleep_ipc_seconds': 8.307807687669992, 'pure_generation_seconds': 5.976975509896874, 'tokens_per_second': 85.66205418647164, 'feature_seconds': 0.29228451661765575, 'combined_seconds': 8.600092204287648, 'feature_peak_bytes': 8697772032}
+{'repetition': 1, 'new_tokens': 512, 'generation_including_wake_sleep_ipc_seconds': 7.207249246537685, 'pure_generation_seconds': 5.281122589483857, 'tokens_per_second': 96.94908446539954, 'feature_seconds': 0.2485663741827011, 'combined_seconds': 7.4558156207203865, 'feature_peak_bytes': 8697772032}

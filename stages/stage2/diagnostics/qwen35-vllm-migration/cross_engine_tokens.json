@@ -1,0 +1,10 @@
+{
+  "comparison": "Same fixed first smoke prompt and per-question seed; fixed 512-token speed diagnostic",
+  "common_prefix_tokens": 313,
+  "first_mismatch_original": 59103,
+  "first_mismatch_vllm": 2542,
+  "bitwise_equal": false,
+  "new_engine_same_seed_repeat_equal": true,
+  "stage3_strict_reference_replay": "FAILED_CROSS_ENGINE",
+  "old_10_formal_reuse": "diagnostic-only raw tokens; no import into new formal statistics"
+}

@@ -41,6 +41,8 @@ def prepare(config_path):
     if cfg.get('experiment_type') != 'within_question_high_low' or cfg['split_sizes'] != {'pilot': 4, 'test': 200}:
         raise ValueError('This entry only supports the frozen 4-pilot/200-test HIGH/LOW diagnostic')
     baseline = original['config']
+    if baseline.get('engine','transformers') != 'transformers' or cfg.get('engine','transformers') != 'transformers':
+        raise ValueError('Stage3 Session currently requires Transformers references and full hybrid snapshots; vLLM Stage2 references cannot be replayed or treated as prefix-cache snapshots')
     for field in ('model', 'prompt', 'dataset', 'dataset_split', 'attention', 'dtype', 'batch_size', 'do_sample'):
         if cfg[field] != baseline[field]:
             raise ValueError(f'Original generator setting changed: {field}')

@@ -18,7 +18,7 @@ COMMON = (
     "probe/__init__.py", "probe/materials.py", "probe/fit.py",
 )
 EXECUTION = {
-    "probe": ("probe/collect.py",),
+    "probe": ("probe/collect.py", "vllm_backend.py"),
     "fixed-step": (
         "artifacts/storage.py", "intervention/__init__.py",
         "intervention/protocol.py", "intervention/groups.py", "intervention/fixed_step.py",

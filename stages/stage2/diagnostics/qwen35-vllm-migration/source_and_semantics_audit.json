@@ -1,0 +1,168 @@
+{
+  "version": "0.20.0",
+  "sources": {
+    "qwen3_5.py": "https://raw.githubusercontent.com/vllm-project/vllm/v0.20.0/vllm/model_executor/models/qwen3_5.py",
+    "qwen3_next.py": "https://raw.githubusercontent.com/vllm-project/vllm/v0.20.0/vllm/model_executor/models/qwen3_next.py",
+    "penalties.py": "https://raw.githubusercontent.com/vllm-project/vllm/v0.20.0/vllm/v1/sample/ops/penalties.py",
+    "utils.py": "https://raw.githubusercontent.com/vllm-project/vllm/v0.20.0/vllm/model_executor/layers/utils.py",
+    "sampler.py": "https://raw.githubusercontent.com/vllm-project/vllm/v0.20.0/vllm/v1/sample/sampler.py"
+  },
+  "layer_mapping": {
+    "1": {
+      "HF": "hidden_states[1]",
+      "vllm_aux": "layer boundary 1: hidden_states + residual, before final RMSNorm"
+    },
+    "2": {
+      "HF": "hidden_states[2]",
+      "vllm_aux": "layer boundary 2: hidden_states + residual, before final RMSNorm"
+    },
+    "3": {
+      "HF": "hidden_states[3]",
+      "vllm_aux": "layer boundary 3: hidden_states + residual, before final RMSNorm"
+    },
+    "4": {
+      "HF": "hidden_states[4]",
+      "vllm_aux": "layer boundary 4: hidden_states + residual, before final RMSNorm"
+    },
+    "5": {
+      "HF": "hidden_states[5]",
+      "vllm_aux": "layer boundary 5: hidden_states + residual, before final RMSNorm"
+    },
+    "6": {
+      "HF": "hidden_states[6]",
+      "vllm_aux": "layer boundary 6: hidden_states + residual, before final RMSNorm"
+    },
+    "7": {
+      "HF": "hidden_states[7]",
+      "vllm_aux": "layer boundary 7: hidden_states + residual, before final RMSNorm"
+    },
+    "8": {
+      "HF": "hidden_states[8]",
+      "vllm_aux": "layer boundary 8: hidden_states + residual, before final RMSNorm"
+    },
+    "9": {
+      "HF": "hidden_states[9]",
+      "vllm_aux": "layer boundary 9: hidden_states + residual, before final RMSNorm"
+    },
+    "10": {
+      "HF": "hidden_states[10]",
+      "vllm_aux": "layer boundary 10: hidden_states + residual, before final RMSNorm"
+    },
+    "11": {
+      "HF": "hidden_states[11]",
+      "vllm_aux": "layer boundary 11: hidden_states + residual, before final RMSNorm"
+    },
+    "12": {
+      "HF": "hidden_states[12]",
+      "vllm_aux": "layer boundary 12: hidden_states + residual, before final RMSNorm"
+    },
+    "13": {
+      "HF": "hidden_states[13]",
+      "vllm_aux": "layer boundary 13: hidden_states + residual, before final RMSNorm"
+    },
+    "14": {
+      "HF": "hidden_states[14]",
+      "vllm_aux": "layer boundary 14: hidden_states + residual, before final RMSNorm"
+    },
+    "15": {
+      "HF": "hidden_states[15]",
+      "vllm_aux": "layer boundary 15: hidden_states + residual, before final RMSNorm"
+    },
+    "16": {
+      "HF": "hidden_states[16]",
+      "vllm_aux": "layer boundary 16: hidden_states + residual, before final RMSNorm"
+    },
+    "17": {
+      "HF": "hidden_states[17]",
+      "vllm_aux": "layer boundary 17: hidden_states + residual, before final RMSNorm"
+    },
+    "18": {
+      "HF": "hidden_states[18]",
+      "vllm_aux": "layer boundary 18: hidden_states + residual, before final RMSNorm"
+    },
+    "19": {
+      "HF": "hidden_states[19]",
+      "vllm_aux": "layer boundary 19: hidden_states + residual, before final RMSNorm"
+    },
+    "20": {
+      "HF": "hidden_states[20]",
+      "vllm_aux": "layer boundary 20: hidden_states + residual, before final RMSNorm"
+    },
+    "21": {
+      "HF": "hidden_states[21]",
+      "vllm_aux": "layer boundary 21: hidden_states + residual, before final RMSNorm"
+    },
+    "22": {
+      "HF": "hidden_states[22]",
+      "vllm_aux": "layer boundary 22: hidden_states + residual, before final RMSNorm"
+    },
+    "23": {
+      "HF": "hidden_states[23]",
+      "vllm_aux": "layer boundary 23: hidden_states + residual, before final RMSNorm"
+    },
+    "24": {
+      "HF": "hidden_states[24]",
+      "vllm_aux": "layer boundary 24: hidden_states + residual, before final RMSNorm"
+    },
+    "25": {
+      "HF": "hidden_states[25]",
+      "vllm_aux": "layer boundary 25: hidden_states + residual, before final RMSNorm"
+    },
+    "26": {
+      "HF": "hidden_states[26]",
+      "vllm_aux": "layer boundary 26: hidden_states + residual, before final RMSNorm"
+    },
+    "27": {
+      "HF": "hidden_states[27]",
+      "vllm_aux": "layer boundary 27: hidden_states + residual, before final RMSNorm"
+    },
+    "28": {
+      "HF": "hidden_states[28]",
+      "vllm_aux": "layer boundary 28: hidden_states + residual, before final RMSNorm"
+    },
+    "29": {
+      "HF": "hidden_states[29]",
+      "vllm_aux": "layer boundary 29: hidden_states + residual, before final RMSNorm"
+    },
+    "30": {
+      "HF": "hidden_states[30]",
+      "vllm_aux": "layer boundary 30: hidden_states + residual, before final RMSNorm"
+    },
+    "31": {
+      "HF": "hidden_states[31]",
+      "vllm_aux": "layer boundary 31: hidden_states + residual, before final RMSNorm"
+    },
+    "32": {
+      "HF": "hidden_states[32]",
+      "vllm_aux": "main final hidden after RMSNorm, NOT aux boundary 32"
+    }
+  },
+  "excluded_embedding": "HF hidden_states[0] == vLLM auxiliary boundary 0",
+  "endpoint_token": "absolute index len(prompt_ids)+end_token_index; the token itself, not its predecessor or next-token vector",
+  "direct_generation_hidden": "LLM.generate has no hidden return. Public LLM.apply_model eager hooks actually captured all 32 mapped endpoint vectors with token/position checks; REJECTED_NUMERICAL_EQUIVALENCE at the predeclared elementwise tolerance. No engine source changed.",
+  "sampling": {
+    "presence_penalty": "Subtract 1.5 ONCE for each seen generated suffix ID; prompt excluded; repetition_penalty=1 is inactive",
+    "temperature": 1,
+    "top_k": 20,
+    "top_p": 0.95,
+    "min_p": 0,
+    "frequency_penalty": 0,
+    "ordering": "repetition/frequency/presence; temperature; min_p (inactive); top_k then top_p",
+    "rng": "Native vLLM uses exponential sampling with per-request torch.Generator; original torch.multinomial is in a different Torch/kernel runtime. Do not infer bitwise equality: actual fixed 512-token comparison diverges at zero-based token index 313. Same-engine repeat is exact.",
+    "output": "detokenize=False; raw output.token_ids decoded with original tokenizer skip_special_tokens=False; explicit EOS assertion; no reasoning parser"
+  },
+  "stage3": {
+    "vllm_full_snapshot": "UNSUPPORTED_BY_THIS_ADAPTER",
+    "prefix_cache": "disabled; never claimed full KV/GDN/RNG snapshot",
+    "HF_restore": "Original full tensor deepcopy including attention KV, conv_states, recurrent_states and flags; clone preserves RNG; FAIL deliberately retains current RNG and cumulative counters per original plan",
+    "reference_replay": "cross-engine sampled prefix cannot be assumed; Stage3 rejects vLLM source manifests",
+    "timing": "Any future engine wake/sleep, fresh prefill, snapshot/restore, feedback forward and verifier time must be included in synchronized T_request",
+    "remaining_gates": [
+      "new B frozen",
+      "independent verifier audit",
+      "real 4-question HIGH/LOW pilot",
+      "full-budget restoration/capacity under selected runtime"
+    ],
+    "formal_started": false
+  }
+}

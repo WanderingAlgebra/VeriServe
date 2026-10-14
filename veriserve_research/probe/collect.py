@@ -157,6 +157,7 @@ def prepare(config_path):
 
 def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=True):
     import torch
+    collection_start = time.perf_counter()
     path = record_path(run, split, row["unique_id"])
     record = read_record(path, run)
     code = source_code()
@@ -167,6 +168,8 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=Tr
         print(f"SKIP {split} {row['unique_id']}", flush=True)
         return record, False
     if not record:
+        event(run,'QUESTION_STARTED',split=split,unique_id=row['unique_id'],engine=cfg.get('engine','transformers'))
+        print(f"START {split} {row['unique_id']} engine={cfg.get('engine','transformers')}",flush=True)
         prompt_ids = prompt_tokens(cfg, tokenizer, row['problem'])
         budget = min(cfg["max_new_tokens"], cfg["max_total_tokens"] - len(prompt_ids))
         if budget <= 0:
@@ -176,7 +179,13 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=Tr
         seed = generation_seed(cfg['seed'], row['unique_id'])
         eos = model.generation_config.eos_token_id
         eos_ids = eos if isinstance(eos, list) else [eos]
-        if cfg.get('enable_thinking'):
+        engine_result = None
+        if cfg.get('engine') == 'vllm':
+            engine_result = model.research_vllm.generate(prompt_ids,budget,seed,eos_ids)
+            generated_ids = engine_result['generated_ids']
+            if engine_result['finish_reason'] == 'stop' and (not generated_ids or generated_ids[-1] not in eos_ids):
+                raise RuntimeError('vLLM stop lost EOS token; refuse a reconstructed trajectory')
+        elif cfg.get('enable_thinking'):
             generated_ids = []
             session = Session(model, prompt_ids, cfg, seed)
             for _ in range(budget):
@@ -209,6 +218,9 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=Tr
                   "token_sha256": stable_hash({"prompt_ids": prompt_ids, "generated_ids": generated_ids}),
                   "timings": {"generation_seconds": time.perf_counter() - start},
                   "generation_peak_bytes": torch.cuda.max_memory_allocated()}
+        if engine_result is not None:
+            record['engine_result'] = engine_result
+            record['generation_peak_bytes'] = engine_result['device_peak_bytes']
         atomic_json(path, record)  # Save tokens before scoring or hidden extraction.
     start = time.perf_counter()
     mode = cfg.get('boundary_mode','steps')
@@ -257,7 +269,8 @@ def collect_one(cfg, run, split, row, model, tokenizer, hardware, *, features=Tr
     record["stage"] = "FEATURES"
     record["feature_hardware"] = hardware
     record["feature_source_code"] = code
-    record["feature_extraction"] = "independent_original_prefixes; BF16 decoder use_cache=False"
+    record["feature_extraction"] = "independent_original_prefixes; BF16 decoder use_cache=False; endpoint-only hooks"
+    record['timings']['collection_attempt_seconds'] = time.perf_counter()-collection_start
     atomic_json(path, record)
     print(f"DONE {split} {row['unique_id']} label={record['label']} exclusion={record['exclusion']} "
           f"steps={len(bounds['steps'])} tokens={len(record['generated_ids'])}", flush=True)
@@ -449,6 +462,10 @@ def main(argv=None):
                         or validation.get('long_generator',{}).get('status')!='PASS'
                         or validation['long_generator'].get('configured_context')!=cfg['max_total_tokens']):
                     raise RuntimeError('New generator budget requires matching official-weight long-context/restore/hidden checks before formal Stage2')
+            if cfg.get('engine') == 'vllm':
+                migration = read_json(run/'migration_gate.json',{})
+                if migration.get('status') != 'PASS' or migration.get('source_hashes') != source_hashes('probe'):
+                    raise RuntimeError('vLLM migration feature/capacity/speed gates missing or refer to changed code')
             if not read_json(run / "backup.json", {}).get("feature_remote_verification"):
                 raise RuntimeError("Smoke NPZ has not been retrieved from the remote and verified")
             current = source_code()
@@ -476,6 +493,9 @@ def main(argv=None):
                 needs_causal = args.smoke and row["unique_id"] not in checks["questions"]
                 if (needs_features or needs_causal) and model is None:
                     model, tokenizer = load_model(cfg)
+                    if cfg.get('engine') == 'vllm':
+                        from ..vllm_backend import VLLMGenerator
+                        model.research_vllm = VLLMGenerator(cfg,run)
                     event(run, "MODEL_LOADED", hardware=hardware,
                           loading_info=model.research_loading_info, layers=model.config.num_hidden_layers, hidden_size=model.config.hidden_size,
                           attention=model.config._attn_implementation, bf16_forward=True)
@@ -526,6 +546,7 @@ def main(argv=None):
                         final_line_format_error=final_answer_line(r['raw_text'])['exclusion'],
                         longest_position_gap=max(b-a for a,b in zip(positions,positions[1:])),
                         generated_tokens=len(r['generated_ids']),timings=r['timings'],
+                        engine_result={k:v for k,v in r.get('engine_result',{}).items() if k!='generated_ids'},
                         generation_peak_bytes=r.get('generation_peak_bytes'),
                         feature_peak_bytes=r.get('reforward_peak_bytes')))
                 complete = [r for r in records if r['completion']=='EOS']
@@ -552,6 +573,7 @@ def main(argv=None):
                     completed_parseable=checks.get('completed_parseable_questions',0),minimum=cfg['smoke_min_completed_parseable'],
                     longest_completed_hidden=longest_check,generation_and_extraction_seconds=total,
                     estimated_300_gpu_hours=total/max(1,len(records))*300/3600,
+                    measured_collection_attempt_seconds=sum(r['timings'].get('collection_attempt_seconds',0) for r in records),
                     estimate_limitation='Fixed smoke only; censored long outputs and independent-prefix extraction affect extrapolation.',
                     formal_start_allowed=checks['passed'],updated=now()))
             after = snapshot_hashes(run, "smoke")
@@ -567,6 +589,8 @@ def main(argv=None):
                    reason="Smoke complete; formal collection pending" if checks["passed"] else "Smoke checks incomplete")
             backup(run, "stage2: save independent smoke and restart audit")
             return
+        if model is not None and hasattr(model,'research_vllm'):
+            model.research_vllm.close()
         del model, tokenizer
         model, tokenizer = None, None
         gc.collect()
@@ -584,6 +608,8 @@ def main(argv=None):
         raise
     finally:
         if model is not None:
+            if hasattr(model,'research_vllm'):
+                model.research_vllm.close()
             del model, tokenizer
             gc.collect()
             import torch

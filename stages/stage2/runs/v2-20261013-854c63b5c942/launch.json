@@ -1,0 +1,14 @@
+{
+  "command": [
+    "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+    "-u",
+    "/root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-vllm-migration/pipeline_driver.py",
+    "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-854c63b5c942"
+  ],
+  "config_sha256": "87ebc91ed3a723e357fa7e9c02cf658e1961a065acdaa43e6313c5ced52b8593",
+  "created": "2026-10-14T13:35:31.054153+00:00",
+  "driver_sha256": "c4ed30d81d7149037c99e584c502f8bc4ea912f1d12d4ed3e2ba0c9398a97ee9",
+  "pid": 270082,
+  "session": "detached process group, no chat PTY dependency",
+  "stage3_formal": false
+}

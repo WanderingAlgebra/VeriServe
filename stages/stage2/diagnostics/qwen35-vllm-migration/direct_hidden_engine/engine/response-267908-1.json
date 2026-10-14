@@ -1,0 +1,3 @@
+{
+  "error": "Call to collective_rpc method failed: 'Qwen3_5ForConditionalGeneration' object has no attribute '_probe_last_input'"
+}

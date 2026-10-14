@@ -1,0 +1,128 @@
+{
+  "cases": [
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 0,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 1,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 2,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 3,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 4,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 5,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 6,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 7,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 8,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 9,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 10,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 11,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 12,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 13,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 14,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 15,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 16,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 17,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 18,
+      "support_equal": true
+    },
+    {
+      "max_probability_abs_error": 0.0,
+      "penalty_exact": true,
+      "seed": 19,
+      "support_equal": true
+    }
+  ],
+  "rng": "Different engine/kernel/PyTorch runtimes; cross-engine bitwise generation is not assumed. Empirical mismatch stored in cross_engine_tokens.json.",
+  "semantics": "presence once on generated suffix only; prompt excluded; repetition=1; frequency=0; temperature=1 then top_k=20 then top_p=.95; min_p=0 inactive",
+  "status": "PASS",
+  "updated": "2026-10-14T13:32:17.315955+00:00"
+}

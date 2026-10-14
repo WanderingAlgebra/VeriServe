@@ -1,0 +1,6 @@
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 11764.30it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+{'position': 127, 'max_abs': 0.0, 'exact_equal': True, 'old_seconds': 0.05389692075550556, 'new_seconds': 0.04991534911096096, 'old_peak_bytes': 8579565056, 'new_peak_bytes': 8560713216, 'min_cosine': 0.9999998807907104}
+{'position': 4518, 'max_abs': 0.0, 'exact_equal': True, 'old_seconds': 0.5431537292897701, 'new_seconds': 0.5463988371193409, 'old_peak_bytes': 10318625792, 'new_peak_bytes': 9651673088, 'min_cosine': 0.9999998807907104}
+{'position': 55973, 'max_abs': 0.0, 'exact_equal': True, 'old_seconds': 8.36169021576643, 'new_seconds': 8.410044927150011, 'old_peak_bytes': 30609693696, 'new_peak_bytes': 22302705664, 'min_cosine': 0.9999998807907104}
