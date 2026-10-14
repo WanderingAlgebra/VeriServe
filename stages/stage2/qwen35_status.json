@@ -138,10 +138,13 @@
   "new_official_identity_required": false,
   "next_action": "At the next complete development question checkpoint, release both models and resume original Stage2 smoke with 4B only.",
   "note": "2026-10-14 plan supersedes old strict final-only policy and old budgets. New run imports fixed splits and verified data bytes only; no old generated tokens or features.",
+  "pause_record": "stages/stage2/runs/v2-20261013-78a47750b3b9/pause.json",
+  "paused_at": "2026-10-14T12:33:26.137894+00:00",
   "pipeline_exec_session_id": 4508,
   "pipeline_pid": 199547,
   "pipeline_status": "stages/stage2/runs/v2-20261013-78a47750b3b9/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
+  "previous_status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
   "real_model_interface_restore": "PASS_NEW_GENERATOR_BUDGET",
   "real_model_smoke": "RUNNING_REVISED_FIXED_TEN_QUESTION_SMOKE",
   "real_verifier_smoke": {
@@ -200,7 +203,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
+  "status": "PAUSED_BY_USER",
   "strict_channel_prompt_trial": {
     "completion": "EOS",
     "generated_tokens": 19498,
@@ -221,7 +224,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-14T12:15:39.359160+00:00",
+  "updated": "2026-10-14T12:33:26.140018+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",

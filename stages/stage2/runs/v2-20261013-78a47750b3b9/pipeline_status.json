@@ -1,6 +1,8 @@
 {
-  "phase": "STAGE2_FORMAL_COLLECTION_AND_FIT",
+  "paused_at": "2026-10-14T12:33:26.137894+00:00",
+  "phase": "PAUSED_BY_USER",
   "pid": 199547,
+  "previous_phase": "STAGE2_FORMAL_COLLECTION_AND_FIT",
   "run": "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-78a47750b3b9",
   "source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
@@ -24,5 +26,5 @@
     "veriserve_research/probe/materials.py": "3ba86c6aa63b8f8f5d5848a506027e0dc1e167bcc75c1b2162fb44b35a3991bb",
     "veriserve_research/trajectory.py": "d79b247284fb98488cbdc29fef19928d7443b492c1fd5e8d20d3b6c07c7f0358"
   },
-  "updated": "2026-10-14T09:51:25.112312+00:00"
+  "updated": "2026-10-14T12:33:26.138881+00:00"
 }

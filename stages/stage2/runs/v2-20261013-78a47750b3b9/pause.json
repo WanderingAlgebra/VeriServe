@@ -1,0 +1,123 @@
+{
+  "counts": {
+    "smoke": {
+      "features": 10,
+      "saved": 10,
+      "scorable": 8,
+      "truncated": 2
+    },
+    "test": {
+      "features": 0,
+      "saved": 0,
+      "scorable": 0,
+      "truncated": 0
+    },
+    "train": {
+      "features": 10,
+      "saved": 10,
+      "scorable": 9,
+      "truncated": 1
+    },
+    "verifier_dev": {
+      "features": 0,
+      "saved": 5,
+      "scorable": 4,
+      "truncated": 1
+    }
+  },
+  "current_question": {
+    "index": 11,
+    "persisted": false,
+    "split": "train",
+    "state": "generation retained in stopped process memory",
+    "unique_id": "54d1a71b07bee025bd3d684df2f4b15ce8cb811a3f6495fee39cea871f0dc2f8"
+  },
+  "gpu_memory_retained": true,
+  "mode": "SIGSTOP",
+  "paused_at": "2026-10-14T12:33:26.137894+00:00",
+  "preserved_record_sha256": {
+    "records/smoke/0015809f6341a9656a0b.features-91655842d384.layers1-26.npz": "e0c41d8cdc6c21b745408ae4897a152e74c174de639e80fa7f8d976928516a3e",
+    "records/smoke/0015809f6341a9656a0b.features-91655842d384.layers27-32.npz": "22eef90a2b864f63f88814aec1386b9667f623cf31664c96206936031fa27df9",
+    "records/smoke/0015809f6341a9656a0b.json": "2fd24b26dd2b41c93b495879eb97d640f4ca4d3c7f069834c270b19938a30a07",
+    "records/smoke/29fb09aef2d2b8192e12.features-91655842d384.npz": "5bdec8955122075d109efa986adafc2befd1c869f27fb7fc10ff637b6756b10f",
+    "records/smoke/29fb09aef2d2b8192e12.json": "13ea3b87dc03a64653c9d569c6da45fb33847cfcb2b68e7aa352950ddb4cd9ef",
+    "records/smoke/5bc5cc06c5ec1e5c60a2.features-91655842d384.npz": "e0dc71aa005bcba92875f9e871b836180670ead4d07eaf3cadaaa1420449b233",
+    "records/smoke/5bc5cc06c5ec1e5c60a2.json": "07cea1ae10bf264a54bd13a5c58a4463f1713334fe60a776f126cfc8e076502a",
+    "records/smoke/722fbccd50c4dbcfee15.features-91655842d384.npz": "1c6c4d08c27f321fa5cdc19af1c1ee883b6faea399a9c4d71253d11c200b87c4",
+    "records/smoke/722fbccd50c4dbcfee15.json": "c51480335e2e81d8996f1cd560e56be9d099beb02fd8edf7401760ba11468614",
+    "records/smoke/8fe8ba3e885ab91a95bb.features-91655842d384.npz": "5bc089bae41f01014894843ec870592ae9ef2e970cbb29e35b424b3881f62290",
+    "records/smoke/8fe8ba3e885ab91a95bb.json": "6f82049d69d59d9722ce609e1902eb120953346554baf69bfa9f198648b26ce1",
+    "records/smoke/9ccccfe8203576afba40.features-91655842d384.npz": "d7fa43926c9086506be7cf34d6f9b2217575f21c97e692b4a1aa438fac08d8f1",
+    "records/smoke/9ccccfe8203576afba40.json": "5d366047e5e2fef0e33a5ffab976d36450b9b65bbc366a21878c1052d830b4f5",
+    "records/smoke/d3d76e355f0a3a408887.features-91655842d384.npz": "d0a295e9ce15b392682666232f2949cf05de52596c90864c74943f45d5dff02f",
+    "records/smoke/d3d76e355f0a3a408887.json": "3e400211f65212c210b76089ff1155886e7d29dcbe32eecc0a389137b04ac966",
+    "records/smoke/eca310ad5d6fad19fe38.features-91655842d384.npz": "838bcdc014306f7b7ccb17890615eb4208bbcc5ab940a89a5481aff80ed6d698",
+    "records/smoke/eca310ad5d6fad19fe38.json": "29c719176abc7929fe7c2c9e726d6e398615fd4a9b369289fc98e291c6ffe3a6",
+    "records/smoke/f45649608d5fd4570df0.features-91655842d384.npz": "bf9b62bb36b6eaa10eec8bc333eb9928209fb2e0e9848e53bcff491540a8f5c6",
+    "records/smoke/f45649608d5fd4570df0.json": "5167204a06f3a3ccf5f74036bbaee9c39ef39d29074da998cfe375a515daa9f2",
+    "records/smoke/fcf507d339715cc9c36e.features-91655842d384.npz": "7b01bc0db093ffa109d9fb722a14fc5e11ed9d65286311c31a314dfac93eb80b",
+    "records/smoke/fcf507d339715cc9c36e.json": "ca3ed945e00bc7317e4452b8c4dbc4e6275d1458b9e194d10682c8a47f1f89ba",
+    "records/train/136978a8da3c8107815e.features-91655842d384.npz": "4ae201da06bf69d0156bfdec906377259a71930ceae1823ffcee315defab7267",
+    "records/train/136978a8da3c8107815e.json": "740fe7057ee309ad82ce9823c51f50275237678ce04bf7ebaf6fba5b37c13de8",
+    "records/train/15c9212b92147253134c.features-91655842d384.npz": "12341abcbf2ecb8482d8adb3aee371d34b2a631ddbda09a7519f89f05e35d3a3",
+    "records/train/15c9212b92147253134c.json": "dce7db477552cb924775e33c6600d9191e47d67da2d1653c949c2cd0e8a970bb",
+    "records/train/24478d985cf7cc834e37.features-91655842d384.npz": "c0dfc813f7cbf9b6353f0dec3d18749662a569fdd99460d96a76d67fd0215886",
+    "records/train/24478d985cf7cc834e37.json": "1c8c49f8d520da73dd255a9ccbf8ecd369ad3ec4df32d8c4939fd810d3c3ce04",
+    "records/train/285b600e5a9c397871df.features-91655842d384.npz": "408146f4dda38cb3b4fbbbd6b29d13b0d11f1651e6ab9c61e330013fd0d6b9c3",
+    "records/train/285b600e5a9c397871df.json": "854b0f7069bf3a796e43875647456cb49f640637c0d8e18b52f55b1976c8f2c7",
+    "records/train/33b7727cd3aa0c1f11e0.features-91655842d384.npz": "32e2439f6c6ee74352add2df4b6f9d600f50c337e7aafd94ce76fd07c0a18ab5",
+    "records/train/33b7727cd3aa0c1f11e0.json": "e18b8b22f92c85761dcbea03c1fdf642b39cc1e496e2b61caa3a71d09ac10df0",
+    "records/train/3e986c0d5d2704e68304.features-91655842d384.npz": "14ff0eb1492632a43d3e1270dc6e8c676852410ce2d6570f2bddab2cd884b98c",
+    "records/train/3e986c0d5d2704e68304.json": "b6366c5f17f5eba5508e680f3f88744dbce92f6917885364201c6236609add16",
+    "records/train/69a70ebec999aaca1e4d.features-91655842d384.npz": "53bb9a4cfb8cfce01a7312573a45fa6df06b63f8fdae353a063a284e790ea6b5",
+    "records/train/69a70ebec999aaca1e4d.json": "6f4cd392d296c469ba9da3d5e25e9270401fb65fad70ed99465bd72e87c1ab10",
+    "records/train/abad721a53503a59e40a.features-91655842d384.npz": "65f747a307ec55978a81277196ccf53d53be0727388b8464316240b232dd153d",
+    "records/train/abad721a53503a59e40a.json": "cca0c2b51b8803b7acd5ddfb03b0b5c20c239b9328f2f721651dc379b4b5fe46",
+    "records/train/c6972b4ec8db99bf3934.features-91655842d384.npz": "b76b8501c325708ff69c139534d4f5bd7d6803696eb50d1245a7047e2d3ef905",
+    "records/train/c6972b4ec8db99bf3934.json": "595441c47f181281cd042108b923a2697630fdd7f7975359344e8a0179c5f06f",
+    "records/train/de177aa63bf1ab64c744.features-91655842d384.npz": "4d18a3f3c320ac84b282cda214cab9fda048779dbc3d7a17a108f7629ea331c3",
+    "records/train/de177aa63bf1ab64c744.json": "da06de77d2b65dbc092acabf5763630d050e4e13e4e5413bc699cc3682ca1fe1",
+    "records/verifier_dev/0c2dcfeb8763693c7fd0.json": "f1f19c7b59ab68859e38e498f2d25676ecf6773ec4c1ec7aec8ab93a6200e13a",
+    "records/verifier_dev/20e3c1b312c8abc64cce.json": "61189c056c6d7141ffaf36353136c282442e4fc6243fa586d64c4324dd795d4c",
+    "records/verifier_dev/3cdda2971eab7e8a49ba.json": "88c84cfba731f7dbbfdb712889300a5bf6db1b67d6487d74e52fd5870c66b0db",
+    "records/verifier_dev/b663f44766af3969a4e8.json": "9fc5274c09ce8cb075cd8cdbf92fd28776074204c007f0699eee35eeeea0ee7f",
+    "records/verifier_dev/d05cf024c808b0004848.json": "44a0249d05b021a460b36dc585dcf54dc48b529eadf38839571448ad356b4cfd"
+  },
+  "process_groups": [
+    202553,
+    199547
+  ],
+  "processes": [
+    {
+      "command": "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python -u /root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_driver.py ",
+      "pgid": 199547,
+      "pid": 199547,
+      "start_ticks": "1571348553",
+      "state": "T"
+    },
+    {
+      "command": "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python -m veriserve_research probe --config /root/project/VeriServe-step-hidden-probe/stages/stage2/qwen35_4b_omni_config.json --resume ",
+      "pgid": 199547,
+      "pid": 238449,
+      "start_ticks": "1572700061",
+      "state": "T"
+    },
+    {
+      "command": "bash -c set -e\ntail --pid=199547 -f /dev/null\n/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python -m veriserve_research intervene --experiment high-low --config /root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/direct_config.json --phase verifier-dev --review-output /root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/direct --resume\n/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python -m veriserve_research intervene --experiment high-low --config /root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/thinking_config.json --phase verifier-dev --review-output /root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/thinking --resume\n/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python -m veriserve_research intervene --experiment high-low --config /root/project/VeriServe-step-hidden-probe/stages/stage3/qwen35_4b_omni_high_low_config.json --phase compare-verifiers --review-output /root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/direct --compare-review /root/project/VeriServe-step-hidden-probe/stages/stage2/diagnostics/qwen35-verifier-modes/thinking ",
+      "pgid": 202553,
+      "pid": 202553,
+      "start_ticks": "1571425946",
+      "state": "T"
+    },
+    {
+      "command": "tail --pid=199547 -f /dev/null ",
+      "pgid": 202553,
+      "pid": 202554,
+      "start_ticks": "1571425947",
+      "state": "T"
+    }
+  ],
+  "resume_note": "Verify PID start_ticks and original commands, then resume existing process groups with SIGCONT; do not launch duplicate collection.",
+  "status": "PAUSED_BY_USER",
+  "timing_note": "The active question wall timer includes this external pause if resumed; preserve raw timing and report the pause interval separately."
+}
