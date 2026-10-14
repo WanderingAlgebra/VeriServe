@@ -1,6 +1,5 @@
 {
-  "commit": "c5660decc2e20520db6626c0eb63e5a890ecba4a",
-  "feature_remote_verification": null,
-  "pushed_at": "2026-10-14T01:19:04.038593+00:00",
-  "status": "PUSHED"
+  "error": "Post \"[redacted URL] proxyconnect tcp: dial tcp 127.0.0.1:17897: connect: connection refused\n",
+  "status": "FAILED",
+  "time": "2026-10-14T01:41:59.831273+00:00"
 }

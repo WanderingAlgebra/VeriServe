@@ -32,3 +32,44 @@ PUSHED 41158e6a7a7bfa8da1e9780f1952252853a4c351 remote_feature_verified=False
 [transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
 [transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
 DONE smoke 8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69 label=1 exclusion=None steps=97 tokens=55837
+Traceback (most recent call last):
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/artifacts/backup.py", line 65, in backup_probe
+    git("lfs", "push", "origin", "HEAD", env=env)
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/artifacts/io.py", line 59, in git
+    raise RuntimeError(safe_error(result.stderr))
+RuntimeError: Post "[redacted URL] proxyconnect tcp: dial tcp 127.0.0.1:17897: connect: connection refused
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/__main__.py", line 65, in <module>
+    main()
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/__main__.py", line 43, in main
+    return run(remaining)
+           ^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/probe/collect.py", line 511, in main
+    backup(run, "stage2: smoke pause before restart verification")
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/artifacts/backup.py", line 83, in backup_probe
+    raise RuntimeError(f"Backup failed; local files retained, collection stopped: {safe_error(exc)}") from exc
+RuntimeError: Backup failed; local files retained, collection stopped: Post "[redacted URL] proxyconnect tcp: dial tcp 127.0.0.1:17897: connect: connection refused
+
+{"phase": "STOPPED", "pid": 167411, "updated": "2026-10-14T01:42:01.427873+00:00", "run": "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-78a47750b3b9", "source_hashes": {"veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650", "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336", "veriserve_research/trajectory.py": "d79b247284fb98488cbdc29fef19928d7443b492c1fd5e8d20d3b6c07c7f0358", "veriserve_research/inference.py": "b6e7d4efe65bd004ee3797379f3b11290e5048229c896c34fbd74278891ab8e9", "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb", "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a", "veriserve_research/artifacts/provenance.py": "33399d2d5e37dea42b875768f4eab4690e6b927d5a60f940ff71b41dab5b12ea", "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e", "veriserve_research/artifacts/backup.py": "7da2d0989965ca5032ccb9d1a3133a6f0d561ec17540027ec7b86eb35b299981", "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "veriserve_research/probe/materials.py": "3ba86c6aa63b8f8f5d5848a506027e0dc1e167bcc75c1b2162fb44b35a3991bb", "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab", "veriserve_research/probe/collect.py": "f87a600858e08da758706d570a2ae4c7d1fc027d36649bd203225b0aa2c93e08", "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98", "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2", "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de", "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c", "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365", "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665"}, "error": "Command '['/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python', '-m', 'veriserve_research', 'probe', '--config', '/root/project/VeriServe-step-hidden-probe/stages/stage2/qwen35_4b_omni_config.json', '--smoke', '--resume', '--stop-after', '1']' returned non-zero exit status 1.", "exception_type": "CalledProcessError"}
+Traceback (most recent call last):
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_driver.py", line 57, in <module>
+    command(phase,BASE+['probe','--config',str(PROBE)]+flags)
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_driver.py", line 33, in command
+    subprocess.run(args,cwd=ROOT,check=True,env={**os.environ,'HF_HUB_DISABLE_XET':'1','PYTHONUNBUFFERED':'1','HF_HUB_OFFLINE':'1'})
+  File "/root/miniconda3/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python', '-m', 'veriserve_research', 'probe', '--config', '/root/project/VeriServe-step-hidden-probe/stages/stage2/qwen35_4b_omni_config.json', '--smoke', '--resume', '--stop-after', '1']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_driver.py", line 57, in <module>
+    command(phase,BASE+['probe','--config',str(PROBE)]+flags)
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-da5c802342ee/pipeline_driver.py", line 33, in command
+    subprocess.run(args,cwd=ROOT,check=True,env={**os.environ,'HF_HUB_DISABLE_XET':'1','PYTHONUNBUFFERED':'1','HF_HUB_OFFLINE':'1'})
+  File "/root/miniconda3/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python', '-m', 'veriserve_research', 'probe', '--config', '/root/project/VeriServe-step-hidden-probe/stages/stage2/qwen35_4b_omni_config.json', '--smoke', '--resume', '--stop-after', '1']' returned non-zero exit status 1.

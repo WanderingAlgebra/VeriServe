@@ -178,7 +178,7 @@
     "scope": "first smoke first checkpoint and trajectory end, all 32 layers",
     "status": "PASS"
   },
-  "smoke_generated": 0,
+  "smoke_generated": 1,
   "smoke_scorable": 0,
   "split_sizes": {
     "smoke": 10,
@@ -187,7 +187,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "SMOKE_FIRST_QUESTION",
+  "status": "STOPPED",
   "strict_channel_prompt_trial": {
     "completion": "EOS",
     "generated_tokens": 19498,
@@ -207,7 +207,7 @@
     "strict_format_valid": false
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
-  "updated": "2026-10-14T01:18:56.023724+00:00",
+  "updated": "2026-10-14T01:42:01.429348+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
