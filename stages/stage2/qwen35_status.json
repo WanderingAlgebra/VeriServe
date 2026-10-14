@@ -186,7 +186,7 @@
     "status": "PASS"
   },
   "smoke_completed_parseable": 4,
-  "smoke_engineering_checked": 5,
+  "smoke_engineering_checked": 6,
   "smoke_generated": 6,
   "smoke_scorable": 4,
   "smoke_truncated": 2,
@@ -218,7 +218,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-14T08:02:45.458546+00:00",
+  "updated": "2026-10-14T08:10:27.464003+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",

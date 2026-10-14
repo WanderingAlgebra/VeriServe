@@ -108,16 +108,17 @@
       "label_available": false,
       "longest_position_gap": 23011,
       "primary_exclusion": "LENGTH_TRUNCATED",
-      "stage": "SCORED",
+      "stage": "FEATURES",
       "thinking_error": "UNCLOSED_THINKING",
       "timings": {
         "boundary_and_grading_seconds": 9.737380862236023,
-        "generation_seconds": 2244.9367449674755
+        "generation_seconds": 2244.9367449674755,
+        "reforward_seconds": 559.863710116595
       },
       "token_sha256": "e9c5baa7c2fc85c3d87b4e14e5222f35597b79201b0d768b2effcfda34490d63",
       "unique_id": "da479a3d912813cafd000d6da2242458f8d38e1ce9cb95bf0de0f3b01794aef3"
     }
   ],
   "status": "PARTIAL_FIXED_TEN_QUESTION_SMOKE",
-  "updated": "2026-10-14T08:02:45.456703+00:00"
+  "updated": "2026-10-14T08:10:27.462598+00:00"
 }
