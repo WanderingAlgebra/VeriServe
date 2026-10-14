@@ -1,7 +1,7 @@
 {
-  "completed_parseable": 3,
-  "generated": 4,
-  "note": "Only the fixed smoke cohort; truncated labels remain missing. Full ten-question engineering gate and cost estimate are pending.",
+  "completed_parseable": 4,
+  "generated": 5,
+  "note": "Fixed original cohort; full ten-question gate and GPU cost estimate pending. Truncated labels remain missing.",
   "planned": 10,
   "rows": [
     {
@@ -9,6 +9,7 @@
       "completion": "EOS",
       "final_line_error": null,
       "generated_tokens": 55837,
+      "index": 1,
       "label_available": true,
       "longest_position_gap": 5085,
       "primary_exclusion": null,
@@ -27,6 +28,7 @@
       "completion": "EOS",
       "final_line_error": null,
       "generated_tokens": 41743,
+      "index": 2,
       "label_available": true,
       "longest_position_gap": 7364,
       "primary_exclusion": null,
@@ -45,6 +47,7 @@
       "completion": "EOS",
       "final_line_error": null,
       "generated_tokens": 3994,
+      "index": 3,
       "label_available": true,
       "longest_position_gap": 561,
       "primary_exclusion": null,
@@ -63,6 +66,7 @@
       "completion": "LENGTH_TRUNCATED",
       "final_line_error": "UNCLOSED_THINKING",
       "generated_tokens": 81920,
+      "index": 4,
       "label_available": false,
       "longest_position_gap": 43328,
       "primary_exclusion": "LENGTH_TRUNCATED",
@@ -75,8 +79,27 @@
       },
       "token_sha256": "2add88606a97136a186b2fab6cee7cbe3a73d03020d68f0e735dca2a4ffcc86e",
       "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+    },
+    {
+      "candidates": 34,
+      "completion": "EOS",
+      "final_line_error": null,
+      "generated_tokens": 20804,
+      "index": 5,
+      "label_available": true,
+      "longest_position_gap": 3893,
+      "primary_exclusion": null,
+      "stage": "FEATURES",
+      "thinking_error": null,
+      "timings": {
+        "boundary_and_grading_seconds": 0.9962077476084232,
+        "generation_seconds": 531.6035692039877,
+        "reforward_seconds": 44.11040070280433
+      },
+      "token_sha256": "0b4bed22248841cc3e86eeb26792f3c20e13509ab6032279d8e72baaadcd6eb6",
+      "unique_id": "df9af8a321516208b329d6aea7e7e313cda29ccc9e67811a8b20ac10ca2b1b46"
     }
   ],
   "status": "PARTIAL_FIXED_TEN_QUESTION_SMOKE",
-  "updated": "2026-10-14T07:17:01.951601+00:00"
+  "updated": "2026-10-14T07:22:07.194347+00:00"
 }
