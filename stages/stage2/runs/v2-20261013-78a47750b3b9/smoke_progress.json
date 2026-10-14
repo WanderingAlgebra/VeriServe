@@ -1,6 +1,6 @@
 {
   "completed_parseable": 6,
-  "generated": 8,
+  "generated": 9,
   "note": "All original ten questions still run; no replacements, no extra token budget. Truncated mathematical labels stay missing.",
   "planned": 10,
   "rows": [
@@ -155,8 +155,26 @@
       },
       "token_sha256": "06285461963f58d006de0cb1e60acb053bf9c0e888d427ff5f2e98a4447f4877",
       "unique_id": "768eae894c4b077e6491275907b34520b257d7725b86b6364c24392f7dfe50c0"
+    },
+    {
+      "candidates": 155,
+      "completion": "EOS",
+      "final_line_error": null,
+      "generated_tokens": 61034,
+      "index": 9,
+      "label_available": true,
+      "longest_position_gap": 3381,
+      "primary_exclusion": null,
+      "stage": "SCORED",
+      "thinking_error": null,
+      "timings": {
+        "boundary_and_grading_seconds": 16.339183934032917,
+        "generation_seconds": 1639.0229473803192
+      },
+      "token_sha256": "26eed5155750e5595fc9c91824ede584c211ff580bb1cb1e08c5df9b0d2bbab4",
+      "unique_id": "b06dd6f0e8140ab15e5f660bc6712886b667213459eb3739c23eded89f8c459a"
     }
   ],
   "status": "PARTIAL_FIXED_TEN_QUESTION_SMOKE",
-  "updated": "2026-10-14T08:54:22.559282+00:00"
+  "updated": "2026-10-14T09:21:49.322984+00:00"
 }
