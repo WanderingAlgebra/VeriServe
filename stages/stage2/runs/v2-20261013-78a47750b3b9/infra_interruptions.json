@@ -1,0 +1,13 @@
+[
+  {
+    "detected_at": "2026-10-14T05:58:25.538565+00:00",
+    "development_pid": 186000,
+    "development_references_saved": 4,
+    "formal_records": 0,
+    "next_action": "Finish current development question and native backup, then resume same frozen Stage2 with detached native driver; reuse all completed records.",
+    "observed": "Both old managed execution PIDs missing after interrupted turn; pipeline status file was stale.",
+    "old_child_pid": 182391,
+    "old_pipeline_pid": 181717,
+    "smoke_records_preserved": 1
+  }
+]

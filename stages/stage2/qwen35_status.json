@@ -29,6 +29,12 @@
   },
   "config": "stages/stage2/qwen35_4b_omni_config.json",
   "cpu_regression_tests_passed": 38,
+  "current_gpu_job": {
+    "checks_saved": 12,
+    "kind": "verifier_dev_direct",
+    "pid": 186000,
+    "references_saved": 4
+  },
   "current_probe_source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
@@ -128,10 +134,10 @@
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
   "new_official_identity_required": false,
-  "next_action": "Native pipeline continues smoke/restart validation, then formal 300 and A/B/C only if gates pass. Native verifier candidate development commands wait for that GPU process to exit.",
+  "next_action": "At the next complete development question checkpoint, release both models and resume original Stage2 smoke with 4B only.",
   "note": "2026-10-14 plan supersedes old strict final-only policy and old budgets. New run imports fixed splits and verified data bytes only; no old generated tokens or features.",
   "pipeline_exec_session_id": 4508,
-  "pipeline_pid": 181717,
+  "pipeline_pid": null,
   "pipeline_status": "stages/stage2/runs/v2-20261013-78a47750b3b9/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
   "real_model_interface_restore": "PASS_NEW_GENERATOR_BUDGET",
@@ -188,7 +194,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "SMOKE_RESTART_AND_COMPLETE",
+  "status": "STAGE2_INFRA_INTERRUPTED_DEVELOPMENT_CURRENT_QUESTION_RUNNING",
   "strict_channel_prompt_trial": {
     "completion": "EOS",
     "generated_tokens": 19498,
@@ -209,7 +215,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-14T04:42:38.012572+00:00",
+  "updated": "2026-10-14T05:58:25.539785+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
