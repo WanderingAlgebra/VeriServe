@@ -1,0 +1,82 @@
+{
+  "completed_parseable": 3,
+  "generated": 4,
+  "note": "Only the fixed smoke cohort; truncated labels remain missing. Full ten-question engineering gate and cost estimate are pending.",
+  "planned": 10,
+  "rows": [
+    {
+      "candidates": 97,
+      "completion": "EOS",
+      "final_line_error": null,
+      "generated_tokens": 55837,
+      "label_available": true,
+      "longest_position_gap": 5085,
+      "primary_exclusion": null,
+      "stage": "FEATURES",
+      "thinking_error": null,
+      "timings": {
+        "boundary_and_grading_seconds": 8.863684920594096,
+        "generation_seconds": 1387.8063054997474,
+        "reforward_seconds": 460.84599724039435
+      },
+      "token_sha256": "d5e732dced938f4336cbdd3aee4e3acd4b04ae223075a6456803c91156762717",
+      "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+    },
+    {
+      "candidates": 109,
+      "completion": "EOS",
+      "final_line_error": null,
+      "generated_tokens": 41743,
+      "label_available": true,
+      "longest_position_gap": 7364,
+      "primary_exclusion": null,
+      "stage": "FEATURES",
+      "thinking_error": null,
+      "timings": {
+        "boundary_and_grading_seconds": 8.352299379184842,
+        "generation_seconds": 987.0811071917415,
+        "reforward_seconds": 441.7432307768613
+      },
+      "token_sha256": "c8545a43e981087b48da88c60a605d5e4e4efdc5fe7c49b75ec2044c76af4458",
+      "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+    },
+    {
+      "candidates": 35,
+      "completion": "EOS",
+      "final_line_error": null,
+      "generated_tokens": 3994,
+      "label_available": true,
+      "longest_position_gap": 561,
+      "primary_exclusion": null,
+      "stage": "FEATURES",
+      "thinking_error": null,
+      "timings": {
+        "boundary_and_grading_seconds": 0.23466402478516102,
+        "generation_seconds": 92.29716317355633,
+        "reforward_seconds": 7.056755116209388
+      },
+      "token_sha256": "605f801533a685d210044fbd53ff3c672f6e6847429f29cace759b4a020dfecb",
+      "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+    },
+    {
+      "candidates": 6,
+      "completion": "LENGTH_TRUNCATED",
+      "final_line_error": "UNCLOSED_THINKING",
+      "generated_tokens": 81920,
+      "label_available": false,
+      "longest_position_gap": 43328,
+      "primary_exclusion": "LENGTH_TRUNCATED",
+      "stage": "FEATURES",
+      "thinking_error": "UNCLOSED_THINKING",
+      "timings": {
+        "boundary_and_grading_seconds": 0.7622927036136389,
+        "generation_seconds": 2172.048016835004,
+        "reforward_seconds": 31.97143933363259
+      },
+      "token_sha256": "2add88606a97136a186b2fab6cee7cbe3a73d03020d68f0e735dca2a4ffcc86e",
+      "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+    }
+  ],
+  "status": "PARTIAL_FIXED_TEN_QUESTION_SMOKE",
+  "updated": "2026-10-14T07:12:24.461094+00:00"
+}
