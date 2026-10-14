@@ -5,7 +5,7 @@ step_1/2/3 等历史字段在本 run 中表示第 1/2/3 个有效检查点；HIG
 格式示例固定在配置中（0 个简单问答），不来自实验题集；stage2/stage3 输入一致。
 最终响应允许解释，仅评分末尾唯一且完整的 Final answer boxed 行；Thinking 内引用不参与评分。
 
-运行：`v2-20261013-78a47750b3b9`；报告更新于 2026-10-14T09:42:00.144198+08:00。
+运行：`v2-20261013-78a47750b3b9`；报告更新于 2026-10-14T12:31:20.495431+08:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途检查点；不是局部错误标签。
 
@@ -118,7 +118,7 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
 }
 ```
 
-未完成原因：Backup failed; local files retained, collection stopped: Post "[redacted URL] proxyconnect tcp: dial tcp 127.0.0.1:17897: connect: connection refused
+未完成原因：Backup failed; local files retained, collection stopped: fatal: unable to access '[redacted URL] Failed to connect to github.com port 443 after 129662 ms: Connection timed out
 
 
 ## 自检与备份
@@ -126,7 +126,7 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
 ```json
 {
   "cpu_self_check": {
-    "checked_at": "2026-10-14T01:10:26.856308+00:00",
+    "checked_at": "2026-10-14T04:28:36.887795+00:00",
     "checks": [
       "grade \\frac{1}{2} vs 0.5",
       "grade \\sqrt{8} vs 2\\sqrt{2}",
@@ -478,9 +478,9 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
   },
   "resume": null,
   "backup": {
-    "error": "Post \"[redacted URL] proxyconnect tcp: dial tcp 127.0.0.1:17897: connect: connection refused\n",
+    "error": "fatal: unable to access '[redacted URL] Failed to connect to github.com port 443 after 129662 ms: Connection timed out\n",
     "status": "FAILED",
-    "time": "2026-10-14T01:41:59.831273+00:00"
+    "time": "2026-10-14T04:31:20.193914+00:00"
   }
 }
 ```
@@ -498,7 +498,7 @@ AUROC / CI / 所选层：NA；正式数据不足或未采集，不能回答是�
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`20d2e27b9188964266ba8adf6ce98637553f7e30`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`8d9e1e0b2fba7420c17543d3c5dfe1af29aa8141`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 

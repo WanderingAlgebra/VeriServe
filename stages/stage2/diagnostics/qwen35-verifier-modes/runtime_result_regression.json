@@ -1,0 +1,14 @@
+{
+  "affected_final_tests_passed": 6,
+  "affected_tests": "tests/test_research.py::test_generative_check_pass_fail_uncertain_and_accounting",
+  "created": "2026-10-14T04:29:47.343368+00:00",
+  "fix": "Merge verifier result as positional mapping, then assign CHECK metadata; preserve prefill/decode details and generated-token accounting.",
+  "full_cpu_tests_passed": 38,
+  "references": [
+    "https://docs.python.org/3/reference/expressions.html#calls"
+  ],
+  "reproduced_before_fix": "TypeError: dict() got multiple values for keyword argument 'input_tokens' (both steps and thinking_paragraphs)",
+  "stage2_sources_unchanged": true,
+  "status": "PASS",
+  "verifier_gate": "Exact plan: >=10/10 confirmed development classes, >=20/20 audit classes; all-input uncertain denominator includes unconfirmed/undeterminable. Report missing-label coverage explicitly."
+}
