@@ -244,3 +244,10 @@ python -m stages.stage3.high_low --config stages/stage3/high_low_config.json --p
 | `arms/<key>.HIGH.json` / `.LOW.json` | 同题两条路径的 token、PRM 判决、预算、终止原因与时间 |
 | `arms/<key>.NOW.json` / `.DELAY_2.json` | 固定第二步两条路径的对应记录 |
 | `interrupted_pairs/` | 中断后保留的原配对文件 |
+
+
+## 2026-10-14 加速迁移兼容性检查
+
+未启动新的正式 HIGH/LOW。当前 Stage3 使用 HF Session 的 full-attention KV、GDN convolution/recurrent tensors 与 flags 的完整深拷贝；正常暂停的 clone 保留 RNG，算法 FAIL 按原方案不倒转 RNG 或累计预算。vLLM 的 prefix caching 与 sleep/wake 均不构成此快照。本轮原固定种子的跨引擎短轨迹在第 314 个 token 已分歧，prepare 增加了拒绝 vLLM 参考 manifest 的检查，不能通过重新 prefill 伪称 KV 复用。
+
+双模型 BF16 同驻留、两个不可变快照、4B 131072 与 9B 147456+16384 容量诊断：2048 prefill OOM；1024 且 `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` 的合成 teacher-forced 完整容量通过，峰值 43753221120 bytes。这不是实采验证器输出或恢复 pilot；原 Stage3 配置暂保留，采用不同 prefill 后须重验真实首检前复现和恢复。证据见 [容量结果](../stage2/diagnostics/qwen35-vllm-migration/stage3_capacity_chunk1024.json)。新 B 冻结、验证器独立审计、真实四题 pilot 与选定后端的容量/恢复门槛均保留。任何将来引入的唤醒、重 prefill、快照、恢复与反馈处理成本，都必须算入同步计时的 T_request。

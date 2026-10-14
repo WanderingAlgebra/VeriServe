@@ -1,0 +1,13 @@
+{
+  "read_at": "2026-10-14T13:41:10.798776+00:00",
+  "applicable_agents": {
+    "/root/project/AGENTS.md": "e53129d761c83890c3406d7e288efc610cc56431fbd21b0a9402a8e0710efc58",
+    "/root/project/VeriServe-step-hidden-probe/AGENTS.md": "e53129d761c83890c3406d7e288efc610cc56431fbd21b0a9402a8e0710efc58"
+  },
+  "deeper_agents": [],
+  "directives": "Natural clear accurate Chinese; preserve complete technical records, experimental gates and Git/LFS rules; tests are not completion",
+  "pipeline_pid": 270082,
+  "pipeline_alive": true,
+  "action": "Continue existing detached pipeline; no duplicate launch",
+  "phase": "SMOKE_FIRST_QUESTION"
+}

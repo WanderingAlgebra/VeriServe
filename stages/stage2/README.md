@@ -194,3 +194,27 @@ smoke 和恢复检查绑定执行源码哈希。正式冻结前修正提取实�
 尚未执行的阶段在报告中标为未执行 / NA。CPU 合成样本仅用于实现自检。
 
 参考：[原论文 §3.1/§4.1/B/C](https://arxiv.org/html/2605.09502v1)、[Qwen](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)、[MATH-500](https://huggingface.co/datasets/HuggingFaceH4/MATH-500)、[Math-Verify 安装/解析](https://github.com/huggingface/Math-Verify)。逐步训练、题目权重、提示词和生成上限是本实验适配。
+
+
+## vLLM 加速迁移（2026-10-14）
+
+独立候选配置为 [qwen35_4b_omni_vllm_config.json](qwen35_4b_omni_vllm_config.json)，新 run 为 `runs/v2-20261013-854c63b5c942`。原配置与旧正式 10 题保留，不向新 run 导入跨引擎 tokens 或特征。完整数值、速度、显存与限制见 [迁移报告](diagnostics/qwen35-vllm-migration/migration_report.json)；实时阶段见 [pipeline_status.json](runs/v2-20261013-854c63b5c942/pipeline_status.json)，逐题日志为该 run 的 `pipeline.log` 与 `events.jsonl`。
+
+vLLM 0.20.0 在独立 `/root/veriserve-vllm-env` 中使用 torch 2.11.0+cu130；原环境 torch 2.8.0+cu128 保留用于 hidden、评分与拟合。模型、BF16、batch=1、原生 Thinking、采样、81920 输出与 131072 总上下文、固定题序和种子派生未改。presence penalty 经真实 vLLM 处理器对照，仍只对生成后缀已见 token 扣一次；无 reasoning parser，原始 token IDs、Thinking 和 EOS 全保留。
+
+vLLM eager worker hooks 与 HF 分块增量提取均进行了固定前缀比较，但未通过原逐元素容差，因此未用于正式特征。当前提取明确仍逐端点计算独立原前缀，只用 hooks 保存 31 个原始层输出及末层 final norm 输出，与原 HF `hidden_states[1..32]` 逐位相同。它减少显存，不宣称减少独立前缀计算耗时。没有修改引擎源码，也没有长期保存每 token 的全层 hidden。
+
+后台流水线先重验完整预算、原固定 10 题 smoke、独立重启哈希与因果/特征检查；至少 8/10 正常结束可解析且固定队列生成加特征耗时低于旧 smoke 才自动启动原 100 train+200 test，并按现有 A/B/C 五折选层与按题 bootstrap 拟合评价。任何门槛失败都会写 STOPPED；正式采集未通过前不能称为已启动。Stage3 不自动运行。
+
+查看进度：
+
+```bash
+tail -f stages/stage2/runs/v2-20261013-854c63b5c942/pipeline.log
+cat stages/stage2/runs/v2-20261013-854c63b5c942/pipeline_status.json
+```
+
+意外退出后可重新执行同一已记录 driver（先核对 `launch.json` 的 PID 不再存活，避免重复进程）：
+
+```bash
+environments/qwen35/.venv/bin/python -u stages/stage2/diagnostics/qwen35-vllm-migration/pipeline_driver.py stages/stage2/runs/v2-20261013-854c63b5c942
+```

@@ -29,10 +29,6 @@
   },
   "config": "stages/stage2/qwen35_4b_omni_config.json",
   "cpu_regression_tests_passed": 38,
-  "current_gpu_job": {
-    "kind": "stage2_formal",
-    "pid": 238449
-  },
   "current_probe_source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
@@ -74,13 +70,11 @@
   },
   "development_checks_preserved": 14,
   "development_references_preserved": 5,
-  "estimated_300_gpu_hours_from_fixed_smoke": 125.63841759059578,
   "execution_plan": "stages/stage2/qwen35_execution_plan_20261014.txt",
   "final_format_decision": {
     "applied": true,
     "status": "AUTHORIZED_BY_USER_20261014_REVISED_PLAN"
   },
-  "formal_features_completed": 10,
   "formal_generated": 0,
   "format_diagnostics": "stages/stage2/diagnostics/qwen35-format/summary.json",
   "full_api_resume_audit": {
@@ -142,13 +136,11 @@
   "old_run_preserved": "stages/stage2/runs/v2-20261013-78a47750b3b9",
   "pause_record": "stages/stage2/runs/v2-20261013-78a47750b3b9/pause.json",
   "paused_at": "2026-10-14T12:33:26.137894+00:00",
-  "pipeline_exec_session_id": 4508,
   "pipeline_pid": 270082,
   "pipeline_status": "stages/stage2/runs/v2-20261013-854c63b5c942/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
   "previous_status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
   "real_model_interface_restore": "PASS_NEW_GENERATOR_BUDGET",
-  "real_model_smoke": "RUNNING_REVISED_FIXED_TEN_QUESTION_SMOKE",
   "real_verifier_smoke": {
     "checks": 21,
     "completion_summary": "stages/stage2/diagnostics/qwen35-verifier-real-smoke/completion_summary.json",
@@ -192,12 +184,8 @@
     "scope": "first smoke first checkpoint and trajectory end, all 32 layers",
     "status": "PASS"
   },
-  "smoke_completed_parseable": 8,
   "smoke_engineering_checked": 10,
   "smoke_generated": 0,
-  "smoke_passed": true,
-  "smoke_scorable": 8,
-  "smoke_truncated": 2,
   "split_sizes": {
     "smoke": 10,
     "test": 200,
@@ -244,5 +232,23 @@
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface-view",
     "pid": 115492,
     "status": "SYNTHETIC_CONTROLS_PASS"
+  },
+  "previous_transformers_run_summary": {
+    "formal_features_completed": 10,
+    "smoke_passed": true,
+    "smoke_completed_parseable": 8,
+    "smoke_scorable": 8,
+    "smoke_truncated": 2,
+    "real_model_smoke": "RUNNING_REVISED_FIXED_TEN_QUESTION_SMOKE",
+    "estimated_300_gpu_hours_from_fixed_smoke": 125.63841759059578
+  },
+  "new_run_smoke_gate": "PENDING; live status in pipeline_status.json",
+  "current_gpu_job": {
+    "kind": "stage2_vllm_fixed_smoke",
+    "pipeline_pid": 270082,
+    "collector_pid": 270449,
+    "engine_worker_pid": 270747,
+    "engine_core_pid": 270847,
+    "note": "PIDs verified at AGENTS reread; live phase and counts are in pipeline_status.json and records/"
   }
 }
