@@ -16,6 +16,8 @@
 
 生成预算为单次 81920、总上下文 131072，prefill 块为 2048。新 run 直接复用原 manifest 的固定 ID。原顺序 10 题 smoke 至少 8 题正常 EOS 且答案可解析，长前缀 hidden、因果与独立恢复检查通过后才启动正式 100/200；失败时保存诊断。实测 GPU 成本与 300 题估算写入 `smoke_diagnostics.json`。完整方案见 [qwen35_execution_plan_20261014.txt](qwen35_execution_plan_20261014.txt)。
 
+2026-10-14，新 run `v2-20261013-78a47750b3b9` 已通过完整预跑：8/10 正常 EOS 且答案可解析，2/10 截断并保留缺失数学标签，10 题因果检查全部通过；独立恢复审计确认 21 个已有 JSON/NPZ 文件未变。最长正常完成前缀 73807 token 的 32 层特征已核验，正式 100/200 采集已启动，尚未拟合 A/B/C。证据见 [smoke_acceptance_audit.json](runs/v2-20261013-78a47750b3b9/smoke_acceptance_audit.json) 与 [smoke_diagnostics.json](runs/v2-20261013-78a47750b3b9/smoke_diagnostics.json)。这 10 题的生成加独立前缀提取共 4.19 GPU 小时，外推 300 题约 125.64 GPU 小时；估算包含截断长题的固定预算耗时，不包含加载、工程检查与备份，且受题目和检查点数量差异影响。
+
 ```bash
 # 新环境复用本机已安装且版本与锁一致的依赖；独立安装可用 uv sync。
 uv sync --project environments/qwen35 --locked

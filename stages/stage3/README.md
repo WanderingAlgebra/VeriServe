@@ -8,6 +8,8 @@
 
 ## 新实验：Qwen3.5 原生 Thinking 的同题 HIGH/LOW
 
+2026-10-14，新 Stage2 已通过 8/10 可解析的完整预跑并进入正式采集，见 [Stage2 验收记录](../stage2/runs/v2-20261013-78a47750b3b9/smoke_acceptance_audit.json)。新 B 尚未拟合，两个验证器候选尚未完成本轮完整开发比较和独立人工核验；真实 pilot 与正式 HIGH/LOW 均未启动。
+
 新配置为 [qwen35_4b_omni_high_low_config.json](qwen35_4b_omni_high_low_config.json)。`stage2_run` 必须指向新 stage2 的实际 run；层号直接读取新 `probe_B.json`，不固定为 19。新实验进度见 [qwen35_status.json](qwen35_status.json)。下文数值均是旧模型历史结果。
 
 生成器为原生 Thinking 的 Qwen3.5-4B，验证器为 Qwen3.5-9B，均为纯文本 BF16。验证器先比较直接判断与 Thinking 两种模式，再冻结一组。HIGH/LOW 首检前继承参考记录的生成种子并逐 token 核对；不一致时保留诊断并停止，不重抽参考。中途 PASS 保存精确原 token 前缀的完整混合缓存；FAIL 恢复最近 PASS，否则恢复 prompt，再追加 diagnosis/hint。恢复不退回生成 RNG、不清零累计预算。中途 UNCERTAIN 继续，终点 UNCERTAIN 不提交；与已 PASS 步骤冲突的 FAIL 转为 UNCERTAIN。
