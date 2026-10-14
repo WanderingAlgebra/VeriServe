@@ -56,3 +56,10 @@ Traceback (most recent call last):
     raise RuntimeError(f"Backup failed; local files retained, collection stopped: {safe_error(exc)}") from exc
 RuntimeError: Backup failed; local files retained, collection stopped: Post "[redacted URL] dial tcp 20.205.243.166:443: i/o timeout
 
+PUSHED 886d279a591e0ab8cfe03180927a1e0326209b1e remote_feature_verified=True
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 11464.26it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+Loading weights:   0%|          | 0/427 [00:00<?, ?it/s]Loading weights:  21%|██        | 90/427 [00:00<00:00, 881.82it/s]Loading weights:  42%|████▏     | 179/427 [00:00<00:00, 879.73it/s]Loading weights:  63%|██████▎   | 267/427 [00:00<00:00, 837.70it/s]Loading weights:  82%|████████▏ | 351/427 [00:00<00:00, 700.30it/s]Loading weights: 100%|██████████| 427/427 [00:00<00:00, 782.23it/s]
+[transformers] `causal_conv1d_update` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `fused_recurrent_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
