@@ -29,6 +29,14 @@
   },
   "config": "stages/stage2/qwen35_4b_omni_config.json",
   "cpu_regression_tests_passed": 38,
+  "current_gpu_job": {
+    "collector_pid": 270449,
+    "engine_core_pid": 270847,
+    "engine_worker_pid": 270747,
+    "kind": "stage2_vllm_fixed_smoke",
+    "note": "PIDs verified at AGENTS reread; live phase and counts are in pipeline_status.json and records/",
+    "pipeline_pid": 270082
+  },
   "current_probe_source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
@@ -131,6 +139,7 @@
     "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
   },
   "new_official_identity_required": false,
+  "new_run_smoke_gate": "PENDING; live status in pipeline_status.json",
   "next_action": "At the next complete development question checkpoint, release both models and resume original Stage2 smoke with 4B only.",
   "note": "2026-10-14 plan supersedes old strict final-only policy and old budgets. New run imports fixed splits and verified data bytes only; no old generated tokens or features.",
   "old_run_preserved": "stages/stage2/runs/v2-20261013-78a47750b3b9",
@@ -140,6 +149,15 @@
   "pipeline_status": "stages/stage2/runs/v2-20261013-854c63b5c942/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
   "previous_status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
+  "previous_transformers_run_summary": {
+    "estimated_300_gpu_hours_from_fixed_smoke": 125.63841759059578,
+    "formal_features_completed": 10,
+    "real_model_smoke": "RUNNING_REVISED_FIXED_TEN_QUESTION_SMOKE",
+    "smoke_completed_parseable": 8,
+    "smoke_passed": true,
+    "smoke_scorable": 8,
+    "smoke_truncated": 2
+  },
   "real_model_interface_restore": "PASS_NEW_GENERATOR_BUDGET",
   "real_verifier_smoke": {
     "checks": 21,
@@ -185,7 +203,7 @@
     "status": "PASS"
   },
   "smoke_engineering_checked": 10,
-  "smoke_generated": 0,
+  "smoke_generated": 1,
   "split_sizes": {
     "smoke": 10,
     "test": 200,
@@ -193,7 +211,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "SMOKE_FIRST_QUESTION",
+  "status": "SMOKE_RESTART_AND_COMPLETE",
   "strict_channel_prompt_trial": {
     "completion": "EOS",
     "generated_tokens": 19498,
@@ -214,7 +232,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-14T13:37:15.374685+00:00",
+  "updated": "2026-10-14T14:18:35.543293+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
@@ -232,23 +250,5 @@
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface-view",
     "pid": 115492,
     "status": "SYNTHETIC_CONTROLS_PASS"
-  },
-  "previous_transformers_run_summary": {
-    "formal_features_completed": 10,
-    "smoke_passed": true,
-    "smoke_completed_parseable": 8,
-    "smoke_scorable": 8,
-    "smoke_truncated": 2,
-    "real_model_smoke": "RUNNING_REVISED_FIXED_TEN_QUESTION_SMOKE",
-    "estimated_300_gpu_hours_from_fixed_smoke": 125.63841759059578
-  },
-  "new_run_smoke_gate": "PENDING; live status in pipeline_status.json",
-  "current_gpu_job": {
-    "kind": "stage2_vllm_fixed_smoke",
-    "pipeline_pid": 270082,
-    "collector_pid": 270449,
-    "engine_worker_pid": 270747,
-    "engine_core_pid": 270847,
-    "note": "PIDs verified at AGENTS reread; live phase and counts are in pipeline_status.json and records/"
   }
 }
