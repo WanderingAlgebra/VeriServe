@@ -1,0 +1,15 @@
+{
+  "checks": 14,
+  "completion_counts": {
+    "EOS": 14
+  },
+  "human_labels": 0,
+  "note": "Raw old verifier outputs retained; new verifier source identity will replay these fixed inputs. Same-revision 4B reference tokens are reused unchanged.",
+  "references": 5,
+  "status": "PRESERVED_PRE_SNAPSHOT_REVISION_DIAGNOSTIC",
+  "updated": "2026-10-14T06:17:37.064355+00:00",
+  "verdict_counts": {
+    "PASS": 12,
+    "UNCERTAIN": 2
+  }
+}

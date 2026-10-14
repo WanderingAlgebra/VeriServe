@@ -1,0 +1,62 @@
+{
+  "archived_and_retained_sha256_verified": {
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-273464aa7149c42e451f-25819.json": "a4afcfbd19c2822b6ca6a3f4af4562b37daf54d93f59fe06bff2c6dd7fbd773c",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-273464aa7149c42e451f-33806.json": "6542fcc1e472576fa7069f4b5f09b87b10f0ef9b2f2250ef1645429a16c83d67",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-273464aa7149c42e451f-8554.json": "d2e07d01540db09e252a74b42805852fbd63dd5a5a5515abcd169221cf3c9754",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-a407dfd82ad1900dd7bb-24568.json": "5d34bd570afeb5071c439c9f997a2f4470215ce8a249ce15c6ba0888a8172de4",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-a407dfd82ad1900dd7bb-31849.json": "45a8c6a3366b75d92cc1acaa11a7f1210c8f17ae22bae92f43584ca71352f1ce",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-a407dfd82ad1900dd7bb-8189.json": "835037d7d8e02ece6d8acd9e2bf1dd167e73ea2ac9319ff8bffb5f7c4c3b16bf",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-db8c0bec6106b578a083-1954.json": "5109b087eac5e69276920ea5f635e5862aeb96de02784973def8503837c5f769",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-db8c0bec6106b578a083-6963.json": "e02ce39f6c17d8b109023535ae278ee107eeed2eac2658f23d5a7b2875768319",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-db8c0bec6106b578a083-9461.json": "40481a6c451e0caf18b33c5712da5538d940a2ffc4b6230d082c9f12f252e8ea",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-dbd0e6fe5261e981461b-18890.json": "fd1447d1167fa0ef85b07018913ebb6e432a007e252a60c48fba0d0b1203b1bc",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-dbd0e6fe5261e981461b-49100.json": "27b615d54530cbcb47f8d6de05de4b9d7e1451bf2ac6c119c37ed508b37137d4",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-e4dd8307ef0789a5a1ac-11874.json": "030c16b55505fe0d7195bed27435074685a021d01ea91057d93147016b015178",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-e4dd8307ef0789a5a1ac-15613.json": "e187c539c55c7238d8ea56745e9c3c7dea26851818caa7f58d8fd6b74f331048",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z/checks/verifier_dev-e4dd8307ef0789a5a1ac-3838.json": "1838550db972b4b44e5a4346eff880559508909cefd46c4e04582d7b2f1af6d2",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/0c2dcfeb8763693c7fd0.json": "f1f19c7b59ab68859e38e498f2d25676ecf6773ec4c1ec7aec8ab93a6200e13a",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/20e3c1b312c8abc64cce.json": "61189c056c6d7141ffaf36353136c282442e4fc6243fa586d64c4324dd795d4c",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/3cdda2971eab7e8a49ba.json": "88c84cfba731f7dbbfdb712889300a5bf6db1b67d6487d74e52fd5870c66b0db",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/b663f44766af3969a4e8.json": "9fc5274c09ce8cb075cd8cdbf92fd28776074204c007f0699eee35eeeea0ee7f",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/d05cf024c808b0004848.json": "44a0249d05b021a460b36dc585dcf54dc48b529eadf38839571448ad356b4cfd"
+  },
+  "archived_checks": 14,
+  "archived_old_verifier_folder": "stages/stage2/diagnostics/qwen35-verifier-modes/direct-pre-manifest-snapshot-20261014T061737Z",
+  "changes": [
+    "Byte-for-byte immutable Stage2 manifest copy for verifier provenance; still reject changes to scientific inputs.",
+    "Only complete fixed development collections can select a verifier; direct gate reports use the same condition.",
+    "Deduplicate exact prefix token endpoints; terminal type takes precedence at a duplicate endpoint."
+  ],
+  "created": "2026-10-14T06:17:37.065558+00:00",
+  "final_affected_tests_passed": 6,
+  "finished": "2026-10-14T06:19:03.963201+00:00",
+  "full_cpu_tests_passed": 38,
+  "generator_source_unchanged": true,
+  "raw_sha256_before_archive": {
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-273464aa7149c42e451f-25819.json": "a4afcfbd19c2822b6ca6a3f4af4562b37daf54d93f59fe06bff2c6dd7fbd773c",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-273464aa7149c42e451f-33806.json": "6542fcc1e472576fa7069f4b5f09b87b10f0ef9b2f2250ef1645429a16c83d67",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-273464aa7149c42e451f-8554.json": "d2e07d01540db09e252a74b42805852fbd63dd5a5a5515abcd169221cf3c9754",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-a407dfd82ad1900dd7bb-24568.json": "5d34bd570afeb5071c439c9f997a2f4470215ce8a249ce15c6ba0888a8172de4",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-a407dfd82ad1900dd7bb-31849.json": "45a8c6a3366b75d92cc1acaa11a7f1210c8f17ae22bae92f43584ca71352f1ce",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-a407dfd82ad1900dd7bb-8189.json": "835037d7d8e02ece6d8acd9e2bf1dd167e73ea2ac9319ff8bffb5f7c4c3b16bf",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-db8c0bec6106b578a083-1954.json": "5109b087eac5e69276920ea5f635e5862aeb96de02784973def8503837c5f769",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-db8c0bec6106b578a083-6963.json": "e02ce39f6c17d8b109023535ae278ee107eeed2eac2658f23d5a7b2875768319",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-db8c0bec6106b578a083-9461.json": "40481a6c451e0caf18b33c5712da5538d940a2ffc4b6230d082c9f12f252e8ea",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-dbd0e6fe5261e981461b-18890.json": "fd1447d1167fa0ef85b07018913ebb6e432a007e252a60c48fba0d0b1203b1bc",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-dbd0e6fe5261e981461b-49100.json": "27b615d54530cbcb47f8d6de05de4b9d7e1451bf2ac6c119c37ed508b37137d4",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-e4dd8307ef0789a5a1ac-11874.json": "030c16b55505fe0d7195bed27435074685a021d01ea91057d93147016b015178",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-e4dd8307ef0789a5a1ac-15613.json": "e187c539c55c7238d8ea56745e9c3c7dea26851818caa7f58d8fd6b74f331048",
+    "stages/stage2/diagnostics/qwen35-verifier-modes/direct/checks/verifier_dev-e4dd8307ef0789a5a1ac-3838.json": "1838550db972b4b44e5a4346eff880559508909cefd46c4e04582d7b2f1af6d2",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/0c2dcfeb8763693c7fd0.json": "f1f19c7b59ab68859e38e498f2d25676ecf6773ec4c1ec7aec8ab93a6200e13a",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/20e3c1b312c8abc64cce.json": "61189c056c6d7141ffaf36353136c282442e4fc6243fa586d64c4324dd795d4c",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/3cdda2971eab7e8a49ba.json": "88c84cfba731f7dbbfdb712889300a5bf6db1b67d6487d74e52fd5870c66b0db",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/b663f44766af3969a4e8.json": "9fc5274c09ce8cb075cd8cdbf92fd28776074204c007f0699eee35eeeea0ee7f",
+    "stages/stage2/runs/v2-20261013-78a47750b3b9/records/verifier_dev/d05cf024c808b0004848.json": "44a0249d05b021a460b36dc585dcf54dc48b529eadf38839571448ad356b4cfd"
+  },
+  "references": [
+    "https://docs.python.org/3/library/pathlib.html",
+    "https://docs.python.org/3/library/subprocess.html"
+  ],
+  "retained_generator_references": 5,
+  "status": "PASS"
+}

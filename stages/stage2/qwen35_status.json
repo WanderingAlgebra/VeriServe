@@ -29,7 +29,10 @@
   },
   "config": "stages/stage2/qwen35_4b_omni_config.json",
   "cpu_regression_tests_passed": 38,
-  "current_gpu_job": null,
+  "current_gpu_job": {
+    "kind": "stage2_smoke",
+    "pid": 200213
+  },
   "current_probe_source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
     "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
@@ -212,7 +215,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-14T06:06:35.685246+00:00",
+  "updated": "2026-10-14T06:19:03.971591+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",

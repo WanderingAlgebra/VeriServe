@@ -6,7 +6,7 @@ import time
 import tempfile
 from pathlib import Path
 from veriserve_research import ROOT
-from veriserve_research.artifacts.io import atomic_json, read_json, stable_hash, digest, now, git, safe_error
+from veriserve_research.artifacts.io import atomic_json, atomic_bytes, read_json, stable_hash, digest, now, git, safe_error
 from veriserve_research.artifacts.provenance import environment
 from veriserve_research.probe.materials import record_path
 from veriserve_research.artifacts import storage
@@ -459,6 +459,29 @@ def backup_verifier_review(stage2, folder, reason):
         raise RuntimeError('Verifier review remote backup failed; local data retained, stop before next question')
 
 
+def review_manifest_hash(stage2,folder):
+    """Keep original bytes while Stage2 adds formal-freeze bookkeeping."""
+    path=stage2/'manifest.json'
+    snapshot=folder/'stage2_manifest_snapshot.json'
+    if not snapshot.exists():
+        atomic_bytes(snapshot,path.read_bytes())
+    original,current=read_json(snapshot),read_json(path)
+    for key in ('schema_version','experiment_type','run_id','config','config_hash','source_hashes',
+                'revisions','splits','unused_ids','dataset_integrity','split_manifest_sha256',
+                'checkpoint_definition','hidden_index_convention','environment','grading'):
+        if original.get(key)!=current.get(key):
+            raise ValueError(f'Frozen Stage2 scientific inputs changed: {key}')
+    return digest(snapshot)
+
+
+def review_collection_complete(folder,split,records):
+    status=read_json(folder/f'{split}_status.json',{})
+    cohort=read_json(folder/f'{split}_ordered_ids.json')
+    return (isinstance(cohort,list) and bool(cohort)
+            and status.get('status') in ('COLLECTED','AWAITING_HUMAN_REVIEW')
+            and status.get('questions')==len(cohort) and status.get('checks')==len(records))
+
+
 def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
     """Fixed length-position samples, blind human review export and held-out gate."""
     import json
@@ -474,12 +497,12 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
         raise ValueError('New stage2 manifest required')
     if cfg.get('final_response_mode')=='explanation_then_final_line':
         require_current(source,'probe')
-    folder = output or HERE/'runs'/('verifier-'+run_identity(cfg,'high-low',{'stage2_manifest':digest(stage2/'manifest.json')}))
+    folder = output or HERE/'runs'/('verifier-'+run_identity(cfg,'high-low',{'stage2_run_id':source['run_id']}))
     folder=Path(folder).resolve()
     if not folder.is_relative_to(ROOT.resolve()):
         raise ValueError('Verifier review output must be inside the repository for required native backup')
     folder.mkdir(parents=True,exist_ok=True)
-    identity = dict(config_hash=stable_hash(cfg),source_hashes=source_hashes(),stage2_manifest_sha256=digest(stage2/'manifest.json'))
+    identity = dict(config_hash=stable_hash(cfg),source_hashes=source_hashes(),stage2_manifest_sha256=review_manifest_hash(stage2,folder))
     saved = read_json(folder/'identity.json')
     if saved and saved != identity:
         raise ValueError('Verifier review execution changed; use new review folder')
@@ -547,7 +570,8 @@ def verifier_review(cfg, phase, output=None, human_labels=None, audit_extra=0):
                     counts.append((min(steps,key=lambda s:abs(s['prefix_token_count']-target))['prefix_token_count'],'intermediate'))
             if record['completion']=='EOS' and record['boundaries'].get('end'):
                 counts.append((record['boundaries']['end']['prefix_token_count'],'terminal'))
-            for check_index,(count,kind) in enumerate(dict.fromkeys(counts)):
+            # The terminal check takes precedence when its exact prefix duplicates an intermediate one.
+            for check_index,(count,kind) in enumerate(dict(counts).items()):
                 prefix=decode(tokenizer,record['generated_ids'][:count])
                 numbers,units=verification_units(prefix,cfg.get('boundary_mode','steps'),terminal=kind=='terminal')
                 if not numbers:
@@ -650,7 +674,8 @@ def verifier_audit_report(cfg,folder,human_labels,split='verifier_audit'):
     wrong=sum(x['human']=='INCORRECT' for x in items)
     confirmed=sum(x['human'] is not None for x in items)
     minimum=10 if split=='verifier_dev' else 20
-    passed=(len(records)>0 and correct>=minimum and wrong>=minimum
+    collection_complete=review_collection_complete(folder,split,records)
+    passed=(collection_complete and len(records)>0 and correct>=minimum and wrong>=minimum
             and all(point[k] is not None and point[k]<=.2 for k in ('incorrect_pass_rate','correct_fail_rate','uncertain_or_format_or_truncated_rate'))
             and point['balanced_accuracy'] is not None and point['balanced_accuracy']>=.8)
     seconds=[x['result']['seconds'] for x in items]
@@ -658,6 +683,7 @@ def verifier_audit_report(cfg,folder,human_labels,split='verifier_audit'):
     result=dict(status='PASS' if passed else 'INSUFFICIENT_OR_FAILED',split=split,source_hashes=source_hashes(),
                 config_hash=stable_hash(cfg),human_labels_sha256=digest(human_labels) if human_labels else None,
                 review_identity=read_json(folder/'identity.json'),questions=len(ids),checks=len(records),confirmed=confirmed,
+                collection_complete=collection_complete,
                 unconfirmed=len(records)-confirmed,required_each_class=minimum,
                 correct_prefixes=correct,incorrect_prefixes=wrong,undeterminable=sum(x['human']=='UNDETERMINABLE' for x in items),
                 repeated_prefixes=sum(x['consistent'] is not None for x in items),
@@ -672,7 +698,7 @@ def verifier_audit_report(cfg,folder,human_labels,split='verifier_audit'):
                     quantiles=dict(zip(('p50','p90','p95'),np.quantile(seconds,[.5,.9,.95]).tolist())) if seconds else {}),
                 metrics={k:dict(value=v,ci95=np.quantile(samples[k],[.025,.975]).tolist() if samples[k] else None,
                                 bootstrap_valid=len(samples[k])) for k,v in point.items()},
-                prespecified_gate=f'>={minimum} confirmed correct and >={minimum} confirmed incorrect; incorrect PASS, correct FAIL and all-input UNCERTAIN/format/truncation each <=20%; Balanced Accuracy >=80%; unconfirmed inputs reported separately')
+                prespecified_gate=f'Complete fixed collection; >={minimum} confirmed correct and >={minimum} confirmed incorrect; incorrect PASS, correct FAIL and all-input UNCERTAIN/format/truncation each <=20%; Balanced Accuracy >=80%; unconfirmed inputs reported separately')
     name='verifier_dev_gate' if split=='verifier_dev' else 'verifier_audit_gate'
     atomic_json(folder/f'{name}.json',result)
     write_csv(folder/f'{split}_checks.csv',[dict(unique_id=x['unique_id'],human=x['human'],verdict=x['result']['verdict'],
@@ -697,9 +723,11 @@ def compare_verifiers(first,second,human_labels,config_path):
     cohorts=[read_json(p/'verifier_dev_ordered_ids.json') for p in folders]
     if cohorts[0]!=cohorts[1]:
         raise ValueError('Development cohorts differ')
-    for folder,cfg in zip(folders,configs):
+    for folder,cfg,cohort,rows in zip(folders,configs,cohorts,records):
+        if not review_collection_complete(folder,'verifier_dev',rows):
+            raise ValueError('Complete both fixed development cohorts before mode selection')
         expected=dict(config_hash=stable_hash(cfg),source_hashes=source_hashes(),
-                      stage2_manifest_sha256=digest(ROOT/cfg['stage2_run']/'manifest.json'))
+                      stage2_manifest_sha256=review_manifest_hash(ROOT/cfg['stage2_run'],folder))
         if read_json(folder/'identity.json')!=expected:
             raise ValueError('Candidate review config/source provenance changed')
     table=folders[0].parent/'development_human_review.json'

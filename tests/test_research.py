@@ -557,6 +557,7 @@ def test_development_comparison_preserves_human_table_and_selects_by_full_cost(t
                 input_sha256=f'{mode}-{i}',prefix_ids=[i],check_type='intermediate',results=[result]))
             table.append(dict(review_key=str(i),label=None,confirmed=False,reviewer=None))
         atomic_json(folder/'verifier_dev_review_inputs.json',table)
+        atomic_json(folder/'verifier_dev_status.json',dict(status='AWAITING_HUMAN_REVIEW',questions=20,checks=21))
     waiting=high_low.compare_verifiers(*folders,None,official)
     assert waiting['status']=='AWAITING_HUMAN_LABELS'
     path=tmp_path/'modes/development_human_review.json'
@@ -571,6 +572,18 @@ def test_development_comparison_preserves_human_table_and_selects_by_full_cost(t
     assert selected['candidate_reports'][0]['unconfirmed']==1
     assert read_json(path)==labels
     assert read_json(official)['verifier']['selection_status']=='SELECTED_BY_DEVELOPMENT'
+    # Formal freeze metadata may change while the original generator/cohort remains identical.
+    atomic_json(tmp_path/'stage2/manifest.json',dict(formal_frozen_at='later',code_commit='new backup commit'))
+    assert high_low.compare_verifiers(*folders,path,official)['selected_mode']=='thinking'
+    assert digest(folders[0]/'stage2_manifest_snapshot.json')==selected['candidate_reports'][0]['review_identity']['stage2_manifest_sha256']
+    status=read_json(folders[0]/'verifier_dev_status.json')
+    (folders[0]/'verifier_dev_status.json').unlink()
+    with pytest.raises(ValueError,match='Complete both fixed development cohorts'):
+        high_low.compare_verifiers(*folders,path,official)
+    atomic_json(folders[0]/'verifier_dev_status.json',status)
+    atomic_json(tmp_path/'stage2/manifest.json',dict(config={'max_new_tokens':1}))
+    with pytest.raises(ValueError,match='Frozen Stage2 scientific inputs changed'):
+        high_low.compare_verifiers(*folders,path,official)
 
 
 @pytest.mark.parametrize('fail_at',(1,2))
@@ -590,14 +603,14 @@ def test_verifier_review_backup_failure_stops_before_next_question(tmp_path,monk
     collected=[]
     def collect_row(*args,**kwargs):
         collected.append(args[3]['unique_id'])
-        return dict(boundaries={'steps':[{'prefix_token_count':1}]},completion='LENGTH_TRUNCATED',
+        return dict(boundaries={'steps':[{'prefix_token_count':1}],'end':{'prefix_token_count':1}},completion='EOS',
                     generated_ids=[1],token_sha256=stable_hash(args[3]['unique_id'])),True
     monkeypatch.setattr(collect,'collect_one',collect_row)
     class Tok:
         def decode(self,ids,**kwargs):return 'Step 1: compute 1+1=2.'
     elapsed=[0.]
     class Verifier:
-        def input_ids(self,*args):return [1]
+        def input_ids(self,*args):return [2] if args[-1]=='terminal' else [1]
         def verify(self,*args,**kwargs):
             try:
                 return dict(verdict='PASS',input_tokens=1,output_tokens=1,seconds=.25)
@@ -620,6 +633,7 @@ def test_verifier_review_backup_failure_stops_before_next_question(tmp_path,monk
     if fail_at==2:
         check=read_json(next((tmp_path/'review/checks').glob('*.json')))
         assert check['results'][0]['seconds']==.5
+        assert check['check_type']=='terminal'
 
 
 def test_generative_pilot_rejects_local_only_backup_before_requests(tmp_path,monkeypatch):
