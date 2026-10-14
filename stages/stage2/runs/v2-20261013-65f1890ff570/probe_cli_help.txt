@@ -1,0 +1,17 @@
+usage: __main__.py [-h] [--config CONFIG]
+                   [--self-check | --prepare-only | --backup-only | --smoke | --fit-only]
+                   [--resume] [--stop-after STOP_AFTER]
+
+Probe experiment orchestration; library consumers use materials/fit/inference.
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG
+  --self-check
+  --prepare-only        Resolve SHA/splits and save manifest before first push
+  --backup-only
+  --smoke
+  --fit-only
+  --resume
+  --stop-after STOP_AFTER
+                        Pause smoke after N questions to demonstrate restart

@@ -237,9 +237,14 @@ def main():
             profiles = ([read_json(ROOT/'stages/stage2/diagnostics/qwen35-verifier-modes'/f'{name}_config.json')
                          for name in ('direct','thinking')] if compare_modes else [high_cfg])
             result['verifier_interfaces']={}
+            generator_prompt=prompt_tokens(cfg,tokenizer,'Compute 1 + 1.')
             for profile in profiles:
                 verifier.cfg=profile
                 name='thinking' if profile['verifier'].get('enable_thinking',True) else 'direct'
+                paused=Session(model,generator_prompt,cfg,5678)
+                control=paused.clone()
+                expected_continuation=[control.sample() for _ in range(8)]
+                paused_rng=paused.rng.get_state().clone()
                 check=dict(status='RUNNING',cases=[],config=profile,
                     scope='Three fixed synthetic controls; not independent human quality labels.')
                 result['verifier_interfaces'][name]=check
@@ -254,6 +259,13 @@ def main():
                     print('SYNTHETIC_VERIFIER',name,kind,response['verdict'],response.get('parser_error'),flush=True)
                 passed=all(c['result']['verdict']==c['expected_synthetic_verdict'] and not c['result'].get('parser_error')
                            for c in check['cases'])
+                assert torch.equal(paused_rng,paused.rng.get_state())
+                observed_continuation=[paused.sample() for _ in range(8)]
+                assert observed_continuation==expected_continuation
+                assert torch.equal(control.rng.get_state(),paused.rng.get_state())
+                check['generator_pause_across_verification']=dict(passed=True,expected=expected_continuation,
+                    observed=observed_continuation,independent_rng=True)
+                del paused,control
                 check['status']='SYNTHETIC_CONTROLS_PASS' if passed else 'FORMAT_OR_CONTROL_FAILURE'
                 if args.verifier_interface:
                     result['verifier_interface']=check
