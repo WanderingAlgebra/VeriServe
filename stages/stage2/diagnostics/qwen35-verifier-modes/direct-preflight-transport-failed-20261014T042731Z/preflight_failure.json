@@ -1,0 +1,6 @@
+{
+  "created": "2026-10-14T04:27:31.579314+00:00",
+  "generated_references": 0,
+  "reason": "Transport failed before loading models; source identity subsequently changed only in Stage3",
+  "verifier_calls": 0
+}

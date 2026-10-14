@@ -45,6 +45,12 @@ def test_revised_final_response_shared_contract():
     assert _reference_bounds(record,tok,PARAGRAPHS,EXPLANATION_FINAL)==bounds
     with pytest.raises(ValueError,match='REFERENCE_FINAL_FORMAT_ERROR'):
         _reference_bounds(record,tok,PARAGRAPHS)
+    for suffix in ('\n\n','\r\n\t'):
+        ids=[ord(c) for c in reference+suffix]+[0]
+        _,bounds=boundaries(tok,ids,PARAGRAPHS)
+        record.update(generated_ids=ids,raw_text=tok.decode(ids),boundaries=bounds,
+                      token_sha256=stable_hash({'prompt_ids':[1],'generated_ids':ids}))
+        assert _reference_bounds(record,None,PARAGRAPHS,EXPLANATION_FINAL)==bounds
 
 
 def test_independent_verifier_modes_and_rng(monkeypatch):
