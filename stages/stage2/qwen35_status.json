@@ -31,7 +31,7 @@
   "cpu_regression_tests_passed": 38,
   "current_gpu_job": {
     "kind": "stage2_pipeline",
-    "pipeline_pid": 397249
+    "pipeline_pid": 456880
   },
   "current_probe_source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
@@ -79,8 +79,8 @@
     "applied": true,
     "status": "AUTHORIZED_BY_USER_20261014_REVISED_PLAN"
   },
-  "formal_features_completed": 0,
-  "formal_generated": 1,
+  "formal_features_completed": 43,
+  "formal_generated": 43,
   "format_diagnostics": "stages/stage2/diagnostics/qwen35-format/summary.json",
   "full_api_resume_audit": {
     "path": "stages/stage2/runs/v2-20261013-da5c802342ee/all_records_resume_audit.json",
@@ -142,7 +142,7 @@
   "old_run_preserved": "stages/stage2/runs/v2-20261013-78a47750b3b9",
   "pause_record": "stages/stage2/runs/v2-20261013-78a47750b3b9/pause.json",
   "paused_at": "2026-10-14T12:33:26.137894+00:00",
-  "pipeline_pid": 397249,
+  "pipeline_pid": 456880,
   "pipeline_status": "stages/stage2/runs/v2-20261013-e136a41fea81/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
   "previous_status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
@@ -229,7 +229,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-15T04:59:50.510135+00:00",
+  "updated": "2026-10-15T11:34:46.564739+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",

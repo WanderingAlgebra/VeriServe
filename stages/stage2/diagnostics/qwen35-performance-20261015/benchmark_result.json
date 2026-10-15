@@ -1,0 +1,355 @@
+{
+  "config_sha256": "f0ca3d9af839baa0be10f380deacc6e1170bfb3a568a75ba9b12a579739dd27b",
+  "created": "2026-10-15T11:14:37.614577+00:00",
+  "execution_sources": {
+    "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650",
+    "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336",
+    "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/artifacts/backup.py": "5220cefa8c1f08c619cce8827d8fa7e97ac3d6f6ddeeecd805cee4ebd4028533",
+    "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb",
+    "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
+    "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
+    "veriserve_research/artifacts/provenance.py": "c82a9ecb28789a9e690bee5dd6d9576c7f6cc7be765d2d796ea8e1c9e38ef0e3",
+    "veriserve_research/inference.py": "8bc9137d053c4b27c1765318050deeca25d7be5ce43daaa77318102dba2a6998",
+    "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/probe/collect.py": "12ad7226934aa5883a1f6edd17673c7d79c58decd7477fbc9919638f022f47af",
+    "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
+    "veriserve_research/probe/materials.py": "3ba86c6aa63b8f8f5d5848a506027e0dc1e167bcc75c1b2162fb44b35a3991bb",
+    "veriserve_research/trajectory.py": "d79b247284fb98488cbdc29fef19928d7443b492c1fd5e8d20d3b6c07c7f0358",
+    "veriserve_research/vllm_backend.py": "228a47347116b2d030f08c3865d726800f0fa32c02571993277e39df1e057d74"
+  },
+  "fixed_smoke_ids": [
+    "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69",
+    "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355",
+    "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c",
+    "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+  ],
+  "limitations": [
+    "GPU-only decoding; no resident HF model, hidden extraction, scoring or formal backup costs.",
+    "Short concurrency tests do not establish feasibility or performance of four simultaneous 81920-token outputs.",
+    "Changing engine max_num_seqs or batch composition can change sampled tokens despite identical seeds.",
+    "Milestone times are host-observed stream arrival times; first window excludes TTFT and uses 8191 intervals.",
+    "No speculative decoding, prompt edits, new dependencies or writes to formal run."
+  ],
+  "max_seconds": 1800,
+  "measurements": [
+    {
+      "aggregate_tokens_per_second": 87.78708940965606,
+      "preemptions": 0,
+      "rows": [
+        {
+          "decode_windows": [
+            {
+              "end_tokens": 8192,
+              "seconds": 84.97547420300543,
+              "start_tokens": 1,
+              "tokens_per_second": 96.39251886293444
+            },
+            {
+              "end_tokens": 16384,
+              "seconds": 87.37053072825074,
+              "start_tokens": 8192,
+              "tokens_per_second": 93.7615913708896
+            },
+            {
+              "end_tokens": 32768,
+              "seconds": 180.82915081083775,
+              "start_tokens": 16384,
+              "tokens_per_second": 90.60486059097308
+            },
+            {
+              "end_tokens": 65536,
+              "seconds": 393.3246530070901,
+              "start_tokens": 32768,
+              "tokens_per_second": 83.3103131204169
+            }
+          ],
+          "finish_reason": "length",
+          "finished": true,
+          "milestones": {
+            "1": 0.03334365226328373,
+            "8192": 85.00881785526872,
+            "16384": 172.37934858351946,
+            "32768": 353.2084993943572,
+            "65536": 746.5331524014473
+          },
+          "saved_prefix_compared_tokens": 65536,
+          "saved_prefix_exact": false,
+          "seconds": 746.5331524014473,
+          "token_sha256": "26faa0ef38b4b12f2befe1f545664b3b952765b28f1bd0a9f29a1f2900eac1b0",
+          "tokens": 65536,
+          "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+        }
+      ],
+      "seconds": 746.5334645528346,
+      "tag": "length-profile",
+      "tokens": 65536
+    },
+    {
+      "aggregate_tokens_per_second": 97.20858082109571,
+      "batches": [
+        {
+          "aggregate_tokens_per_second": 97.25646882900693,
+          "preemptions": 0,
+          "rows": [
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.04047628864645958
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 21.05771366879344,
+              "token_sha256": "f5c0ed44b60d4780bc9b813a002ae3316a4411090873859f8be9ba55d59a7467",
+              "tokens": 2048,
+              "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+            }
+          ],
+          "seconds": 21.057725256308913,
+          "tag": "batch-1-0",
+          "tokens": 2048
+        },
+        {
+          "aggregate_tokens_per_second": 97.19851189748556,
+          "preemptions": 0,
+          "rows": [
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.050228426232934
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 21.070271234959364,
+              "token_sha256": "25e0c752c7bc343c5d41ff52f84be33cca05b22ccbc9de79ee097b814e0a887a",
+              "tokens": 2048,
+              "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+            }
+          ],
+          "seconds": 21.07028142735362,
+          "tag": "batch-1-1",
+          "tokens": 2048
+        },
+        {
+          "aggregate_tokens_per_second": 97.25899902304134,
+          "preemptions": 0,
+          "rows": [
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.03657752275466919
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 21.057158490642905,
+              "token_sha256": "cf1d3087144ebfbb4bfd2f46ae8463d5e6b2506437e4f4c1c9ecaff10b7f757b",
+              "tokens": 2048,
+              "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+            }
+          ],
+          "seconds": 21.05717743933201,
+          "tag": "batch-1-2",
+          "tokens": 2048
+        },
+        {
+          "aggregate_tokens_per_second": 97.12047422308655,
+          "preemptions": 0,
+          "rows": [
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.036841653287410736
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 21.087205171585083,
+              "token_sha256": "0435937e5da3809b86f76a0f01ddd552aebcaefbf62a9dcecf05189625325894",
+              "tokens": 2048,
+              "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+            }
+          ],
+          "seconds": 21.08721169643104,
+          "tag": "batch-1-3",
+          "tokens": 2048
+        }
+      ],
+      "concurrency": 1,
+      "seconds": 84.27239581942558,
+      "tokens": 8192
+    },
+    {
+      "aggregate_tokens_per_second": 174.42261344477322,
+      "batches": [
+        {
+          "aggregate_tokens_per_second": 174.6168911423132,
+          "preemptions": 0,
+          "rows": [
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.06482633389532566
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 23.448195660486817,
+              "token_sha256": "b41252b441e3b1203abdbceae3cda91fe04d12c07edd1b233d91cfb42c1dec78",
+              "tokens": 2048,
+              "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+            },
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.06725382804870605
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 23.457064140588045,
+              "token_sha256": "4c27fa4cafa0fcc70e5b37e935590e429a2700abaaa5b3f6a4f8eea8bfa535d2",
+              "tokens": 2048,
+              "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+            }
+          ],
+          "seconds": 23.45706634223461,
+          "tag": "batch-2-0",
+          "tokens": 4096
+        },
+        {
+          "aggregate_tokens_per_second": 174.22876757117234,
+          "preemptions": 0,
+          "rows": [
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.08000495284795761
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 23.50008295290172,
+              "token_sha256": "539357d1694cfe58a3e2d9eae937d1e750f7595ac58058d92664967f681cb8b4",
+              "tokens": 2048,
+              "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+            },
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.08188297413289547
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 23.50931820087135,
+              "token_sha256": "e7232b9d3c24c50ac1a7855e18a4c8570c0430e15a52c1e38f5e6da1e4a7becc",
+              "tokens": 2048,
+              "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+            }
+          ],
+          "seconds": 23.50932086072862,
+          "tag": "batch-2-2",
+          "tokens": 4096
+        }
+      ],
+      "concurrency": 2,
+      "seconds": 46.96638720296323,
+      "tokens": 8192
+    },
+    {
+      "aggregate_tokens_per_second": 333.7976861709989,
+      "batches": [
+        {
+          "aggregate_tokens_per_second": 333.7976861709989,
+          "preemptions": 0,
+          "rows": [
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.23617719300091267
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 24.530739910900593,
+              "token_sha256": "bc157465871b827f4150bf22909e554a89d2a3b08fac7329af8d7423cdbc440b",
+              "tokens": 2048,
+              "unique_id": "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69"
+            },
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.24731495790183544
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 24.541805047541857,
+              "token_sha256": "e5a959a64b8b99da6f29f60ba8bab397db60a33c1e0162d19a3cac5f46cad45f",
+              "tokens": 2048,
+              "unique_id": "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355"
+            },
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.2473173290491104
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 24.54180769994855,
+              "token_sha256": "3c37668616bfc2960c736bd45c84ecf8e40208ca0ce675b5ffd74686359b0774",
+              "tokens": 2048,
+              "unique_id": "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c"
+            },
+            {
+              "decode_windows": [],
+              "finish_reason": "length",
+              "finished": true,
+              "milestones": {
+                "1": 0.2473187055438757
+              },
+              "saved_prefix_compared_tokens": 2048,
+              "saved_prefix_exact": false,
+              "seconds": 24.541808627545834,
+              "token_sha256": "0ad49c89c4aae242f5453df68ee352d1d348b484316f7ab83d3f1afb37ee8c95",
+              "tokens": 2048,
+              "unique_id": "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+            }
+          ],
+          "seconds": 24.54181182011962,
+          "tag": "batch-4-0",
+          "tokens": 8192
+        }
+      ],
+      "concurrency": 4,
+      "seconds": 24.54181182011962,
+      "tokens": 8192
+    }
+  ],
+  "plan": [
+    "First fixed smoke prompt: stream up to 65536 tokens, preserve sampling/EOS, record actual decode windows.",
+    "First four fixed smoke prompts: same work at concurrency 1, 2, 4, up to 2048 new tokens per request."
+  ],
+  "status": "GPU_BENCHMARK_COMPLETE"
+}

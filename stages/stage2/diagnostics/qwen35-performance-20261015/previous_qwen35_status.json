@@ -1,0 +1,251 @@
+{
+  "checkpoint_trial": {
+    "final_format_retry": {
+      "completed": 4,
+      "eos": 3,
+      "parser_recovered_without_generation": true,
+      "path": "stages/stage2/diagnostics/qwen35-paragraphs/final-format-retry",
+      "pid": 80001,
+      "questions": 4,
+      "selection": "original smoke first four; no outcome-based order",
+      "status": "DIAGNOSTIC_COMPLETE",
+      "strict_format_valid": 0,
+      "truncated": 1
+    },
+    "format_calibration": "stages/stage2/diagnostics/qwen35-paragraphs/few_shot_final_only_prompt_trial.json",
+    "format_calibration_final_one_line": true,
+    "format_calibration_generated_tokens": 1083,
+    "full_budget_completion": "EOS",
+    "full_budget_generated_tokens": 2959,
+    "full_budget_smoke_questions": 1,
+    "kernel_candidate": "stages/stage2/diagnostics/qwen35-paragraphs/kernel_candidate.json",
+    "new_smoke_passed": false,
+    "offline_candidates": 305,
+    "scientific_results": false,
+    "short_generation_questions": 3,
+    "status": "COMPLETE_REQUIRES_NEW_IDENTITY",
+    "summary": "stages/stage2/diagnostics/qwen35-paragraphs/summary.json",
+    "user_authorized": true
+  },
+  "config": "stages/stage2/qwen35_4b_omni_config.json",
+  "cpu_regression_tests_passed": 38,
+  "current_gpu_job": {
+    "kind": "stage2_pipeline",
+    "pipeline_pid": 397249
+  },
+  "current_probe_source_hashes": {
+    "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650",
+    "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336",
+    "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/artifacts/backup.py": "7da2d0989965ca5032ccb9d1a3133a6f0d561ec17540027ec7b86eb35b299981",
+    "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb",
+    "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
+    "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
+    "veriserve_research/artifacts/provenance.py": "33399d2d5e37dea42b875768f4eab4690e6b927d5a60f940ff71b41dab5b12ea",
+    "veriserve_research/inference.py": "b6e7d4efe65bd004ee3797379f3b11290e5048229c896c34fbd74278891ab8e9",
+    "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/probe/collect.py": "f87a600858e08da758706d570a2ae4c7d1fc027d36649bd203225b0aa2c93e08",
+    "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
+    "veriserve_research/probe/materials.py": "3ba86c6aa63b8f8f5d5848a506027e0dc1e167bcc75c1b2162fb44b35a3991bb",
+    "veriserve_research/trajectory.py": "d79b247284fb98488cbdc29fef19928d7443b492c1fd5e8d20d3b6c07c7f0358"
+  },
+  "dataset": {
+    "conflicting_answers": [],
+    "duplicate_indices": [
+      2505,
+      2542,
+      2585,
+      2722,
+      2746
+    ],
+    "git_blob": "a793db0d0076592c0d0538d9c1d644ad82b333ee",
+    "invalid_gold_count": 20,
+    "revision": "bda09972374225ab2186582615307d909965b864",
+    "rows": 2821,
+    "sha256": "d566d5b5a9865a04b507fdc4c0669cf0ff391748e13f190ecc925e78b584b172",
+    "unique": 2816,
+    "url": "https://raw.githubusercontent.com/KbsdJames/omni-math-rule/bda09972374225ab2186582615307d909965b864/omni_math_rule.jsonl"
+  },
+  "development_checks_preserved": 14,
+  "development_references_preserved": 5,
+  "execution_plan": "stages/stage2/qwen35_execution_plan_20261014.txt",
+  "final_format_decision": {
+    "applied": true,
+    "status": "AUTHORIZED_BY_USER_20261014_REVISED_PLAN"
+  },
+  "formal_features_completed": 0,
+  "formal_generated": 1,
+  "format_diagnostics": "stages/stage2/diagnostics/qwen35-format/summary.json",
+  "full_api_resume_audit": {
+    "path": "stages/stage2/runs/v2-20261013-da5c802342ee/all_records_resume_audit.json",
+    "questions": 10,
+    "status": "PASS",
+    "unchanged_files": 20
+  },
+  "historical_formal_hold": "stages/stage2/runs/v2-20261013-da5c802342ee/smoke_format_review_hold.json",
+  "historical_protocol_decision_audit": "stages/stage2/diagnostics/qwen35-final-user-task/protocol_decision_audit.json",
+  "historical_real_model_smoke": "TEN_TRAJECTORIES_COMPLETE_WITH_POOR_FORMAT",
+  "historical_resident_capacity": {
+    "free_total_bytes": [
+      5344526336,
+      50866487296
+    ],
+    "path": "stages/stage2/diagnostics/qwen35-resident-capacity",
+    "peak_allocated_bytes": 34694786048,
+    "pid": 104070,
+    "status": "PASS"
+  },
+  "historical_source_hashes": {
+    "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650",
+    "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336",
+    "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/artifacts/backup.py": "7da2d0989965ca5032ccb9d1a3133a6f0d561ec17540027ec7b86eb35b299981",
+    "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb",
+    "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
+    "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
+    "veriserve_research/artifacts/provenance.py": "33399d2d5e37dea42b875768f4eab4690e6b927d5a60f940ff71b41dab5b12ea",
+    "veriserve_research/inference.py": "9ac495ba80eb6b19e4fa8d8edcabe40db58508e66784339b36f5418d4e776d25",
+    "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/probe/collect.py": "07b07cb72ab08de44b3e105fb19b768c6c4af7dd31b8f686b705fc9b9826770f",
+    "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
+    "veriserve_research/probe/materials.py": "e0be242e549ac57219cc50acdff615f20cb8f00d175cc8b4897e5550db945b73",
+    "veriserve_research/trajectory.py": "0e2fa62e8b6b778b00b35fcc490008cbbb5c9dcade1c6fcfb71222d1f5ac1d2a"
+  },
+  "kernel_validation": {
+    "decode_speedup": 1.048012326421378,
+    "path": "stages/stage2/diagnostics/qwen35-kernel-check",
+    "pid": 98041,
+    "status": "COMPLETE_KEEP_REFERENCE",
+    "warm_reforward_speedup": 1.4949245349261684
+  },
+  "migration_diagnostics": "stages/stage2/diagnostics/qwen35-vllm-migration",
+  "models_downloaded": {
+    "Qwen/Qwen3.5-4B": "SHA256_VERIFIED",
+    "Qwen/Qwen3.5-9B": "SHA256_VERIFIED"
+  },
+  "new_official_identity_required": false,
+  "new_run_smoke_gate": "PENDING; live status in pipeline_status.json",
+  "next_action": "At the next complete development question checkpoint, release both models and resume original Stage2 smoke with 4B only.",
+  "note": "2026-10-14 plan supersedes old strict final-only policy and old budgets. New run imports fixed splits and verified data bytes only; no old generated tokens or features.",
+  "old_run_preserved": "stages/stage2/runs/v2-20261013-78a47750b3b9",
+  "pause_record": "stages/stage2/runs/v2-20261013-78a47750b3b9/pause.json",
+  "paused_at": "2026-10-14T12:33:26.137894+00:00",
+  "pipeline_pid": 397249,
+  "pipeline_status": "stages/stage2/runs/v2-20261013-e136a41fea81/pipeline_status.json",
+  "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
+  "previous_status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
+  "previous_transformers_run_summary": {
+    "estimated_300_gpu_hours_from_fixed_smoke": 125.63841759059578,
+    "formal_features_completed": 10,
+    "real_model_smoke": "RUNNING_REVISED_FIXED_TEN_QUESTION_SMOKE",
+    "smoke_completed_parseable": 8,
+    "smoke_passed": true,
+    "smoke_scorable": 8,
+    "smoke_truncated": 2
+  },
+  "real_model_interface_restore": "PASS_NEW_GENERATOR_BUDGET",
+  "real_verifier_smoke": {
+    "checks": 21,
+    "completion_summary": "stages/stage2/diagnostics/qwen35-verifier-real-smoke/completion_summary.json",
+    "human_audit": false,
+    "native_command": "verifier-smoke",
+    "parser_errors": {
+      "VERIFIER_LENGTH_TRUNCATED": 15
+    },
+    "path": "stages/stage2/diagnostics/qwen35-verifier-real-smoke",
+    "pid": null,
+    "planned_checks": 21,
+    "questions": 10,
+    "retired_pid": 125544,
+    "saved_checks": 21,
+    "source_run_is_superseded_for_formal_collection": true,
+    "status": "DIAGNOSTIC_COMPLETE",
+    "supervisor_pid": 123836,
+    "validation_only": true,
+    "verdicts": {
+      "PASS": 6,
+      "UNCERTAIN": 15
+    }
+  },
+  "retired_pipeline_pid": 65456,
+  "revised_gpu_validation": "stages/stage2/runs/v2-20261013-78a47750b3b9/gpu_validation/summary.json",
+  "run": "stages/stage2/runs/v2-20261013-e136a41fea81",
+  "sampling_cost_diagnostic": {
+    "adopted": true,
+    "adoption": "stages/stage2/diagnostics/qwen35-sampling-cost/adoption.json",
+    "max_observed_duplicate_cpu_copy_ms": 2.6311062276363373,
+    "path": "stages/stage2/diagnostics/qwen35-sampling-cost",
+    "queue_pid": null,
+    "regression_tests_passed": 35,
+    "source_modified": true,
+    "status": "ADOPTED_EQUIVALENT_SAMPLER_VIEW",
+    "token_and_rng_equality_cases": 96
+  },
+  "saved_feature_validation": {
+    "max_abs": 0.0,
+    "path": "stages/stage2/runs/v2-20261013-da5c802342ee/saved_feature_validation/validation.json",
+    "scope": "first smoke first checkpoint and trajectory end, all 32 layers",
+    "status": "PASS"
+  },
+  "smoke_engineering_checked": 10,
+  "smoke_generated": 10,
+  "split_sizes": {
+    "smoke": 10,
+    "test": 200,
+    "train": 100,
+    "verifier_audit": 20,
+    "verifier_dev": 20
+  },
+  "status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
+  "strict_channel_prompt_trial": {
+    "completion": "EOS",
+    "generated_tokens": 19498,
+    "max_new_tokens": 49152,
+    "original_final_line_rule_retained": true,
+    "path": "stages/stage2/diagnostics/qwen35-final-user-task/channel-contract",
+    "pid": 123193,
+    "selection": "Original second smoke UID; same seed, sampler, model revision and native backend; final-line rule unchanged.",
+    "status": "DIAGNOSTIC_COMPLETE",
+    "strict_format_valid": false
+  },
+  "strict_user_prompt_trial": {
+    "generated_tokens": 23795,
+    "path": "stages/stage2/diagnostics/qwen35-final-user-task",
+    "pid": 118299,
+    "status": "DIAGNOSTIC_COMPLETE",
+    "strict_format_valid": false
+  },
+  "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
+  "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
+  "updated": "2026-10-15T04:59:50.510135+00:00",
+  "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
+  "verifier_interface": {
+    "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
+    "pid": 107226,
+    "status": "COMPLETE_TERMINAL_CONTROL_FAILED"
+  },
+  "verifier_interface_retest": {
+    "path": "stages/stage2/diagnostics/qwen35-verifier-interface-escaped",
+    "pid": 111359,
+    "status": "COMPLETE_QUOTED_CONTROL_FAILED"
+  },
+  "verifier_interface_view": {
+    "cases": 3,
+    "human_quality_gate": false,
+    "path": "stages/stage2/diagnostics/qwen35-verifier-interface-view",
+    "pid": 115492,
+    "status": "SYNTHETIC_CONTROLS_PASS"
+  }
+}

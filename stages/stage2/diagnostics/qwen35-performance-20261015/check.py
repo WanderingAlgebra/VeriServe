@@ -61,3 +61,21 @@ except TimeoutError:
 else:
     raise AssertionError('Expired benchmark did not abort')
 print('PASS: delta counts, four windows, saved-prefix comparison, missing-metric rejection and timeout; no GPU inference.')
+
+# A bad preservation hash must block the continuation before another GPU job starts.
+handoff = runpy.run_path(str(Path(__file__).with_name('handoff_runner.py')))
+import os
+assert handoff['alive'](os.getpid())
+assert not handoff['alive'](99999999)
+config = str(handoff['CONFIG'].relative_to(handoff['ROOT']))
+snapshot = dict(execution_sources=handoff['source_hashes']('probe'),
+                protected_sha256={config: handoff['digest'](handoff['CONFIG'])})
+handoff['verify'](snapshot)
+snapshot['protected_sha256'][config] = 'wrong'
+try:
+    handoff['verify'](snapshot)
+except AssertionError:
+    pass
+else:
+    raise AssertionError('Preservation mismatch did not block continuation')
+print('PASS: continuation detects changed frozen configuration; no process signals.')
