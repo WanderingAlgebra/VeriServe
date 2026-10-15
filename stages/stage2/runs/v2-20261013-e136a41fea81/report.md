@@ -5,7 +5,7 @@ step_1/2/3 等历史字段在本 run 中表示第 1/2/3 个有效检查点；HIG
 格式示例固定在配置中（0 个简单问答），不来自实验题集；stage2/stage3 输入一致。
 最终响应允许解释，仅评分末尾唯一且完整的 Final answer boxed 行；Thinking 内引用不参与评分。
 
-运行：`v2-20261013-e136a41fea81`；报告更新于 2026-10-15T12:59:40.021094+08:00。
+运行：`v2-20261013-e136a41fea81`；报告更新于 2026-10-15T19:14:02.269046+08:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途检查点；不是局部错误标签。
 
@@ -58,6 +58,46 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
 
 ```json
 {
+  "train": {
+    "generated": 43,
+    "completed": 41,
+    "correct": 32,
+    "wrong": 7,
+    "truncated": 2,
+    "unscorable": 4,
+    "no_steps": 0,
+    "format_error_trajectories": 0,
+    "features_missing_or_corrupt": 0,
+    "planned": 100,
+    "NO_FINAL_ANSWER": 2,
+    "LENGTH_TRUNCATED": 2,
+    "not_generated": 57,
+    "analyzable_end": 39,
+    "analyzable_intermediate": 39,
+    "normal_completion_rate": 0.41,
+    "scorable_rate": 0.39,
+    "correct_submission_rate": 0.32,
+    "mathematical_accuracy_scorable": 0.8205128205128205
+  },
+  "test": {
+    "generated": 0,
+    "completed": 0,
+    "correct": 0,
+    "wrong": 0,
+    "truncated": 0,
+    "unscorable": 0,
+    "no_steps": 0,
+    "format_error_trajectories": 0,
+    "features_missing_or_corrupt": 0,
+    "planned": 200,
+    "not_generated": 200,
+    "analyzable_end": 0,
+    "analyzable_intermediate": 0,
+    "normal_completion_rate": 0.0,
+    "scorable_rate": 0.0,
+    "correct_submission_rate": 0.0,
+    "mathematical_accuracy_scorable": null
+  },
   "smoke": {
     "generated": 10,
     "completed": 8,
@@ -76,13 +116,9 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
     "scorable_rate": 0.8,
     "correct_submission_rate": 0.5,
     "mathematical_accuracy_scorable": 0.625
-  },
-  "formal_generated": 0,
-  "formal_planned": 300
+  }
 }
 ```
-
-未完成原因：Smoke complete; formal collection pending
 
 ## 自检与备份
 
@@ -2427,14 +2463,14 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
     "unchanged_files": 21
   },
   "backup": {
-    "commit": "8b368db530cec16efc4a0dccacc47c1e8104fe9b",
+    "commit": "39532c4837312e9414d4200f0d67b54fdd92d9fb",
     "feature_remote_verification": {
       "path": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/d3d76e355f0a3a408887.features-335994798ad6.layers1-22.npz",
       "remote_commit": "add2f631c26b394ac3a3b6162a45faee1768423b",
       "sha256": "b47afbeb64e4319af82617bc5a4c5f4b1619522eee448d6db50864c0b125bc4f",
       "verified_at": "2026-10-15T04:38:59.374110+00:00"
     },
-    "pushed_at": "2026-10-15T04:59:35.033761+00:00",
+    "pushed_at": "2026-10-15T08:17:36.356610+00:00",
     "status": "PUSHED"
   }
 }
@@ -2453,7 +2489,7 @@ AUROC / CI / 所选层：NA；正式数据不足或未采集，不能回答是�
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`8b368db530cec16efc4a0dccacc47c1e8104fe9b`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`4b508a2f703467835ef6a247a309d12c7cd153fe`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 

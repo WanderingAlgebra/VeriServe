@@ -48,6 +48,7 @@ def stream(llm, records, budget, cfg, eos, tag, deadline):
     before = preemptions(llm)
     state = {}
     start = time.perf_counter()
+    print(f'STREAM_STARTED {tag}: requests={len(records)}, budget={budget}', flush=True)
     for i, record in enumerate(records):
         key = f'{tag}-{i}'
         params = SamplingParams(temperature=cfg['temperature'], top_p=cfg['top_p'], top_k=cfg['top_k'],
@@ -70,9 +71,12 @@ def stream(llm, records, budget, cfg, eos, tag, deadline):
             for edge in (1, 8192, 16384, 32768, 65536):
                 if old < edge <= count:
                     row['milestones'][edge] = elapsed
+                    if edge > 1:
+                        print(f'MILESTONE {key}: tokens={edge}, elapsed={elapsed:.3f}s', flush=True)
             if output.finished:
                 row.update(finished=True, seconds=elapsed, finish_reason=output.outputs[0].finish_reason)
     elapsed = time.perf_counter() - start
+    print(f'STREAM_FINISHED {tag}: elapsed={elapsed:.3f}s', flush=True)
     rows = []
     for row in state.values():
         ids = row.pop('token_ids')

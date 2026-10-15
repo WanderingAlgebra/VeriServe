@@ -131,3 +131,60 @@ START train 55d96543cc8c24a95c1578071a029d303efeb58554570e428d6093a6f09c26af eng
 DONE train 55d96543cc8c24a95c1578071a029d303efeb58554570e428d6093a6f09c26af label=0 exclusion=None steps=200 tokens=27505
 START train 76c6b1997d9a081707162b64d6fd084e4d515ee399837d7e5311717657cf30b6 engine=vllm
 DONE train 76c6b1997d9a081707162b64d6fd084e4d515ee399837d7e5311717657cf30b6 label=0 exclusion=None steps=31 tokens=53002
+PUSHED 39532c4837312e9414d4200f0d67b54fdd92d9fb remote_feature_verified=True
+START train 1a0829b0417f591dcf8392f47a812e060ec9e188a68264ca1391b235480cedee engine=vllm
+DONE train 1a0829b0417f591dcf8392f47a812e060ec9e188a68264ca1391b235480cedee label=1 exclusion=None steps=23 tokens=75187
+START train 1699294d36a394f4411a740e878b4281c275fb0eccf898215a700c9f3bdaf378 engine=vllm
+DONE train 1699294d36a394f4411a740e878b4281c275fb0eccf898215a700c9f3bdaf378 label=None exclusion=LENGTH_TRUNCATED steps=67 tokens=81920
+START train 41937236d9a44c0623746c814c2632f32290a084fc39b1fc037493e46034748d engine=vllm
+DONE train 41937236d9a44c0623746c814c2632f32290a084fc39b1fc037493e46034748d label=0 exclusion=None steps=86 tokens=16006
+START train ac4c39a77fa94927c43149c83c61d33700e3091bafd170c115e07d70d9b2c826 engine=vllm
+DONE train ac4c39a77fa94927c43149c83c61d33700e3091bafd170c115e07d70d9b2c826 label=0 exclusion=None steps=30 tokens=31991
+START train 1164bf418a9d683a3e212168eb63f4e3219af6bd7de8f5acedfe0a1bc0b12208 engine=vllm
+DONE train 1164bf418a9d683a3e212168eb63f4e3219af6bd7de8f5acedfe0a1bc0b12208 label=0 exclusion=None steps=55 tokens=27289
+START train e4cbea79ad854a7448406f2b68901091dbbc230f6b6e381c492639e8d78d234a engine=vllm
+DONE train e4cbea79ad854a7448406f2b68901091dbbc230f6b6e381c492639e8d78d234a label=1 exclusion=None steps=156 tokens=57914
+START train 81dd667dbe97244e9d4d41826db6e7a89ca358506724468017400db00ee5adbc engine=vllm
+DONE train 81dd667dbe97244e9d4d41826db6e7a89ca358506724468017400db00ee5adbc label=0 exclusion=None steps=55 tokens=15475
+START train a1eb4ae59017bc7991096bdb06b80c9c4a86f8f2b89d3994007275bd7adbb294 engine=vllm
+DONE train a1eb4ae59017bc7991096bdb06b80c9c4a86f8f2b89d3994007275bd7adbb294 label=0 exclusion=None steps=11 tokens=66576
+START train 95349ccefe35fe2ee496adaae58742ef3a7183b746c0d6129bee81a2650392cb engine=vllm
+DONE train 95349ccefe35fe2ee496adaae58742ef3a7183b746c0d6129bee81a2650392cb label=0 exclusion=None steps=64 tokens=33891
+START train af1e81b2f2746fe9bed6f2caedf38799eacf45412877b3d591309993002347f2 engine=vllm
+DONE train af1e81b2f2746fe9bed6f2caedf38799eacf45412877b3d591309993002347f2 label=0 exclusion=None steps=55 tokens=11467
+START train 37bc92e85439b6cd19b48bc15c1163f38a69ae91a5e0ba9f8600375853fd4784 engine=vllm
+DONE train 37bc92e85439b6cd19b48bc15c1163f38a69ae91a5e0ba9f8600375853fd4784 label=0 exclusion=None steps=25 tokens=27587
+START train 596ae77225879296645864e64acd7e2e465e755a46f48789065317045c955788 engine=vllm
+DONE train 596ae77225879296645864e64acd7e2e465e755a46f48789065317045c955788 label=0 exclusion=None steps=52 tokens=33283
+START train 7490747ca4e2acc5eaaa58901f7ad202d38a659f6eded597a701f9f60a7bb541 engine=vllm
+DONE train 7490747ca4e2acc5eaaa58901f7ad202d38a659f6eded597a701f9f60a7bb541 label=0 exclusion=None steps=124 tokens=40098
+START train 1584c4ef443a0162d84674fe8d8d4cac3f0851922931628cd394994e52e1bd60 engine=vllm
+DONE train 1584c4ef443a0162d84674fe8d8d4cac3f0851922931628cd394994e52e1bd60 label=0 exclusion=None steps=110 tokens=30145
+START train 4db7fdee977c71add811385eb151ec8db9adb780467c4188c6c5460f50ea9481 engine=vllm
+DONE train 4db7fdee977c71add811385eb151ec8db9adb780467c4188c6c5460f50ea9481 label=0 exclusion=None steps=28 tokens=4814
+START train 2e4e41159551d6b74c15cf4b71fdfd64e45c6b216193cf4d2d5a8a9528e53fcd engine=vllm
+DONE train 2e4e41159551d6b74c15cf4b71fdfd64e45c6b216193cf4d2d5a8a9528e53fcd label=0 exclusion=None steps=38 tokens=9484
+START train cd592c0b5831f8ae4e6d84ac710eab560764da5f1c6526ef6b45c85dbe4a852a engine=vllm
+DONE train cd592c0b5831f8ae4e6d84ac710eab560764da5f1c6526ef6b45c85dbe4a852a label=1 exclusion=None steps=36 tokens=72074
+START train 256d943ab3361809e268cee53ae960bdf60fc179666a3d0b5c8c3dd9a3ccf820 engine=vllm
+DONE train 256d943ab3361809e268cee53ae960bdf60fc179666a3d0b5c8c3dd9a3ccf820 label=1 exclusion=None steps=47 tokens=9843
+START train d90d6afc9283ce27c75d6e50e13d3cb202f06ed97b7b7725681e5039b7f8f3c2 engine=vllm
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/__main__.py", line 65, in <module>
+    main()
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/__main__.py", line 43, in main
+    return run(remaining)
+           ^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/probe/collect.py", line 502, in main
+    record, changed = collect_one(cfg, run, split, row, model, tokenizer, hardware)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/probe/collect.py", line 184, in collect_one
+    engine_result = model.research_vllm.generate(prompt_ids,budget,seed,eos_ids)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/vllm_backend.py", line 74, in generate
+    torch.cuda.empty_cache()
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/cuda/memory.py", line 224, in empty_cache
+    torch._C._cuda_emptyCache()
+KeyboardInterrupt

@@ -27,3 +27,23 @@
 {"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T07:44:33.300862+00:00", "unique_id": "2ddd3e9b5ae160cad77b9bb23c988b7c0d2e4def6d134484b64bfeb4efecd8ad"}
 {"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T07:53:06.234505+00:00", "unique_id": "55d96543cc8c24a95c1578071a029d303efeb58554570e428d6093a6f09c26af"}
 {"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T08:05:07.808209+00:00", "unique_id": "76c6b1997d9a081707162b64d6fd084e4d515ee399837d7e5311717657cf30b6"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T08:17:36.365174+00:00", "unique_id": "1a0829b0417f591dcf8392f47a812e060ec9e188a68264ca1391b235480cedee"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T08:33:23.819168+00:00", "unique_id": "1699294d36a394f4411a740e878b4281c275fb0eccf898215a700c9f3bdaf378"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T08:57:33.774533+00:00", "unique_id": "41937236d9a44c0623746c814c2632f32290a084fc39b1fc037493e46034748d"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T09:02:03.120398+00:00", "unique_id": "ac4c39a77fa94927c43149c83c61d33700e3091bafd170c115e07d70d9b2c826"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T09:09:10.363125+00:00", "unique_id": "1164bf418a9d683a3e212168eb63f4e3219af6bd7de8f5acedfe0a1bc0b12208"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T09:16:27.148705+00:00", "unique_id": "e4cbea79ad854a7448406f2b68901091dbbc230f6b6e381c492639e8d78d234a"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T09:40:19.365373+00:00", "unique_id": "81dd667dbe97244e9d4d41826db6e7a89ca358506724468017400db00ee5adbc"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T09:44:12.737722+00:00", "unique_id": "a1eb4ae59017bc7991096bdb06b80c9c4a86f8f2b89d3994007275bd7adbb294"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T09:58:26.551100+00:00", "unique_id": "95349ccefe35fe2ee496adaae58742ef3a7183b746c0d6129bee81a2650392cb"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T10:08:18.022613+00:00", "unique_id": "af1e81b2f2746fe9bed6f2caedf38799eacf45412877b3d591309993002347f2"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T10:11:08.863986+00:00", "unique_id": "37bc92e85439b6cd19b48bc15c1163f38a69ae91a5e0ba9f8600375853fd4784"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T10:17:01.825812+00:00", "unique_id": "596ae77225879296645864e64acd7e2e465e755a46f48789065317045c955788"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T10:25:06.817127+00:00", "unique_id": "7490747ca4e2acc5eaaa58901f7ad202d38a659f6eded597a701f9f60a7bb541"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T10:40:13.147896+00:00", "unique_id": "1584c4ef443a0162d84674fe8d8d4cac3f0851922931628cd394994e52e1bd60"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T10:49:48.876568+00:00", "unique_id": "4db7fdee977c71add811385eb151ec8db9adb780467c4188c6c5460f50ea9481"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T10:50:50.486727+00:00", "unique_id": "2e4e41159551d6b74c15cf4b71fdfd64e45c6b216193cf4d2d5a8a9528e53fcd"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T10:52:53.598381+00:00", "unique_id": "cd592c0b5831f8ae4e6d84ac710eab560764da5f1c6526ef6b45c85dbe4a852a"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T11:10:53.683159+00:00", "unique_id": "256d943ab3361809e268cee53ae960bdf60fc179666a3d0b5c8c3dd9a3ccf820"}
+{"engine": "vllm", "event": "QUESTION_STARTED", "split": "train", "time": "2026-10-15T11:13:10.422769+00:00", "unique_id": "d90d6afc9283ce27c75d6e50e13d3cb202f06ed97b7b7725681e5039b7f8f3c2"}
+{"error": "", "event": "STOPPED", "exception_type": "KeyboardInterrupt", "time": "2026-10-15T11:13:54.654583+00:00"}

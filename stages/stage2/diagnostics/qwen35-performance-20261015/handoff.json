@@ -1,0 +1,11 @@
+{
+  "authorization": "User requested pause after current question is saved, benchmark, then resume unchanged formal experiment.",
+  "collector_pid": 406901,
+  "created": "2026-10-15T11:11:47.485768+00:00",
+  "current_question": "256d943ab3361809e268cee53ae960bdf60fc179666a3d0b5c8c3dd9a3ccf820",
+  "driver_pid": 397249,
+  "paused_at": "2026-10-15T11:13:10.429741+00:00",
+  "record": "stages/stage2/runs/v2-20261013-e136a41fea81/records/train/714fe0030273b31793ce.json",
+  "status": "FORMAL_PAUSED_GPU_RELEASING",
+  "stopped_at": "2026-10-15T11:14:08.889787+00:00"
+}
