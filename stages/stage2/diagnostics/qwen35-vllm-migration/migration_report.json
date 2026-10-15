@@ -79,10 +79,10 @@
     "thinking": true
   },
   "formal_new_completed": 0,
-  "formal_started": false,
+  "formal_started": true,
   "live_status": "stages/stage2/runs/v2-20261013-e136a41fea81/pipeline_status.json",
   "new_run": "stages/stage2/runs/v2-20261013-e136a41fea81",
-  "new_smoke_completed": 0,
+  "new_smoke_completed": 10,
   "old_results": {
     "formal_generated": 10,
     "policy": "preserved; diagnostic raw-token reuse only, no import into new formal train/test statistics",
@@ -115,8 +115,8 @@
     "strict_cross_engine_replay": false,
     "vllm_snapshot_support": false
   },
-  "status": "RECOVERY_PIPELINE_RUNNING_CHECKS_PENDING",
-  "updated": "2026-10-15T04:12:47.096413+00:00",
+  "status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
+  "updated": "2026-10-15T05:16:00.885953+00:00",
   "new_smoke_completed_parseable": 8,
   "measured_fixed_smoke_speedup": 2.0127084697223734,
   "new_smoke_300_gpu_hours": 62.42256118091755,
@@ -155,5 +155,11 @@
     "measured_fixed_cohort_speedup": 2.0127084697223734,
     "projected_formal_300_gpu_hours": 62.42256118091755
   },
-  "remaining_estimate": "Approximately 45 minutes to revalidate features/checks, then ~62 GPU hours for remaining collection at previous fixed-smoke rate; fit/evaluation and backups additional. Interrupted idle interval not counted as progress."
+  "remaining_estimate": "Approximately 45 minutes to revalidate features/checks, then ~62 GPU hours for remaining collection at previous fixed-smoke rate; fit/evaluation and backups additional. Interrupted idle interval not counted as progress.",
+  "formal_generated": 4,
+  "formal_features_completed": 4,
+  "projected_300_gpu_hours": 62.56065669368642,
+  "new_run_smoke_and_resume_gates_passed": true,
+  "probes_fitted": false,
+  "stage3_formal_started": false
 }

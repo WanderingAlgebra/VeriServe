@@ -78,3 +78,56 @@ PUSHED c1e1996249b7d11f03281d5361c57a6aefa401e1 remote_feature_verified=True
 {'phase': 'STAGE2_FORMAL_COLLECTION_AND_FIT', 'pid': 397249, 'updated': '2026-10-15T04:59:50.508357+00:00', 'run': '/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-e136a41fea81', 'source_hashes': {'veriserve_research/__init__.py': 'b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650', 'veriserve_research/__main__.py': 'a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336', 'veriserve_research/trajectory.py': 'd79b247284fb98488cbdc29fef19928d7443b492c1fd5e8d20d3b6c07c7f0358', 'veriserve_research/inference.py': '8bc9137d053c4b27c1765318050deeca25d7be5ce43daaa77318102dba2a6998', 'veriserve_research/artifacts/__init__.py': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'veriserve_research/artifacts/io.py': 'fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb', 'veriserve_research/artifacts/legacy.py': 'bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a', 'veriserve_research/artifacts/provenance.py': 'c82a9ecb28789a9e690bee5dd6d9576c7f6cc7be765d2d796ea8e1c9e38ef0e3', 'veriserve_research/artifacts/materials.py': '94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e', 'veriserve_research/artifacts/backup.py': '5220cefa8c1f08c619cce8827d8fa7e97ac3d6f6ddeeecd805cee4ebd4028533', 'veriserve_research/probe/__init__.py': 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'veriserve_research/probe/materials.py': '3ba86c6aa63b8f8f5d5848a506027e0dc1e167bcc75c1b2162fb44b35a3991bb', 'veriserve_research/probe/fit.py': '0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab', 'veriserve_research/probe/collect.py': '12ad7226934aa5883a1f6edd17673c7d79c58decd7477fbc9919638f022f47af', 'veriserve_research/vllm_backend.py': '228a47347116b2d030f08c3865d726800f0fa32c02571993277e39df1e057d74', 'stages/stage1/veriserve/common.py': '289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98', 'stages/stage1/veriserve/prm.py': 'df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2', 'stages/stage1/veriserve/model.py': '7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de', 'stages/stage1/veriserve/data.py': '599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c', 'stages/stage1/veriserve/state.py': '50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365', 'stages/stage1/veriserve/__init__.py': 'ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665'}, 'counts': {'smoke': 10, 'train': 1, 'test': 0}}
 RUN v2-20261013-e136a41fea81
 PUSHED 09d93b30f6da6e6293ab859c9b9b9b0b552c1a3a remote_feature_verified=True
+PUSHED 28ddb500ba4a632b4c027b301ee05e190861eab9 remote_feature_verified=True
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 11064.50it/s]
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+DONE train f2309c52e447efea388ace7c4d689814ffc853576c5c5a68b37c25ccabc77a6b label=0 exclusion=None steps=46 tokens=6938
+START train 730e703e9f7bfc17b4038c400ebcdd8ee38e9381f832fa6cede5b34940b0a7b7 engine=vllm
+DONE train 730e703e9f7bfc17b4038c400ebcdd8ee38e9381f832fa6cede5b34940b0a7b7 label=0 exclusion=None steps=37 tokens=15383
+START train c559fb59fefecda5bf634ff10ff3686913a4965efd746493890f9477a83eded6 engine=vllm
+DONE train c559fb59fefecda5bf634ff10ff3686913a4965efd746493890f9477a83eded6 label=0 exclusion=None steps=34 tokens=22177
+START train 0c93e1f7e72cae3a7bfc33f124245373acbb482d04846460d03ec9519f2072a7 engine=vllm
+DONE train 0c93e1f7e72cae3a7bfc33f124245373acbb482d04846460d03ec9519f2072a7 label=0 exclusion=None steps=67 tokens=19655
+START train b6b4ba9a70bc32a1a29ef7efcd649215af4b26602f6ace0459bbcba77cfb35f6 engine=vllm
+DONE train b6b4ba9a70bc32a1a29ef7efcd649215af4b26602f6ace0459bbcba77cfb35f6 label=0 exclusion=None steps=45 tokens=21223
+START train 740557e10367471e586af6547a6abae65be31c0e34cdab70af67a6d59a2eaac8 engine=vllm
+DONE train 740557e10367471e586af6547a6abae65be31c0e34cdab70af67a6d59a2eaac8 label=0 exclusion=None steps=70 tokens=18521
+START train 4886694f8bd6b90999bd653aa250f53a1529e796b947092cc0fa2d65b15a90c2 engine=vllm
+DONE train 4886694f8bd6b90999bd653aa250f53a1529e796b947092cc0fa2d65b15a90c2 label=0 exclusion=None steps=40 tokens=18961
+START train 570619c2636c86edd19963e5a5159b66e093844ac6613359cf956e3ee494e806 engine=vllm
+DONE train 570619c2636c86edd19963e5a5159b66e093844ac6613359cf956e3ee494e806 label=1 exclusion=None steps=82 tokens=53982
+START train dcaea234c6238866856f1b34c9831d36d66beddfb9d233cfd1f376008cd66739 engine=vllm
+DONE train dcaea234c6238866856f1b34c9831d36d66beddfb9d233cfd1f376008cd66739 label=None exclusion=NO_FINAL_ANSWER steps=54 tokens=19639
+START train 30581cb57d09d5139fa7c861855bded7e3e99e0b84042689d1ecaad7921a050a engine=vllm
+DONE train 30581cb57d09d5139fa7c861855bded7e3e99e0b84042689d1ecaad7921a050a label=0 exclusion=None steps=26 tokens=46437
+START train 54d1a71b07bee025bd3d684df2f4b15ce8cb811a3f6495fee39cea871f0dc2f8 engine=vllm
+DONE train 54d1a71b07bee025bd3d684df2f4b15ce8cb811a3f6495fee39cea871f0dc2f8 label=0 exclusion=None steps=82 tokens=59274
+START train 7742deea04abec81c3eb3bf962a8441ae6771d1042924af86c2026a303b12fef engine=vllm
+DONE train 7742deea04abec81c3eb3bf962a8441ae6771d1042924af86c2026a303b12fef label=None exclusion=LENGTH_TRUNCATED steps=1 tokens=81920
+START train 4a5f833f88246a4fd7e122fb36ef49af1c84cc4cb04ac209fe419693d894a25d engine=vllm
+DONE train 4a5f833f88246a4fd7e122fb36ef49af1c84cc4cb04ac209fe419693d894a25d label=0 exclusion=None steps=52 tokens=5023
+START train f1ca7b47c98e267e96014535fb53872c44b54f2d0c66c2721527d5cfbc2d80dd engine=vllm
+DONE train f1ca7b47c98e267e96014535fb53872c44b54f2d0c66c2721527d5cfbc2d80dd label=1 exclusion=None steps=29 tokens=34621
+START train 44eb93a29d089a88e2aa982caf62199a94427f872022d5e3aad5b7b16154c30a engine=vllm
+DONE train 44eb93a29d089a88e2aa982caf62199a94427f872022d5e3aad5b7b16154c30a label=None exclusion=NO_FINAL_ANSWER steps=119 tokens=30230
+START train 41b4a155db477fefd7b36aeed26c57ad42dca9b36df9ca5399c012e636602ac8 engine=vllm
+DONE train 41b4a155db477fefd7b36aeed26c57ad42dca9b36df9ca5399c012e636602ac8 label=0 exclusion=None steps=47 tokens=26369
+START train 7a342605025f23a9bd4a7ca78d403f3e5d967ea3bf4dc614a386e34740726afc engine=vllm
+DONE train 7a342605025f23a9bd4a7ca78d403f3e5d967ea3bf4dc614a386e34740726afc label=0 exclusion=None steps=85 tokens=35275
+START train 56f772b387a79d52ce553a20a13a6673ca4052df3ce62d65fb13b67f75752b3e engine=vllm
+DONE train 56f772b387a79d52ce553a20a13a6673ca4052df3ce62d65fb13b67f75752b3e label=0 exclusion=None steps=51 tokens=27019
+START train a1052d0a4e0a03e2900319240658129edbbef1e0b5f087416c3518c2d7e23e64 engine=vllm
+DONE train a1052d0a4e0a03e2900319240658129edbbef1e0b5f087416c3518c2d7e23e64 label=0 exclusion=None steps=27 tokens=4081
+START train 192af361aff9259b22d4a1369500fd0d9c4dd3a50b63631d50424f28430366aa engine=vllm
+DONE train 192af361aff9259b22d4a1369500fd0d9c4dd3a50b63631d50424f28430366aa label=0 exclusion=None steps=26 tokens=33325
+START train 1aae0283a6dee54676d89b221bff2f0d7ce7dd09ab30e2c83499e3c6772139e5 engine=vllm
+DONE train 1aae0283a6dee54676d89b221bff2f0d7ce7dd09ab30e2c83499e3c6772139e5 label=1 exclusion=None steps=44 tokens=56370
+START train 1e75dca3bfa2b40b5327976319ebeed50495f3e91220f6ab8fca71c573decfd3 engine=vllm
+DONE train 1e75dca3bfa2b40b5327976319ebeed50495f3e91220f6ab8fca71c573decfd3 label=0 exclusion=None steps=62 tokens=24513
+START train 2ddd3e9b5ae160cad77b9bb23c988b7c0d2e4def6d134484b64bfeb4efecd8ad engine=vllm
+DONE train 2ddd3e9b5ae160cad77b9bb23c988b7c0d2e4def6d134484b64bfeb4efecd8ad label=0 exclusion=None steps=74 tokens=30297
+START train 55d96543cc8c24a95c1578071a029d303efeb58554570e428d6093a6f09c26af engine=vllm
+DONE train 55d96543cc8c24a95c1578071a029d303efeb58554570e428d6093a6f09c26af label=0 exclusion=None steps=200 tokens=27505
+START train 76c6b1997d9a081707162b64d6fd084e4d515ee399837d7e5311717657cf30b6 engine=vllm
+DONE train 76c6b1997d9a081707162b64d6fd084e4d515ee399837d7e5311717657cf30b6 label=0 exclusion=None steps=31 tokens=53002
