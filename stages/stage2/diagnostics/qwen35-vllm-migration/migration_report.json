@@ -78,11 +78,11 @@
     "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
     "thinking": true
   },
-  "formal_new_completed": 0,
-  "formal_started": false,
+  "formal_new_completed": 1,
+  "formal_started": true,
   "live_status": "stages/stage2/runs/v2-20261013-854c63b5c942/pipeline_status.json",
   "new_run": "stages/stage2/runs/v2-20261013-854c63b5c942",
-  "new_smoke_completed": 0,
+  "new_smoke_completed": 10,
   "old_results": {
     "formal_generated": 10,
     "policy": "preserved; diagnostic raw-token reuse only, no import into new formal train/test statistics",
@@ -115,6 +115,16 @@
     "strict_cross_engine_replay": false,
     "vllm_snapshot_support": false
   },
-  "status": "FIXED_SMOKE_RUNNING",
-  "updated": "2026-10-14T13:39:16.202616+00:00"
+  "status": "FORMAL_STOPPED_OOM_RECOVERY_VALIDATION",
+  "updated": "2026-10-15T03:59:37.378895+00:00",
+  "new_smoke_completed_parseable": 8,
+  "measured_fixed_smoke_speedup": 2.0127084697223734,
+  "new_smoke_300_gpu_hours": 62.42256118091755,
+  "interruption": {
+    "stopped_at": "2026-10-14T15:51:45.193964+00:00",
+    "reason": "vLLM wake_up OOM after HF endpoint extraction; default allocator retains unused blocks",
+    "reproduced_in": "allocator-default.json",
+    "recovery_test": "allocator-gc01.json",
+    "frozen_sources_not_modified": true
+  }
 }

@@ -2,9 +2,11 @@
   "counts": {
     "smoke": 10,
     "test": 0,
-    "train": 0
+    "train": 1
   },
-  "phase": "STAGE2_FORMAL_COLLECTION_AND_FIT",
+  "error": "Command '['/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python', '-m', 'veriserve_research', 'probe', '--config', '/root/project/VeriServe-step-hidden-probe/stages/stage2/qwen35_4b_omni_vllm_config.json', '--resume']' returned non-zero exit status 1.",
+  "exception_type": "CalledProcessError",
+  "phase": "STOPPED",
   "pid": 270082,
   "run": "/root/project/VeriServe-step-hidden-probe/stages/stage2/runs/v2-20261013-854c63b5c942",
   "source_hashes": {
@@ -30,5 +32,5 @@
     "veriserve_research/trajectory.py": "d79b247284fb98488cbdc29fef19928d7443b492c1fd5e8d20d3b6c07c7f0358",
     "veriserve_research/vllm_backend.py": "b99d5ba80d2704b7c3e2c9c1bd0540e815e7335c1ca34ce105c096c129cffecc"
   },
-  "updated": "2026-10-14T15:49:05.889100+00:00"
+  "updated": "2026-10-14T15:51:45.193964+00:00"
 }

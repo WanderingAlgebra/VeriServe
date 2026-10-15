@@ -1,0 +1,18 @@
+{
+  "allocator_env": "garbage_collection_threshold:0.1",
+  "before_wake_after_real_features": {
+    "allocated": 8520714240,
+    "free": 26707558400,
+    "reserved": 22613590016
+  },
+  "created": "2026-10-15T03:59:37.097820+00:00",
+  "error": "Call to wake_up method failed: CUDA Error: out of memory at /workspace/csrc/cumem_allocator.cpp:139",
+  "finished": "2026-10-15T04:00:39.133779+00:00",
+  "first_feature_seconds": 19.2754641007632,
+  "original_record_sha256": "51005ac789e51161e43c990e476e89325e3bb9b39fe0cf952d1a93dbb79e6afc",
+  "profile": "gc01",
+  "saved_feature_exact": true,
+  "source_config_unchanged": true,
+  "status": "FAILED",
+  "trials": []
+}

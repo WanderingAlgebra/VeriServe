@@ -1,0 +1,3 @@
+{
+  "error": "Call to wake_up method failed: CUDA Error: out of memory at /workspace/csrc/cumem_allocator.cpp:139"
+}
