@@ -35,7 +35,10 @@ def busy_gpu():
 
 
 def preemptions(llm):
-    return sum(m.value for m in llm.get_metrics() if m.name == 'vllm:num_preemptions')
+    values = [m.value for m in llm.get_metrics() if m.name == 'vllm:num_preemptions']
+    if not values:
+        raise RuntimeError('Preemption metric unavailable; missing telemetry is not zero preemptions')
+    return sum(values)
 
 
 def stream(llm, records, budget, cfg, eos, tag, deadline):
@@ -73,7 +76,11 @@ def stream(llm, records, budget, cfg, eos, tag, deadline):
     rows = []
     for row in state.values():
         ids = row.pop('token_ids')
+        reference = next(r['generated_ids'] for r in records if r['unique_id'] == row['unique_id'])
+        compared = min(len(ids), len(reference))
         row.update(tokens=len(ids), token_sha256=hashlib.sha256(json.dumps(ids).encode()).hexdigest(),
+                   saved_prefix_compared_tokens=compared,
+                   saved_prefix_exact=ids[:compared] == reference[:compared],
                    decode_windows=windows(row['milestones']))
         rows.append(row)
     return dict(tag=tag, seconds=elapsed, tokens=sum(r['tokens'] for r in rows),

@@ -34,7 +34,7 @@ class Engine:
 
 
 cfg = dict(temperature=1, top_p=.95, top_k=20, min_p=0, presence_penalty=1.5, repetition_penalty=1)
-records = [dict(unique_id='fixed', prompt_ids=[1, 2], generation_seed=123)]
+records = [dict(unique_id='fixed', prompt_ids=[1, 2], generation_seed=123, generated_ids=[7] * 65536)]
 engine = Engine()
 llm = NS(llm_engine=engine, get_metrics=lambda: [NS(name='vllm:num_preemptions', value=0)])
 with patch('time.perf_counter', side_effect=range(7)):
@@ -44,6 +44,14 @@ assert len(result['rows'][0]['decode_windows']) == 4
 assert result['rows'][0]['decode_windows'][0]['tokens_per_second'] == 8191
 assert result['rows'][0]['decode_windows'][-1]['tokens_per_second'] == 32768
 assert result['preemptions'] == 0
+assert result['rows'][0]['saved_prefix_exact']
+assert result['rows'][0]['saved_prefix_compared_tokens'] == 65536
+try:
+    api['preemptions'](NS(get_metrics=lambda: []))
+except RuntimeError:
+    pass
+else:
+    raise AssertionError('Missing metric was reported as zero preemptions')
 engine = Engine()
 llm.llm_engine = engine
 try:
@@ -52,4 +60,4 @@ except TimeoutError:
     assert engine.aborted == ['timeout-0']
 else:
     raise AssertionError('Expired benchmark did not abort')
-print('PASS: delta counts, all four windows, preemption count and timeout; no GPU inference.')
+print('PASS: delta counts, four windows, saved-prefix comparison, missing-metric rejection and timeout; no GPU inference.')
