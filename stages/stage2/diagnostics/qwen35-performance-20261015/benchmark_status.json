@@ -1,0 +1,48 @@
+{
+  "active_compute_apps": "406901, 8608 MiB\n407605, 386 MiB\n407696, 31800 MiB",
+  "config_sha256": "f0ca3d9af839baa0be10f380deacc6e1170bfb3a568a75ba9b12a579739dd27b",
+  "created": "2026-10-15T06:58:47.332322+00:00",
+  "execution_sources": {
+    "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650",
+    "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336",
+    "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/artifacts/backup.py": "5220cefa8c1f08c619cce8827d8fa7e97ac3d6f6ddeeecd805cee4ebd4028533",
+    "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb",
+    "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
+    "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
+    "veriserve_research/artifacts/provenance.py": "c82a9ecb28789a9e690bee5dd6d9576c7f6cc7be765d2d796ea8e1c9e38ef0e3",
+    "veriserve_research/inference.py": "8bc9137d053c4b27c1765318050deeca25d7be5ce43daaa77318102dba2a6998",
+    "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/probe/collect.py": "12ad7226934aa5883a1f6edd17673c7d79c58decd7477fbc9919638f022f47af",
+    "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
+    "veriserve_research/probe/materials.py": "3ba86c6aa63b8f8f5d5848a506027e0dc1e167bcc75c1b2162fb44b35a3991bb",
+    "veriserve_research/trajectory.py": "d79b247284fb98488cbdc29fef19928d7443b492c1fd5e8d20d3b6c07c7f0358",
+    "veriserve_research/vllm_backend.py": "228a47347116b2d030f08c3865d726800f0fa32c02571993277e39df1e057d74"
+  },
+  "fixed_smoke_ids": [
+    "8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69",
+    "6113b9f050d676a6858e5fd2c7c96c21aadc51890244efebd6415024d2358355",
+    "30908b6528753e36eb83667e2184bc75fd93134d44dca8f3d2a2079342ae822c",
+    "0f23a157f9d1cbb480ba0278fd79965960a66696d265382d736cc9894730f2d2"
+  ],
+  "limitations": [
+    "GPU-only decoding; no resident HF model, hidden extraction, scoring or formal backup costs.",
+    "Short concurrency tests do not establish feasibility or performance of four simultaneous 81920-token outputs.",
+    "Changing engine max_num_seqs or batch composition can change sampled tokens despite identical seeds.",
+    "Milestone times are host-observed stream arrival times; first window excludes TTFT and uses 8191 intervals.",
+    "No speculative decoding, prompt edits, new dependencies or writes to formal run."
+  ],
+  "max_seconds": 1800,
+  "measurements": [],
+  "plan": [
+    "First fixed smoke prompt: stream up to 65536 tokens, preserve sampling/EOS, record actual decode windows.",
+    "First four fixed smoke prompts: same work at concurrency 1, 2, 4, up to 2048 new tokens per request."
+  ],
+  "status": "DEFERRED_GPU_BUSY"
+}

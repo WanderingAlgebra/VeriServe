@@ -1,0 +1,88 @@
+Qwen3.5-4B 性能诊断（2026-10-15）
+
+当前状态
+
+完成了独立、只读的材料审计和当前运行检查。没有修改生成配置、正式执行源码、题目划分、评分、hidden state 提取方法或已保存预跑记录。新增 GPU benchmark 检测到正式采集占用 GPU 后退出，尚未执行模型计算。不能把本次只读诊断说成分段速度或并发测试已通过。
+
+当前运行：stages/stage2/runs/v2-20261013-e136a41fea81
+对照运行：stages/stage2/runs/v2-20261013-78a47750b3b9
+完整数据与输入 SHA256：audit.json
+基准计划：benchmark_plan.json
+基准状态：benchmark_status.json（DEFERRED_GPU_BUSY）
+
+主要结果
+
+                            旧 Transformers smoke     当前 vLLM smoke
+固定题数                    10                        10
+平均生成 token              47833.9                   44856.2
+总体生成速度 token/s        38.11                     87.94
+平均生成时间                20.92 分钟                8.50 分钟
+平均独立前缀提取时间        4.21 分钟                 4.01 分钟
+平均生成加提取              25.13 分钟                12.51 分钟
+正常 EOS / 达预算截断       8 / 2                     8 / 2
+300 题同分布工作量外推      125.64 GPU 小时           62.56 GPU 小时
+
+总体生成速度定义为总 token / 总 generation_seconds，不是逐题速度的算术平均。generation_seconds 包含 prompt prefill、引擎唤醒/休眠和进程通信；即使 engine_result.pure_generation_seconds 仍包含 prompt prefill，其对应整体速度为 88.34 token/s，不能称为纯 decode 的分段速度。
+
+两个引擎在固定题目、prompt 和种子下仍产生不同轨迹。因此观察到的约 2.01 倍生成加特征成本改善同时包含引擎和输出长度变化，不是只改变实现的严格因果加速比。当前 smoke 生成记录复用了前一次同 vLLM 引擎的已保存轨迹，特征重新提取；相加表示该批工作量，不代表这次恢复从头到尾连续执行的墙钟时间。外推不含加载、工程核验、备份、暂停、失败重试和探针拟合，也不能解释为剩余任务的精确完成时间。
+
+审计时已有 15 道正式题完成特征：总体生成速度 90.13 token/s，平均输出 30265.6 token。它们与 smoke 的长度分布明显不同；小样本和题序效应使得不能直接把 smoke 外推当作实际剩余耗时。正式结果仍在持续更新，本报告记录的是 audit.json 对应时点。
+
+为什么慢：超长 Thinking 和独立前缀重算共同构成瓶颈
+
+1. 当前 smoke 的生成占生成加提取时间的 67.95%，特征提取占 32.05%。两道截断题各生成 81920 token，合计占生成时间的 37.68%。即使假设生成再快一倍而提取不变，该批对应的 300 题成本也只是从 62.56 小时降至 41.31 小时；这是假设计算，不是实测。
+
+2. 10 道题中，Thinking 闭合后合计仅 9425 token，占总输出的 2.10%。长输出主要发生在 Thinking 内，不能把限制最终解释长度当作主要解决办法。
+
+3. 原始特征方法对每个端点分别计算完整原始前缀，use_cache=False。当前 smoke 共前向输入 15778146 token，远大于生成的 448562 token；这个比值描述输入重复工作量，不是 FLOPs 比值。prefill_chunk_size=2048 是生成等路径的设置，不能据此认为当前独立原前缀 hidden 提取也按 2048 分块执行。源码依据：veriserve_research/inference.py 的 full_forward/extract，以及 probe/collect.py 的端点列表构造。
+
+4. 最明显的题目为 8cbe0c48c29daa190277e30a3c53fe756b4e80c8aa78420c2a5ded9983d59d69：生成 79114 token 用时 924.03 秒；179 个提取端点累计前向输入 9020481 token，相当于完整 prompt 加生成长度的 113.8 倍，提取用时 1408.32 秒。这一题占全部 smoke 特征时间的 58.53%。另一道 49644 token 的题只有 3 个提取端点，提取仅 7.82 秒。长度和端点分布共同决定提取成本，不能只看平均 token 数。
+
+5. 不能直接采用增量前缀提取或 vLLM hidden hooks：已有 migration/features.json 和 direct_hidden.json 记录它们未通过原逐坐标容差。当前 endpoint-only hooks 降低了显存占用，保留了独立前缀重算。不能将其说成已消除重复前向成本，也不能放宽容差来宣布等价。
+
+长输出与停止条件检查
+
+两个固定 10 题队列均已核对：原 token SHA256 正确，现配置重建 prompt 逐 token 一致，逐题种子一致。没有任何轨迹在最后一个 token 之前包含已配置的 EOS 类标记；8 道正常结束的末尾均为 EOS。当前两个截断输出恰好达到各自 81920 输出预算，没有 </think>。load_model 显式补入 tokenizer EOS 与 <|im_end|>，worker 传入 stop_token_ids 并保留终止 token。现有证据不支持“漏识别已生成的 EOS 导致继续生成”。这不能证明所有生成配置均最优，也不排除其他未观察到的问题。
+
+逐题检查发现许多重新计算、否定先前推导、尝试替代题意的行为。两个截断题分别出现约 474 和 531 次 Wait；这只是词法描述，不能当作语义循环或数学错误的自动标签。固定步长的精确 64-token 重复检测均为 0；它会漏掉错位和改写重复，因此也不能据此断言不存在循环。
+
+最慢题的已固定原文包含：
+For positive integers $n$, let $f(n)$ be the product of the digits of $n$. Find the largest positive integer $m$ such that $$\sum_{n=1}^{\infty} \frac{f(n)}{m\left\lfloor\log _{10} n\right\rfloor}$$ is an integer.
+
+按这段原文，n=1 时分母为 0，题面至少存在字面数学疑点。模型确实反复讨论发散和可能的公式解释；相同较长疑问句出现多次，最终仍给出答案。这支持“题面疑点可能诱发长时间不收敛”的局部解释，不证明数据源损坏、不证明全部长输出都由同一原因造成。未改题、未删题、未替换标签，也未按结果重抽样。
+
+vLLM 与硬件状态
+
+本机 nvidia-smi 上报 NVIDIA GeForce RTX 4090，49140 MiB 显存；按实际约 48 GiB 运行环境诊断，不能套用常见 24 GB 4090 的容量假设，也未核验物理显卡改装情况。
+
+worker 日志确认：enforce_eager=False，torch.compile，CUDA Graph FULL_AND_PIECEWISE；FlashAttention version 2；Triton/FLA GDN prefill kernel。max_num_seqs=1，chunked prefill 启用，max_num_batched_tokens=2048，GPU memory utilization=0.65。KV pool 日志上报 183744 tokens，约 22.44 GiB。当前没有“图编译完全没开”或“普通 attention 慢实现被误用”的证据；日志中的 GDN prefill 选择不能扩展为所有 GDN decode 内核都已最优。
+
+worker 没有记录可用于审计的逐 token 时间戳和抢占计数；日志未见抢占警告，不能当作零抢占证明。不能从题级平均速度反推出 0–8K、8K–16K、16K–32K、32K–64K 的速度。短输出题约 92.5 token/s，81920 截断题约 85.2 token/s，提示可能有长度影响，但题目不同且缺少分段测量，不能量化因果关系。
+
+只读运行快照显示 GPU 利用率 100%。不同检查时刻软件功耗限制有时激活，热限速标志未激活；单点观察不足以断言功耗或温度是主要瓶颈。高显存使用也须区分 HF 特征提取阶段与 vLLM KV pool 阶段，不能把某一瞬间的占用直接解释为解码时的显存压力。
+
+后续基准及其边界
+
+benchmark.py 保留当前模型版本、BF16、prompt IDs、种子、采样和 EOS，只在独立目录使用诊断预算：
+- 原第一道 smoke 流式生成最多 65536 token，测真正连续生成的四个长度区间；第一段排除首 token 等待时间。
+- 原前四道 smoke 以相同题目工作量测试 1/2/4 并发，每请求最多 2048 token，同时记录抢占计数。
+- 没有 HF 常驻和 hidden 提取的独立 decode 基准只能说明解码吞吐；短并发不能证明多条 81920 token 轨迹能同时驻留，也不能证明正式实验整体提速。
+- 修改 max_num_seqs 或 batch 组成可能改变生成内容，即使种子相同。不得把基准输出导入正式训练/测试材料；任何正式采用仍需按现协议建立身份并完成一致性/预跑/恢复与备份检查。
+- 默认 1800 秒任务预算在初始化后、生成循环中和新引擎初始化前检查。一次同步引擎初始化本身无法由该检查抢占，故它不是严格操作系统级超时。
+
+运行命令（从仓库根目录；正式任务释放 GPU 后使用）：
+/root/veriserve-vllm-env/bin/python stages/stage2/diagnostics/qwen35-performance-20261015/benchmark.py --run
+
+GPU 忙碌时脚本在 import vLLM / CUDA 与加载权重前退出，不暂停正式任务、不自动后台排队。当前已实测 CPU 计划与忙碌保护分支；check.py 还用合成 delta 流核对 token 累计、四个区间、抢占计数读取和超时终止逻辑。合成检查不替代真实 vLLM 接口与性能验收；GPU 流式生成、分段计时及并发性能尚未验证。
+
+复现只读审计：
+environments/qwen35/.venv/bin/python stages/stage2/diagnostics/qwen35-performance-20261015/audit.py
+
+复现基准计时逻辑的 CPU 检查：
+/root/veriserve-vllm-env/bin/python stages/stage2/diagnostics/qwen35-performance-20261015/check.py
+
+本次核验范围：两套固定 smoke 的 JSON 和全部特征分片 SHA256、两份正式配置、全部 probe 执行源码哈希在审计前后相同。正式 train 记录仍由原任务独立更新，不要求其运行中哈希保持不变。新文件仅在本诊断目录；未修改 Stage2/Stage3 状态与 README。
+
+文档依据：vLLM v0.20.0 Optimization and Tuning
+https://docs.vllm.ai/en/v0.20.0/configuration/optimization/
+该版本官方文档建议结合抢占计数与并发/KV 配置调优；文档未提供本机 Qwen3.5-4B 的实测加速承诺。
