@@ -1,5 +1,5 @@
 """Fixed 512-token vLLM + original-model endpoint extraction benchmark."""
-import sys,time,gc
+import sys,time,gc,os
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[4]))
 import torch,numpy as np
@@ -8,7 +8,7 @@ from veriserve_research.vllm_backend import VLLMGenerator
 from veriserve_research.inference import load_model,clock,extract
 from veriserve_research.artifacts.io import read_json,atomic_json,now
 from veriserve_research.probe.materials import record_path
-folder=Path(__file__).parent;cfg=read_json(ROOT/'stages/stage2/qwen35_4b_omni_vllm_config.json')
+folder=Path(os.environ.get('VERISERVE_BENCHMARK_OUTPUT',str(Path(__file__).parent)));folder.mkdir(parents=True,exist_ok=True);cfg=read_json(ROOT/'stages/stage2/qwen35_4b_omni_vllm_config.json')
 old=ROOT/'stages/stage2/runs/v2-20261013-78a47750b3b9';manifest=read_json(old/'manifest.json')
 r=read_json(record_path(old,'smoke',manifest['splits']['smoke'][0]['unique_id']))
 # Engine and HF model are distinct processes with fixed independent environments.

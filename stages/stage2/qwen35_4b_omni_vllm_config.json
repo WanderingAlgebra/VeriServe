@@ -35,7 +35,7 @@
     "model": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
     "tokenizer": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"
   },
-  "run_note": "Independent vLLM generation run; same BF16/native Thinking/seed derivation/parameters/frozen cohorts. Raw IDs including EOS. Endpoint-only HF hooks numerically exact. Old tokens not imported.",
+  "run_note": "Allocator handoff fix: release unused HF workspaces before every vLLM wake. Reuse all saved same-vLLM 0.20.0 raw trajectories from v2-20261013-854c63b5c942 with exact origin hashes; reextract and revalidate under new source identity. Original Transformers tokens are not imported.",
   "score_timeout_seconds": 5,
   "seed": 20261013,
   "split_sizes": {

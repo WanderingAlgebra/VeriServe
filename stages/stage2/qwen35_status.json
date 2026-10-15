@@ -30,12 +30,8 @@
   "config": "stages/stage2/qwen35_4b_omni_config.json",
   "cpu_regression_tests_passed": 38,
   "current_gpu_job": {
-    "collector_pid": 270449,
-    "engine_core_pid": 270847,
-    "engine_worker_pid": 270747,
-    "kind": "stage2_vllm_fixed_smoke",
-    "note": "PIDs verified at AGENTS reread; live phase and counts are in pipeline_status.json and records/",
-    "pipeline_pid": 270082
+    "kind": "stage2_pipeline",
+    "pipeline_pid": 397249
   },
   "current_probe_source_hashes": {
     "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
@@ -83,6 +79,7 @@
     "applied": true,
     "status": "AUTHORIZED_BY_USER_20261014_REVISED_PLAN"
   },
+  "formal_features_completed": 0,
   "formal_generated": 1,
   "format_diagnostics": "stages/stage2/diagnostics/qwen35-format/summary.json",
   "full_api_resume_audit": {
@@ -145,8 +142,8 @@
   "old_run_preserved": "stages/stage2/runs/v2-20261013-78a47750b3b9",
   "pause_record": "stages/stage2/runs/v2-20261013-78a47750b3b9/pause.json",
   "paused_at": "2026-10-14T12:33:26.137894+00:00",
-  "pipeline_pid": 270082,
-  "pipeline_status": "stages/stage2/runs/v2-20261013-854c63b5c942/pipeline_status.json",
+  "pipeline_pid": 397249,
+  "pipeline_status": "stages/stage2/runs/v2-20261013-e136a41fea81/pipeline_status.json",
   "previous_run": "stages/stage2/runs/v2-20261013-da5c802342ee",
   "previous_status": "STAGE2_FORMAL_COLLECTION_AND_FIT",
   "previous_transformers_run_summary": {
@@ -184,7 +181,7 @@
   },
   "retired_pipeline_pid": 65456,
   "revised_gpu_validation": "stages/stage2/runs/v2-20261013-78a47750b3b9/gpu_validation/summary.json",
-  "run": "stages/stage2/runs/v2-20261013-854c63b5c942",
+  "run": "stages/stage2/runs/v2-20261013-e136a41fea81",
   "sampling_cost_diagnostic": {
     "adopted": true,
     "adoption": "stages/stage2/diagnostics/qwen35-sampling-cost/adoption.json",
@@ -211,7 +208,7 @@
     "verifier_audit": 20,
     "verifier_dev": 20
   },
-  "status": "STOPPED",
+  "status": "SMOKE_FIRST_QUESTION",
   "strict_channel_prompt_trial": {
     "completion": "EOS",
     "generated_tokens": 19498,
@@ -232,7 +229,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-14T15:51:45.195543+00:00",
+  "updated": "2026-10-15T04:13:13.008554+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",

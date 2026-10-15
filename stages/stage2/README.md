@@ -218,3 +218,19 @@ cat stages/stage2/runs/v2-20261013-854c63b5c942/pipeline_status.json
 ```bash
 environments/qwen35/.venv/bin/python -u stages/stage2/diagnostics/qwen35-vllm-migration/pipeline_driver.py stages/stage2/runs/v2-20261013-854c63b5c942
 ```
+
+
+## 2026-10-15 显存交接修复与续跑
+
+前一 vLLM run `v2-20261013-854c63b5c942` 在 2026-10-14 23:48（北京时间）完成预跑：8/10 正常结束且可评分，2 道截断；因果和恢复检查通过。生成加特征共 7490.71 秒，旧固定十题为 15076.61 秒，固定题队列实测约 2.01 倍，轨迹长度不同，不能全部归因于引擎速度。由该预跑推算正式 300 题约 62.42 GPU 小时，拟合、备份另计。
+
+该 run 完成首道正式题后，于 23:51 在唤醒 vLLM 时 OOM。已复现原因：HF 张量约 7.9 GiB，但缓存分配器保留约 21.1 GiB；预跑的因果检查恰好会释放这部分缓存，正式题间未覆盖这个切换情况。修复在 `VLLMGenerator.generate` 中统一同步并释放闲置 PyTorch 缓存。仅配置自动回收的两个候选未通过长前缀测试，保留失败记录，不用于运行。显式释放已通过实际 46 个端点提取后的再次生成和固定队列最大 82316-token 前缀后的再次生成；32 层原保存特征逐位一致、固定种子前 256 token 与原正式记录一致。证据见 [allocator-explicit_clear.json](diagnostics/qwen35-vllm-migration/allocator-explicit_clear.json)。
+
+因冻结源码改变，新建 `v2-20261013-e136a41fea81`，不改旧 manifest 或原始结果。原 vLLM worker 函数逐字未变，模型、版本、精度、采样、预算、题序与逐题种子均未改，故原 vLLM 的全部 10 道预跑和 1 道正式题原始轨迹可无选择地复用，来源与 SHA256 见 [trajectory_reuse.json](runs/v2-20261013-e136a41fea81/trajectory_reuse.json)。新 run 重新评分、提取特征并通过自身验收；不导入旧 Transformers 轨迹，不把旧特征源码哈希改成新哈希。复用的生成耗时保留原测量，新特征和新生成耗时重新测量。
+
+新后台进度见 [pipeline_status.json](runs/v2-20261013-e136a41fea81/pipeline_status.json)；容量、恢复与十题特征补验通过后自动继续原 100/200 队列，随后按原方案拟合 A/B/C。Stage3 不自动运行。
+
+```bash
+tail -f stages/stage2/runs/v2-20261013-e136a41fea81/pipeline.log
+cat stages/stage2/runs/v2-20261013-e136a41fea81/pipeline_status.json
+```

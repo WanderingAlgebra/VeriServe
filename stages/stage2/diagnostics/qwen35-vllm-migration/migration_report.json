@@ -78,11 +78,11 @@
     "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
     "thinking": true
   },
-  "formal_new_completed": 1,
-  "formal_started": true,
-  "live_status": "stages/stage2/runs/v2-20261013-854c63b5c942/pipeline_status.json",
-  "new_run": "stages/stage2/runs/v2-20261013-854c63b5c942",
-  "new_smoke_completed": 10,
+  "formal_new_completed": 0,
+  "formal_started": false,
+  "live_status": "stages/stage2/runs/v2-20261013-e136a41fea81/pipeline_status.json",
+  "new_run": "stages/stage2/runs/v2-20261013-e136a41fea81",
+  "new_smoke_completed": 0,
   "old_results": {
     "formal_generated": 10,
     "policy": "preserved; diagnostic raw-token reuse only, no import into new formal train/test statistics",
@@ -91,7 +91,7 @@
     "scorable": 9,
     "truncated": 1
   },
-  "pipeline_pid": 270082,
+  "pipeline_pid": 397249,
   "provisional_300_estimate": {
     "basis": "New measured short-token speed with old fixed smoke trajectory lengths/extraction costs; NOT a completed new smoke estimate.",
     "caveat": "Long-context decode and new-engine trajectory lengths can change this substantially; pipeline replaces with new fixed-ten smoke estimate before formal collection.",
@@ -115,8 +115,8 @@
     "strict_cross_engine_replay": false,
     "vllm_snapshot_support": false
   },
-  "status": "FORMAL_STOPPED_OOM_RECOVERY_VALIDATION",
-  "updated": "2026-10-15T03:59:37.378895+00:00",
+  "status": "RECOVERY_PIPELINE_RUNNING_CHECKS_PENDING",
+  "updated": "2026-10-15T04:12:47.096413+00:00",
   "new_smoke_completed_parseable": 8,
   "measured_fixed_smoke_speedup": 2.0127084697223734,
   "new_smoke_300_gpu_hours": 62.42256118091755,
@@ -126,5 +126,34 @@
     "reproduced_in": "allocator-default.json",
     "recovery_test": "allocator-gc01.json",
     "frozen_sources_not_modified": true
-  }
+  },
+  "previous_vllm_run": "stages/stage2/runs/v2-20261013-854c63b5c942",
+  "preserved_previous_vllm_formal_completed": 1,
+  "new_smoke_raw_trajectories_reused": 10,
+  "allocator_fix": {
+    "status": "VALIDATED_LONG_HANDOFF",
+    "implementation": "VLLMGenerator.generate synchronizes and empties unused parent PyTorch CUDA cache before each worker wake",
+    "evidence": "allocator-explicit_clear.json",
+    "max_fixed_cohort_prefix_tokens": 82316,
+    "saved_32_layer_features_bitwise_equal": true,
+    "same_seed_256_tokens_match_saved_formal": true,
+    "vllm_worker_function_unchanged": true,
+    "short_tps": 96.8634096723702,
+    "short_combined_seconds": 7.584808390587568,
+    "invalid_attempts": [
+      "garbage_collection_threshold alone failed",
+      "threshold plus set_per_process_memory_fraction(1.0) passed short case but failed long case"
+    ],
+    "adopted_allocator_environment_changes": false
+  },
+  "recovery_policy": "New source identity. Import every existing same-vLLM raw record with source hashes and immutable origin; reextract all features and rerun gates. No Transformers record import.",
+  "previous_completed_smoke": {
+    "completed": 10,
+    "normal_parseable": 8,
+    "truncated": 2,
+    "generation_and_feature_seconds": 7490.7073417101055,
+    "measured_fixed_cohort_speedup": 2.0127084697223734,
+    "projected_formal_300_gpu_hours": 62.42256118091755
+  },
+  "remaining_estimate": "Approximately 45 minutes to revalidate features/checks, then ~62 GPU hours for remaining collection at previous fixed-smoke rate; fit/evaluation and backups additional. Interrupted idle interval not counted as progress."
 }

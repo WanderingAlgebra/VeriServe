@@ -21,6 +21,8 @@ def status(phase,**extra):
  p=ROOT/'stages/stage2/qwen35_status.json';old=read_json(p,{})
  old.update(status=phase,run=str(RUN.relative_to(ROOT)),updated=now(),pipeline_pid=os.getpid(),
   pipeline_status=str(STATE.relative_to(ROOT)),formal_generated=counts['train']+counts['test'],
+  formal_features_completed=sum(read_json(p,{}).get('stage')=='FEATURES' for split in ('train','test') for p in (RUN/'records'/split).glob('*.json')),
+  current_gpu_job={'kind':'stage2_pipeline','pipeline_pid':os.getpid()},
   smoke_generated=counts['smoke'],migration_diagnostics=str(DIAG.relative_to(ROOT)),
   old_run_preserved='stages/stage2/runs/v2-20261013-78a47750b3b9')
  atomic_json(p,old)
@@ -35,7 +37,12 @@ try:
  assert actual.resolve()==RUN
  # Regenerate budget/restore checks under the final frozen source; no verifier requests.
  command('GENERATOR_CAPACITY_AND_RESTORE',[str(PYTHON),'tests/qwen35_migration_check.py','--gpu','--generator-only','--output',str(RUN/'gpu_validation')])
- hooks=read_json(DIAG/'endpoint_hooks.json');bench=read_json(DIAG/'vllm_benchmark.json');base=read_json(DIAG/'baseline_benchmark.json')
+ hooks=read_json(DIAG/'endpoint_hooks.json');base=read_json(DIAG/'baseline_benchmark.json')
+ recovery=read_json(RUN/'allocator_recovery.json',{})
+ if recovery:
+  assert recovery['status']=='PASS' and recovery['saved_feature_exact'] and recovery['exact_same_seed_raw_prefix_matches_saved_formal']
+  bench=read_json(DIAG/'allocator-fix-benchmark/vllm_benchmark.json')
+ else:bench=read_json(DIAG/'vllm_benchmark.json')
  assert read_json(DIAG/'sampling.json')['status']=='PASS'
  assert hooks['complete'] and all(r['exact_equal'] for r in hooks['rows'])
  assert bench['status']=='PASS' and bench['context_capacity']['status']=='PASS'

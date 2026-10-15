@@ -1,0 +1,148 @@
+{
+  "condition_checks": {
+    "C": true,
+    "attention": true,
+    "backup_every": true,
+    "batch_size": true,
+    "bootstrap": true,
+    "boundary_mode": true,
+    "causal_atol": true,
+    "causal_rtol": true,
+    "dataset": true,
+    "dataset_blob": true,
+    "dataset_expected_rows": true,
+    "dataset_expected_unique": true,
+    "dataset_split": true,
+    "dataset_url": true,
+    "do_sample": true,
+    "dtype": true,
+    "enable_thinking": true,
+    "engine": true,
+    "expected_hidden_layers": true,
+    "expected_hidden_size": true,
+    "feature_extraction": true,
+    "final_response_mode": true,
+    "folds": true,
+    "format_examples": true,
+    "max_iter": true,
+    "max_new_tokens": true,
+    "max_total_tokens": true,
+    "min_p": true,
+    "model": true,
+    "model_cache_dir": true,
+    "prefill_chunk_size": true,
+    "presence_penalty": true,
+    "prompt": true,
+    "repetition_penalty": true,
+    "revisions": true,
+    "score_timeout_seconds": true,
+    "seed": true,
+    "smoke_min_completed_parseable": true,
+    "split_manifest": true,
+    "split_sizes": true,
+    "system_prompt": true,
+    "temperature": true,
+    "threshold_metrics": true,
+    "top_k": true,
+    "top_p": true,
+    "vllm_gpu_memory_utilization": true,
+    "vllm_python": true,
+    "vllm_version": true
+  },
+  "created": "2026-10-15T04:07:34.520025+00:00",
+  "cross_engine_import": false,
+  "generation_worker_source_sha256": "1f348a039f14d91b90a27def46d80cd0feae0d78a757b1d5335e19f52704b28c",
+  "new_execution_source_hashes": {
+    "stages/stage1/veriserve/__init__.py": "ff898c775de7edd0158af3d21a664a49bf21ef75b0bf0b9f7066b37ba4fd2665",
+    "stages/stage1/veriserve/common.py": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
+    "stages/stage1/veriserve/data.py": "599745356c71d74f1e96f8de5d9f1f5c30832534b740d61ab44624cdab3a0e4c",
+    "stages/stage1/veriserve/model.py": "7dfd702e3be8f6143af9aad8503bfe322e22a70e52f0fa8075afbf8eeabaa5de",
+    "stages/stage1/veriserve/prm.py": "df53e83e4d212076e38ec3ea4e8f6aa2fba50098a3dd2d433b4eb2e8c580e1f2",
+    "stages/stage1/veriserve/state.py": "50b2ff717e956f4f4878e53b8e6e1fb9d155792fedb4d60738405c0ac7da3365",
+    "veriserve_research/__init__.py": "b91a1030c85f6e57d2da048a5683b6456a2580e0d8ce724dec6d30ee4d42a650",
+    "veriserve_research/__main__.py": "a4ba058e34feb88f1bb7be96ec23e0eac1dc879fa2a5251c27d974e2faf7a336",
+    "veriserve_research/artifacts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/artifacts/backup.py": "5220cefa8c1f08c619cce8827d8fa7e97ac3d6f6ddeeecd805cee4ebd4028533",
+    "veriserve_research/artifacts/io.py": "fb70a9f59be25ab9a44c72d380f21897b6895e5c93204bc31516de135dc24acb",
+    "veriserve_research/artifacts/legacy.py": "bc98eea48016ea6b70812df6a4f05c0b50981d0415486d654e4ceb66af0f549a",
+    "veriserve_research/artifacts/materials.py": "94991c3f2e649b010ced6b6eeda492a35e55e304cf1c891f1289df821f214d0e",
+    "veriserve_research/artifacts/provenance.py": "c82a9ecb28789a9e690bee5dd6d9576c7f6cc7be765d2d796ea8e1c9e38ef0e3",
+    "veriserve_research/inference.py": "8bc9137d053c4b27c1765318050deeca25d7be5ce43daaa77318102dba2a6998",
+    "veriserve_research/probe/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "veriserve_research/probe/collect.py": "12ad7226934aa5883a1f6edd17673c7d79c58decd7477fbc9919638f022f47af",
+    "veriserve_research/probe/fit.py": "0bfb79008b2178169ba8bdb2ab9cab9a29626bf0faa23a075ff0cdfee9e073ab",
+    "veriserve_research/probe/materials.py": "3ba86c6aa63b8f8f5d5848a506027e0dc1e167bcc75c1b2162fb44b35a3991bb",
+    "veriserve_research/trajectory.py": "d79b247284fb98488cbdc29fef19928d7443b492c1fd5e8d20d3b6c07c7f0358",
+    "veriserve_research/vllm_backend.py": "228a47347116b2d030f08c3865d726800f0fa32c02571993277e39df1e057d74"
+  },
+  "status": "IMPORTED_TOKENS_ONLY_FEATURES_AND_GATES_PENDING",
+  "timings": "Stored generation timings retained from same engine; feature timings are remeasured. Subsequent newly generated questions include explicit allocator cleanup in generation wall time.",
+  "transfers": [
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/d3d76e355f0a3a408887.json",
+      "source_sha256": "5d111afaf2621bc605f89cb96a8ad34148a7a432476fc73f824a7b57d7182360",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/d3d76e355f0a3a408887.json",
+      "token_sha256": "eb62c0dfa7dbf0d815098dacdfd3905591be5d3d9386299b49465fd980119bd2"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/fcf507d339715cc9c36e.json",
+      "source_sha256": "bd002727aa8822a0d80c90de33204633602265bb81a3a9058a62792d0a2ee421",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/fcf507d339715cc9c36e.json",
+      "token_sha256": "e4f4f2c24d98e6228069b17b22bd39c693303185c9953fe250f6c58c397e23fc"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/5bc5cc06c5ec1e5c60a2.json",
+      "source_sha256": "350380c29709359403c980edad74c27ee4571d582c2bd92947f2de104c41d690",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/5bc5cc06c5ec1e5c60a2.json",
+      "token_sha256": "6c0ca64c3839edf4f7baf97d12300fa045d0ac8f22f6dd2b89fe79b03bd30e46"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/eca310ad5d6fad19fe38.json",
+      "source_sha256": "47aa525c9c536999e9a79d7ae302779bd370e6d32d35a402d75987168fc1e8c2",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/eca310ad5d6fad19fe38.json",
+      "token_sha256": "6f1c2f6107abd4fd3dfad4fe5fb632e48f0f691c825704588940537404b72155"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/722fbccd50c4dbcfee15.json",
+      "source_sha256": "8db8eeb6573f2ff177cf7f674f183a39e23115dd492784825f70783af24a31cf",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/722fbccd50c4dbcfee15.json",
+      "token_sha256": "5f2d37dcb2ec380c567a2c25d8b4f331232f6dc0095b83f4b0f4f1dec41262d4"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/8fe8ba3e885ab91a95bb.json",
+      "source_sha256": "f13f769ddf53329f6bbfd863a900df703b1bbb3597ea172112803750379f9235",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/8fe8ba3e885ab91a95bb.json",
+      "token_sha256": "37dbd32d890f586448d67526053376c9f468196db850a20d704245d4d1fd6e03"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/29fb09aef2d2b8192e12.json",
+      "source_sha256": "23fba241036f6ca456912e3fbd4771a558b6fad7c8d84a2cb98d538f4ed8c4a4",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/29fb09aef2d2b8192e12.json",
+      "token_sha256": "42f0383b57b890a015784986d8e689095d46bec414209fbd7ba45171a77d535b"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/9ccccfe8203576afba40.json",
+      "source_sha256": "0a890c75d46eddf60e82c393890cdedab9c1cff85662acbb463b9023c3a2ed06",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/9ccccfe8203576afba40.json",
+      "token_sha256": "009ea2f9256529b38d0cd9d16ccf0f70a15b80b8c1c21428e5926e54c4def10d"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/0015809f6341a9656a0b.json",
+      "source_sha256": "4c002ac38d15a06965f099824dece86778e62b0a3b3ff74e013e3e738510118f",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/0015809f6341a9656a0b.json",
+      "token_sha256": "d5e7faec6e5aeab137d64c2eac64b92d44bde119550e09dbfa6b8b4d0dfc575a"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/smoke/f45649608d5fd4570df0.json",
+      "source_sha256": "284b309de7dee21bbeea7628faf2fec4ce1604f814fef76d15a7e6e925fea271",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/f45649608d5fd4570df0.json",
+      "token_sha256": "8d7b61381ab33be7e17155974aa823c0325b761b4165ae2475a23df6477f9d14"
+    },
+    {
+      "source": "stages/stage2/runs/v2-20261013-854c63b5c942/records/train/69a70ebec999aaca1e4d.json",
+      "source_sha256": "51005ac789e51161e43c990e476e89325e3bb9b39fe0cf952d1a93dbb79e6afc",
+      "target": "stages/stage2/runs/v2-20261013-e136a41fea81/records/train/69a70ebec999aaca1e4d.json",
+      "token_sha256": "aeb01cb59b7ef8c73f996afd4c428d9c71855389c04839df001c5db17e130049"
+    }
+  ]
+}

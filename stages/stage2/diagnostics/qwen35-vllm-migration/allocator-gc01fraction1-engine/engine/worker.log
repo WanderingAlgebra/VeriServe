@@ -66,3 +66,55 @@ INFO 10-15 12:02:27 [registry.py:126] All limits of multimodal modalities suppor
 (EngineCore pid=394549) INFO 10-15 12:03:19 [cumem.py:216] CuMemAllocator: sleep freed 30.46 GiB memory in total, of which 8.03 GiB is backed up in CPU and the rest 22.44 GiB is discarded directly.
 (EngineCore pid=394549) INFO 10-15 12:03:19 [gpu_worker.py:175] Sleep mode freed 30.47 GiB memory, 11.18 GiB memory is still in use.
 (EngineCore pid=394549) INFO 10-15 12:03:19 [abstract.py:331] It took 0.693381 seconds to fall asleep.
+CUDA Error: out of memory at /workspace/csrc/cumem_allocator.cpp:139
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337] Invocation of wake_up method failed
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337] Traceback (most recent call last):
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1327, in _invoke_utility_method
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]     result = get_result()
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]              ^^^^^^^^^^^^
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1288, in <lambda>
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]     and method(*self._convert_msgspec_args(method, args))
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 722, in wake_up
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]     self.model_executor.wake_up(tags)
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 347, in wake_up
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]     self.collective_rpc("wake_up", kwargs=dict(tags=tags))
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 80, in collective_rpc
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]     result = run_method(self.driver_worker, method, args, kwargs)
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/serial_utils.py", line 510, in run_method
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]     return func(*args, **kwargs)
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 185, in wake_up
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]     allocator.wake_up(tags)
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/device_allocator/cumem.py", line 241, in wake_up
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]     create_and_map(handle)
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/device_allocator/cumem.py", line 59, in create_and_map
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337]     python_create_and_map(*allocation_handle)
+(EngineCore pid=394549) ERROR 10-15 12:03:34 [core.py:1337] RuntimeError: CUDA Error: out of memory at /workspace/csrc/cumem_allocator.cpp:139
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/vllm_backend.py", line 194, in <module>
+    worker(sys.argv[1])
+  File "/root/project/VeriServe-step-hidden-probe/veriserve_research/vllm_backend.py", line 120, in worker
+    llm.wake_up();torch.cuda.synchronize();wake=time.perf_counter()-start
+    ^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 1530, in wake_up
+    self.llm_engine.wake_up(tags)
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/llm_engine.py", line 359, in wake_up
+    self.engine_core.wake_up(tags)
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 864, in wake_up
+    self.call_utility("wake_up", tags)
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 818, in call_utility
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+Exception: Call to wake_up method failed: CUDA Error: out of memory at /workspace/csrc/cumem_allocator.cpp:139
+(EngineCore pid=394549) INFO 10-15 12:03:34 [core.py:1238] Shutdown initiated (timeout=0)
+(EngineCore pid=394549) INFO 10-15 12:03:34 [core.py:1261] Shutdown complete
+[rank0]:[W1015 12:03:35.803447232 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

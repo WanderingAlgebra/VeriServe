@@ -67,6 +67,11 @@ class VLLMGenerator:
         return data
 
     def generate(self,prompt_ids,budget,seed,eos_ids,*,ignore_eos=False,capture_path=None):
+        import torch
+        # HF's caching allocator otherwise retains workspaces while vLLM remaps
+        # its sleeping KV pool. This frees only unused blocks, never live tensors.
+        torch.cuda.synchronize()
+        torch.cuda.empty_cache()
         self.counter+=1
         target=self.directory/f'response-{os.getpid()}-{self.counter}.json'
         request=dict(prompt_ids=prompt_ids,budget=budget,seed=seed,eos_ids=eos_ids,
