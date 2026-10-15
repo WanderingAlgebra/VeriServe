@@ -1,0 +1,21 @@
+{
+  "all_protected_files_unchanged": true,
+  "benchmark_returncode": 0,
+  "benchmark_sha256": "807b67689fc3f66aa6608c1188f5ea54b30f416a6312b6b3ce77754f5f234a06",
+  "completed_features": {
+    "smoke": 10,
+    "test": 0,
+    "train": 45
+  },
+  "continuation_pid": 456880,
+  "first_resumed_unique_id": "d90d6afc9283ce27c75d6e50e13d3cb202f06ed97b7b7725681e5039b7f8f3c2",
+  "formal_pid": 456892,
+  "formal_resumed_at": "2026-10-15T11:34:46.350411+00:00",
+  "formal_source_hashes_unchanged": true,
+  "manifest_changed_fields": [
+    "code_commit"
+  ],
+  "protected_files": 111,
+  "status": "PASS",
+  "verified_at": "2026-10-15T11:49:20.666952+00:00"
+}

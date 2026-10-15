@@ -1,0 +1,33 @@
+{
+  "benchmark_seconds": 1207.958537,
+  "clocks.current.sm [MHz]": {
+    "max": 2760.0,
+    "min": 210.0
+  },
+  "clocks_event_reasons.hw_thermal_slowdown": {
+    "Not Active": 208
+  },
+  "clocks_event_reasons.sw_power_cap": {
+    "Not Active": 208
+  },
+  "clocks_event_reasons.sw_thermal_slowdown": {
+    "Not Active": 208
+  },
+  "incomplete_rows_ignored": 0,
+  "memory.used [MiB]": {
+    "max": 30772.0,
+    "min": 4.0
+  },
+  "power.draw [W]": {
+    "max": 374.58,
+    "min": 43.48
+  },
+  "samples_in_scope": 208,
+  "samples_total": 374,
+  "scope": "Complete samples within benchmark time bounds, including engine reinitialization. Sampling starts during length profile.",
+  "temperature.gpu": {
+    "max": 79.0,
+    "min": 48.0
+  },
+  "timezone": "Asia/Shanghai; date reports CST +0800"
+}
