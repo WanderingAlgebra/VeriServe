@@ -6,7 +6,7 @@
     "unit": "actual double-newline-closed paragraph within native Thinking",
     "verifier_numbering": "external paragraph ordinals; terminal answer has its own final ordinal"
   },
-  "code_commit": "09d93b30f6da6e6293ab859c9b9b9b0b552c1a3a",
+  "code_commit": "4d6f66b10866ce240da3590b093e4bf87192ba7b",
   "common_sha256": "289a98ce0707d9383b573cf16a48da234a447ef51058f9e92ae7f021dc1c7c98",
   "config": {
     "C": 0.1,
