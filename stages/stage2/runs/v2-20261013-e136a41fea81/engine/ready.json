@@ -1,11 +1,11 @@
 {
-  "created": "2026-10-15T04:14:01.394584+00:00",
+  "created": "2026-10-15T04:39:52.884569+00:00",
   "device_peak_sampling_ms": 20,
   "hidden_api": "LLM.generate returns token IDs/logprobs, no arbitrary-layer hidden; EAGLE aux hidden is internal",
-  "init_and_compile_seconds": 19.94522569514811,
+  "init_and_compile_seconds": 19.72459669597447,
   "sampling_params_signature": "(n: int = 1, presence_penalty: float = 0.0, frequency_penalty: float = 0.0, repetition_penalty: float = 1.0, temperature: float = 1.0, top_p: float = 1.0, top_k: int = 0, min_p: float = 0.0, seed: int | None = None, stop: str | list[str] | None = None, stop_token_ids: list[int] | None = None, ignore_eos: bool = False, max_tokens: int | None = 16, min_tokens: int = 0, logprobs: int | None = None, prompt_logprobs: int | None = None, logprob_token_ids: list[int] | None = None, flat_logprobs: bool = False, detokenize: bool = True, skip_special_tokens: bool = True, spaces_between_special_tokens: bool = True, include_stop_str_in_output: bool = False, output_kind: vllm.sampling_params.RequestOutputKind = <RequestOutputKind.CUMULATIVE: 0>, skip_clone: bool = False, output_text_buffer_length: int = 0, _eos_token_id: int | None = None, _all_stop_token_ids: set[int] = <factory>, structured_outputs: vllm.sampling_params.StructuredOutputsParams | None = None, logit_bias: dict[int, float] | None = None, allowed_token_ids: list[int] | None = None, extra_args: dict[str, typing.Any] | None = None, bad_words: list[str] | None = None, _bad_words_token_ids: list[list[int]] | None = None, skip_reading_prefix_cache: bool | None = None, thinking_token_budget: int | None = None, repetition_detection: vllm.sampling_params.RepetitionDetectionParams | None = None)",
   "snapshot": "/root/autodl-tmp/hf-qwen35/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
-  "startup_device_peak_bytes": 43452727296,
+  "startup_device_peak_bytes": 43452661760,
   "status": "READY",
   "versions": {
     "torch": "2.11.0+cu130",
