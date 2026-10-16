@@ -2,7 +2,7 @@
   "continuation_after_performance_benchmark": true,
   "counts": {
     "smoke": 10,
-    "test": 124,
+    "test": 150,
     "train": 100
   },
   "formal_pid": 456892,
@@ -33,5 +33,5 @@
     "veriserve_research/trajectory.py": "d79b247284fb98488cbdc29fef19928d7443b492c1fd5e8d20d3b6c07c7f0358",
     "veriserve_research/vllm_backend.py": "228a47347116b2d030f08c3865d726800f0fa32c02571993277e39df1e057d74"
   },
-  "updated": "2026-10-16T14:19:30.941317+00:00"
+  "updated": "2026-10-16T18:36:44.843547+00:00"
 }
