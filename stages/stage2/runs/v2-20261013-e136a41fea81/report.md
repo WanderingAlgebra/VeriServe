@@ -5,7 +5,7 @@ step_1/2/3 等历史字段在本 run 中表示第 1/2/3 个有效检查点；HIG
 格式示例固定在配置中（0 个简单问答），不来自实验题集；stage2/stage3 输入一致。
 最终响应允许解释，仅评分末尾唯一且完整的 Final answer boxed 行；Thinking 内引用不参与评分。
 
-运行：`v2-20261013-e136a41fea81`；报告更新于 2026-10-15T19:14:02.269046+08:00。
+运行：`v2-20261013-e136a41fea81`；报告更新于 2026-10-17T14:15:11.096549+08:00。
 
 标签是完整轨迹最终答错（1）或答对（0）。主指标仅用于完成且可评分轨迹的正常中途检查点；不是局部错误标签。
 
@@ -59,63 +59,47 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
 ```json
 {
   "train": {
-    "generated": 43,
-    "completed": 41,
-    "correct": 32,
-    "wrong": 7,
-    "truncated": 2,
-    "unscorable": 4,
+    "generated": 100,
+    "completed": 96,
+    "correct": 75,
+    "wrong": 19,
+    "truncated": 4,
+    "unscorable": 6,
     "no_steps": 0,
     "format_error_trajectories": 0,
     "features_missing_or_corrupt": 0,
     "planned": 100,
     "NO_FINAL_ANSWER": 2,
-    "LENGTH_TRUNCATED": 2,
-    "not_generated": 57,
-    "analyzable_end": 39,
-    "analyzable_intermediate": 39,
-    "normal_completion_rate": 0.41,
-    "scorable_rate": 0.39,
-    "correct_submission_rate": 0.32,
-    "mathematical_accuracy_scorable": 0.8205128205128205
+    "LENGTH_TRUNCATED": 4,
+    "analyzable_end": 94,
+    "analyzable_intermediate": 94,
+    "normal_completion_rate": 0.96,
+    "scorable_rate": 0.94,
+    "correct_submission_rate": 0.75,
+    "mathematical_accuracy_scorable": 0.7978723404255319
   },
   "test": {
-    "generated": 0,
-    "completed": 0,
-    "correct": 0,
-    "wrong": 0,
-    "truncated": 0,
-    "unscorable": 0,
+    "generated": 200,
+    "completed": 181,
+    "correct": 149,
+    "wrong": 28,
+    "truncated": 19,
+    "unscorable": 23,
     "no_steps": 0,
     "format_error_trajectories": 0,
     "features_missing_or_corrupt": 0,
     "planned": 200,
-    "not_generated": 200,
-    "analyzable_end": 0,
-    "analyzable_intermediate": 0,
-    "normal_completion_rate": 0.0,
-    "scorable_rate": 0.0,
-    "correct_submission_rate": 0.0,
-    "mathematical_accuracy_scorable": null
-  },
-  "smoke": {
-    "generated": 10,
-    "completed": 8,
-    "correct": 5,
-    "wrong": 3,
-    "truncated": 2,
-    "unscorable": 2,
-    "no_steps": 0,
-    "format_error_trajectories": 0,
-    "features_missing_or_corrupt": 0,
-    "planned": 10,
-    "LENGTH_TRUNCATED": 2,
-    "analyzable_end": 8,
-    "analyzable_intermediate": 8,
-    "normal_completion_rate": 0.8,
-    "scorable_rate": 0.8,
-    "correct_submission_rate": 0.5,
-    "mathematical_accuracy_scorable": 0.625
+    "LENGTH_TRUNCATED": 19,
+    "GOLD_UNPARSEABLE": 1,
+    "FINAL_FORMAT_ERROR": 1,
+    "THINKING_FORMAT_ERROR": 1,
+    "PREDICTION_UNPARSEABLE": 1,
+    "analyzable_end": 177,
+    "analyzable_intermediate": 177,
+    "normal_completion_rate": 0.905,
+    "scorable_rate": 0.885,
+    "correct_submission_rate": 0.745,
+    "mathematical_accuracy_scorable": 0.8418079096045198
   }
 }
 ```
@@ -2463,20 +2447,169 @@ presence penalty 对生成与反馈后缀的每个已见 token 施加一次，�
     "unchanged_files": 21
   },
   "backup": {
-    "commit": "39532c4837312e9414d4200f0d67b54fdd92d9fb",
+    "commit": "a35439c0196b2db02c9aeeb324a4125bc48b8571",
     "feature_remote_verification": {
       "path": "stages/stage2/runs/v2-20261013-e136a41fea81/records/smoke/d3d76e355f0a3a408887.features-335994798ad6.layers1-22.npz",
       "remote_commit": "add2f631c26b394ac3a3b6162a45faee1768423b",
       "sha256": "b47afbeb64e4319af82617bc5a4c5f4b1619522eee448d6db50864c0b125bc4f",
       "verified_at": "2026-10-15T04:38:59.374110+00:00"
     },
-    "pushed_at": "2026-10-15T08:17:36.356610+00:00",
+    "pushed_at": "2026-10-17T06:08:54.737114+00:00",
     "status": "PUSHED"
   }
 }
 ```
 
-AUROC / CI / 所选层：NA；正式数据不足或未采集，不能回答是否存在信号。
+## 独立测试
+
+选层（A/B 独立选择）：`{'A': 5, 'B': 27, 'C': None}`。
+训练覆盖：`{'A': {'questions': 94, 'correct': 75, 'wrong': 19}, 'B': {'questions': 94, 'correct': 75, 'wrong': 19}, 'C': {'questions': 94, 'correct': 75, 'wrong': 19}}`；失败：`{}`。
+
+| 位置 | 题数（正确/错误） | A AUROC [95% CI] | B AUROC [95% CI] | C AUROC [95% CI] |
+|---|---|---|---|---|
+| step_1 | 177 (149/28) | 0.6143 [0.4879, 0.7256] | 0.6383 [0.5196, 0.7422] | 0.4497 [0.3372, 0.5880] |
+| step_2 | 177 (149/28) | 0.5134 [0.3898, 0.6421] | 0.7076 [0.6092, 0.7951] | 0.5880 [0.4586, 0.6975] |
+| step_3 | 177 (149/28) | 0.5436 [0.4156, 0.6653] | 0.6865 [0.5760, 0.7887] | 0.5567 [0.4310, 0.6706] |
+| intermediate_all | 177 (149/28) | 0.5948 [0.5464, 0.6426] | 0.7933 [0.7415, 0.8360] | 0.5939 [0.5035, 0.6715] |
+| full_trajectory_end | 177 (149/28) | 0.8032 [0.6790, 0.8970] | 0.7224 [0.5803, 0.8496] | NA |
+
+C 不用于完整轨迹末尾对照；A/B 末尾单独报告。所有中途比较使用共同有效位置。
+
+每题总权重为 1；bootstrap 按题重抽 1000 次，整题全部检查点随同抽取，单类重复样本跳过。有效次数与 paired AUROC 差及其 CI 见 metrics.json。
+
+```json
+{
+  "step_1": {
+    "A-C": {
+      "difference": 0.16466922339405565,
+      "ci95": [
+        -0.03486013269862154,
+        0.3376200028259011
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-C": {
+      "difference": 0.18863854266538826,
+      "ci95": [
+        0.030536244281807234,
+        0.34343123146694565
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-A": {
+      "difference": 0.023969319271332612,
+      "ci95": [
+        -0.13142642215918077,
+        0.1854969149441089
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    }
+  },
+  "step_2": {
+    "A-C": {
+      "difference": -0.0745445829338447,
+      "ci95": [
+        -0.2106238399874899,
+        0.08527683016780377
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-C": {
+      "difference": 0.11960690316395017,
+      "ci95": [
+        -0.005034266224658925,
+        0.2517935132428668
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-A": {
+      "difference": 0.19415148609779487,
+      "ci95": [
+        0.04137421635320785,
+        0.34689408556821943
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    }
+  },
+  "step_3": {
+    "A-C": {
+      "difference": -0.013063279002876405,
+      "ci95": [
+        -0.21031240188187453,
+        0.17336647745952846
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-C": {
+      "difference": 0.1297938638542664,
+      "ci95": [
+        -0.008947155020948819,
+        0.2572269218300076
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-A": {
+      "difference": 0.1428571428571428,
+      "ci95": [
+        -0.019142262348638167,
+        0.307162887377173
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    }
+  },
+  "intermediate_all": {
+    "A-C": {
+      "difference": 0.0008398314604426416,
+      "ci95": [
+        -0.0997354658098184,
+        0.11694583422188043
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-C": {
+      "difference": 0.19931912976290667,
+      "ci95": [
+        0.1186653149414165,
+        0.2913248480506695
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    },
+    "B-A": {
+      "difference": 0.19847929830246402,
+      "ci95": [
+        0.14072283982742523,
+        0.2504180048504973
+      ],
+      "bootstrap_valid": 1000,
+      "bootstrap_skipped": 0
+    }
+  }
+}
+```
+
+![前 3 个有效中途检查点](step_auroc.png)
+
+## 代表性风险轨迹
+
+- `eafcbc4676ab473879df87dd5dbf5bedd95740119656ee162f671a7469347a9a`，最终标签 0，B 的逐步风险：1:0.003, 2:0.090, 3:0.029, 4:0.066, 5:0.024, 6:0.100, 7:0.014, 8:0.024, 9:0.021, 10:0.026, 11:0.006, 12:0.020, 13:0.019, 14:0.003, 15:0.027, 16:0.020, 17:0.007, 18:0.024, 19:0.014, 20:0.065, 21:0.064, 22:0.099, 23:0.025, 24:0.017, 25:0.025, 26:0.051, 27:0.038, 28:0.057, 29:0.029, 30:0.028, 31:0.031, 32:0.015, 33:0.031, 34:0.031。
+- `725bb03bac9419860f46a12b55e119baeaa40147b03e87b9e8c5eeea20660b18`，最终标签 0，B 的逐步风险：1:0.811, 2:0.448, 3:0.280, 4:0.091, 5:0.133, 6:0.019, 7:0.054, 8:0.006, 9:0.006, 10:0.003, 11:0.031, 12:0.019, 13:0.005, 14:0.003, 15:0.004, 16:0.004, 17:0.067, 18:0.020, 19:0.004, 20:0.098, 21:0.008, 22:0.005, 23:0.010, 24:0.003, 25:0.011, 26:0.008, 27:0.009, 28:0.008, 29:0.010, 30:0.139, 31:0.008, 32:0.004, 33:0.007, 34:0.034, 35:0.011, 36:0.007, 37:0.034, 38:0.009, 39:0.010, 40:0.029, 41:0.038, 42:0.013, 43:0.012, 44:0.008, 45:0.014, 46:0.044, 47:0.058, 48:0.028, 49:0.009, 50:0.022, 51:0.007, 52:0.081, 53:0.024。
+- `14e01f9f6f686bb812ff574d938e200af3688c4b59a42397a01e149ba63757ba`，最终标签 1，B 的逐步风险：1:0.028, 2:0.326, 3:0.312, 4:0.454, 5:0.763, 6:0.318, 7:0.733, 8:0.148, 9:0.270, 10:0.094, 11:0.468, 12:0.830, 13:0.380。
+- `4f954141eeaea5e8d145f772450e076ded06d771a1d681b3aeda024218182ec3`，最终标签 1，B 的逐步风险：1:0.793, 2:0.106, 3:0.604, 4:0.320, 5:0.198, 6:0.087, 7:0.115, 8:0.114, 9:0.436, 10:0.440, 11:0.086, 12:0.358, 13:0.092, 14:0.522, 15:0.259, 16:0.135, 17:0.344, 18:0.343, 19:0.196。
+
+## 结论
+
+此设置下，B 在全部中途位置提供了超过随机与简单进度基线的最终答错风险信号（两项 bootstrap CI 均支持）。
 
 这项实验不能识别首个错误检查点、判断当前检查是否值得、证明降低完成时间或推广到其他模型。
 离线重前向耗时不代表在线提取成本；生成、重前向与探针评分耗时分别记录。
@@ -2489,7 +2622,7 @@ AUROC / CI / 所选层：NA；正式数据不足或未采集，不能回答是�
 
 配置与环境见 config.json / manifest.json；运行日志见 events.jsonl；探针参数见 probe_{A,B,C}.npz/json。
 分支：[experiment/step-hidden-probe](https://github.com/WanderingAlgebra/VeriServe/tree/experiment/step-hidden-probe)。
-本地 HEAD：`4b508a2f703467835ef6a247a309d12c7cd153fe`；远端备份状态与提交以 backup.json 为准。
+本地 HEAD：`a35439c0196b2db02c9aeeb324a4125bc48b8571`；远端备份状态与提交以 backup.json 为准。
 
 从仓库根目录执行（替换成可用 Python 环境）：
 
@@ -2500,4 +2633,145 @@ python -m stages.stage2.run_probe --config stages/stage2/config.json --backup-on
 python -m stages.stage2.run_probe --config stages/stage2/config.json --smoke --resume
 python -m stages.stage2.run_probe --config stages/stage2/config.json --resume
 python -m stages.stage2.run_probe --config stages/stage2/config.json --fit-only --resume
+```
+
+## 固定阈值 0.5（正类=最终答错，按题等权）
+
+```json
+{
+  "step_1": {
+    "methods": {
+      "A": {
+        "accuracy": 0.4858757062146893,
+        "balanced_accuracy": 0.5641179290508149,
+        "precision": 0.18811881188118812,
+        "recall": 0.6785714285714286
+      },
+      "B": {
+        "accuracy": 0.7909604519774012,
+        "balanced_accuracy": 0.5568072866730585,
+        "precision": 0.2857142857142857,
+        "recall": 0.21428571428571427
+      },
+      "C": {
+        "accuracy": 0.8418079096045198,
+        "balanced_accuracy": 0.5,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  },
+  "step_2": {
+    "methods": {
+      "A": {
+        "accuracy": 0.519774011299435,
+        "balanced_accuracy": 0.511744966442953,
+        "precision": 0.16470588235294117,
+        "recall": 0.5
+      },
+      "B": {
+        "accuracy": 0.8248587570621468,
+        "balanced_accuracy": 0.5189357622243529,
+        "precision": 0.2857142857142857,
+        "recall": 0.07142857142857142
+      },
+      "C": {
+        "accuracy": 0.8418079096045198,
+        "balanced_accuracy": 0.5,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  },
+  "step_3": {
+    "methods": {
+      "A": {
+        "accuracy": 0.5084745762711864,
+        "balanced_accuracy": 0.563039309683605,
+        "precision": 0.18947368421052632,
+        "recall": 0.6428571428571429
+      },
+      "B": {
+        "accuracy": 0.8305084745762712,
+        "balanced_accuracy": 0.6093000958772771,
+        "precision": 0.4444444444444444,
+        "recall": 0.2857142857142857
+      },
+      "C": {
+        "accuracy": 0.8418079096045198,
+        "balanced_accuracy": 0.5,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  },
+  "intermediate_all": {
+    "methods": {
+      "A": {
+        "accuracy": 0.5917205551194095,
+        "balanced_accuracy": 0.559219396275199,
+        "precision": 0.19647652887780737,
+        "recall": 0.5116763787923295
+      },
+      "B": {
+        "accuracy": 0.8313788342972476,
+        "balanced_accuracy": 0.5726541585482262,
+        "precision": 0.427442285491303,
+        "recall": 0.19418913699800155
+      },
+      "C": {
+        "accuracy": 0.8419983495207262,
+        "balanced_accuracy": 0.5006019261637239,
+        "precision": 1.0,
+        "recall": 0.0012038523274478137
+      }
+    },
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  },
+  "full_trajectory_end": {
+    "methods": {
+      "A": {
+        "accuracy": 0.8700564971751412,
+        "balanced_accuracy": 0.6907957813998082,
+        "precision": 0.631578947368421,
+        "recall": 0.42857142857142855
+      },
+      "B": {
+        "accuracy": 0.5988700564971752,
+        "balanced_accuracy": 0.660234899328859,
+        "precision": 0.24705882352941178,
+        "recall": 0.75
+      }
+    },
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  }
+}
 ```

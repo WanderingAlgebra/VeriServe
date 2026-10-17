@@ -1734,3 +1734,6 @@ INFO 10-15 19:35:42 [registry.py:126] All limits of multimodal modalities suppor
 (EngineCore pid=458106) INFO 10-17 14:04:47 [cumem.py:216] CuMemAllocator: sleep freed 30.46 GiB memory in total, of which 8.03 GiB is backed up in CPU and the rest 22.44 GiB is discarded directly.
 (EngineCore pid=458106) INFO 10-17 14:04:47 [gpu_worker.py:175] Sleep mode freed 30.49 GiB memory, 9.39 GiB memory is still in use.
 (EngineCore pid=458106) INFO 10-17 14:04:47 [abstract.py:331] It took 0.699611 seconds to fall asleep.
+(EngineCore pid=458106) INFO 10-17 14:08:54 [core.py:1238] Shutdown initiated (timeout=0)
+(EngineCore pid=458106) INFO 10-17 14:08:54 [core.py:1261] Shutdown complete
+[rank0]:[W1017 14:08:55.206426575 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

@@ -305,3 +305,4 @@
 {"engine": "vllm", "event": "QUESTION_STARTED", "split": "test", "time": "2026-10-17T05:44:45.387145+00:00", "unique_id": "31edf3b3807960a78c16a828d3862d5c9eed4234a1dd36685553e163760c1dbe"}
 {"engine": "vllm", "event": "QUESTION_STARTED", "split": "test", "time": "2026-10-17T05:45:25.292911+00:00", "unique_id": "98dfe75c6322c5d09b07b783df105b0c86ab4e8a8f601feb7bbed5f5ef50d4c4"}
 {"engine": "vllm", "event": "QUESTION_STARTED", "split": "test", "time": "2026-10-17T05:58:11.563274+00:00", "unique_id": "d46cc5b5510af372ce1e55d7fbeaca311346ca484c7923a73ac597ebb873df05"}
+{"event": "MODEL_RELEASED_BEFORE_CPU_FIT", "time": "2026-10-17T06:09:01.411224+00:00"}

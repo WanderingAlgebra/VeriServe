@@ -1,0 +1,502 @@
+{
+  "analysis_environment": {
+    "executable": "/root/project/VeriServe-step-hidden-probe/environments/qwen35/.venv/bin/python",
+    "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.35",
+    "python": "3.12.3",
+    "versions": {
+      "antlr4-python3-runtime": "4.13.2",
+      "datasets": "4.8.5",
+      "huggingface-hub": "1.33.0",
+      "latex2sympy2-extended": "1.11.0",
+      "math-verify": "0.9.0",
+      "matplotlib": "3.10.5",
+      "numpy": "2.3.2",
+      "scikit-learn": "1.9.1",
+      "torch": "2.8.0+cu128",
+      "transformers": "5.19.0"
+    }
+  },
+  "counts": {
+    "test": {
+      "FINAL_FORMAT_ERROR": 1,
+      "GOLD_UNPARSEABLE": 1,
+      "LENGTH_TRUNCATED": 19,
+      "PREDICTION_UNPARSEABLE": 1,
+      "THINKING_FORMAT_ERROR": 1,
+      "analyzable_end": 177,
+      "analyzable_intermediate": 177,
+      "completed": 181,
+      "correct": 149,
+      "correct_submission_rate": 0.745,
+      "features_missing_or_corrupt": 0,
+      "format_error_trajectories": 0,
+      "generated": 200,
+      "mathematical_accuracy_scorable": 0.8418079096045198,
+      "no_steps": 0,
+      "normal_completion_rate": 0.905,
+      "planned": 200,
+      "scorable_rate": 0.885,
+      "truncated": 19,
+      "unscorable": 23,
+      "wrong": 28
+    },
+    "train": {
+      "LENGTH_TRUNCATED": 4,
+      "NO_FINAL_ANSWER": 2,
+      "analyzable_end": 94,
+      "analyzable_intermediate": 94,
+      "completed": 96,
+      "correct": 75,
+      "correct_submission_rate": 0.75,
+      "features_missing_or_corrupt": 0,
+      "format_error_trajectories": 0,
+      "generated": 100,
+      "mathematical_accuracy_scorable": 0.7978723404255319,
+      "no_steps": 0,
+      "normal_completion_rate": 0.96,
+      "planned": 100,
+      "scorable_rate": 0.94,
+      "truncated": 4,
+      "unscorable": 6,
+      "wrong": 19
+    }
+  },
+  "failures": {},
+  "full_trajectory_end": {
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "correct": 149,
+    "methods": {
+      "A": {
+        "auroc": 0.8032118887823586,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.6790048518309387,
+          0.8970406885758998
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.8700564971751412,
+          "balanced_accuracy": 0.6907957813998082,
+          "precision": 0.631578947368421,
+          "recall": 0.42857142857142855
+        }
+      },
+      "B": {
+        "auroc": 0.7224352828379674,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.5803041586845467,
+          0.8495904251399942
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.5988700564971752,
+          "balanced_accuracy": 0.660234899328859,
+          "precision": 0.24705882352941178,
+          "recall": 0.75
+        }
+      }
+    },
+    "paired": {
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.21662504481047515,
+          0.055441871006418966
+        ],
+        "difference": -0.08077660594439118
+      }
+    },
+    "positions": 177,
+    "questions": 177,
+    "wrong": 28
+  },
+  "intermediate_all": {
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "correct": 149,
+    "methods": {
+      "A": {
+        "auroc": 0.5947777367690567,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.5463706490323619,
+          0.6426401751798514
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.5917205551194095,
+          "balanced_accuracy": 0.559219396275199,
+          "precision": 0.19647652887780737,
+          "recall": 0.5116763787923295
+        }
+      },
+      "B": {
+        "auroc": 0.7932570350715207,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.7415125464859219,
+          0.83600486250863
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.8313788342972476,
+          "balanced_accuracy": 0.5726541585482262,
+          "precision": 0.427442285491303,
+          "recall": 0.19418913699800155
+        }
+      },
+      "C": {
+        "auroc": 0.593937905308614,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.5034752626748521,
+          0.6714736180148893
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.8419983495207262,
+          "balanced_accuracy": 0.5006019261637239,
+          "precision": 1.0,
+          "recall": 0.0012038523274478137
+        }
+      }
+    },
+    "paired": {
+      "A-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.0997354658098184,
+          0.11694583422188043
+        ],
+        "difference": 0.0008398314604426416
+      },
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.14072283982742523,
+          0.2504180048504973
+        ],
+        "difference": 0.19847929830246402
+      },
+      "B-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.1186653149414165,
+          0.2913248480506695
+        ],
+        "difference": 0.19931912976290667
+      }
+    },
+    "positions": 9008,
+    "questions": 177,
+    "wrong": 28
+  },
+  "scoring_seconds": {
+    "A": 0.04682699590921402,
+    "B": 0.04316631518304348,
+    "C": 0.0016548801213502884
+  },
+  "selected_layers": {
+    "A": 5,
+    "B": 27,
+    "C": null
+  },
+  "status": "COMPLETE",
+  "step_1": {
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "correct": 149,
+    "methods": {
+      "A": {
+        "auroc": 0.614333652924257,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.48794920166600947,
+          0.7256211107107742
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.4858757062146893,
+          "balanced_accuracy": 0.5641179290508149,
+          "precision": 0.18811881188118812,
+          "recall": 0.6785714285714286
+        }
+      },
+      "B": {
+        "auroc": 0.6383029721955896,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.5196013359400455,
+          0.742248778998779
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.7909604519774012,
+          "balanced_accuracy": 0.5568072866730585,
+          "precision": 0.2857142857142857,
+          "recall": 0.21428571428571427
+        }
+      },
+      "C": {
+        "auroc": 0.44966442953020136,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.33715264040974924,
+          0.587984283625731
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.8418079096045198,
+          "balanced_accuracy": 0.5,
+          "precision": 0.0,
+          "recall": 0.0
+        }
+      }
+    },
+    "paired": {
+      "A-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.03486013269862154,
+          0.3376200028259011
+        ],
+        "difference": 0.16466922339405565
+      },
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.13142642215918077,
+          0.1854969149441089
+        ],
+        "difference": 0.023969319271332612
+      },
+      "B-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.030536244281807234,
+          0.34343123146694565
+        ],
+        "difference": 0.18863854266538826
+      }
+    },
+    "positions": 177,
+    "questions": 177,
+    "wrong": 28
+  },
+  "step_2": {
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "correct": 149,
+    "methods": {
+      "A": {
+        "auroc": 0.5134228187919463,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.38978737847804223,
+          0.6421351058183098
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.519774011299435,
+          "balanced_accuracy": 0.511744966442953,
+          "precision": 0.16470588235294117,
+          "recall": 0.5
+        }
+      },
+      "B": {
+        "auroc": 0.7075743048897412,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.6092218823332216,
+          0.7950602118469765
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.8248587570621468,
+          "balanced_accuracy": 0.5189357622243529,
+          "precision": 0.2857142857142857,
+          "recall": 0.07142857142857142
+        }
+      },
+      "C": {
+        "auroc": 0.587967401725791,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.4585644040224786,
+          0.6975130748179795
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.8418079096045198,
+          "balanced_accuracy": 0.5,
+          "precision": 0.0,
+          "recall": 0.0
+        }
+      }
+    },
+    "paired": {
+      "A-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.2106238399874899,
+          0.08527683016780377
+        ],
+        "difference": -0.0745445829338447
+      },
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.04137421635320785,
+          0.34689408556821943
+        ],
+        "difference": 0.19415148609779487
+      },
+      "B-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.005034266224658925,
+          0.2517935132428668
+        ],
+        "difference": 0.11960690316395017
+      }
+    },
+    "positions": 177,
+    "questions": 177,
+    "wrong": 28
+  },
+  "step_3": {
+    "all_final_correct_baseline": {
+      "accuracy": 0.8418079096045198,
+      "balanced_accuracy": 0.5,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "correct": 149,
+    "methods": {
+      "A": {
+        "auroc": 0.5436241610738255,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.41559695153150217,
+          0.6653158586416036
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.5084745762711864,
+          "balanced_accuracy": 0.563039309683605,
+          "precision": 0.18947368421052632,
+          "recall": 0.6428571428571429
+        }
+      },
+      "B": {
+        "auroc": 0.6864813039309683,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.5760392125519515,
+          0.7886826434277415
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.8305084745762712,
+          "balanced_accuracy": 0.6093000958772771,
+          "precision": 0.4444444444444444,
+          "recall": 0.2857142857142857
+        }
+      },
+      "C": {
+        "auroc": 0.5566874400767019,
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          0.4309669312169312,
+          0.67055490454958
+        ],
+        "threshold_0_5": {
+          "accuracy": 0.8418079096045198,
+          "balanced_accuracy": 0.5,
+          "precision": 0.0,
+          "recall": 0.0
+        }
+      }
+    },
+    "paired": {
+      "A-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.21031240188187453,
+          0.17336647745952846
+        ],
+        "difference": -0.013063279002876405
+      },
+      "B-A": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.019142262348638167,
+          0.307162887377173
+        ],
+        "difference": 0.1428571428571428
+      },
+      "B-C": {
+        "bootstrap_skipped": 0,
+        "bootstrap_valid": 1000,
+        "ci95": [
+          -0.008947155020948819,
+          0.2572269218300076
+        ],
+        "difference": 0.1297938638542664
+      }
+    },
+    "positions": 177,
+    "questions": 177,
+    "wrong": 28
+  },
+  "test_common_questions": 177,
+  "test_excluded_from_common": 23,
+  "training_coverage": {
+    "A": {
+      "correct": 75,
+      "questions": 94,
+      "wrong": 19
+    },
+    "B": {
+      "correct": 75,
+      "questions": 94,
+      "wrong": 19
+    },
+    "C": {
+      "correct": 75,
+      "questions": 94,
+      "wrong": 19
+    }
+  }
+}
