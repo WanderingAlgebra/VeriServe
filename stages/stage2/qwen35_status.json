@@ -79,8 +79,8 @@
     "applied": true,
     "status": "AUTHORIZED_BY_USER_20261014_REVISED_PLAN"
   },
-  "formal_features_completed": 250,
-  "formal_generated": 250,
+  "formal_features_completed": 274,
+  "formal_generated": 274,
   "format_diagnostics": "stages/stage2/diagnostics/qwen35-format/summary.json",
   "full_api_resume_audit": {
     "path": "stages/stage2/runs/v2-20261013-da5c802342ee/all_records_resume_audit.json",
@@ -229,7 +229,7 @@
   },
   "synthetic_hybrid_gpu_cache_check": "PASS, random 2-layer model; not official weights",
   "transport_recovery": "stages/stage2/runs/v2-20261013-78a47750b3b9/transport_recovery.json",
-  "updated": "2026-10-16T18:36:44.845730+00:00",
+  "updated": "2026-10-17T01:15:10.539483+00:00",
   "verifier_development_queue": "stages/stage2/diagnostics/qwen35-verifier-modes/queue.json",
   "verifier_interface": {
     "path": "stages/stage2/diagnostics/qwen35-verifier-interface",
