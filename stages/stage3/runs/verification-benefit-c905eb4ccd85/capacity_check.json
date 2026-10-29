@@ -1,0 +1,51 @@
+{
+  "config_hash": "2956f1fb066b8a112bc08f4ed0822a4fee89a90af0a0d3106faa3dca55a5c165",
+  "models": {
+    "generator": {
+      "engine": {
+        "_reused_after_interruption": false,
+        "device_name": "NVIDIA GeForce RTX 4080 SUPER",
+        "device_peak_bytes": 28386656256,
+        "device_peak_sampling_ms": 20,
+        "device_total_bytes": 34351349760,
+        "finish_reason": "length",
+        "generated_ids": [
+          830
+        ],
+        "init_seconds": 34.64959494583309,
+        "prefill_and_generation_seconds": 24.660266268998384,
+        "prefill_first_token_seconds": 24.585518766194582,
+        "stop_reason": null,
+        "torch_version": "2.11.0+cu130",
+        "vllm_version": "0.20.0",
+        "worker_wall_seconds": 75.34603670239449
+      },
+      "input_tokens": 131071,
+      "output_tokens": 1
+    },
+    "verifier": {
+      "engine": {
+        "_reused_after_interruption": false,
+        "device_name": "NVIDIA GeForce RTX 4080 SUPER",
+        "device_peak_bytes": 28317450240,
+        "device_peak_sampling_ms": 20,
+        "device_total_bytes": 34351349760,
+        "finish_reason": "length",
+        "generated_ids": [
+          830
+        ],
+        "init_seconds": 36.40307070873678,
+        "prefill_and_generation_seconds": 40.260528228245676,
+        "prefill_first_token_seconds": 40.050907174125314,
+        "stop_reason": null,
+        "torch_version": "2.11.0+cu130",
+        "vllm_version": "0.20.0",
+        "worker_wall_seconds": 93.06757725495845
+      },
+      "input_tokens": 148479,
+      "output_tokens": 1
+    }
+  },
+  "scope": "synthetic full-context single-token generation; not a substitute for real pilot",
+  "status": "PASS"
+}
