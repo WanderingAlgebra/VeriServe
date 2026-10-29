@@ -1,0 +1,30 @@
+{
+  "checks": 57,
+  "collection_complete": true,
+  "correct_prefixes": 28,
+  "incorrect_prefixes": 21,
+  "interpretation": "agreement with supplied reference labels, not independently established ground truth",
+  "label_sources": {
+    "human": 0,
+    "model": 57
+  },
+  "labels_sha256": "89de0b3a51959ffc69c041e51cde465eb957e22c1934b2f1f7a739128f0aed87",
+  "metrics": {
+    "balanced_accuracy": {
+      "value": 0.39743589743589747
+    },
+    "correct_fail_rate": {
+      "value": 0.0
+    },
+    "incorrect_pass_rate": {
+      "value": 0.5151515151515151
+    },
+    "uncertain_or_format_or_truncated_rate": {
+      "value": 0.3416666666666667
+    }
+  },
+  "split": "verifier_audit",
+  "status": "INSUFFICIENT_OR_FAILED",
+  "undeterminable": 8,
+  "unlabeled": 0
+}
