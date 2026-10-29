@@ -1,0 +1,17 @@
+{
+  "device_name": "NVIDIA GeForce RTX 4080 SUPER",
+  "device_peak_bytes": 28386656256,
+  "device_peak_sampling_ms": 20,
+  "device_total_bytes": 34351349760,
+  "finish_reason": "length",
+  "generated_ids": [
+    830
+  ],
+  "init_seconds": 34.64959494583309,
+  "prefill_and_generation_seconds": 24.660266268998384,
+  "prefill_first_token_seconds": 24.585518766194582,
+  "stop_reason": null,
+  "torch_version": "2.11.0+cu130",
+  "vllm_version": "0.20.0",
+  "worker_wall_seconds": 75.34603670239449
+}
