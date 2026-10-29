@@ -1,0 +1,143 @@
+INFO 10-29 15:17:44 [utils.py:233] non-default args: {'tokenizer': '/root/autodl-tmp/hf-qwen35/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a', 'dtype': 'bfloat16', 'max_model_len': 131072, 'enable_prefix_caching': False, 'gpu_memory_utilization': 0.8, 'max_num_batched_tokens': 2048, 'max_num_seqs': 1, 'language_model_only': True, 'limit_mm_per_prompt': {'image': 0, 'video': 0}, 'enable_chunked_prefill': True, 'generation_config': 'vllm', 'mamba_ssm_cache_dtype': 'float32', 'logits_processors': ['stages.stage3.verification_benefit_logits.RestoredPresence'], 'model': '/root/autodl-tmp/hf-qwen35/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a'}
+INFO 10-29 15:17:44 [model.py:555] Resolved architecture: Qwen3_5ForConditionalGeneration
+INFO 10-29 15:17:44 [model.py:1680] Using max model len 131072
+INFO 10-29 15:17:44 [scheduler.py:239] Chunked prefill is enabled with max_num_batched_tokens=2048.
+INFO 10-29 15:17:44 [vllm.py:840] Asynchronous scheduling is enabled.
+INFO 10-29 15:17:44 [kernel.py:205] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'])
+INFO 10-29 15:17:47 [nixl_utils.py:20] Setting UCX_RCACHE_MAX_UNRELEASED to '1024' to avoid a rare memory leak in UCX when using NIXL.
+WARNING 10-29 15:17:47 [nixl_utils.py:34] NIXL is not available
+WARNING 10-29 15:17:47 [nixl_utils.py:44] NIXL agent config is not available
+[transformers] `Qwen2VLImageProcessorFast` is deprecated. The `Fast` suffix for image processors has been removed; use `Qwen2VLImageProcessor` instead.
+INFO 10-29 15:17:47 [registry.py:126] All limits of multimodal modalities supported by the model are set to 0, running in text-only mode.
+(EngineCore pid=38154) INFO 10-29 15:18:03 [core.py:109] Initializing a V1 LLM engine (v0.20.0) with config: model='/root/autodl-tmp/hf-qwen35/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a', speculative_config=None, tokenizer='/root/autodl-tmp/hf-qwen35/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=131072, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=/root/autodl-tmp/hf-qwen35/models--Qwen--Qwen3.5-4B/snapshots/851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::linear_attention', 'vllm::plamo2_mamba_mixer', 'vllm::gdn_attention_core', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::kda_attention', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [2048], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 2, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native']), enable_flashinfer_autotune=True, moe_backend='auto')
+(EngineCore pid=38154) WARNING 10-29 15:18:04 [nixl_utils.py:34] NIXL is not available
+(EngineCore pid=38154) WARNING 10-29 15:18:04 [nixl_utils.py:44] NIXL agent config is not available
+(EngineCore pid=38154) [transformers] `Qwen2VLImageProcessorFast` is deprecated. The `Fast` suffix for image processors has been removed; use `Qwen2VLImageProcessor` instead.
+(EngineCore pid=38154) INFO 10-29 15:18:06 [registry.py:126] All limits of multimodal modalities supported by the model are set to 0, running in text-only mode.
+(EngineCore pid=38154) INFO 10-29 15:18:06 [parallel_state.py:1402] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://172.17.0.8:39753 backend=nccl
+(EngineCore pid=38154) INFO 10-29 15:18:06 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136] EngineCore failed to start.
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136] Traceback (most recent call last):
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1110, in run_engine_core
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     return func(*args, **kwargs)
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 876, in __init__
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     super().__init__(
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 118, in __init__
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     return func(*args, **kwargs)
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 109, in __init__
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     self._init_executor()
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 47, in _init_executor
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     self.driver_worker.init_device()
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py", line 317, in init_device
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     self.worker.init_device()  # type: ignore
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     return func(*args, **kwargs)
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 310, in init_device
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     self.model_runner = GPUModelRunnerV1(self.vllm_config, self.device)
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/worker/gpu_model_runner.py", line 633, in __init__
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     logitsprocs=build_logitsprocs(
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]                 ^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/sample/logits_processor/__init__.py", line 213, in build_logitsprocs
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     custom_logitsprocs_classes = _load_custom_logitsprocs(custom_logitsprocs)
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/sample/logits_processor/__init__.py", line 183, in _load_custom_logitsprocs
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     return _load_logitsprocs_plugins() + _load_logitsprocs_by_fqcns(logits_processors)
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/sample/logits_processor/__init__.py", line 130, in _load_logitsprocs_by_fqcns
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     module_path, qualname = logitproc.split(":")
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136]     ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ERROR 10-29 15:18:06 [core.py:1136] ValueError: not enough values to unpack (expected 2, got 1)
+(EngineCore pid=38154) Process EngineCore:
+(EngineCore pid=38154) Traceback (most recent call last):
+(EngineCore pid=38154)   File "/root/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+(EngineCore pid=38154)     self.run()
+(EngineCore pid=38154)   File "/root/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+(EngineCore pid=38154)     self._target(*self._args, **self._kwargs)
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1140, in run_engine_core
+(EngineCore pid=38154)     raise e
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 1110, in run_engine_core
+(EngineCore pid=38154)     engine_core = EngineCoreProc(*args, engine_index=dp_rank, **kwargs)
+(EngineCore pid=38154)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=38154)     return func(*args, **kwargs)
+(EngineCore pid=38154)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 876, in __init__
+(EngineCore pid=38154)     super().__init__(
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core.py", line 118, in __init__
+(EngineCore pid=38154)     self.model_executor = executor_class(vllm_config)
+(EngineCore pid=38154)                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=38154)     return func(*args, **kwargs)
+(EngineCore pid=38154)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/executor/abstract.py", line 109, in __init__
+(EngineCore pid=38154)     self._init_executor()
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/executor/uniproc_executor.py", line 47, in _init_executor
+(EngineCore pid=38154)     self.driver_worker.init_device()
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/worker/worker_base.py", line 317, in init_device
+(EngineCore pid=38154)     self.worker.init_device()  # type: ignore
+(EngineCore pid=38154)     ^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+(EngineCore pid=38154)     return func(*args, **kwargs)
+(EngineCore pid=38154)            ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/worker/gpu_worker.py", line 310, in init_device
+(EngineCore pid=38154)     self.model_runner = GPUModelRunnerV1(self.vllm_config, self.device)
+(EngineCore pid=38154)                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/worker/gpu_model_runner.py", line 633, in __init__
+(EngineCore pid=38154)     logitsprocs=build_logitsprocs(
+(EngineCore pid=38154)                 ^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/sample/logits_processor/__init__.py", line 213, in build_logitsprocs
+(EngineCore pid=38154)     custom_logitsprocs_classes = _load_custom_logitsprocs(custom_logitsprocs)
+(EngineCore pid=38154)                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/sample/logits_processor/__init__.py", line 183, in _load_custom_logitsprocs
+(EngineCore pid=38154)     return _load_logitsprocs_plugins() + _load_logitsprocs_by_fqcns(logits_processors)
+(EngineCore pid=38154)                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154)   File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/sample/logits_processor/__init__.py", line 130, in _load_logitsprocs_by_fqcns
+(EngineCore pid=38154)     module_path, qualname = logitproc.split(":")
+(EngineCore pid=38154)     ^^^^^^^^^^^^^^^^^^^^^
+(EngineCore pid=38154) ValueError: not enough values to unpack (expected 2, got 1)
+[rank0]:[W1029 15:18:07.558141569 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage3/verification_benefit_worker.py", line 62, in <module>
+    main(sys.argv[1], sys.argv[2])
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage3/verification_benefit_worker.py", line 27, in main
+    model = LLM(model=cfg['snapshot'], tokenizer=cfg['snapshot'], dtype='bfloat16',
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 381, in __init__
+    self.llm_engine = LLMEngine.from_engine_args(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/llm_engine.py", line 170, in from_engine_args
+    return cls(
+           ^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/llm_engine.py", line 104, in __init__
+    self.engine_core = EngineCoreClient.make_client(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 101, in make_client
+    return SyncMPClient(vllm_config, executor_class, log_stats)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/tracing/otel.py", line 178, in sync_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 723, in __init__
+    super().__init__(
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 535, in __init__
+    with launch_core_engines(
+  File "/root/miniconda3/lib/python3.12/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1119, in launch_core_engines
+    wait_for_engine_startup(
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1178, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}

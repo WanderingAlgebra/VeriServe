@@ -6,6 +6,11 @@ from stages.stage3.verification_benefit_logits import RestoredPresence, pending_
 
 
 class RestoredPresenceTest(unittest.TestCase):
+    def test_worker_processor_name_loads_in_installed_vllm(self):
+        from vllm.v1.sample.logits_processor import _load_logitsprocs_by_fqcns
+        from stages.stage3.verification_benefit_worker import PROCESSOR
+        self.assertEqual(_load_logitsprocs_by_fqcns([PROCESSOR]), [RestoredPresence])
+
     def test_old_and_new_tokens_are_penalized_only_once(self):
         generated = [2, 4, 4]
         self.assertEqual(pending_history([1, 1, 2, 3], generated), [1, 3])

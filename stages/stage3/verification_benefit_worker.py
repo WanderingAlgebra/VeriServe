@@ -4,6 +4,8 @@ import sys
 import time
 from pathlib import Path
 
+PROCESSOR = 'stages.stage3.verification_benefit_logits:RestoredPresence'
+
 
 def main(request_path, output_path):
     import torch
@@ -31,7 +33,7 @@ def main(request_path, output_path):
                 mamba_ssm_cache_dtype='float32', enable_prefix_caching=False,
                 generation_config='vllm', language_model_only=True, disable_log_stats=False,
                 limit_mm_per_prompt={'image': 0, 'video': 0},
-                logits_processors=['stages.stage3.verification_benefit_logits.RestoredPresence'])
+                logits_processors=[PROCESSOR])
     torch.cuda.synchronize()
     init_seconds = time.perf_counter()-started
     sampling = request['sampling']
