@@ -1,0 +1,108 @@
+{
+  "first_valid": 0,
+  "first_verdicts": {
+    "未完成": 57
+  },
+  "first_failures": {
+    "not_run": 57
+  },
+  "first_codex_matrix": {
+    "PASS": {
+      "PASS": 0,
+      "FAIL": 0,
+      "未完成": 36
+    },
+    "FAIL": {
+      "PASS": 0,
+      "FAIL": 0,
+      "未完成": 21
+    }
+  },
+  "retries": {
+    "attempts": 0,
+    "status_counts": {},
+    "indices": []
+  },
+  "focus": [
+    {
+      "source_index": 10,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 20,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 21,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 23,
+      "is_major": true,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 25,
+      "is_major": true,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 42,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 48,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 51,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 52,
+      "is_major": true,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 54,
+      "is_major": true,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    }
+  ]
+}
