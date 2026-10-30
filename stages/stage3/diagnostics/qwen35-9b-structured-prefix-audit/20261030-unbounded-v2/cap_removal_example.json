@@ -1,0 +1,9 @@
+{
+  "source_index": 1,
+  "capped_status": "truncation",
+  "capped_output_tokens": 1024,
+  "unbounded_status": "completed",
+  "unbounded_output_tokens": 1286,
+  "first1024_token_ids_identical": true,
+  "scope": "Existing transitional run versus current run; no additional model calls. This isolates extension past1024 for this one paired request, not all grammar effects."
+}
