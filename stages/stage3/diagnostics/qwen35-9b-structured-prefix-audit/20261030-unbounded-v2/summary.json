@@ -2,39 +2,42 @@
   "total": 57,
   "output_budget_policy": "max_tokens=None; no fixed output cap",
   "model_context_tokens": 148480,
-  "first_attempted": 0,
+  "first_attempted": 32,
   "first_status_counts": {
-    "not_run": 57
+    "completed": 32,
+    "not_run": 25
   },
-  "first_valid": 0,
+  "first_valid": 32,
   "first_failures": {
-    "not_run": 57
+    "not_run": 25
   },
   "first_verdicts": {
-    "未完成": 57
+    "PASS": 31,
+    "FAIL": 1,
+    "未完成": 25
   },
   "first_codex_matrix": {
     "PASS": {
-      "PASS": 0,
+      "PASS": 20,
       "FAIL": 0,
-      "未完成": 36
+      "未完成": 16
     },
     "FAIL": {
-      "PASS": 0,
-      "FAIL": 0,
-      "未完成": 21
+      "PASS": 11,
+      "FAIL": 1,
+      "未完成": 9
     }
   },
   "final_codex_matrix": {
     "PASS": {
-      "PASS": 0,
+      "PASS": 20,
       "FAIL": 0,
-      "未完成": 36
+      "未完成": 16
     },
     "FAIL": {
-      "PASS": 0,
-      "FAIL": 0,
-      "未完成": 21
+      "PASS": 11,
+      "FAIL": 1,
+      "未完成": 9
     }
   },
   "original_verdicts": {
@@ -43,9 +46,9 @@
   },
   "old_to_first_matrix": {
     "PASS": {
-      "PASS": 0,
+      "PASS": 21,
       "FAIL": 0,
-      "未完成": 39
+      "未完成": 18
     },
     "FAIL": {
       "PASS": 0,
@@ -53,9 +56,9 @@
       "未完成": 0
     },
     "UNCERTAIN": {
-      "PASS": 0,
-      "FAIL": 0,
-      "未完成": 18
+      "PASS": 10,
+      "FAIL": 1,
+      "未完成": 7
     }
   },
   "retries": {
@@ -63,50 +66,64 @@
     "status_counts": {},
     "indices": []
   },
-  "final_valid": 0,
+  "final_valid": 32,
   "final_verdicts": {
-    "未完成": 57
+    "PASS": 31,
+    "FAIL": 1,
+    "未完成": 25
   },
-  "disagreement_indices": [],
+  "disagreement_indices": [
+    1,
+    10,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23,
+    24,
+    25
+  ],
   "focus": [
     {
       "source_index": 10,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 20,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 21,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 23,
       "is_major": true,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 25,
       "is_major": true,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
@@ -150,30 +167,30 @@
       "codex_label": "FAIL"
     }
   ],
-  "completed_only_agreement": null,
-  "question_equal_weight_agreement": null,
-  "evaluated_question_count": 0,
+  "completed_only_agreement": 0.65625,
+  "question_equal_weight_agreement": 0.6388888888888888,
+  "evaluated_question_count": 12,
   "costs": {
     "first_input_tokens": {
-      "count": 0,
-      "total": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "count": 32,
+      "total": 632017,
+      "mean": 19750.53125,
+      "median": 13685.5,
+      "max": 58557
     },
     "first_output_tokens": {
-      "count": 0,
-      "total": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "count": 32,
+      "total": 10372,
+      "mean": 324.125,
+      "median": 162.5,
+      "max": 3013
     },
     "first_request_seconds": {
-      "count": 0,
-      "total": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "count": 32,
+      "total": 374.90117553435266,
+      "mean": 11.71566173544852,
+      "median": 7.2565548764541745,
+      "max": 78.13342481292784
     },
     "retry_output_tokens": {
       "count": 0,
@@ -211,8 +228,40 @@
       "max": 30.94153644144535
     }
   },
-  "new_completed_exceeding_old300_character_cap": [],
-  "first_finish_reasons": {},
+  "new_completed_exceeding_old300_character_cap": [
+    1,
+    2,
+    3,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+  ],
+  "first_finish_reasons": {
+    "stop": 32
+  },
   "original_failures": {
     "Invalid feedback type or length": 9,
     "VERIFIER_LENGTH_TRUNCATED": 5,
@@ -227,6 +276,31 @@
     "LENGTH_TRUNCATED / invalid_json": 5,
     "EOS / invalid_json": 4
   },
-  "first_engine_initializations": [],
+  "first_engine_initializations": [
+    {
+      "device": "NVIDIA GeForce RTX 4080 SUPER",
+      "init_seconds": 35.76634441688657,
+      "sampling_signature": "(n: int = 1, presence_penalty: float = 0.0, frequency_penalty: float = 0.0, repetition_penalty: float = 1.0, temperature: float = 1.0, top_p: float = 1.0, top_k: int = 0, min_p: float = 0.0, seed: int | None = None, stop: str | list[str] | None = None, stop_token_ids: list[int] | None = None, ignore_eos: bool = False, max_tokens: int | None = 16, min_tokens: int = 0, logprobs: int | None = None, prompt_logprobs: int | None = None, logprob_token_ids: list[int] | None = None, flat_logprobs: bool = False, detokenize: bool = True, skip_special_tokens: bool = True, spaces_between_special_tokens: bool = True, include_stop_str_in_output: bool = False, output_kind: vllm.sampling_params.RequestOutputKind = <RequestOutputKind.CUMULATIVE: 0>, skip_clone: bool = False, output_text_buffer_length: int = 0, _eos_token_id: int | None = None, _all_stop_token_ids: set[int] = <factory>, structured_outputs: vllm.sampling_params.StructuredOutputsParams | None = None, logit_bias: dict[int, float] | None = None, allowed_token_ids: list[int] | None = None, extra_args: dict[str, typing.Any] | None = None, bad_words: list[str] | None = None, _bad_words_token_ids: list[list[int]] | None = None, skip_reading_prefix_cache: bool | None = None, thinking_token_budget: int | None = None, repetition_detection: vllm.sampling_params.RepetitionDetectionParams | None = None)",
+      "torch_version": "2.11.0+cu130",
+      "vllm_version": "0.20.0"
+    }
+  ],
+  "smoke_costs": {
+    "attempts": 3,
+    "output_tokens": {
+      "count": 3,
+      "total": 1130,
+      "mean": 376.6666666666667,
+      "median": 282,
+      "max": 767
+    },
+    "request_seconds": {
+      "count": 3,
+      "total": 45.52048893738538,
+      "mean": 15.173496312461793,
+      "median": 9.426565295085311,
+      "max": 32.93543810863048
+    }
+  },
   "documentation": "https://docs.vllm.ai/en/v0.20.0/features/structured_outputs/"
 }

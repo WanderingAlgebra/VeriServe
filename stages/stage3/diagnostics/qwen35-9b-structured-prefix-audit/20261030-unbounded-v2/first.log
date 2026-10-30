@@ -121,3 +121,25 @@ INFO 10-30 20:29:44 [loggers.py:271] Engine 000: Avg prompt throughput: 2044.9 t
 {"index": 29, "status": "completed", "verdict": "PASS", "output_tokens": 206, "seconds": 5.537}
 INFO 10-30 20:29:54 [loggers.py:271] Engine 000: Avg prompt throughput: 1378.7 tokens/s, Avg generation throughput: 31.6 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 4.7%, Prefix cache hit rate: 0.0%
 {"index": 30, "status": "completed", "verdict": "PASS", "output_tokens": 199, "seconds": 6.619}
+BACKUP first-30-complete ddb3a31380fd44f12e118b336ae9f2eff255e5b4
+INFO 10-30 20:30:13 [loggers.py:271] Engine 000: Avg prompt throughput: 726.4 tokens/s, Avg generation throughput: 8.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 6.1%, Prefix cache hit rate: 0.0%
+{"index": 31, "status": "completed", "verdict": "PASS", "output_tokens": 155, "seconds": 6.095}
+INFO 10-30 20:30:23 [loggers.py:271] Engine 000: Avg prompt throughput: 1293.6 tokens/s, Avg generation throughput: 31.8 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.7%, Prefix cache hit rate: 0.0%
+INFO 10-30 20:30:33 [loggers.py:271] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 40.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.9%, Prefix cache hit rate: 0.0%
+{"index": 32, "status": "completed", "verdict": "FAIL", "output_tokens": 602, "seconds": 17.045}
+INFO 10-30 20:30:43 [loggers.py:271] Engine 000: Avg prompt throughput: 4375.7 tokens/s, Avg generation throughput: 6.9 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 17.6%, Prefix cache hit rate: 0.0%
+INFO 10-30 20:30:53 [loggers.py:271] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 38.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 17.6%, Prefix cache hit rate: 0.0%
+INFO 10-30 20:31:03 [loggers.py:271] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 38.2 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 17.8%, Prefix cache hit rate: 0.0%
+{"index": 33, "status": "completed", "verdict": "PASS", "output_tokens": 886, "seconds": 31.437}
+INFO 10-30 20:31:18 [loggers.py:271] Engine 000: Avg prompt throughput: 4200.7 tokens/s, Avg generation throughput: 5.9 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 24.1%, Prefix cache hit rate: 0.0%
+INFO 10-30 20:31:28 [loggers.py:271] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 37.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 24.3%, Prefix cache hit rate: 0.0%
+INFO 10-30 20:31:38 [loggers.py:271] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 37.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 24.5%, Prefix cache hit rate: 0.0%
+{"index": 34, "status": "completed", "verdict": "FAIL", "output_tokens": 767, "seconds": 32.972}
+{"index": 35, "status": "completed", "verdict": "PASS", "output_tokens": 88, "seconds": 2.24}
+INFO 10-30 20:31:48 [loggers.py:271] Engine 000: Avg prompt throughput: 2624.5 tokens/s, Avg generation throughput: 21.7 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 10.5%, Prefix cache hit rate: 0.0%
+{"index": 36, "status": "completed", "verdict": "PASS", "output_tokens": 112, "seconds": 7.274}
+{"index": 37, "status": "completed", "verdict": "PASS", "output_tokens": 134, "seconds": 9.593}
+INFO 10-30 20:31:58 [loggers.py:271] Engine 000: Avg prompt throughput: 3557.8 tokens/s, Avg generation throughput: 14.1 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 1.2%, Prefix cache hit rate: 0.0%
+{"index": 38, "status": "completed", "verdict": "PASS", "output_tokens": 62, "seconds": 1.754}
+{"index": 39, "status": "completed", "verdict": "PASS", "output_tokens": 128, "seconds": 3.693}
+{"index": 40, "status": "completed", "verdict": "PASS", "output_tokens": 80, "seconds": 2.665}

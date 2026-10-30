@@ -1,21 +1,23 @@
 {
-  "first_valid": 0,
+  "first_valid": 32,
   "first_verdicts": {
-    "未完成": 57
+    "PASS": 31,
+    "FAIL": 1,
+    "未完成": 25
   },
   "first_failures": {
-    "not_run": 57
+    "not_run": 25
   },
   "first_codex_matrix": {
     "PASS": {
-      "PASS": 0,
+      "PASS": 20,
       "FAIL": 0,
-      "未完成": 36
+      "未完成": 16
     },
     "FAIL": {
-      "PASS": 0,
-      "FAIL": 0,
-      "未完成": 21
+      "PASS": 11,
+      "FAIL": 1,
+      "未完成": 9
     }
   },
   "retries": {
@@ -28,40 +30,40 @@
       "source_index": 10,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 20,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 21,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 23,
       "is_major": true,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 25,
       "is_major": true,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
