@@ -1,0 +1,7 @@
+{
+  "device": "NVIDIA GeForce RTX 4080 SUPER",
+  "init_seconds": 35.61817230749875,
+  "sampling_signature": "(n: int = 1, presence_penalty: float = 0.0, frequency_penalty: float = 0.0, repetition_penalty: float = 1.0, temperature: float = 1.0, top_p: float = 1.0, top_k: int = 0, min_p: float = 0.0, seed: int | None = None, stop: str | list[str] | None = None, stop_token_ids: list[int] | None = None, ignore_eos: bool = False, max_tokens: int | None = 16, min_tokens: int = 0, logprobs: int | None = None, prompt_logprobs: int | None = None, logprob_token_ids: list[int] | None = None, flat_logprobs: bool = False, detokenize: bool = True, skip_special_tokens: bool = True, spaces_between_special_tokens: bool = True, include_stop_str_in_output: bool = False, output_kind: vllm.sampling_params.RequestOutputKind = <RequestOutputKind.CUMULATIVE: 0>, skip_clone: bool = False, output_text_buffer_length: int = 0, _eos_token_id: int | None = None, _all_stop_token_ids: set[int] = <factory>, structured_outputs: vllm.sampling_params.StructuredOutputsParams | None = None, logit_bias: dict[int, float] | None = None, allowed_token_ids: list[int] | None = None, extra_args: dict[str, typing.Any] | None = None, bad_words: list[str] | None = None, _bad_words_token_ids: list[list[int]] | None = None, skip_reading_prefix_cache: bool | None = None, thinking_token_budget: int | None = None, repetition_detection: vllm.sampling_params.RepetitionDetectionParams | None = None)",
+  "torch_version": "2.11.0+cu130",
+  "vllm_version": "0.20.0"
+}
