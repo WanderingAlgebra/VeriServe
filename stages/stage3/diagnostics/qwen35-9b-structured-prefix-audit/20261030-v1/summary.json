@@ -1,0 +1,224 @@
+{
+  "total": 57,
+  "first_attempted": 0,
+  "first_status_counts": {
+    "not_run": 57
+  },
+  "first_valid": 0,
+  "first_failures": {
+    "not_run": 57
+  },
+  "first_verdicts": {
+    "未完成": 57
+  },
+  "first_codex_matrix": {
+    "PASS": {
+      "PASS": 0,
+      "FAIL": 0,
+      "未完成": 36
+    },
+    "FAIL": {
+      "PASS": 0,
+      "FAIL": 0,
+      "未完成": 21
+    }
+  },
+  "final_codex_matrix": {
+    "PASS": {
+      "PASS": 0,
+      "FAIL": 0,
+      "未完成": 36
+    },
+    "FAIL": {
+      "PASS": 0,
+      "FAIL": 0,
+      "未完成": 21
+    }
+  },
+  "original_verdicts": {
+    "UNCERTAIN": 18,
+    "PASS": 39
+  },
+  "old_to_first_matrix": {
+    "PASS": {
+      "PASS": 0,
+      "FAIL": 0,
+      "未完成": 39
+    },
+    "FAIL": {
+      "PASS": 0,
+      "FAIL": 0,
+      "未完成": 0
+    },
+    "UNCERTAIN": {
+      "PASS": 0,
+      "FAIL": 0,
+      "未完成": 18
+    }
+  },
+  "retries": {
+    "attempts": 0,
+    "status_counts": {},
+    "indices": []
+  },
+  "final_valid": 0,
+  "final_verdicts": {
+    "未完成": 57
+  },
+  "disagreement_indices": [],
+  "focus": [
+    {
+      "source_index": 10,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 20,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 21,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 23,
+      "is_major": true,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 25,
+      "is_major": true,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 42,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 48,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 51,
+      "is_major": false,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 52,
+      "is_major": true,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    },
+    {
+      "source_index": 54,
+      "is_major": true,
+      "old_9b": "PASS",
+      "first_9b": "未完成",
+      "final_9b": "未完成",
+      "codex_label": "FAIL"
+    }
+  ],
+  "completed_only_agreement": null,
+  "question_equal_weight_agreement": null,
+  "evaluated_question_count": 0,
+  "costs": {
+    "first_input_tokens": {
+      "count": 0,
+      "total": 0,
+      "mean": null,
+      "median": null,
+      "max": null
+    },
+    "first_output_tokens": {
+      "count": 0,
+      "total": 0,
+      "mean": null,
+      "median": null,
+      "max": null
+    },
+    "first_request_seconds": {
+      "count": 0,
+      "total": 0,
+      "mean": null,
+      "median": null,
+      "max": null
+    },
+    "retry_output_tokens": {
+      "count": 0,
+      "total": 0,
+      "mean": null,
+      "median": null,
+      "max": null
+    },
+    "retry_request_seconds": {
+      "count": 0,
+      "total": 0,
+      "mean": null,
+      "median": null,
+      "max": null
+    },
+    "old_output_tokens": {
+      "count": 57,
+      "total": 11407,
+      "mean": 200.12280701754386,
+      "median": 31,
+      "max": 1024
+    },
+    "old_worker_seconds": {
+      "count": 57,
+      "total": 3731.220370034687,
+      "mean": 65.46000649183662,
+      "median": 59.33385244105011,
+      "max": 197.21056926064193
+    },
+    "old_generation_seconds": {
+      "count": 57,
+      "total": 504.5577324721962,
+      "mean": 8.851890043371863,
+      "median": 5.300360724329948,
+      "max": 30.94153644144535
+    }
+  },
+  "new_completed_exceeding_old300_character_cap": [],
+  "first_finish_reasons": {},
+  "original_failures": {
+    "Invalid feedback type or length": 9,
+    "VERIFIER_LENGTH_TRUNCATED": 5,
+    "Invalid \\escape: line 4 column 238 (char 286)": 1,
+    "Invalid \\escape: line 4 column 886 (char 929)": 1,
+    "Invalid \\escape: line 4 column 368 (char 423)": 1,
+    "Invalid \\escape: line 4 column 195 (char 239)": 1
+  },
+  "first_engine_initializations": [],
+  "documentation": "https://docs.vllm.ai/en/v0.20.0/features/structured_outputs/"
+}

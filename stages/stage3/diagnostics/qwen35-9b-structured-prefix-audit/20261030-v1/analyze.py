@@ -104,6 +104,10 @@ summary=dict(total=57,first_attempted=len(firsts),first_status_counts=dict(Count
                         old_worker_seconds=describe([r['old_worker_seconds'] for r in rows]),
                         old_generation_seconds=describe([r['old_generation_seconds'] for r in rows])),
              new_completed_exceeding_old300_character_cap=old_length_rejects,
+             first_finish_reasons=dict(Counter(str(r.get('finish_reason')) for r in firsts)),
+             original_failures=dict(Counter(r['old_parser_error'] for r in rows if r['old_parser_error'])),
+             first_engine_initializations=[read(p) for p in (RUN/'sessions').glob('*/engine.json')
+                 if read(p.parent/'start.json')['phase']=='first'],
              documentation=manifest['docs'])
 save('summary.json',summary);save('comparison.json',rows);save('disagreements.json',disagreements)
 save('focus_10.json',[r for r in rows if r['is_focus']])
@@ -125,7 +129,7 @@ lines+=['',f"仅在有效新判断上，与Codex标签的一致率为{summary['c
         '## 原先10条分歧','', '| 编号 | 主要推导/结论 | 原9B | 新首轮 | 重试后 | Codex |','|---|---|---|---|---|---|']
 for r in rows:
     if r['is_focus']:lines.append(f"| {r['source_index']} | {'是' if r['is_major'] else '局部问题'} | {r['old_9b']} | {r['first_9b']} | {r['final_9b']} | {r['codex_label']} |")
-lines+=['','## 成本和异常','',f"首轮输出token：{summary['costs']['first_output_tokens']}。",f"首轮每请求秒数：{summary['costs']['first_request_seconds']}。",f"重试输出token：{summary['costs']['retry_output_tokens']}；重试耗时：{summary['costs']['retry_request_seconds']}。",f"原首检输出token：{summary['costs']['old_output_tokens']}；原首检生成耗时：{summary['costs']['old_generation_seconds']}。",'',
+lines+=['','## 成本和异常','',f"首轮输出token：{summary['costs']['first_output_tokens']}。",f"首轮每请求秒数：{summary['costs']['first_request_seconds']}。",f"首轮结束原因：{summary['first_finish_reasons']}。原首检失败分类：{summary['original_failures']}。",f"重试输出token：{summary['costs']['retry_output_tokens']}；重试耗时：{summary['costs']['retry_request_seconds']}。",f"原首检输出token：{summary['costs']['old_output_tokens']}；原首检生成耗时：{summary['costs']['old_generation_seconds']}。",'',
         '新运行按阶段保持模型驻留，原运行每条启动并退出模型进程。原seconds包含进程启动、模型加载等，新request_seconds不包含阶段级模型初始化，不能直接据二者之差宣称结构化输出加速。模型初始化、显存峰值和版本保存在sessions/；所有原始输出、token ID、结束原因和每次尝试保存在各阶段目录。',
         f"新完成输出中超过旧300字符上限的条目：{old_length_rejects}。这部分可用性改善也受放宽字符上限影响，不能全部归因于语法约束。",'',
         '## 配置与归因限制','',
@@ -137,11 +141,14 @@ lines+=['','原核验标准中的当前采用推导、自我纠正和中途/终�
         '二选一移除了原数学不确定出口；PASS增加诊断理由；删除300字符限制；加入语法约束改变可选token及随机采样路径。因此数学标签变化不能单独归因于“修好了JSON”。重试提高预算的结果也不能替换首轮统计。',
         '此次使用既有57条进行探索性诊断，Codex为暂时对照且自身存在复核范围和题意歧义限制。此次不创建或更新原实验质量放行文件。', '',
         '## 新9B与Codex不一致的条目','',f"共{len(disagreements)}条：{summary['disagreement_indices']}。双方理由如下，供复核，不裁定哪方一定正确。"]
+lines[-1]=f"共{len(disagreements)}条：{summary['disagreement_indices']}。双方完整理由见[分歧明细](disagreements.md)及comparison.csv，供复核，不裁定哪方一定正确。"
+details=['# 新9B与Codex分歧明细','', 'Codex仅为暂时对照；以下逐条保留双方理由，不裁定哪方一定正确。']
 for r in disagreements:
-    lines+=['',f"### 前缀{r['source_index']}：9B {r['final_9b']} / Codex {r['codex_label']}",
+    details+=['',f"### 前缀{r['source_index']}：9B {r['final_9b']} / Codex {r['codex_label']}",
             '', '9B理由：'+r['new_diagnosis'],'', '9B返工提示：'+(r['new_hint'] or '无'),
             '', 'Codex理由：'+r['codex_reason']]
-    if r['codex_caveat']:lines+=['','Codex限制说明：'+r['codex_caveat']]
+    if r['codex_caveat']:details+=['','Codex限制说明：'+r['codex_caveat']]
+(RUN/'disagreements.md').write_text('\n'.join(details)+'\n')
 lines+=['','## 下一步','',
         '先复核23、25、52、54的双方具体推导，再处理局部笔误和其他分歧。若需要量化纯语法约束的因果作用，应另行保持提示词、判定空间、解析规则和引擎生命周期完全相同作对照；本次不把混合配置变化当作该因果实验。']
 (RUN/'report.md').write_text('\n'.join(lines)+'\n')

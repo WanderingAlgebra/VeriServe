@@ -1,0 +1,9 @@
+{
+  "completed_this_session": 2,
+  "device_peak_bytes": 28317450240,
+  "model_init_seconds": 35.79963614977896,
+  "phase": "smoke",
+  "skipped": [
+    4
+  ]
+}
