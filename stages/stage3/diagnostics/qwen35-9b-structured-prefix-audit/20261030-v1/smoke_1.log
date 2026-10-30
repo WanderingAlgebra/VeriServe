@@ -58,3 +58,7 @@ WARNING 10-30 20:08:53 [system_utils.py:157] We must use the `spawn` multiproces
 (EngineCore pid=258867) INFO 10-30 20:09:23 [vllm.py:840] Asynchronous scheduling is enabled.
 (EngineCore pid=258867) INFO 10-30 20:09:23 [kernel.py:205] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'])
 {"index": 4, "status": "completed", "verdict": "PASS", "output_tokens": 81, "seconds": 3.438}
+BACKUP smoke-session-complete 8a148b62ca7f8489f8f79998259ff3a277674f0f
+(EngineCore pid=258867) INFO 10-30 20:09:40 [core.py:1238] Shutdown initiated (timeout=0)
+(EngineCore pid=258867) INFO 10-30 20:09:40 [core.py:1261] Shutdown complete
+[rank0]:[W1030 20:09:41.190289351 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
