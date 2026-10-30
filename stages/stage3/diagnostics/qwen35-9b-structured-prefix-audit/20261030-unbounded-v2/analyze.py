@@ -147,6 +147,12 @@ lines=['# Qwen3.5-9B：57前缀结构化输出重跑','',
        '## 首轮与Codex暂时对照','']+table_matrix(summary['first_codex_matrix'])
 lines+=['','## 含重试的最终对照','']+table_matrix(summary['final_codex_matrix'])
 lines+=['',f"仅在有效新判断上，与Codex标签的一致率为{summary['completed_only_agreement']}；按题等权为{summary['question_equal_weight_agreement']}（{len(groups)}题）。这不是相对绝对真值的准确率。57个前缀来自20题，存在前缀包含关系。",'',
+        '## 新旧9B首轮判断','',
+        '| 原9B首检 | 新PASS | 新FAIL | 未完成 |','|---|---:|---:|---:|']
+for old in ['PASS','FAIL','UNCERTAIN']:
+    a=changes[old];lines.append(f"| {old} | {a['PASS']} | {a['FAIL']} | {a['未完成']} |")
+lines += ['',f"原39条有效PASS中，{changes['PASS']['FAIL']}条在新首轮变为FAIL，{changes['PASS']['PASS']}条仍为PASS，{changes['PASS']['未完成']}条未完成。原UNCERTAIN到新二分类是从旧不可用结果获得新判断，不称为原有效数学标签的改判。",
+        f"原18条不可用结果，新首轮不可用为{57-summary['first_valid']}条（未运行也计入这一描述，实际状态分类见开头）。程序可用性与数学标签一致性分开评估；其差值同时受结构化约束、取消输出上限及输出规则变化影响。",'',
         '## 原先10条分歧','', '| 编号 | 主要推导/结论 | 原9B | 新首轮 | 重试后 | Codex |','|---|---|---|---|---|---|']
 for r in rows:
     if r['is_focus']:lines.append(f"| {r['source_index']} | {'是' if r['is_major'] else '局部问题'} | {r['old_9b']} | {r['first_9b']} | {r['final_9b']} | {r['codex_label']} |")
