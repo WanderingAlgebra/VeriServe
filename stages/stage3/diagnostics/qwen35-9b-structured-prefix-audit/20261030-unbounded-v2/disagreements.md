@@ -140,3 +140,94 @@ Codex引用原文：$a = BE \frac{\sin \alpha}{\sin(\alpha+\phi)}$.
 Codex理由：正弦定理的反比关系仍进入最终解答并给出450。令φ=∠AEB、α=∠EBC，正确应AE=BE sin(α+φ)/sinα、ED=CE sin(α+φ)/cosα。由ED/AE=9得tanα=3，再由面积比得φ=45°，于是AE=4/√5，AD²=320。
 
 Codex引用原文：$a = BE \frac{\sin \alpha}{\sin(\alpha+\phi)}$.
+
+### 前缀33：9B PASS / Codex FAIL
+
+9B指向检查点：None
+
+9B理由：The reasoning in Checkpoint 6 attempts to verify the solution $DA = x = 2$ (implied by previous steps or common patterns, though the text explicitly tests $x=5$ and then checks a specific case where $AC$ is diameter with $x=21$) but fails to find a valid configuration. Specifically, it calculates coordinates for a case where $AC$ is the diameter ($AB=4, BC=3, CD=2, DA=x$) leading to $x=21$ (actually $x^2=21$, so $x=21$ was a typo in my thought trace, likely meant $x=21$? No, $x^2=21$). The calculation shows that for this specific geometric setup (right triangle at B), the intersection point $P$ of the reflections does not lie on line $AC$. This indicates that the assumption that such a simple integer or radical solution exists based on right angles might be incorrect, or the calculation in the checkpoint is flawed/incomplete. However, looking back at the problem constraints and the nature of such problems, there is often a unique solution derived from the concurrency condition. The check correctly identifies that the proposed value ($x$ derived from $AC$ being diameter) does not satisfy the concurrency condition, suggesting the error is in the assumption that leads to that value or the value itself. But more importantly, the reasoning stops without finding the correct value or proving why the others fail definitively. The critical missing piece is the actual derivation of the condition for concurrency which relates the side lengths directly. Without that, checking random cases is inefficient. Wait, re-reading the prompt's provided text: Checkpoint 6 says 'What if DA makes angle ABC = 90...'. It derives $x = sqrt(21)$ and then checks it and finds it fails. This is a valid exploration step but doesn't solve the problem. Is there an unresolved error? The text says 'Thus x=sqrt(21) is not the solution.' This is a conclusion, not necessarily an error, unless the problem implies a solution must exist and this path covers all possibilities (which it doesn't). However, the prompt asks to check assertions. The assertion 'x=sqrt(21)' is tested and rejected. This is fine. But the overall goal 'compute DA' is not met. Is there a concrete mathematical error? In the coordinate calculation: $D$ coordinates were found, slopes calculated, intersection checked. The arithmetic seems plausible. The failure suggests $ABC$ is not 90. So no error in logic, just a dead end. BUT, looking at the very first few checkpoints, there is a lot of confusion about the geometry. Checkpoint 3 derives angle relations $x_4-x_1$ etc. Checkpoint 4 tries to use sine rules. Checkpoint 5 considers integers. Checkpoint 6 tries a specific case. None of these establish the final answer. The reasoning is incomplete. Is it FAIL? The instructions say 'FAIL requires a concrete unresolved error'. An incomplete proof is not necessarily an error if the reasoning is sound so far. However, the user wants me to check the *prefix*. The prefix ends with a failed attempt to guess the answer. There is no 'concrete unresolved error' in the math performed (the calculation of $x=21$ failing is correct). But the task is to 'compute DA'. If the reasoning hasn't computed it, is it a failure? The instruction says 'For intermediate checks, check only existing reasoning; absence of a final answer is not an error.' So I should return PASS if the reasoning so far has no contradictions. The reasoning in 6 is consistent (it found a case that didn't work). The earlier parts had some hand-waving but no explicit contradictions found yet. Wait, in CP 3/4, there was a derivation of angles. Did they contradict? They assumed $P$ exists and derived conditions. Then CP 6 tested a case. Since the case failed, it means the condition '$ABC=90$' is false. This is valid. So no error. PASS.
+
+9B返工提示：无
+
+Codex理由：由3y=4x+5和x≈1.74，应得y≈3.99，却算成≈2.3，随后的BD斜率和两条反射线均错误，并据此排除√21。误差远非正常近似；√21实际上满足题目的共点条件。
+
+Codex引用原文：$y_D = \frac{4}{3}(1.7) + 1.6 \approx 2.3$.
+
+### 前缀42：9B PASS / Codex FAIL
+
+9B指向检查点：None
+
+9B理由：The reasoning is sound. The total permutations calculation (420) is correct based on the letter counts (H:2, M:4, T:2). The logic for counting strings containing at least one 'HMMT' block using the 'marked block' method is valid because the pattern 'HMMT' has no self-overlaps (no proper prefix is a suffix), ensuring that occurrences must be disjoint. The count of 60 permutations of the multiset {Block, H, M, M, T} correctly accounts for multiplicities: strings with exactly one 'HMMT' are counted once, and the unique string with two 'HMMT's ('HMMTHMMT') is counted twice (once for each block being marked). Solving $N(1) + 2N(2) = 60$ with $N(2)=1$ yields $N(1)=58$, so there are $58+1=59$ distinct strings containing the substring. Subtracting from 420 gives 361.
+
+9B返工提示：无
+
+Codex理由：当前最后核验HMHMMTMT时，第2至5个字符是M,H,M,M，即MHMM，却列为MHHM。位置列表已经正确列在前面，因此能直接核实这一新列出的子串有误；没有后文重算该行。
+
+Codex引用原文：2,3,4,5 -> MHHM
+
+Codex限制说明：两个子串都不是HMMT，故这个笔误不改变主计数361。
+
+### 前缀44：9B PASS / Codex FAIL
+
+9B指向检查点：None
+
+9B理由：The reasoning correctly identifies the problem as a dynamic programming or state-space search problem where Merble maximizes the probability of ending with a score of 1. It correctly analyzes the Diophantine constraint $3a - 2b = 1$ for kept marbles and notes that success is not guaranteed (e.g., if only Reds appear). However, the reasoning cuts off at checkpoint 4 while attempting to analyze failure conditions and has not yet established the specific strategy or computed the final probability. The current step contains no mathematical errors, but the solution is incomplete.
+
+9B返工提示：无
+
+Codex理由：当前列举3a-2b=1的最小解时，把1红1蓝的保留总数写成1，实际为2；上一行(5a-1)/2在a=1也给2。后文尚未重新列出这个总数，故是末段仍保留的局部算术错误，不是尚未完成造成FAIL。
+
+Codex引用原文：For $a=1$, kept = 1. (Requires 1R, 1B).
+
+Codex限制说明：核心得分方程正确；这个总数笔误没有改变后续可用的1红1蓝策略。
+
+### 前缀48：9B PASS / Codex FAIL
+
+9B指向检查点：None
+
+9B理由：The reasoning correctly identifies that $E$ is the foot of the perpendicular from $B$ to the angle bisector $AD$. It establishes that in right triangle $ABE$, $F$ (midpoint of hypotenuse $AB$) implies $EF = AB/2$. The reflection argument (Checkpoint 21-24) further confirms this by showing $E$ is the midpoint of the segment connecting $B$ to its reflection $B'$ on line $AC$, making $EF$ a midline of triangle $ABB'$ with length $AB'/2 = AB/2$. The extra data ($BC=33, CA=37$) is identified as potentially superfluous or for ensuring triangle existence. No mathematical errors found in the logic or calculations.
+
+9B返工提示：无
+
+Codex理由：当前反射辅助论证把ABB′称为一般不等边。B′是B关于经过A的直线AD的反射点，因此恒有AB′=AB，ABB′必为等腰。虽已给出正确EF=14及独立证明，此句是在它们之后新引入的错误断言，之后没有正确替换“不等边”的分类。
+
+Codex引用原文：So triangle $ABB'$ is a proper triangle (actually scalene generally).
+
+Codex限制说明：最终EF=14正确；单列此辅助几何描述错误，不与主证明错误混为一谈。
+
+### 前缀50：9B FAIL / Codex PASS
+
+9B指向检查点：7
+
+9B理由：The reasoning in the final checkpoint (Step 7) attempts to construct a Hamiltonian path for an $8x8$ grid where the diagonal contains the smallest odd numbers {1, 3, ..., 15}. However, the analysis provided is incomplete and focuses entirely on a failed construction attempt for a $3x3$ grid. It does not successfully extend this logic or provide a valid construction for the $8x8$ case. The failure of a specific snake-like or greedy path in the $3x3$ example does not mathematically prove that no such path exists for $n=8$. More importantly, the reasoning stops at 'Stuck' without concluding whether the theoretical lower bound of 64 is achievable or if a higher minimum is forced by topological constraints (e.g., bottlenecks around the diagonal). Without a successful construction or a rigorous proof of impossibility for the sum 64, the conclusion that the answer is 64 remains unverified.
+
+9B返工提示：Do not rely solely on the failure of a single heuristic path (like the one traced in Step 7) to disprove the possibility of sum=64. Instead, consider if there is a known theorem or a specific constructive pattern (such as a 'spiral' or 'boustrophedon' variation that avoids the center bottleneck) that allows placing small odd numbers on the main diagonal while maintaining connectivity. Re-evaluate the parity argument: since the diagonal cells are all the same color, they must contain values of the same parity. The minimum sum of 8 distinct odd numbers is indeed 64. The core task is to confirm existence, not just find a bad path.
+
+Codex理由：当前正确建立黑白染色及64的下界，并通过小棋盘探索可达性；还没有确认错误的可达性结论。末尾尝试过不相邻的位置，但这些候选路径均已以走不通放弃，不能因探索失败判FAIL。
+
+### 前缀51：9B PASS / Codex FAIL
+
+9B指向检查点：None
+
+9B理由：The reasoning correctly identifies that the diagonal cells in an $8x8$ grid all share the same color (Black, where $i+j$ is even). It correctly deduces that if the path starts on a Black cell (value 1), all Black cells must contain odd numbers, and if it starts on a White cell, they must contain even numbers. It calculates the theoretical minimum sum for the odd case as $1+3+...+15 = 64$ and for the even case as $2+4+...+16 = 72$. The reasoning then explores small cases ($n=2, n=3, n=4$) to test feasibility. While it encounters difficulty constructing a valid path for $n=3$ with the minimal set of odds, it correctly notes that this might be due to the small size or specific topology constraints of the $3x3$ grid. For $n=8$, the larger grid provides sufficient 'buffer' space to route the Hamiltonian path between the required values on the diagonal without getting stuck. The conclusion that the minimum sum is 64 based on the parity argument and the existence of such paths for even grids is sound.
+
+9B返工提示：无
+
+Codex理由：讨论3×3棋盘时，仍采用白格承载1,3,5,7而把9分给黑格的分配。哈密顿路径必须交替颜色，1若在白格，全部5个奇数都必须在白格，但白格仅4个，故该起点根本不可能。后文再次把白格起点、对角线取偶数且下界12作为可比较情形，没有消除这项基数矛盾。
+
+Codex引用原文：If $1 \in W$, $W$ takes $\{1, 3, 5, 7\}$ (size 4).
+$B$ takes $\{2, 4, 6, 8, 9\}$ (size 5).
+
+Codex限制说明：该错误属于3×3辅助分析；8×8的64此时主要仍以猜想表达。
+
+### 前缀52：9B PASS / Codex FAIL
+
+9B指向检查点：None
+
+9B理由：The reasoning correctly identifies the parity constraint: for an 8x8 grid, the main diagonal consists entirely of cells of one color (say, Black). If the path starts with 1 on a Black cell, all Black cells contain odd numbers. The minimum sum of 8 distinct odd numbers is 1+3+...+15 = 64. If 1 starts on White, Black cells contain even numbers, and the minimum sum is 2+4+...+16 = 72. The lower bound is thus 64. The reasoning acknowledges that while small grids like n=3 might have topological obstructions preventing the ideal configuration, for even n (like n=8), such constructions are generally possible due to greater flexibility in routing the Hamiltonian path around the diagonal elements. The final conclusion of 64 is consistent with the n=2 case and the theoretical lower bound derived from parity.
+
+9B返工提示：无
+
+Codex理由：最终明确断言偶数n可让对角线取最小的奇数并据此给64，该可达性断言不成立。若和为64，对角线必须恰放1,3,..,15；连续对角点间只隔一步，迫使前15步从一角沿主对角线单向走到另一角。此后两侧都还剩未访问格子，但所有对角格都已访问，把两侧隔断，后续一条路径无法覆盖两侧。
+
+Codex引用原文：For an $n \times n$ grid with even $n$, it is possible to construct a Hamiltonian path where the diagonal elements are the smallest available numbers of the respective parity (odds).

@@ -2,42 +2,38 @@
   "total": 57,
   "output_budget_policy": "max_tokens=None; no fixed output cap",
   "model_context_tokens": 148480,
-  "first_attempted": 32,
+  "first_attempted": 57,
   "first_status_counts": {
-    "completed": 32,
-    "not_run": 25
+    "completed": 57
   },
-  "first_valid": 32,
-  "first_failures": {
-    "not_run": 25
-  },
+  "first_valid": 57,
+  "first_failures": {},
   "first_verdicts": {
-    "PASS": 31,
-    "FAIL": 1,
-    "未完成": 25
+    "PASS": 52,
+    "FAIL": 5
   },
   "first_codex_matrix": {
     "PASS": {
-      "PASS": 20,
-      "FAIL": 0,
-      "未完成": 16
+      "PASS": 35,
+      "FAIL": 1,
+      "未完成": 0
     },
     "FAIL": {
-      "PASS": 11,
-      "FAIL": 1,
-      "未完成": 9
+      "PASS": 17,
+      "FAIL": 4,
+      "未完成": 0
     }
   },
   "final_codex_matrix": {
     "PASS": {
-      "PASS": 20,
-      "FAIL": 0,
-      "未完成": 16
+      "PASS": 35,
+      "FAIL": 1,
+      "未完成": 0
     },
     "FAIL": {
-      "PASS": 11,
-      "FAIL": 1,
-      "未完成": 9
+      "PASS": 17,
+      "FAIL": 4,
+      "未完成": 0
     }
   },
   "original_verdicts": {
@@ -46,9 +42,9 @@
   },
   "old_to_first_matrix": {
     "PASS": {
-      "PASS": 21,
-      "FAIL": 0,
-      "未完成": 18
+      "PASS": 38,
+      "FAIL": 1,
+      "未完成": 0
     },
     "FAIL": {
       "PASS": 0,
@@ -56,9 +52,9 @@
       "未完成": 0
     },
     "UNCERTAIN": {
-      "PASS": 10,
-      "FAIL": 1,
-      "未完成": 7
+      "PASS": 14,
+      "FAIL": 4,
+      "未完成": 0
     }
   },
   "retries": {
@@ -66,11 +62,10 @@
     "status_counts": {},
     "indices": []
   },
-  "final_valid": 32,
+  "final_valid": 57,
   "final_verdicts": {
-    "PASS": 31,
-    "FAIL": 1,
-    "未完成": 25
+    "PASS": 52,
+    "FAIL": 5
   },
   "disagreement_indices": [
     1,
@@ -83,7 +78,14 @@
     21,
     23,
     24,
-    25
+    25,
+    33,
+    42,
+    44,
+    48,
+    50,
+    51,
+    52
   ],
   "focus": [
     {
@@ -130,66 +132,66 @@
       "source_index": 42,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 48,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 51,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 52,
       "is_major": true,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
       "source_index": 54,
       "is_major": true,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "FAIL",
+      "final_9b": "FAIL",
       "codex_label": "FAIL"
     }
   ],
-  "completed_only_agreement": 0.65625,
-  "question_equal_weight_agreement": 0.6388888888888888,
-  "evaluated_question_count": 12,
+  "completed_only_agreement": 0.6842105263157895,
+  "question_equal_weight_agreement": 0.6666666666666666,
+  "evaluated_question_count": 20,
   "costs": {
     "first_input_tokens": {
-      "count": 32,
-      "total": 632017,
-      "mean": 19750.53125,
-      "median": 13685.5,
-      "max": 58557
+      "count": 57,
+      "total": 1160677,
+      "mean": 20362.754385964912,
+      "median": 14632,
+      "max": 61051
     },
     "first_output_tokens": {
-      "count": 32,
-      "total": 10372,
-      "mean": 324.125,
-      "median": 162.5,
+      "count": 57,
+      "total": 16907,
+      "mean": 296.6140350877193,
+      "median": 178,
       "max": 3013
     },
     "first_request_seconds": {
-      "count": 32,
-      "total": 374.90117553435266,
-      "mean": 11.71566173544852,
-      "median": 7.2565548764541745,
+      "count": 57,
+      "total": 636.618667403236,
+      "mean": 11.168748550933966,
+      "median": 8.408496975898743,
       "max": 78.13342481292784
     },
     "retry_output_tokens": {
@@ -257,10 +259,33 @@
     29,
     30,
     31,
-    32
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    39,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57
   ],
   "first_finish_reasons": {
-    "stop": 32
+    "stop": 57
   },
   "original_failures": {
     "Invalid feedback type or length": 9,

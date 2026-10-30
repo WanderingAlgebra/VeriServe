@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "completed": 57,
+  "schema_and_semantic_reparse": 57,
+  "verbatim_csv_raw_output_roundtrip": 57,
+  "original_input_and_codex_unchanged": true,
+  "all_max_tokens_null": true,
+  "seed_and_input_request_correspondence": true,
+  "token_counts_and_context_capacity_checked": true,
+  "summary_matrix_totals_checked": true,
+  "retries": 0,
+  "cpu_unit_checks": {
+    "command": "/root/veriserve-vllm-env/bin/python -m unittest tests.test_structured_prefix_audit -v",
+    "tests_passed": 2,
+    "scope": "Previously executed before this run; not a replacement for real GPU smoke."
+  },
+  "real_smoke_indices": [
+    4,
+    23,
+    34
+  ]
+}
