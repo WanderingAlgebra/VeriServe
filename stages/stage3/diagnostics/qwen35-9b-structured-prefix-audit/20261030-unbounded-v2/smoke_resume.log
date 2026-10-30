@@ -62,3 +62,7 @@ INFO 10-30 20:21:53 [loggers.py:271] Engine 000: Avg prompt throughput: 3121.3 t
 INFO 10-30 20:22:03 [loggers.py:271] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 37.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 24.3%, Prefix cache hit rate: 0.0%
 INFO 10-30 20:22:13 [loggers.py:271] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 37.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 24.5%, Prefix cache hit rate: 0.0%
 {"index": 34, "status": "completed", "verdict": "FAIL", "output_tokens": 767, "seconds": 32.935}
+BACKUP smoke-session-complete c094f72da30ce7dbdcdc0d2143475598713eba59
+(EngineCore pid=265094) INFO 10-30 20:22:26 [core.py:1238] Shutdown initiated (timeout=0)
+(EngineCore pid=265094) INFO 10-30 20:22:26 [core.py:1261] Shutdown complete
+[rank0]:[W1030 20:22:27.472253439 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
