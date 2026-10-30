@@ -1,21 +1,24 @@
 {
-  "first_valid": 0,
+  "first_valid": 10,
   "first_verdicts": {
-    "未完成": 57
+    "未完成": 47,
+    "PASS": 10
   },
   "first_failures": {
-    "not_run": 57
+    "truncation": 1,
+    "interrupted_for_user_setting_change": 1,
+    "not_run": 45
   },
   "first_codex_matrix": {
     "PASS": {
-      "PASS": 0,
+      "PASS": 9,
       "FAIL": 0,
-      "未完成": 36
+      "未完成": 27
     },
     "FAIL": {
-      "PASS": 0,
+      "PASS": 1,
       "FAIL": 0,
-      "未完成": 21
+      "未完成": 20
     }
   },
   "retries": {
@@ -28,8 +31,8 @@
       "source_index": 10,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {

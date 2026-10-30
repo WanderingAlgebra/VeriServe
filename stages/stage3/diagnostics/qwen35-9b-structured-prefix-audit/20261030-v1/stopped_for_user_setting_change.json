@@ -1,0 +1,6 @@
+{
+  "status": "STOPPED_AT_USER_REQUEST",
+  "reason": "User requests no fixed output token cap, actual tokens must be recorded.",
+  "next_run": "20261030-unbounded-v2",
+  "first_attempt_files": 12
+}

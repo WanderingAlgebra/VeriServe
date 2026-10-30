@@ -26,7 +26,7 @@
   --run stages/stage3/diagnostics/qwen35-9b-structured-prefix-audit/20261030-v1 --phase retry --budget 2048
 ```
 
-若仍有未完成，可再次使用`--phase retry --budget 4096`；已经成功的样本自动跳过，同预算失败也不会重复收费。所有尝试按`attempt_01.json`、`attempt_02.json`保存。每次请求前先落盘intent，推理返回后立即保存response，完成解析后保存attempt。异常和截断不生成数学标签。
+若仍有未完成，可再次使用`--phase retry --budget 4096`；已经成功的样本自动跳过，同预算失败也不会自动重复运行。所有尝试按`attempt_01.json`、`attempt_02.json`保存。每次请求前先落盘intent，推理返回后立即保存response，完成解析后保存attempt。异常和截断不生成数学标签。
 
 重建报告不启动模型：
 

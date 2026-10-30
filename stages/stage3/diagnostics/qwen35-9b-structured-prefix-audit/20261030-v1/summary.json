@@ -1,38 +1,44 @@
 {
   "total": 57,
-  "first_attempted": 0,
+  "first_attempted": 12,
   "first_status_counts": {
-    "not_run": 57
+    "truncation": 1,
+    "completed": 10,
+    "interrupted_for_user_setting_change": 1,
+    "not_run": 45
   },
-  "first_valid": 0,
+  "first_valid": 10,
   "first_failures": {
-    "not_run": 57
+    "truncation": 1,
+    "interrupted_for_user_setting_change": 1,
+    "not_run": 45
   },
   "first_verdicts": {
-    "未完成": 57
+    "未完成": 47,
+    "PASS": 10
   },
   "first_codex_matrix": {
     "PASS": {
-      "PASS": 0,
+      "PASS": 9,
       "FAIL": 0,
-      "未完成": 36
+      "未完成": 27
     },
     "FAIL": {
-      "PASS": 0,
+      "PASS": 1,
       "FAIL": 0,
-      "未完成": 21
+      "未完成": 20
     }
   },
   "final_codex_matrix": {
     "PASS": {
-      "PASS": 0,
+      "PASS": 9,
       "FAIL": 0,
-      "未完成": 36
+      "未完成": 27
     },
     "FAIL": {
-      "PASS": 0,
+      "PASS": 1,
       "FAIL": 0,
-      "未完成": 21
+      "未完成": 20
     }
   },
   "original_verdicts": {
@@ -41,9 +47,9 @@
   },
   "old_to_first_matrix": {
     "PASS": {
-      "PASS": 0,
+      "PASS": 8,
       "FAIL": 0,
-      "未完成": 39
+      "未完成": 31
     },
     "FAIL": {
       "PASS": 0,
@@ -51,9 +57,9 @@
       "未完成": 0
     },
     "UNCERTAIN": {
-      "PASS": 0,
+      "PASS": 2,
       "FAIL": 0,
-      "未完成": 18
+      "未完成": 16
     }
   },
   "retries": {
@@ -61,18 +67,21 @@
     "status_counts": {},
     "indices": []
   },
-  "final_valid": 0,
+  "final_valid": 10,
   "final_verdicts": {
-    "未完成": 57
+    "未完成": 47,
+    "PASS": 10
   },
-  "disagreement_indices": [],
+  "disagreement_indices": [
+    10
+  ],
   "focus": [
     {
       "source_index": 10,
       "is_major": false,
       "old_9b": "PASS",
-      "first_9b": "未完成",
-      "final_9b": "未完成",
+      "first_9b": "PASS",
+      "final_9b": "PASS",
       "codex_label": "FAIL"
     },
     {
@@ -148,30 +157,30 @@
       "codex_label": "FAIL"
     }
   ],
-  "completed_only_agreement": null,
-  "question_equal_weight_agreement": null,
-  "evaluated_question_count": 0,
+  "completed_only_agreement": 0.9,
+  "question_equal_weight_agreement": 0.875,
+  "evaluated_question_count": 4,
   "costs": {
     "first_input_tokens": {
-      "count": 0,
-      "total": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "count": 11,
+      "total": 167844,
+      "mean": 15258.545454545454,
+      "median": 9469,
+      "max": 44129
     },
     "first_output_tokens": {
-      "count": 0,
-      "total": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "count": 11,
+      "total": 2696,
+      "mean": 245.0909090909091,
+      "median": 135,
+      "max": 1024
     },
     "first_request_seconds": {
-      "count": 0,
-      "total": 0,
-      "mean": null,
-      "median": null,
-      "max": null
+      "count": 11,
+      "total": 98.47810675296932,
+      "mean": 8.952555159360848,
+      "median": 5.573479600250721,
+      "max": 28.20607472024858
     },
     "retry_output_tokens": {
       "count": 0,
@@ -209,8 +218,20 @@
       "max": 30.94153644144535
     }
   },
-  "new_completed_exceeding_old300_character_cap": [],
-  "first_finish_reasons": {},
+  "new_completed_exceeding_old300_character_cap": [
+    2,
+    3,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "first_finish_reasons": {
+    "length": 1,
+    "stop": 10,
+    "None": 1
+  },
   "original_failures": {
     "Invalid feedback type or length": 9,
     "VERIFIER_LENGTH_TRUNCATED": 5,
@@ -219,6 +240,20 @@
     "Invalid \\escape: line 4 column 368 (char 423)": 1,
     "Invalid \\escape: line 4 column 195 (char 239)": 1
   },
-  "first_engine_initializations": [],
+  "original_rejected_raw_output_audit": {
+    "EOS / valid_json / UNCERTAIN": 5,
+    "EOS / valid_json / FAIL": 4,
+    "LENGTH_TRUNCATED / invalid_json": 5,
+    "EOS / invalid_json": 4
+  },
+  "first_engine_initializations": [
+    {
+      "device": "NVIDIA GeForce RTX 4080 SUPER",
+      "init_seconds": 35.84146542288363,
+      "sampling_signature": "(n: int = 1, presence_penalty: float = 0.0, frequency_penalty: float = 0.0, repetition_penalty: float = 1.0, temperature: float = 1.0, top_p: float = 1.0, top_k: int = 0, min_p: float = 0.0, seed: int | None = None, stop: str | list[str] | None = None, stop_token_ids: list[int] | None = None, ignore_eos: bool = False, max_tokens: int | None = 16, min_tokens: int = 0, logprobs: int | None = None, prompt_logprobs: int | None = None, logprob_token_ids: list[int] | None = None, flat_logprobs: bool = False, detokenize: bool = True, skip_special_tokens: bool = True, spaces_between_special_tokens: bool = True, include_stop_str_in_output: bool = False, output_kind: vllm.sampling_params.RequestOutputKind = <RequestOutputKind.CUMULATIVE: 0>, skip_clone: bool = False, output_text_buffer_length: int = 0, _eos_token_id: int | None = None, _all_stop_token_ids: set[int] = <factory>, structured_outputs: vllm.sampling_params.StructuredOutputsParams | None = None, logit_bias: dict[int, float] | None = None, allowed_token_ids: list[int] | None = None, extra_args: dict[str, typing.Any] | None = None, bad_words: list[str] | None = None, _bad_words_token_ids: list[list[int]] | None = None, skip_reading_prefix_cache: bool | None = None, thinking_token_budget: int | None = None, repetition_detection: vllm.sampling_params.RepetitionDetectionParams | None = None)",
+      "torch_version": "2.11.0+cu130",
+      "vllm_version": "0.20.0"
+    }
+  ],
   "documentation": "https://docs.vllm.ai/en/v0.20.0/features/structured_outputs/"
 }

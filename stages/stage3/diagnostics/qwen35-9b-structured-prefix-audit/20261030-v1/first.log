@@ -74,3 +74,43 @@ INFO 10-30 20:15:31 [loggers.py:271] Engine 000: Avg prompt throughput: 747.4 to
 {"index": 9, "status": "completed", "verdict": "PASS", "output_tokens": 106, "seconds": 4.129}
 INFO 10-30 20:15:41 [loggers.py:271] Engine 000: Avg prompt throughput: 2307.5 tokens/s, Avg generation throughput: 25.3 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 5.9%, Prefix cache hit rate: 0.0%
 {"index": 10, "status": "completed", "verdict": "PASS", "output_tokens": 135, "seconds": 5.573}
+BACKUP first-10-complete befc1dba6d1ace12df38dce383a1691461bbcccb
+INFO 10-30 20:16:05 [loggers.py:271] Engine 000: Avg prompt throughput: 1738.7 tokens/s, Avg generation throughput: 1.0 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 16.8%, Prefix cache hit rate: 0.0%
+INFO 10-30 20:16:15 [loggers.py:271] Engine 000: Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 38.4 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 16.8%, Prefix cache hit rate: 0.0%
+{"index": 11, "status": "completed", "verdict": "PASS", "output_tokens": 531, "seconds": 21.618}
+INFO 10-30 20:16:30 [loggers.py:271] Engine 000: Avg prompt throughput: 3786.2 tokens/s, Avg generation throughput: 9.5 tokens/s, Running: 1 reqs, Waiting: 0 reqs, GPU KV cache usage: 23.1%, Prefix cache hit rate: 0.0%
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage3/structured_prefix_audit.py", line 353, in <module>
+    main()
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage3/structured_prefix_audit.py", line 349, in main
+    else:run_phase(run,args.phase,args.stop_after,args.budget)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage3/structured_prefix_audit.py", line 301, in run_phase
+    response=model.generate([{'prompt_token_ids':request['input_ids']}],params,use_tqdm=False)[0]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 500, in generate
+    return self._run_completion(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 1651, in _run_completion
+    return self._run_engine(use_tqdm=use_tqdm, output_type=output_type)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 1861, in _run_engine
+    step_outputs = self.llm_engine.step()
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/llm_engine.py", line 295, in step
+    outputs = self.engine_core.get_output()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 790, in get_output
+    outputs = self.outputs_queue.get()
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/queue.py", line 171, in get
+    self.not_empty.wait()
+  File "/root/miniconda3/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+KeyboardInterrupt
+(EngineCore pid=262014) INFO 10-30 20:16:33 [core.py:1238] Shutdown initiated (timeout=0)
+(EngineCore pid=262014) INFO 10-30 20:16:33 [core.py:1243] Aborting 1 requests
+(EngineCore pid=262014) INFO 10-30 20:16:33 [core.py:1261] Shutdown complete
+[rank0]:[W1030 20:16:34.365200502 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

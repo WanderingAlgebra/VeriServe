@@ -1,0 +1,18 @@
+{
+  "max_tokens": 1024,
+  "phase": "first",
+  "seed": 297660981206524077,
+  "session": "20261030T121324163103Z",
+  "source_index": 12,
+  "status": "interrupted_for_user_setting_change",
+  "judgment": null,
+  "error": "User requested removal of the1024-token output cap; this in-flight request was interrupted. Partial generated tokens were not returned by the offline API.",
+  "raw_output": null,
+  "raw_output_with_special_tokens": null,
+  "generated_ids": null,
+  "output_tokens": null,
+  "input_tokens": null,
+  "request_seconds": null,
+  "finish_reason": null,
+  "stop_reason": null
+}
