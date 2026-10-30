@@ -129,11 +129,17 @@ lines+=['',f"仅在有效新判断上，与Codex标签的一致率为{summary['c
         '## 原先10条分歧','', '| 编号 | 主要推导/结论 | 原9B | 新首轮 | 重试后 | Codex |','|---|---|---|---|---|---|']
 for r in rows:
     if r['is_focus']:lines.append(f"| {r['source_index']} | {'是' if r['is_major'] else '局部问题'} | {r['old_9b']} | {r['first_9b']} | {r['final_9b']} | {r['codex_label']} |")
-lines+=['','## 成本和异常','',f"首轮输出token：{summary['costs']['first_output_tokens']}。",f"首轮每请求秒数：{summary['costs']['first_request_seconds']}。",f"首轮结束原因：{summary['first_finish_reasons']}。原首检失败分类：{summary['original_failures']}。",f"重试输出token：{summary['costs']['retry_output_tokens']}；重试耗时：{summary['costs']['retry_request_seconds']}。",f"原首检输出token：{summary['costs']['old_output_tokens']}；原首检生成耗时：{summary['costs']['old_generation_seconds']}。",'',
+def cost_text(key,unit):
+    c=summary['costs'][key]
+    return '未发生' if not c['count'] else f"总计{c['total']:.2f}{unit}，平均{c['mean']:.2f}{unit}，最大{c['max']:.2f}{unit}"
+
+
+lines+=['','## 成本和异常','',f"首轮输出：{cost_text('first_output_tokens',' token')}。",f"首轮请求耗时：{cost_text('first_request_seconds','秒')}。",f"首轮结束原因：{summary['first_finish_reasons']}。原首检失败分类：{summary['original_failures']}。",f"重试输出：{cost_text('retry_output_tokens',' token')}；重试耗时：{cost_text('retry_request_seconds','秒')}。",f"原首检输出：{cost_text('old_output_tokens',' token')}；原首检生成耗时：{cost_text('old_generation_seconds','秒')}。",'',
         '新运行按阶段保持模型驻留，原运行每条启动并退出模型进程。原seconds包含进程启动、模型加载等，新request_seconds不包含阶段级模型初始化，不能直接据二者之差宣称结构化输出加速。模型初始化、显存峰值和版本保存在sessions/；所有原始输出、token ID、结束原因和每次尝试保存在各阶段目录。',
         f"新完成输出中超过旧300字符上限的条目：{old_length_rejects}。这部分可用性改善也受放宽字符上限影响，不能全部归因于语法约束。",'',
         '## 配置与归因限制','',
         '模型Qwen/Qwen3.5-9B，revision=c202236235762e1c871ad0ccb60c8ee5ba337b9a。复用原始57条请求中的完整用户JSON、原题、检查点编号和逐条随机种子，未输入参考答案、原9B结论、Codex标签或后续轨迹。prepare逐条检查了原始token往返、JSON载荷及Codex编号/ID/review_key对应。',
+        '原采样保持temperature=0.7、top_p=0.8、top_k=20、min_p=0、presence_penalty=1.5、repetition_penalty=1.0；关闭Thinking，首轮输出上限1024 token。系统提示改动使每条输入统一增加19 token，用户JSON保持相同。BF16、148480上下文、2048预填充分块及0.8显存比例均沿用原请求。',
         f"实际vLLM版本{manifest['vllm_version']}。接口经本机签名检查，并查阅[vLLM对应版本文档]({manifest['docs']})，采用SamplingParams(structured_outputs=StructuredOutputsParams(json=schema))和xgrammar后端。",'',
         '以下变化均已在manifest记录：']
 lines+=['- '+x for x in manifest['differences']]

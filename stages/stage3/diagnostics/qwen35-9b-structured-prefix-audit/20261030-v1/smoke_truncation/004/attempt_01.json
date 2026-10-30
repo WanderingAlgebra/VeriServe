@@ -1,0 +1,40 @@
+{
+  "attempt": 1,
+  "error": "length",
+  "finish_reason": "length",
+  "generated_ids": [
+    90
+  ],
+  "generation_seconds": 1.1773414071649313,
+  "input_tokens": 728,
+  "judgment": null,
+  "legacy_parser": {
+    "checkpoint_conflict": false,
+    "completion": "LENGTH_TRUNCATED",
+    "diagnosis": "",
+    "effective_verdict": "UNCERTAIN",
+    "first_error_step": null,
+    "hint": "",
+    "parser_error": "VERIFIER_LENGTH_TRUNCATED",
+    "raw_verdict": "UNCERTAIN",
+    "verdict": "UNCERTAIN"
+  },
+  "max_tokens": 1,
+  "metrics": {
+    "arrival_time": 1793362372.0492275,
+    "first_token_ts": 6091913.408592618,
+    "last_token_ts": 6091913.408592618,
+    "scheduled_ts": 6091913.185942993
+  },
+  "output_tokens": 1,
+  "phase": "smoke_truncation",
+  "raw_output": "{",
+  "raw_output_with_special_tokens": "{",
+  "request_seconds": 1.1807455522939563,
+  "review_key": "ff8b844106663e020cfabe334ae0ff1514a931ba19c82a9987aa3a2a0a6572a9",
+  "seed": 663417622275789942,
+  "session": "20261030T121149859967Z",
+  "source_index": 4,
+  "status": "truncation",
+  "stop_reason": null
+}
