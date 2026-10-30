@@ -1,5 +1,5 @@
 {
-  "commit": "7d7e4b96736b7e4e1758612e48c00b6b01e75b93",
-  "reason": "smoke_truncation-before-start",
+  "commit": "e0ad3c95859c41b0b45602996d09eb27505af6e1",
+  "reason": "smoke_truncation-session-complete",
   "status": "PUSHED"
 }
