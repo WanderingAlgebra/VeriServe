@@ -25,6 +25,7 @@ CODEX = Path('/root/project/VeriServe/stages/stage3/diagnostics/gpt61sol-prefix-
 FOCUS = [10, 20, 21, 23, 25, 42, 48, 51, 52, 54]
 MAJOR = [23, 25, 52, 54]
 SMOKE = [4, 23, 34]  # short, formerly missed main error, longest exported prefix
+PRIOR_CAPPED = ROOT / 'stages/stage3/diagnostics/qwen35-9b-structured-prefix-audit/20261030-v1'
 DOCS = 'https://docs.vllm.ai/en/v0.20.0/features/structured_outputs/'
 
 
@@ -142,6 +143,10 @@ def prepare(run):
         new_system = make_prompt(old_system)
         new_text = head + new_system + sep + rest
         request['input_ids'] = tok.encode(new_text, add_special_tokens=False)
+        # User override: no explicit output-token cap. vLLM0.20 resolves None to
+        # max_model_len - input_tokens; context exhaustion remains unfinished.
+        request['max_tokens'] = None
+        request['context_output_capacity'] = request['engine']['max_model_len'] - len(request['input_ids'])
         request.update(source_index=index, review_key=row['review_key'],
                        checkpoint_numbers=check['checkpoint_numbers'], schema=schema(check['checkpoint_numbers']))
         save(run / 'requests' / f'{index:03}.json', request)
@@ -169,10 +174,16 @@ def prepare(run):
            'Removed300-character diagnosis/hint cap; fields remain mandatory.',
            'Resident sequential engine per invocation, rather than one model initialization per sample. '
            'max_num_seqs=1 and prefix caching disabled; requests have independent original seeds.',
-           'Original eos IDs, sampling, model revision, precision, context and first-round1024-token cap retained.'],
+           'Original eos IDs, sampling, model revision, precision and context retained.',
+           'User override: max_tokens=None, no fixed output cap. vLLM resolves it to the remaining '
+           '148480-token model context; actual output tokens and context exhaustion are recorded. '
+           'This replaces the originally planned1024-token cap and changes the budget comparison.'],
          input_audit=dict(count=57, ordered_keys_match=True, user_payloads_exact=True,
                           original_token_roundtrip=True, seed_source='original per-prefix worker request'),
-         smoke_indices=SMOKE, focus_indices=FOCUS, major_indices=MAJOR))
+         smoke_indices=SMOKE, focus_indices=FOCUS, major_indices=MAJOR,
+         output_budget_policy='no_fixed_output_cap', prior_capped_run=str(PRIOR_CAPPED),
+         truncation_probe=read(PRIOR_CAPPED/'smoke_truncation/004/attempt_01.json'),
+         vllm_none_semantics_source='/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/input_processor.py:307'))
     print(f'PREPARED {run}:57 exact user payloads and reference joins', flush=True)
 
 
@@ -209,7 +220,7 @@ def attempts(run, phase, index):
     return sorted((run/phase/f'{index:03}').glob('attempt_*.json'))
 
 
-def run_phase(run, phase, stop_after=None, budget=None):
+def run_phase(run, phase, stop_after=None):
     manifest = read(run/'manifest.json')
     assert manifest['implementation_sha256'] == sha(__file__), 'Changed runner: create a new run'
     assert manifest['source_inputs_sha256'] == sha(SOURCE/'verifier_audit_review_inputs.json')
@@ -218,12 +229,11 @@ def run_phase(run, phase, stop_after=None, budget=None):
         for i in SMOKE:
             records=attempts(run,'smoke',i)
             assert records and read(records[-1])['status']=='completed', 'Complete real smoke before first round'
-        forced=attempts(run,'smoke_truncation',4)
-        assert forced and read(forced[-1])['status']=='truncation'
+        probe=manifest['truncation_probe']
+        assert probe['status']=='truncation' and probe['judgment'] is None
         assert (run/'resume_check.json').is_file(), 'Verify real resume before first round'
-    selected = SMOKE if phase=='smoke' else [4] if phase=='smoke_truncation' else list(range(1,58))
+    selected = SMOKE if phase=='smoke' else list(range(1,58))
     if phase == 'retry':
-        assert budget and budget>1024
         selected=[i for i in selected if attempts(run,'first',i) and read(attempts(run,'first',i)[-1])['status']!='completed']
     # Preserve an attempt whose process died between intent and result persistence.
     for intent in (run/phase).glob('*/intent_*.json'):
@@ -240,14 +250,14 @@ def run_phase(run, phase, stop_after=None, budget=None):
         completed=attempts(run,phase,i)
         if completed:
             last=read(completed[-1])
-            if last['status']=='completed' or phase in ['first','smoke_truncation']:
+            if last['status']=='completed' or phase=='first':
                 skipped.append(i);continue
-            if phase=='retry' and last['max_tokens']==budget:
+            if phase=='retry':
                 skipped.append(i);continue
         pending.append(i)
     stamp=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
     session_dir=run/'sessions'/stamp
-    save(session_dir/'start.json',dict(phase=phase,pending=pending,skipped=skipped,budget=budget))
+    save(session_dir/'start.json',dict(phase=phase,pending=pending,skipped=skipped,max_tokens=None))
     print('PENDING',phase,pending,'SKIPPED',skipped,flush=True)
     if not pending:
         return
@@ -282,7 +292,8 @@ def run_phase(run, phase, stop_after=None, budget=None):
     count=0
     for index in pending:
         request=read(run/'requests'/f'{index:03}.json')
-        cap=1 if phase=='smoke_truncation' else budget or request['max_tokens']
+        cap=request['max_tokens']
+        assert cap is None, 'User requested no fixed output cap'
         directory=run/phase/f'{index:03}';directory.mkdir(parents=True,exist_ok=True)
         number=max([int(p.stem.split('_')[-1]) for p in directory.glob('attempt_*.json')]+[0])+1
         path=directory/f'attempt_{number:02}.json'
@@ -293,6 +304,7 @@ def run_phase(run, phase, stop_after=None, budget=None):
              status='service_error',judgment=None,raw_output='',raw_output_with_special_tokens='',
              generated_ids=[],output_tokens=0,input_tokens=len(request['input_ids']),
              finish_reason=None,stop_reason=None)
+        record['context_output_capacity']=request['context_output_capacity']
         try:
             params=SamplingParams(**request['sampling'],frequency_penalty=0.,max_tokens=cap,
                 seed=request['seed'],detokenize=False,stop_token_ids=request['eos_ids'],
@@ -341,12 +353,12 @@ def legacy_diagnostic(raw, finish, numbers):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run',type=Path,required=True)
-    p.add_argument('--phase',choices=['prepare','smoke','smoke_truncation','first','retry','backup'],required=True)
-    p.add_argument('--stop-after',type=int);p.add_argument('--budget',type=int)
+    p.add_argument('--phase',choices=['prepare','smoke','first','retry','backup'],required=True)
+    p.add_argument('--stop-after',type=int)
     args=p.parse_args();run=args.run.resolve()
     if args.phase=='prepare':prepare(run)
     elif args.phase=='backup':backup(run,'manual')
-    else:run_phase(run,args.phase,args.stop_after,args.budget)
+    else:run_phase(run,args.phase,args.stop_after)
 
 
 if __name__=='__main__':

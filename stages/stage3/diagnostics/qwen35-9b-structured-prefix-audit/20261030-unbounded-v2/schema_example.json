@@ -1,0 +1,60 @@
+{
+  "anyOf": [
+    {
+      "additionalProperties": false,
+      "properties": {
+        "diagnosis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "first_error_step": {
+          "type": "null"
+        },
+        "hint": {
+          "const": ""
+        },
+        "verdict": {
+          "const": "PASS"
+        }
+      },
+      "required": [
+        "verdict",
+        "first_error_step",
+        "diagnosis",
+        "hint"
+      ],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "properties": {
+        "diagnosis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "first_error_step": {
+          "enum": [
+            1,
+            2,
+            3
+          ],
+          "type": "integer"
+        },
+        "hint": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "verdict": {
+          "const": "FAIL"
+        }
+      },
+      "required": [
+        "verdict",
+        "first_error_step",
+        "diagnosis",
+        "hint"
+      ],
+      "type": "object"
+    }
+  ]
+}
