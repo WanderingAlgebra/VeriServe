@@ -66,6 +66,18 @@ for source in manifest['rows']:
     rows.append(row)
 
 old_counts=Counter(r['old_9b'] for r in rows)
+old_raw_states=Counter()
+for source in manifest['rows']:
+    old=source['original_result']
+    if not old['parser_error']:continue
+    raw=old.get('raw_text','')
+    for eos in ['<|im_end|>','<|endoftext|>']:
+        if raw.endswith(eos):raw=raw[:-len(eos)]
+    try:
+        value=json.loads(raw)
+        old_raw_states[old['completion']+' / valid_json / '+str(value.get('verdict'))]+=1
+    except ValueError:
+        old_raw_states[old['completion']+' / invalid_json']+=1
 failures=Counter(r['first_status'] for r in rows if r['first_status']!='completed')
 changes={a:{b:sum(r['old_9b']==a and r['first_9b']==b for r in rows) for b in ['PASS','FAIL','未完成']}
          for a in ['PASS','FAIL','UNCERTAIN']}
@@ -106,6 +118,7 @@ summary=dict(total=57,first_attempted=len(firsts),first_status_counts=dict(Count
              new_completed_exceeding_old300_character_cap=old_length_rejects,
              first_finish_reasons=dict(Counter(str(r.get('finish_reason')) for r in firsts)),
              original_failures=dict(Counter(r['old_parser_error'] for r in rows if r['old_parser_error'])),
+             original_rejected_raw_output_audit=dict(old_raw_states),
              first_engine_initializations=[read(p) for p in (RUN/'sessions').glob('*/engine.json')
                  if read(p.parent/'start.json')['phase']=='first'],
              documentation=manifest['docs'])
@@ -144,6 +157,7 @@ lines+=['','## 成本和异常','',f"首轮输出：{cost_text('first_output_tok
         '以下变化均已在manifest记录：']
 lines+=['- '+x for x in manifest['differences']]
 lines+=['','原核验标准中的当前采用推导、自我纠正和中途/终点区别保留。旧协议终点额外要求答案完整且受推理支持；Codex标准主要检查当前未纠正数学错误，两者存在口径差别。',
+        '原18条不可用结果中，9条原始输出可解析为JSON：其中5条原文为UNCERTAIN、4条原文为FAIL，均被旧反馈长度/字段规则拒绝。另4条有非法JSON转义、5条截断。本次保留旧解析结果，不把原文FAIL重新算作原有效FAIL。新的二选一约束会影响原本想表达数学不确定的样本，不能把这类变化称为单纯修复转义。',
         '二选一移除了原数学不确定出口；PASS增加诊断理由；删除300字符限制；加入语法约束改变可选token及随机采样路径。因此数学标签变化不能单独归因于“修好了JSON”。重试提高预算的结果也不能替换首轮统计。',
         '此次使用既有57条进行探索性诊断，Codex为暂时对照且自身存在复核范围和题意歧义限制。此次不创建或更新原实验质量放行文件。', '',
         '## 新9B与Codex不一致的条目','',f"共{len(disagreements)}条：{summary['disagreement_indices']}。双方理由如下，供复核，不裁定哪方一定正确。"]
