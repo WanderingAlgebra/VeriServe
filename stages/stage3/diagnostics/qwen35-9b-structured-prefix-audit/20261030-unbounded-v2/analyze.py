@@ -71,6 +71,7 @@ for source in manifest['rows']:
              prompt_token_difference=source['prompt_token_difference'])
     rows.append(row)
 
+smoke=[read(p) for p in (RUN/'smoke').glob('*/attempt_*.json')]
 old_counts=Counter(r['old_9b'] for r in rows)
 old_raw_states=Counter()
 for source in manifest['rows']:
@@ -129,6 +130,8 @@ summary=dict(total=57,output_budget_policy='max_tokens=None; no fixed output cap
              original_rejected_raw_output_audit=dict(old_raw_states),
              first_engine_initializations=[read(p) for p in (RUN/'sessions').glob('*/engine.json')
                  if read(p.parent/'start.json')['phase']=='first'],
+             smoke_costs=dict(attempts=len(smoke),output_tokens=describe([r.get('output_tokens') for r in smoke]),
+                              request_seconds=describe([r.get('request_seconds') for r in smoke])),
              documentation=manifest['docs'])
 save('summary.json',summary);save('comparison.json',rows);save('disagreements.json',disagreements)
 save('focus_10.json',[r for r in rows if r['is_focus']])
@@ -163,6 +166,7 @@ def cost_text(key,unit):
 
 lines+=['','## 成本和异常','',f"首轮输出：{cost_text('first_output_tokens',' token')}。",f"首轮请求耗时：{cost_text('first_request_seconds','秒')}。",f"首轮结束原因：{summary['first_finish_reasons']}。原首检失败分类：{summary['original_failures']}。",f"重试输出：{cost_text('retry_output_tokens',' token')}；重试耗时：{cost_text('retry_request_seconds','秒')}。",f"原首检输出：{cost_text('old_output_tokens',' token')}；原首检生成耗时：{cost_text('old_generation_seconds','秒')}。",'',
         '新运行按阶段保持模型驻留，原运行每条启动并退出模型进程。原seconds包含进程启动、模型加载等，新request_seconds不包含阶段级模型初始化，不能直接据二者之差宣称结构化输出加速。模型初始化、显存峰值和版本保存在sessions/；所有原始输出、token ID、结束原因和每次尝试保存在各阶段目录。',
+        f"无上限smoke另计{len(smoke)}次请求，未混入57条首轮；实际输出token合计{summary['smoke_costs']['output_tokens']['total']}。中途停止的1024-token版本保存在相邻20261030-v1目录，也没有混入本轮数学或成本均值。",
         f"新完成输出中超过旧300字符上限的条目：{old_length_rejects}。这部分可用性改善也受放宽字符上限影响，不能全部归因于语法约束。",'',
         '## 配置与归因限制','',
         '模型Qwen/Qwen3.5-9B，revision=c202236235762e1c871ad0ccb60c8ee5ba337b9a。复用原始57条请求中的完整用户JSON、原题、检查点编号和逐条随机种子，未输入参考答案、原9B结论、Codex标签或后续轨迹。prepare逐条检查了原始token往返、JSON载荷及Codex编号/ID/review_key对应。',
@@ -180,8 +184,10 @@ lines[-1]=f"共{len(disagreements)}条：{summary['disagreement_indices']}。双
 details=['# 新9B与Codex分歧明细','', 'Codex仅为暂时对照；以下逐条保留双方理由，不裁定哪方一定正确。']
 for r in disagreements:
     details+=['',f"### 前缀{r['source_index']}：9B {r['final_9b']} / Codex {r['codex_label']}",
+            '',f"9B指向检查点：{r['new_first_error_step']}",
             '', '9B理由：'+r['new_diagnosis'],'', '9B返工提示：'+(r['new_hint'] or '无'),
             '', 'Codex理由：'+r['codex_reason']]
+    if r['codex_quote']:details+=['','Codex引用原文：'+r['codex_quote']]
     if r['codex_caveat']:details+=['','Codex限制说明：'+r['codex_caveat']]
 (RUN/'disagreements.md').write_text('\n'.join(details)+'\n')
 lines+=['','## 下一步','',
