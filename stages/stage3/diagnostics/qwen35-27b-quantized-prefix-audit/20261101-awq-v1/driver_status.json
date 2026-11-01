@@ -1,8 +1,5 @@
 {
-  "status": "WAITING_FOR_VERIFIED_WEIGHTS",
-  "pid": 406339,
-  "env": {
-    "VLLM_WORKER_MULTIPROC_METHOD": "spawn",
-    "TOKENIZERS_PARALLELISM": "false"
-  }
+  "entrypoint": "run_comparison.py",
+  "note": "Initial download watcher was stopped to reconnect last range. Verified download then capacity and comparison launched explicitly.",
+  "status": "RUNNING_COMPARISON"
 }

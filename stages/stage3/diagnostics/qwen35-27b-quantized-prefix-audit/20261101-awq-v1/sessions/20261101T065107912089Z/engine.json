@@ -1,0 +1,11 @@
+{
+  "cuda_capability": [
+    8,
+    9
+  ],
+  "device": "NVIDIA GeForce RTX 4080 SUPER",
+  "device_peak_bytes": 31364612096,
+  "device_peak_sampling_ms": 20,
+  "load_seconds": 32.1720412010327,
+  "vllm": "0.20.0"
+}
