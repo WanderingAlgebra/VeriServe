@@ -1,0 +1,13 @@
+{
+  "index": 51,
+  "review_key": "a7fe1227e30c68f1bfa77ea1155b20981ddcd11651cfd0f8df0b36ca7a382adf",
+  "unique_id": "81331eeef3862533c80f04c1f62b23aea90c3e0fe4b69ce524c89a945f2df580",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "全文继续多次采用3阶棋盘W放1、3、5、7，B放2、4、6、8、9的错误分配；9应与1同色，容量矛盾说明该分支根本不可能。未因尚未构造8阶可达解而判错。",
+  "first_error_quote": "$B$ takes $\\{2, 4, 6, 8, 9\\}$ (size 5).",
+  "reviewed_chars": 60762,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

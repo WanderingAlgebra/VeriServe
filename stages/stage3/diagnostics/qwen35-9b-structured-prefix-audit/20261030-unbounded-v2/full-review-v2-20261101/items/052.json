@@ -1,0 +1,13 @@
+{
+  "index": 52,
+  "review_key": "2045727244eabc55cfce856902d2e8b914c44ddf3104bf11d0da0f07132e7319",
+  "unique_id": "81331eeef3862533c80f04c1f62b23aea90c3e0fe4b69ce524c89a945f2df580",
+  "label": "FAIL",
+  "severity": "主线",
+  "reason": "最终断言偶数阶能令对角线取最小奇数，进而给64，该可达性断言为假。64迫使1、3、…、15占满对角线，连续奇数所在格距离≤2，故沿对角线单调走完；前15格占完分隔上下三角区的对角线，且两区各仍至少21格未访，余下单一路径无法同时覆盖两区。此前3阶奇偶错误也未修正。",
+  "first_error_quote": "For an $n \\times n$ grid with even $n$, it is possible to construct a Hamiltonian path where the diagonal elements are the smallest available numbers of the respective parity (odds).",
+  "reviewed_chars": 82878,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

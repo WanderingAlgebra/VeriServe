@@ -1,0 +1,13 @@
+{
+  "index": 44,
+  "review_key": "f501ab5875dc099b09fa7434efdc091b9841e562e9e5c3c008def320ece5cb94",
+  "unique_id": "ba336a3c4dcf4e772cdef2aa5fd23271e05427a452f57719ea755530e84d71e0",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "由(a,b)=(1,1)应保留2颗，当前却在计算(a+b)时写成1；通解已正确纠正，未因尚未找到最优策略判错。",
+  "first_error_quote": "For $a=1$, kept = 1.",
+  "reviewed_chars": 16130,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

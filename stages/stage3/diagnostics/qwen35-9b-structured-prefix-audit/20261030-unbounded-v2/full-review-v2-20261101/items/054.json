@@ -1,0 +1,13 @@
+{
+  "index": 54,
+  "review_key": "5f49354b5bb03af0c1ec0cb157ea8cd0303c01e293fe5303b46eda9a162070c9",
+  "unique_id": "4dcba0f34248ca78bd8b676988fcde56e8358e71d109eb67486d640c64c5df4a",
+  "label": "FAIL",
+  "severity": "主线",
+  "reason": "后半段仍断言能先移除第1列其余车辆，再使(1,1)度数为1并移除。这隐含先移除角车(8,1)，但四个原始角车一直存在：任何第一辆待移除的角车都因同行、同列的另两个角仍在而恰好看见2辆，不能移除。该构造不可达；整列清空的早期说法也忽略最后一辆会变偶数。此前(2,1)偶数的局部错误未修正。",
+  "first_error_quote": "So we remove $(1,1)$.",
+  "reviewed_chars": 117322,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

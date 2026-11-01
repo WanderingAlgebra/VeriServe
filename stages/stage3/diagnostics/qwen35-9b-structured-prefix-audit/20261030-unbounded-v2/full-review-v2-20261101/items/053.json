@@ -1,0 +1,13 @@
+{
+  "index": 53,
+  "review_key": "bb8fb9df5f1adb392f2692094cb288311384276cc06f815f9be8baf9e96c26c8",
+  "unique_id": "4dcba0f34248ca78bd8b676988fcde56e8358e71d109eb67486d640c64c5df4a",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "对可见攻击的动态图定义及四角不动的结论正确；但移除(1,2)后声称(2,1)仍为偶数，它从初始起就看见(1,1)、(3,1)、(2,2)共3辆，且此次移除不影响它。未因尚未完成最大值证明判错。",
+  "first_error_quote": "So $(2,1)$ is unaffected. Remains Even.",
+  "reviewed_chars": 46033,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

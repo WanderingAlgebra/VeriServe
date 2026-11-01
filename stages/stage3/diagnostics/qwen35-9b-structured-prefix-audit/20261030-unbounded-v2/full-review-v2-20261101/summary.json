@@ -1,0 +1,120 @@
+{
+  "status": "complete",
+  "reviewer": "Codex direct second full-text review",
+  "new_model_or_api_calls": 0,
+  "is_human_gold": false,
+  "blind_review": false,
+  "source_sha256": "d2d63c08f10addd0de706248a1a3baac00edb26faedefe994597463364376463",
+  "old_codex_csv_sha256": "6b94883e5799fb688856f36165c5b5acd09c72eded646b0120d71edb1a7b2af0",
+  "count": 57,
+  "questions": 20,
+  "prefix_characters": 2684411,
+  "shared_text_read_characters": 1454726,
+  "labels": {
+    "FAIL": 24,
+    "PASS": 33
+  },
+  "fail_severity": {
+    "局部": 14,
+    "逻辑": 3,
+    "主线": 7
+  },
+  "fail_indices": [
+    1,
+    10,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23,
+    24,
+    25,
+    32,
+    33,
+    34,
+    42,
+    44,
+    48,
+    50,
+    51,
+    52,
+    53,
+    54
+  ],
+  "changes_from_frozen_codex": [
+    {
+      "source_index": 13,
+      "old_codex_label": "PASS",
+      "label": "FAIL",
+      "reason": "单人从7改6的新例子写总数905、X=7.525，错误且截至本截断点未重算。正确98·7+107+6=799，X=6.995。整体固定点7不受影响，仍记录未纠正新局部计算。"
+    },
+    {
+      "source_index": 15,
+      "old_codex_label": "PASS",
+      "label": "FAIL",
+      "reason": "新引入迭代f(y)=round(0.495y+3.535)的表中，f4写为5，但1.98+3.535=5.515，应四舍五入为6；该辅助表被用来确认收敛且之后只修正f6，没有纠正f4。最终7正确不消除这处新错误。"
+    },
+    {
+      "source_index": 50,
+      "old_codex_label": "PASS",
+      "label": "FAIL",
+      "reason": "8阶棋盘奇偶下界64本身正确且尚在探索；但3阶辅助案例将9放到偶数所在色组。若1在只有4格的W，5个奇数都须在W，故这一情况不可能。当前把9分给B以凑格数是明确的奇偶错误。"
+    }
+  ],
+  "structured_9b_cross_table": {
+    "PASS": {
+      "PASS": 33,
+      "FAIL": 0,
+      "UNFINISHED": 0
+    },
+    "FAIL": {
+      "PASS": 19,
+      "FAIL": 5,
+      "UNFINISHED": 0
+    }
+  },
+  "agreement_count": 38,
+  "disagreement_indices": [
+    1,
+    10,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23,
+    24,
+    25,
+    33,
+    42,
+    44,
+    48,
+    51,
+    52
+  ],
+  "focus_indices": [
+    10,
+    20,
+    21,
+    23,
+    25,
+    42,
+    48,
+    51,
+    52,
+    54
+  ],
+  "major_focus_indices": [
+    23,
+    25,
+    52,
+    54
+  ]
+}

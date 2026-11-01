@@ -1,0 +1,13 @@
+{
+  "index": 45,
+  "review_key": "1e87ac3d9e47111502ffb65c7a44af0b72badffb3cbab61f35f34cb1abb06acb",
+  "unique_id": "ba336a3c4dcf4e772cdef2aa5fd23271e05427a452f57719ea755530e84d71e0",
+  "label": "PASS",
+  "severity": "",
+  "reason": "全文已给出只取首颗红球和首颗蓝球的在线策略，混合序列全胜、纯色必败，概率2^−2012正确。前面偶数红球不可恢复的探索被明确推翻；后文保留集合大小2也修正了此前a=1时保留数1。",
+  "first_error_quote": "",
+  "reviewed_chars": 114449,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

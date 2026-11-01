@@ -1,0 +1,13 @@
+{
+  "index": 55,
+  "review_key": "1626d6205159f10a2ec2800e44e71685644dd8bd2fd34270c9978865c4cf2c6a",
+  "unique_id": "823a85253f2c9b68e0232f3baff898a7fcdbeb7b22dcdfa0130b5689ec1ec7ce",
+  "label": "PASS",
+  "severity": "",
+  "reason": "公因数6给两条不同倍数边差至少6；第三边严格大于差，故至少7。(210,216,7)提供合法三角形。试算通解中的错误立即修正，未见保留的确定错误。",
+  "first_error_quote": "",
+  "reviewed_chars": 13684,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

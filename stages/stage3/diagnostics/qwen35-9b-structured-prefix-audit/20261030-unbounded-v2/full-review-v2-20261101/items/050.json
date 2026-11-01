@@ -1,0 +1,13 @@
+{
+  "index": 50,
+  "review_key": "0401e72b47b81a89f64327949caa88cdff9f4334f89fe020f5946936a527e9dc",
+  "unique_id": "81331eeef3862533c80f04c1f62b23aea90c3e0fe4b69ce524c89a945f2df580",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "8阶棋盘奇偶下界64本身正确且尚在探索；但3阶辅助案例将9放到偶数所在色组。若1在只有4格的W，5个奇数都须在W，故这一情况不可能。当前把9分给B以凑格数是明确的奇偶错误。",
+  "first_error_quote": "$B$ takes $\\{2, 4, 6, 8, 9\\}$ (size 5).",
+  "reviewed_chars": 28444,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

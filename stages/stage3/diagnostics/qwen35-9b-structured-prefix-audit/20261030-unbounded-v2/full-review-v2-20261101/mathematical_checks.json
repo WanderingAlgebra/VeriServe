@@ -1,0 +1,84 @@
+{
+  "ball_expectations": {
+    "B_3_1": "11/8",
+    "Alice_first_Bob_10_10": "45/19"
+  },
+  "new_arithmetic_findings": {
+    "index13_sum": 799,
+    "index13_X": "6.995",
+    "index15_f4_argument": "5.515",
+    "index15_f4_rounded": 6
+  },
+  "cyclotomic_counterexample": {
+    "exponents": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "residue_counts": [
+      2,
+      0,
+      2,
+      0,
+      2,
+      0
+    ],
+    "six_distinct_residue_orders": 720
+  },
+  "candy_counterexample": {
+    "move": "one child gives 1 candy to each of the other 99",
+    "children_still_at_100": 0
+  },
+  "quadrilateral_indices23_25": {
+    "coordinates_divided_by_sqrt5": {
+      "A": [
+        -4,
+        0
+      ],
+      "E": [
+        0,
+        0
+      ],
+      "B": [
+        -3,
+        3
+      ],
+      "C": [
+        9,
+        9
+      ],
+      "D": [
+        36,
+        0
+      ]
+    },
+    "CED_over_AEB": 27,
+    "BC": 6,
+    "AD_squared": 320
+  },
+  "cyclic_indices32_34": {
+    "DA_squared": 21,
+    "intersection_P_x_exact": "(28+2*sqrt(21))/5",
+    "intersection_P_x": "7.433030277982336002635218877491203395593782630707188761042896849562748",
+    "P_beyond_C": true
+  },
+  "recurrence_final_a8": "335.1113346694494320166855164641581975204048850996704138309769905139085",
+  "hexagon_area": "1155/4",
+  "enumerations": {
+    "weak_sequences": 42,
+    "a4_b2_c": 16,
+    "HMMT_free": 361,
+    "HMHMMTMT_positions2_to5": "MHMM"
+  },
+  "triangle_last_problem": {
+    "sides": [
+      7,
+      210,
+      216
+    ],
+    "minimum_third_side": 7
+  }
+}

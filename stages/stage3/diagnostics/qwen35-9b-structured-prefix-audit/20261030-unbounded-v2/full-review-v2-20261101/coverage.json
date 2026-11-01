@@ -1,0 +1,316 @@
+[
+  {
+    "question_number": 1,
+    "unique_id": "0597368aa1ac92f71fe53399b3c6cdb72ebc692f05359fa99d713e8cb63af114",
+    "indices": [
+      1,
+      2,
+      3
+    ],
+    "read_chars_once": 92153,
+    "cutoffs": {
+      "1": 27602,
+      "2": 69607,
+      "3": 92153
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 2,
+    "unique_id": "be1eaa0e5f5dbbe8f999d0144eb476d937565d597d71d2a2921a2b80337596f7",
+    "indices": [
+      4,
+      5,
+      6
+    ],
+    "read_chars_once": 3256,
+    "cutoffs": {
+      "4": 718,
+      "5": 1985,
+      "6": 3256
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 3,
+    "unique_id": "b5afcba8def31ed41d71db7aa4929fc7eac39d0dcee8a2705ede8bb5624d292f",
+    "indices": [
+      7,
+      8,
+      9
+    ],
+    "read_chars_once": 19774,
+    "cutoffs": {
+      "7": 5578,
+      "8": 15717,
+      "9": 19774
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 4,
+    "unique_id": "64e53dc1523d1aafa8d013489632e4d756404305fec154694c40c81f304a5703",
+    "indices": [
+      10,
+      11,
+      12
+    ],
+    "read_chars_once": 98510,
+    "cutoffs": {
+      "10": 23999,
+      "11": 71338,
+      "12": 98510
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 5,
+    "unique_id": "3fea6c97d7cb0856984040bdcd1d4012d07d0e4d0166b1d81c3ff36f5a910b79",
+    "indices": [
+      13,
+      14,
+      15
+    ],
+    "read_chars_once": 41943,
+    "cutoffs": {
+      "13": 11867,
+      "14": 30828,
+      "15": 41943
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 6,
+    "unique_id": "3e45b38a325fbc83fa38708828a448561b6af847375d69310f7f27924fb68f24",
+    "indices": [
+      16,
+      17
+    ],
+    "read_chars_once": 113960,
+    "cutoffs": {
+      "16": 38768,
+      "17": 113960
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 7,
+    "unique_id": "d08e3a84a16b61a793578a8f3ce4131663ed463e60609089b3b96ede25dfb0eb",
+    "indices": [
+      18,
+      19
+    ],
+    "read_chars_once": 134959,
+    "cutoffs": {
+      "18": 68957,
+      "19": 134959
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 8,
+    "unique_id": "9827803958a4a3b753a157e4426a117edcfd35964f938a4da270684615869c6b",
+    "indices": [
+      20,
+      21,
+      22
+    ],
+    "read_chars_once": 44115,
+    "cutoffs": {
+      "20": 12978,
+      "21": 33098,
+      "22": 44115
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 9,
+    "unique_id": "4197008cb1b8d2c29619487b359e8388744d469221285a66e9842bd43aeafe20",
+    "indices": [
+      23,
+      24,
+      25
+    ],
+    "read_chars_once": 94209,
+    "cutoffs": {
+      "23": 19318,
+      "24": 85065,
+      "25": 94209
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 10,
+    "unique_id": "8b9372c089db27dd5559dab49c1549adca3eef52fd05bcb4e0129f34fa4f4349",
+    "indices": [
+      26,
+      27,
+      28
+    ],
+    "read_chars_once": 42112,
+    "cutoffs": {
+      "26": 10298,
+      "27": 32087,
+      "28": 42112
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 11,
+    "unique_id": "9c98682bfac4cd9e6cd51ab67916486ff6b4d2f6304ea12a109cda4a683f91f3",
+    "indices": [
+      29,
+      30,
+      31
+    ],
+    "read_chars_once": 24910,
+    "cutoffs": {
+      "29": 4963,
+      "30": 17880,
+      "31": 24910
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 12,
+    "unique_id": "069eb8d2350065b9497f088d3841a9dace229456800d337dd0f4340b93e5ba15",
+    "indices": [
+      32,
+      33,
+      34
+    ],
+    "read_chars_once": 147596,
+    "cutoffs": {
+      "32": 33405,
+      "33": 105270,
+      "34": 147596
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 13,
+    "unique_id": "b8561fe9b6549c3bd70382d8232795bb06d7d0027bd3293aa36a71ad8e33ff15",
+    "indices": [
+      35,
+      36,
+      37
+    ],
+    "read_chars_once": 76774,
+    "cutoffs": {
+      "35": 47,
+      "36": 58970,
+      "37": 76774
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 14,
+    "unique_id": "822570a1b7fe261e37a459df0d489e2cda5f0a049176e068cd3a04c4c1224683",
+    "indices": [
+      38,
+      39,
+      40
+    ],
+    "read_chars_once": 8984,
+    "cutoffs": {
+      "38": 1670,
+      "39": 6829,
+      "40": 8984
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 15,
+    "unique_id": "61d50c4eb52ff7a11b8049b235b841c7d42fa5c9b19eaf2bc6b54ecd4f36a399",
+    "indices": [
+      41,
+      42,
+      43
+    ],
+    "read_chars_once": 91012,
+    "cutoffs": {
+      "41": 22455,
+      "42": 65142,
+      "43": 91012
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 16,
+    "unique_id": "ba336a3c4dcf4e772cdef2aa5fd23271e05427a452f57719ea755530e84d71e0",
+    "indices": [
+      44,
+      45,
+      46
+    ],
+    "read_chars_once": 131996,
+    "cutoffs": {
+      "44": 16130,
+      "45": 114449,
+      "46": 131996
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 17,
+    "unique_id": "32441bfcdbecad0f661469af26c70e8a3bd39610d2354e4567f1f93182e13737",
+    "indices": [
+      47,
+      48,
+      49
+    ],
+    "read_chars_once": 33520,
+    "cutoffs": {
+      "47": 7182,
+      "48": 24675,
+      "49": 33520
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 18,
+    "unique_id": "81331eeef3862533c80f04c1f62b23aea90c3e0fe4b69ce524c89a945f2df580",
+    "indices": [
+      50,
+      51,
+      52
+    ],
+    "read_chars_once": 82878,
+    "cutoffs": {
+      "50": 28444,
+      "51": 60762,
+      "52": 82878
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 19,
+    "unique_id": "4dcba0f34248ca78bd8b676988fcde56e8358e71d109eb67486d640c64c5df4a",
+    "indices": [
+      53,
+      54
+    ],
+    "read_chars_once": 117322,
+    "cutoffs": {
+      "53": 46033,
+      "54": 117322
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  },
+  {
+    "question_number": 20,
+    "unique_id": "823a85253f2c9b68e0232f3baff898a7fcdbeb7b22dcdfa0130b5689ec1ec7ce",
+    "indices": [
+      55,
+      56,
+      57
+    ],
+    "read_chars_once": 54743,
+    "cutoffs": {
+      "55": 13684,
+      "56": 41887,
+      "57": 54743
+    },
+    "coverage": "all characters of longest prefix read; each cutoff judged separately"
+  }
+]

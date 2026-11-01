@@ -1,5 +1,5 @@
 {
-  "status": "in_progress",
+  "status": "complete",
   "source": "stages/stage3/runs/verification-benefit-c905eb4ccd85/verifier_audit_review_inputs.json",
   "method": "Codex direct full-text chronological review; shared identical prefix text read once; no further model/API calls",
   "policy": "Only explicit uncorrected mathematical errors at each cutoff. Corrected/abandoned/independently superseded attempts excluded; new retained local assertions included. Incompleteness alone is not failure.",
@@ -46,7 +46,21 @@
     40,
     41,
     42,
-    43
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57
   ],
   "read_spans": {
     "1": [
@@ -306,6 +320,92 @@
         0,
         91012
       ]
+    ],
+    "44": [
+      [
+        0,
+        16130
+      ]
+    ],
+    "45": [
+      [
+        0,
+        114449
+      ]
+    ],
+    "46": [
+      [
+        0,
+        131996
+      ]
+    ],
+    "47": [
+      [
+        0,
+        7182
+      ]
+    ],
+    "48": [
+      [
+        0,
+        24675
+      ]
+    ],
+    "49": [
+      [
+        0,
+        33520
+      ]
+    ],
+    "50": [
+      [
+        0,
+        28444
+      ]
+    ],
+    "51": [
+      [
+        0,
+        60762
+      ]
+    ],
+    "52": [
+      [
+        0,
+        82878
+      ]
+    ],
+    "53": [
+      [
+        0,
+        46033
+      ]
+    ],
+    "54": [
+      [
+        0,
+        117322
+      ]
+    ],
+    "55": [
+      [
+        0,
+        13684
+      ]
+    ],
+    "56": [
+      [
+        0,
+        41887
+      ]
+    ],
+    "57": [
+      [
+        0,
+        54743
+      ]
     ]
-  }
+  },
+  "source_sha256": "d2d63c08f10addd0de706248a1a3baac00edb26faedefe994597463364376463",
+  "old_codex_csv_sha256": "6b94883e5799fb688856f36165c5b5acd09c72eded646b0120d71edb1a7b2af0"
 }

@@ -1,0 +1,14 @@
+{
+  "index": 46,
+  "review_key": "241a9183ec0d3649c19115587314ec350e653e7bd97ac909e1f0b71c3657f84e",
+  "unique_id": "ba336a3c4dcf4e772cdef2aa5fd23271e05427a452f57719ea755530e84d71e0",
+  "label": "PASS",
+  "severity": "",
+  "reason": "最终采用首颗红球、首颗蓝球的在线策略，完整证明混色必胜、纯色必败，得到2^−2012。已退出的恢复到1的辅助分支中有移项错误，另有无关的2013素性误判；均未进入当前证明，不因未逐句撤回而延续判错。",
+  "first_error_quote": "",
+  "reviewed_chars": 131996,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false,
+  "superseded_local_errors": "已读到恢复分支3k_R−2k_B=−5−2b（应为−5+2b），及2013是素数（实际3×671）；后文纯色/混色直接证明不依赖这些旁支。"
+}

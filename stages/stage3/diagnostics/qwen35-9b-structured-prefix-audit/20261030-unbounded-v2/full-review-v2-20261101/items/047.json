@@ -1,0 +1,13 @@
+{
+  "index": 47,
+  "review_key": "2ae5c3a09872b2c946f4a6c19313fdb2091166fd44fc2c03f049909a31deb41d",
+  "unique_id": "32441bfcdbecad0f661469af26c70e8a3bd39610d2354e4567f1f93182e13737",
+  "label": "PASS",
+  "severity": "",
+  "reason": "ABE为直角三角形，F是斜边AB中点，故EF=AB/2=14；投影位置的检查正确。",
+  "first_error_quote": "",
+  "reviewed_chars": 7182,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

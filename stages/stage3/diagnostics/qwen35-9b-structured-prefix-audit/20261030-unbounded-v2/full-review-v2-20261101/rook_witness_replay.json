@@ -1,0 +1,27 @@
+{
+  "source": "/root/project/VeriServe/stages/stage3/diagnostics/gpt61sol-prefix-audit/codex-direct-review-v1/rook_59_removal_witness.json",
+  "legal_odd_degree_removals": 59,
+  "remaining": [
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      7,
+      4
+    ],
+    [
+      8,
+      1
+    ],
+    [
+      8,
+      8
+    ]
+  ],
+  "status": "verified"
+}
