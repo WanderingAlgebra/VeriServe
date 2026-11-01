@@ -1,0 +1,29 @@
+{
+  "config": {
+    "dtype": "bfloat16",
+    "enable_prefix_caching": false,
+    "enable_thinking": false,
+    "enforce_eager": true,
+    "gpu_memory_utilization": 0.9,
+    "kv_cache_dtype": "auto",
+    "mamba_ssm_cache_dtype": "float32",
+    "max_model_len": 81920,
+    "max_num_seqs": 1,
+    "max_tokens": null,
+    "prefill_chunk_size": 1024,
+    "sampling": {
+      "min_p": 0.0,
+      "presence_penalty": 1.5,
+      "repetition_penalty": 1.0,
+      "temperature": 0.7,
+      "top_k": 20,
+      "top_p": 0.8
+    }
+  },
+  "pending": [
+    4,
+    21,
+    34
+  ],
+  "phase": "capacity"
+}
