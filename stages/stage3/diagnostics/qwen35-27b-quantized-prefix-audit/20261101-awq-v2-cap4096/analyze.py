@@ -2,6 +2,7 @@
 import csv
 from collections import Counter, defaultdict
 import json
+import hashlib
 from pathlib import Path
 import statistics
 
@@ -54,20 +55,27 @@ def main():
     with (RUN/'comparison.csv').open('w',newline='',encoding='utf-8-sig') as f:
         w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
     correct=sum(x['agrees_with_reference'] for x in rows)
+    attempted=sum(x['status'] not in ['not_run','in_progress'] for x in rows)
     def indices(pred):return [x['index'] for x in rows if pred(x)]
     capacity=[read(p) for p in (RUN/'capacity').glob('*.json') if p.stem.isdigit()]
     old_sessions=[read(p) for p in (BASE/'sessions').glob('*/completed.json') if read(p)['phase']=='first']
     old_cost=costs(old_records)
     old_cost['peak_device_bytes']=max((s['device_peak_bytes'] for s in old_sessions),default=None)
     old_cost['model_load_seconds']=sum(s['model_init_seconds'] for s in old_sessions)
-    summary=dict(planned_prefixes=57,original_questions=len(by_question),
+    summary=dict(planned_prefixes=57,attempted=attempted,original_questions=len(by_question),
         completed=sum(x['status']=='completed' for x in rows),
         status_counts=dict(Counter(x['status'] for x in rows)),verdict_counts=dict(Counter(x['twentyseven_b'] for x in rows)),
         confusion_matrix={gold:{v:matrix[(gold,v)] for v in ['PASS','FAIL','UNAVAILABLE']} for gold in ['PASS','FAIL']},
         agreement=dict(numerator=correct,denominator=57,
                        fraction=correct/57 if all(x['status']=='completed' for x in rows) else None),
+        successful_reference_matches_over_all_planned=dict(numerator=correct,denominator=57,
+                       fraction=correct/57 if attempted==57 else None,
+                       meaning='Operational successful matching fraction; unavailable is not a successful match, not converted to PASS or FAIL.'),
         question_equal_weight_agreement=(sum(statistics.mean(v) for v in by_question.values())/len(by_question)
                                          if all(x['status']=='completed' for x in rows) else None),
+        question_equal_weight_successful_match_fraction=(sum(statistics.mean(v) for v in by_question.values())/len(by_question)
+                                         if attempted==57 else None),
+        question_equal_weight_successful_match_policy='All20 questions equally weighted, prefixes within question equally weighted; unavailable is not a successful match.',
         old_19_recovered=indices(lambda x:x['original_19'] and x['twentyseven_b']=='FAIL'),
         old_19_still_pass=indices(lambda x:x['original_19'] and x['twentyseven_b']=='PASS'),
         old_19_unavailable=indices(lambda x:x['original_19'] and x['twentyseven_b']=='UNAVAILABLE'),
@@ -99,6 +107,12 @@ def main():
             and read(RUN/'comparison'/f'{r["index"]:03}.json').get('generated_ids')==r['generated_ids']]
         save(RUN/'summary.json',summary)
     save(RUN/'fail_outputs.json',[x for x in rows if x['twentyseven_b']=='FAIL'])
+    def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+    save(RUN/'analysis_provenance.json',dict(analysis_code_sha256=sha(Path(__file__)),
+        new_manifest_sha256=sha(RUN/'manifest.json'),reference_labels_sha256=sha(REF/'labels.json'),
+        baseline_manifest_sha256=sha(BASE/'manifest.json'),
+        new_records_sha256={p.name:sha(p) for p in (RUN/'comparison').glob('*.json') if p.stem.isdigit()},
+        no_labels_modified=True,reference_is_provisional=True))
     print(json.dumps({k:v for k,v in summary.items() if k not in ['major_7','model_loads','warnings']},ensure_ascii=False,indent=2))
 
 

@@ -1,0 +1,236 @@
+{
+  "planned_prefixes": 57,
+  "original_questions": 20,
+  "completed": 20,
+  "status_counts": {
+    "completed": 20,
+    "not_run": 37
+  },
+  "verdict_counts": {
+    "PASS": 20,
+    "UNAVAILABLE": 37
+  },
+  "confusion_matrix": {
+    "PASS": {
+      "PASS": 11,
+      "FAIL": 0,
+      "UNAVAILABLE": 22
+    },
+    "FAIL": {
+      "PASS": 9,
+      "FAIL": 0,
+      "UNAVAILABLE": 15
+    }
+  },
+  "agreement": {
+    "numerator": 11,
+    "denominator": 57,
+    "fraction": null
+  },
+  "question_equal_weight_agreement": null,
+  "old_19_recovered": [],
+  "old_19_still_pass": [
+    1,
+    10,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "old_19_unavailable": [
+    21,
+    23,
+    24,
+    25,
+    33,
+    42,
+    44,
+    48,
+    51,
+    52
+  ],
+  "new_sample_false_alarms": [],
+  "old_5_regressed": [],
+  "all_new_fail": [],
+  "nine_b_cost": {
+    "records": 57,
+    "request_seconds": {
+      "n": 57,
+      "total": 636.618667403236,
+      "mean": 11.168748550933966,
+      "median": 8.408496975898743,
+      "maximum": 78.13342481292784
+    },
+    "output_tokens": {
+      "n": 57,
+      "total": 16907,
+      "mean": 296.6140350877193,
+      "median": 178,
+      "maximum": 3013
+    },
+    "input_tokens": {
+      "n": 57,
+      "total": 1160677,
+      "mean": 20362.754385964912,
+      "median": 14632,
+      "maximum": 61051
+    },
+    "peak_device_bytes": 28321644544,
+    "model_load_seconds": 35.76634441688657
+  },
+  "twentyseven_b_cost": {
+    "records": 20,
+    "request_seconds": {
+      "n": 20,
+      "total": 606.630501515232,
+      "mean": 30.3315250757616,
+      "median": 25.809775083325803,
+      "maximum": 60.750538176856935
+    },
+    "output_tokens": {
+      "n": 20,
+      "total": 3738,
+      "mean": 186.9,
+      "median": 186.0,
+      "maximum": 307
+    },
+    "input_tokens": {
+      "n": 20,
+      "total": 423657,
+      "mean": 21182.85,
+      "median": 13096.5,
+      "maximum": 58557
+    },
+    "peak_device_bytes": 31897288704
+  },
+  "capacity_cost": {
+    "records": 0,
+    "request_seconds": {
+      "n": 0
+    },
+    "output_tokens": {
+      "n": 0
+    },
+    "input_tokens": {
+      "n": 0
+    },
+    "peak_device_bytes": 0
+  },
+  "labels_are_provisional": true,
+  "independent_expert_gold": false,
+  "rework_executed": false,
+  "preliminary_unbounded_run": {
+    "path": "/root/project/VeriServe-step-hidden-probe/stages/stage3/diagnostics/qwen35-27b-quantized-prefix-audit/20261101-awq-v1",
+    "cost": {
+      "records": 27,
+      "request_seconds": {
+        "n": 27,
+        "total": 1332.4929766738787,
+        "mean": 49.35159172866218,
+        "median": 27.826861133798957,
+        "maximum": 526.5923149585724
+      },
+      "output_tokens": {
+        "n": 26,
+        "total": 5035,
+        "mean": 193.65384615384616,
+        "median": 191.5,
+        "maximum": 307
+      },
+      "input_tokens": {
+        "n": 27,
+        "total": 571008,
+        "mean": 21148.444444444445,
+        "median": 14632,
+        "maximum": 58557
+      },
+      "peak_device_bytes": 31897288704
+    },
+    "statuses": {
+      "completed": 24,
+      "technical_interruption": 1,
+      "format_error": 2
+    },
+    "unknown_output_tokens": [
+      27
+    ],
+    "interrupted_timing_is_approximate": true,
+    "old_partial_predictions_not_merged_into_this_run": true
+  },
+  "real_capacity_cost": {
+    "records": 3,
+    "request_seconds": {
+      "n": 3,
+      "total": 101.5375143326819,
+      "mean": 33.845838110893965,
+      "median": 31.41647293884307,
+      "maximum": 55.03752134088427
+    },
+    "output_tokens": {
+      "n": 3,
+      "total": 525,
+      "mean": 175,
+      "median": 157,
+      "maximum": 248
+    },
+    "input_tokens": {
+      "n": 3,
+      "total": 76411,
+      "mean": 25470.333333333332,
+      "median": 14632,
+      "maximum": 61051
+    },
+    "peak_device_bytes": 31695962112
+  },
+  "prior_model_loads": [
+    {
+      "session": "20261101T064619191836Z",
+      "cuda_capability": [
+        8,
+        9
+      ],
+      "device": "NVIDIA GeForce RTX 4080 SUPER",
+      "device_peak_bytes": 31163285504,
+      "device_peak_sampling_ms": 20,
+      "load_seconds": 110.69771267380565,
+      "vllm": "0.20.0"
+    },
+    {
+      "session": "20261101T065107912089Z",
+      "cuda_capability": [
+        8,
+        9
+      ],
+      "device": "NVIDIA GeForce RTX 4080 SUPER",
+      "device_peak_bytes": 31364612096,
+      "device_peak_sampling_ms": 20,
+      "load_seconds": 32.1720412010327,
+      "vllm": "0.20.0"
+    }
+  ],
+  "identical_tokens_on_overlapping_returned_requests": [
+    18,
+    1,
+    2,
+    19,
+    3,
+    20,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ]
+}
