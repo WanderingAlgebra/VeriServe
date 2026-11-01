@@ -1,0 +1,8 @@
+{
+  "repo": "cyankiwi/Qwen3.5-27B-AWQ-4bit",
+  "revision": "9d8d63632afafe90bdfcb70164d3e2a0955619f7",
+  "snapshot": "/root/autodl-tmp/qwen35-27b-awq/9d8d63632afafe90bdfcb70164d3e2a0955619f7",
+  "verified_weight_sha256": true,
+  "completed_unix": 1793515526.2504184,
+  "transport": "32 parallel direct ModelScope mirror HTTP ranges; every weight checked against pinned HF revision SHA256"
+}

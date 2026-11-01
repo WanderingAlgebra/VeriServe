@@ -1,0 +1,8 @@
+{
+  "status": "WAITING_FOR_VERIFIED_WEIGHTS",
+  "pid": 406339,
+  "env": {
+    "VLLM_WORKER_MULTIPROC_METHOD": "spawn",
+    "TOKENIZERS_PARALLELISM": "false"
+  }
+}

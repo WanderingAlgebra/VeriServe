@@ -56,12 +56,18 @@ def main():
     correct=sum(x['agrees_with_reference'] for x in rows)
     def indices(pred):return [x['index'] for x in rows if pred(x)]
     capacity=[read(p) for p in (RUN/'capacity').glob('*.json') if p.stem.isdigit()]
+    old_sessions=[read(p) for p in (BASE/'sessions').glob('*/completed.json') if read(p)['phase']=='first']
+    old_cost=costs(old_records)
+    old_cost['peak_device_bytes']=max((s['device_peak_bytes'] for s in old_sessions),default=None)
+    old_cost['model_load_seconds']=sum(s['model_init_seconds'] for s in old_sessions)
     summary=dict(planned_prefixes=57,original_questions=len(by_question),
         completed=sum(x['status']=='completed' for x in rows),
         status_counts=dict(Counter(x['status'] for x in rows)),verdict_counts=dict(Counter(x['twentyseven_b'] for x in rows)),
         confusion_matrix={gold:{v:matrix[(gold,v)] for v in ['PASS','FAIL','UNAVAILABLE']} for gold in ['PASS','FAIL']},
-        agreement=dict(numerator=correct,denominator=57,fraction=correct/57),
-        question_equal_weight_agreement=sum(statistics.mean(v) for v in by_question.values())/len(by_question),
+        agreement=dict(numerator=correct,denominator=57,
+                       fraction=correct/57 if all(x['status']=='completed' for x in rows) else None),
+        question_equal_weight_agreement=(sum(statistics.mean(v) for v in by_question.values())/len(by_question)
+                                         if all(x['status']=='completed' for x in rows) else None),
         old_19_recovered=indices(lambda x:x['original_19'] and x['twentyseven_b']=='FAIL'),
         old_19_still_pass=indices(lambda x:x['original_19'] and x['twentyseven_b']=='PASS'),
         old_19_unavailable=indices(lambda x:x['original_19'] and x['twentyseven_b']=='UNAVAILABLE'),
@@ -69,7 +75,7 @@ def main():
         old_5_regressed=indices(lambda x:x['nine_b']=='FAIL' and x['twentyseven_b']=='PASS'),
         all_new_fail=indices(lambda x:x['twentyseven_b']=='FAIL'),
         major_7=[x for x in rows if x['index'] in MAJOR],
-        nine_b_cost=costs(old_records),twentyseven_b_cost=costs(new_records),capacity_cost=costs(capacity),
+        nine_b_cost=old_cost,twentyseven_b_cost=costs(new_records),capacity_cost=costs(capacity),
         model_loads=[dict(session=p.parent.name,**read(p)) for p in (RUN/'sessions').glob('*/engine.json')],
         labels_are_provisional=True,independent_expert_gold=False,rework_executed=False,
         warnings=['Descriptive paired comparison on20 questions, with nested prefixes; not57 independent questions.',
