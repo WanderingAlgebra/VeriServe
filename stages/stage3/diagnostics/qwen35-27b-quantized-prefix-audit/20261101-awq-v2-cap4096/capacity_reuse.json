@@ -1,0 +1,12 @@
+{
+  "entrypoint_sha256": "9caf2c1bbeccf1ebc81b60926207529208fabe23141f9b019a44abdcb017175b",
+  "full_57_restarted": true,
+  "old_partial_run_not_merged": true,
+  "rationale": "Same model revision, full input token IDs,81920 context,prefill,dtype and engine. Only output budget reduced from None to4096; all3 actual capacity outputs used less than4096. No additional capacity rerun needed. Prior format error remains uncorrected.",
+  "records_sha256": {
+    "004": "e49da7000a5861904b1358cb7779a3fd746dd8e98cbb0e744d4e40e47fd8135e",
+    "021": "e67009233f5f23ba9e2a1355bfa79d1a8de8409e44c61a456fd4345561e64cf8",
+    "034": "6035f7b94441039d92c76561ced390f5f81bb7bb02abe4e3f4419204a7d20f15"
+  },
+  "source": "/root/project/VeriServe-step-hidden-probe/stages/stage3/diagnostics/qwen35-27b-quantized-prefix-audit/20261101-awq-v1/capacity"
+}
