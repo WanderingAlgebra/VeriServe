@@ -83,3 +83,14 @@ BACKUP comparison-20-complete 6e4d49110deb65d3f29121423715fe7fa622378b
 {"index": 28, "status": "completed", "output_tokens": 179, "request_seconds": 27.97871141601354, "device_peak_bytes": 31897288704} PASS
 {"index": 29, "status": "completed", "output_tokens": 212, "request_seconds": 21.071682555601, "device_peak_bytes": 31897288704} PASS
 {"index": 30, "status": "completed", "output_tokens": 209, "request_seconds": 24.82635284680873, "device_peak_bytes": 31897288704} PASS
+BACKUP comparison-30-complete a4821ffd97d5543b10c74ab81879ce16f7bfd643
+{"index": 31, "status": "completed", "output_tokens": 191, "request_seconds": 25.208692162297666, "device_peak_bytes": 31897288704} PASS
+{"index": 32, "status": "completed", "output_tokens": 206, "request_seconds": 26.334719226695597, "device_peak_bytes": 31897288704} PASS
+{"index": 33, "status": "completed", "output_tokens": 525, "request_seconds": 75.50175708532333, "device_peak_bytes": 31897288704} PASS
+{"index": 34, "status": "completed", "output_tokens": 157, "request_seconds": 54.934522185474634, "device_peak_bytes": 31897288704} PASS
+{"index": 35, "status": "completed", "output_tokens": 94, "request_seconds": 9.184698171913624, "device_peak_bytes": 31897288704} PASS
+{"index": 36, "status": "completed", "output_tokens": 154, "request_seconds": 29.176908414810896, "device_peak_bytes": 31897288704} PASS
+{"index": 37, "status": "completed", "output_tokens": 146, "request_seconds": 34.05682837869972, "device_peak_bytes": 31897288704} PASS
+{"index": 38, "status": "completed", "output_tokens": 125, "request_seconds": 12.092201393097639, "device_peak_bytes": 31897288704} PASS
+{"index": 39, "status": "completed", "output_tokens": 208, "request_seconds": 20.774966526776552, "device_peak_bytes": 31897288704} PASS
+{"index": 40, "status": "completed", "output_tokens": 121, "request_seconds": 13.459005356766284, "device_peak_bytes": 31897288704} PASS
