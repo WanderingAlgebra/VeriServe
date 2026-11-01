@@ -83,6 +83,21 @@ def main():
           'Quantization, prefill chunking, eager execution and context differ; latency is measured deployment cost, not a pure model-size effect.',
           'FAIL label agreement does not establish correct location, reason, or feedback. See qualitative review.'])
     save(RUN/'summary.json',summary)
+    prior=RUN.parent/'20261101-awq-v1'
+    if (prior/'manifest.json').exists():
+        prior_records=[read(p) for p in (prior/'comparison').glob('*.json') if p.stem.isdigit()]
+        summary['preliminary_unbounded_run']=dict(
+            path=str(prior),cost=costs(prior_records),
+            statuses=dict(Counter(r['status'] for r in prior_records)),
+            unknown_output_tokens=[r['index'] for r in prior_records if r.get('output_tokens') is None],
+            interrupted_timing_is_approximate=True,
+            old_partial_predictions_not_merged_into_this_run=True)
+        summary['real_capacity_cost']=costs([read(p) for p in (prior/'capacity').glob('*.json') if p.stem.isdigit()])
+        summary['prior_model_loads']=[dict(session=p.parent.name,**read(p)) for p in (prior/'sessions').glob('*/engine.json')]
+        summary['identical_tokens_on_overlapping_returned_requests']=[r['index'] for r in prior_records
+            if r.get('generated_ids') is not None and (RUN/'comparison'/f'{r["index"]:03}.json').exists()
+            and read(RUN/'comparison'/f'{r["index"]:03}.json').get('generated_ids')==r['generated_ids']]
+        save(RUN/'summary.json',summary)
     save(RUN/'fail_outputs.json',[x for x in rows if x['twentyseven_b']=='FAIL'])
     print(json.dumps({k:v for k,v in summary.items() if k not in ['major_7','model_loads','warnings']},ensure_ascii=False,indent=2))
 

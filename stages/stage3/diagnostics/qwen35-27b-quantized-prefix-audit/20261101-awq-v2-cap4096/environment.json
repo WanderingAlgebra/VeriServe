@@ -1,0 +1,8 @@
+{
+  "torch": "2.11.0+cu130",
+  "torch_cuda": "13.0",
+  "driver": "name, driver_version, memory.total [MiB]\nNVIDIA GeForce RTX 4080 SUPER, 595.71.05, 32760 MiB\n",
+  "vllm": "0.20.0",
+  "model_revision": "9d8d63632afafe90bdfcb70164d3e2a0955619f7",
+  "source_capacity": "../20261101-awq-v1/capacity"
+}
