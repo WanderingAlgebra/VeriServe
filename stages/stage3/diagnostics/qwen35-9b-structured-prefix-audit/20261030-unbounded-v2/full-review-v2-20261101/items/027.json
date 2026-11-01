@@ -1,0 +1,13 @@
+{
+  "index": 27,
+  "review_key": "17a1a58710e8d9abc59aa225a4ad273c3859333a4fce10c73c44d94fabca261f",
+  "unique_id": "8b9372c089db27dd5559dab49c1549adca3eef52fd05bcb4e0129f34fa4f4349",
+  "label": "PASS",
+  "severity": "",
+  "reason": "全文探索的b差分方向已纠正为b(i+1)≤b(i)+1并承认可下降；采用的DP始终正确。某处把长度3前缀追加2后的元组漏写一个1，结合明确前缀及后文逐项DP可唯一解释为排版漏项，不据此确认新的数学判断错误。",
+  "first_error_quote": "",
+  "reviewed_chars": 32087,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

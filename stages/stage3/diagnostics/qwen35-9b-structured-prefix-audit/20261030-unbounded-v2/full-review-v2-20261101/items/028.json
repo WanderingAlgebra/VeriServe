@@ -1,0 +1,13 @@
+{
+  "index": 28,
+  "review_key": "37e06ffa2c7fbfd41d3d5fad17a650dee80ab2ce9be4f88536e5915e0ffbf648",
+  "unique_id": "8b9372c089db27dd5559dab49c1549adca3eef52fd05bcb4e0129f34fa4f4349",
+  "label": "PASS",
+  "severity": "",
+  "reason": "错误试验133已明确剔除；最终DP完整重建并得42，Catalan值亦一致。",
+  "first_error_quote": "",
+  "reviewed_chars": 42112,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

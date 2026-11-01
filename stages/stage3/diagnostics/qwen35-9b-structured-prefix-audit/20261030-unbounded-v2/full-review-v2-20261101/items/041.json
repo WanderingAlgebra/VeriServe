@@ -1,0 +1,13 @@
+{
+  "index": 41,
+  "review_key": "a99cfd174313a09e3c318e367a30780f1a98b8941b66732f7f8291b326b34c70",
+  "unique_id": "61d50c4eb52ff7a11b8049b235b841c7d42fa5c9b19eaf2bc6b54ecd4f36a399",
+  "label": "PASS",
+  "severity": "",
+  "reason": "最初字母频数错误已明确重数并修正为2H、4M、2T；块计数60及双块唯一性正确，目前没有保留的确定错误。",
+  "first_error_quote": "",
+  "reviewed_chars": 22455,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

@@ -1,0 +1,13 @@
+{
+  "index": 39,
+  "review_key": "eaf6d280a232d88dc0f2f605641a7d976328a83f15ac52b3d6fb38123b9d5557",
+  "unique_id": "822570a1b7fe261e37a459df0d489e2cda5f0a049176e068cd3a04c4c1224683",
+  "label": "PASS",
+  "severity": "",
+  "reason": "逐步代回检验及韦达复算均成立，乘积10。",
+  "first_error_quote": "",
+  "reviewed_chars": 6829,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

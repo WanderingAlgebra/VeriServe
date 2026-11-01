@@ -1,0 +1,13 @@
+{
+  "index": 19,
+  "review_key": "0255b9fe4aabc71c2a229b982e42b0e1bfe150a5477bbe1daf58b042bd836f98",
+  "unique_id": "d08e3a84a16b61a793578a8f3ce4131663ed463e60609089b3b96ede25dfb0eb",
+  "label": "FAIL",
+  "severity": "逻辑",
+  "reason": "全文仍沿用第一步必须产生互异接收量、至少86个100的错误约束。后半虽找到N5两步构造，却未修复该全局限制；另有200转给初始100后仍记200的守恒错误。不能因尚未求出答案判错，依据为明确无效限制。",
+  "first_error_quote": "So min $|Q| = 100 - 1 - 13 = 86$.",
+  "reviewed_chars": 134959,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

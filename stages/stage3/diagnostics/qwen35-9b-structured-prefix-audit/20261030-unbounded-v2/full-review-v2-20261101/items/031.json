@@ -1,0 +1,13 @@
+{
+  "index": 31,
+  "review_key": "6fcf30fb06b4b56d5022ab123856f6379b347687fade3dd1947d8a124638cf04",
+  "unique_id": "9c98682bfac4cd9e6cd51ab67916486ff6b4d2f6304ea12a109cda4a683f91f3",
+  "label": "PASS",
+  "severity": "",
+  "reason": "终点再次从原方程重建全部指数计数，a1/2分类和4·2·2均得16；新残差式错误随Wait改回2b2+c2=4。",
+  "first_error_quote": "",
+  "reviewed_chars": 24910,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

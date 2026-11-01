@@ -1,0 +1,13 @@
+{
+  "index": 9,
+  "review_key": "3a42449c204f8423001b9fc1212978d218f787394e187f278e5743146d42b99e",
+  "unique_id": "b5afcba8def31ed41d71db7aa4929fc7eac39d0dcee8a2705ede8bb5624d292f",
+  "label": "PASS",
+  "severity": "",
+  "reason": "早期d=-1/2随即重算为-1；总数递推及383正确，不以已纠正尝试判错。",
+  "first_error_quote": "",
+  "reviewed_chars": 19774,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

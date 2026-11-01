@@ -1,0 +1,13 @@
+{
+  "index": 40,
+  "review_key": "1413ddf21894fa150ea8b5fb15e59b0f92518d8f618c14927fa6e67814c8c897",
+  "unique_id": "822570a1b7fe261e37a459df0d489e2cda5f0a049176e068cd3a04c4c1224683",
+  "label": "PASS",
+  "severity": "",
+  "reason": "完整解答的因式分解、求根及乘积10均正确。",
+  "first_error_quote": "",
+  "reviewed_chars": 8984,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

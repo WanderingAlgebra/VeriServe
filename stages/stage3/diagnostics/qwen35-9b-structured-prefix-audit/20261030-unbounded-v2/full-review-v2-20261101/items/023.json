@@ -1,0 +1,13 @@
+{
+  "index": 23,
+  "review_key": "715a7247bc1af8d9d3d49bf3694425bd7cca81b8ab766e17d34d86aef98c6fe9",
+  "unique_id": "4197008cb1b8d2c29619487b359e8388744d469221285a66e9842bd43aeafe20",
+  "label": "FAIL",
+  "severity": "主线",
+  "reason": "面积倒置243已纠正为3；但展开(3ax+y²)(x+a)把3a²x写成3axy，且约去a再错一次。正确3x²+3ax+y²=0，当前错误约束仍采用。",
+  "first_error_quote": "$y^2 x = 3ax^2 + 3axy + y^2 x + a y^2$.",
+  "reviewed_chars": 19318,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

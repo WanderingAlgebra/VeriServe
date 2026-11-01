@@ -1,0 +1,13 @@
+{
+  "index": 33,
+  "review_key": "db33988cbc6677f83f4cb38360c569dc760ff673f6590723bb29c035e511649b",
+  "unique_id": "069eb8d2350065b9497f088d3841a9dace229456800d337dd0f4340b93e5ba15",
+  "label": "FAIL",
+  "severity": "主线",
+  "reason": "后段用正确D_x=(16+6√21)/25约1.74，却把D_y=4D_x/3+5/3算约2.3；正确约3.9859。基于该错误坐标错误排除实际满足共点的DA=√21。",
+  "first_error_quote": "D \\approx (1.7, 2.3)",
+  "reviewed_chars": 105270,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

@@ -1,0 +1,13 @@
+{
+  "index": 16,
+  "review_key": "969ac63e03a60bfc00225ff847daf9fd97ea45446a75e30c504390986a4a0ecb",
+  "unique_id": "3e45b38a325fbc83fa38708828a448561b6af847375d69310f7f27924fb68f24",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "Φ6余数条件错误地推出c0=c3；正确条件为c0+c1=c3+c4及c1+c2=c4+c5。S={0,2,4,6,8,10}给余数(2,0,2,0,2,0)，P(ζ6)=0而c0≠c3，反驳必要性断言；截止16仍引用错误条件。",
+  "first_error_quote": "So $c_0 = c_3$.",
+  "reviewed_chars": 38768,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

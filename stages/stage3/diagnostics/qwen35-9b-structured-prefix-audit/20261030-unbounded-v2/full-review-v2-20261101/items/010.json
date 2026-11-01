@@ -1,0 +1,13 @@
+{
+  "index": 10,
+  "review_key": "f3853d27c6f23684446e8a653b11a590def12cb69c1718218b027f54866aa652",
+  "unique_id": "64e53dc1523d1aafa8d013489632e4d756404305fec154694c40c81f304a5703",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "末尾新设u_n=(X_n+Y_n√5)/2^n却列(X1,Y1)=(1,0)，给u1=1/2，与u1=1矛盾，应为(2,0)。早期判别式已被正确√5递推替代。",
+  "first_error_quote": "$n=1$: $(1, 0)$.",
+  "reviewed_chars": 23999,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

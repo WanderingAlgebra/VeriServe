@@ -1,0 +1,13 @@
+{
+  "index": 25,
+  "review_key": "bb1595240f515c2e84e94fd2114274b260181e10b48a55ea09f3344bef1a4679",
+  "unique_id": "4197008cb1b8d2c29619487b359e8388744d469221285a66e9842bd43aeafe20",
+  "label": "FAIL",
+  "severity": "主线",
+  "reason": "最终采用AE=BE sinα/sin(α+φ)的倒置关系，正确AE=BE sin(α+φ)/sinα。独立推得tanα=3,φ45°,AE=4/√5，AD²320。另最终10a写5√2也是错误；不以参考答案替代具体推导核验。",
+  "first_error_quote": "$a = BE \\frac{\\sin \\alpha}{\\sin(\\alpha+\\phi)}$",
+  "reviewed_chars": 94209,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

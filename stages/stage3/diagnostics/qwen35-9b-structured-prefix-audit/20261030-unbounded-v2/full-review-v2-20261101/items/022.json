@@ -1,0 +1,13 @@
+{
+  "index": 22,
+  "review_key": "bd89cbcbd633adc4e58efc092bd22368a07da87b0d466b57c22401d28404d21f",
+  "unique_id": "9827803958a4a3b753a157e4426a117edcfd35964f938a4da270684615869c6b",
+  "label": "PASS",
+  "severity": "",
+  "reason": "紧接21之后完整列出n4四个三元子集，明确纠正{1,3,4}含3、合法者为{1,2,4}。两条计数推导及127正确。",
+  "first_error_quote": "",
+  "reviewed_chars": 44115,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

@@ -1,0 +1,13 @@
+{
+  "index": 38,
+  "review_key": "70a011469b9362d5ddfca2d4894bbe065a34692fd4996bb389faeca676c2ea47",
+  "unique_id": "822570a1b7fe261e37a459df0d489e2cda5f0a049176e068cd3a04c4c1224683",
+  "label": "PASS",
+  "severity": "",
+  "reason": "公因式分解得到根2与5，乘积10；展开式与韦达公式一致。",
+  "first_error_quote": "",
+  "reviewed_chars": 1670,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

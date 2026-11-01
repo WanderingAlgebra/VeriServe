@@ -1,0 +1,13 @@
+{
+  "index": 42,
+  "review_key": "4eeae17eef61aa78905d5e63375e4eb3b89f19dbfcb20b5e3c0353632299cfb2",
+  "unique_id": "61d50c4eb52ff7a11b8049b235b841c7d42fa5c9b19eaf2bc6b54ecd4f36a399",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "主线361正确，但在验证HMHMMTMT时把第2—5位MHMM写成MHHM；此处未修正。前面的AB与AA辅助试算被放弃，未据此判错。",
+  "first_error_quote": "2,3,4,5 -> MHHM",
+  "reviewed_chars": 65142,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

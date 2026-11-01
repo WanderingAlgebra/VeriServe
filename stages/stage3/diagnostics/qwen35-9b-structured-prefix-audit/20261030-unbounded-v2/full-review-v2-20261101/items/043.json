@@ -1,0 +1,13 @@
+{
+  "index": 43,
+  "review_key": "e18589b584c27f0f327f5ef26a2df3c9d4a5a4a908332a30df25889189deaabe",
+  "unique_id": "61d50c4eb52ff7a11b8049b235b841c7d42fa5c9b19eaf2bc6b54ecd4f36a399",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "最终主线420−59=361正确；当前完整前缀仍保留对HMHMMTMT第2—5位的错误逐字核对，后面没有重核或撤回该局部断言。",
+  "first_error_quote": "2,3,4,5 -> MHHM",
+  "reviewed_chars": 91012,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

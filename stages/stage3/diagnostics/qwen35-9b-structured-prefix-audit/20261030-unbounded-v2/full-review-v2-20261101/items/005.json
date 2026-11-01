@@ -1,0 +1,13 @@
+{
+  "index": 5,
+  "review_key": "5af43425e7b5abe164eae48648c2ac932ef5dfa0d799146fde76b936726bd3e0",
+  "unique_id": "be1eaa0e5f5dbbe8f999d0144eb476d937565d597d71d2a2921a2b80337596f7",
+  "label": "PASS",
+  "severity": "",
+  "reason": "解得x=5并代入检验正确。",
+  "first_error_quote": "",
+  "reviewed_chars": 1985,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

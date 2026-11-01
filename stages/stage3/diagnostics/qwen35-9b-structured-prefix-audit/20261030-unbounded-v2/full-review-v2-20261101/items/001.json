@@ -1,0 +1,13 @@
+{
+  "index": 1,
+  "review_key": "63606bb132511a114324b254e7cf2aa2ed32b14ba9d396e0b7251c4b9b8f1003",
+  "unique_id": "0597368aa1ac92f71fe53399b3c6cdb72ebc692f05359fa99d713e8cb63af114",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "B3,1计算把A3,0=1错用为2，得到13/8；到该截断点尚未纠正。正确B3,1=11/8。",
+  "first_error_quote": "1.625 = 13/8",
+  "reviewed_chars": 27602,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

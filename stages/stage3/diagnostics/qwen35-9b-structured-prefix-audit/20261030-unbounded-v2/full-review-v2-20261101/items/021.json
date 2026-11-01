@@ -1,0 +1,13 @@
+{
+  "index": 21,
+  "review_key": "f2d5c479817ee3698ed42fda5e0cd4110a6db9d7776471d44aca9fbf7832281b",
+  "unique_id": "9827803958a4a3b753a157e4426a117edcfd35964f938a4da270684615869c6b",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "末端再次明确说{1,3,4}不含3，成员关系错误，后面只核对k2，没有改正k3。",
+  "first_error_quote": "Does it contain 3? No.",
+  "reviewed_chars": 33098,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

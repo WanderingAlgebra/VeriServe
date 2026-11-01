@@ -1,0 +1,13 @@
+{
+  "index": 6,
+  "review_key": "f065c99798251c3a936cd286a45bac33b7dcea69573c7c5b0ab80ca35e48f475",
+  "unique_id": "be1eaa0e5f5dbbe8f999d0144eb476d937565d597d71d2a2921a2b80337596f7",
+  "label": "PASS",
+  "severity": "",
+  "reason": "完整均值解答与代入检验均成立。",
+  "first_error_quote": "",
+  "reviewed_chars": 3256,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

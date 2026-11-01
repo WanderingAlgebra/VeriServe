@@ -1,0 +1,13 @@
+{
+  "index": 4,
+  "review_key": "ff8b844106663e020cfabe334ae0ff1514a931ba19c82a9987aa3a2a0a6572a9",
+  "unique_id": "be1eaa0e5f5dbbe8f999d0144eb476d937565d597d71d2a2921a2b80337596f7",
+  "label": "PASS",
+  "severity": "",
+  "reason": "均值方程(1+3+x)/3=3成立，当前建立方程无错误。",
+  "first_error_quote": "",
+  "reviewed_chars": 718,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

@@ -1,0 +1,13 @@
+{
+  "index": 13,
+  "review_key": "047f7fffa82f351bff1be667d88094d7699cbecf0f92da80d33c2e2404bb0844",
+  "unique_id": "3fea6c97d7cb0856984040bdcd1d4012d07d0e4d0166b1d81c3ff36f5a910b79",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "单人从7改6的新例子写总数905、X=7.525，错误且截至本截断点未重算。正确98·7+107+6=799，X=6.995。整体固定点7不受影响，仍记录未纠正新局部计算。",
+  "first_error_quote": "Sum = $798 + 107 = 905$.",
+  "reviewed_chars": 11867,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

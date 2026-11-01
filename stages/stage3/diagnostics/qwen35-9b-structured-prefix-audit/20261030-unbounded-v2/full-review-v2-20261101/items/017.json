@@ -1,0 +1,13 @@
+{
+  "index": 17,
+  "review_key": "e2494464f294ead98e7a30b9a4bb3fac67bfce7cfb4c1fffcc6afdc495edd52c",
+  "unique_id": "3e45b38a325fbc83fa38708828a448561b6af847375d69310f7f27924fb68f24",
+  "label": "FAIL",
+  "severity": "局部",
+  "reason": "后文已重建正确Φ6两条线性条件并纠正混淆的坐标向量，故不再以16的条件为当前错误。但仍把全6种余数各一次的排列计成1、概率1/6^6；应为6!=720种、概率720/6^6。计数未改正。",
+  "first_error_quote": "How many perms? 1 way.",
+  "reviewed_chars": 113960,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

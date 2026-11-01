@@ -1,0 +1,13 @@
+{
+  "index": 7,
+  "review_key": "bbb702ad7732118f82d59d7cbf2a2e67923d68a586c1184e51b1ba9eaad93f33",
+  "unique_id": "b5afcba8def31ed41d71db7aa4929fc7eac39d0dcee8a2705ede8bb5624d292f",
+  "label": "PASS",
+  "severity": "",
+  "reason": "日末G_n=2^n，B_n=2^(n+1)-1，T_n=3·2^n-1成立。",
+  "first_error_quote": "",
+  "reviewed_chars": 5578,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}

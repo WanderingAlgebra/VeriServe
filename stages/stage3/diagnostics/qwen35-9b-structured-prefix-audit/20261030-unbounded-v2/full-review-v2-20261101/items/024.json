@@ -1,0 +1,13 @@
+{
+  "index": 24,
+  "review_key": "aba36216fbedbacde1b6430d490c3ab71fe55e606a9e08afa2628c4e171f6bb1",
+  "unique_id": "4197008cb1b8d2c29619487b359e8388744d469221285a66e9842bd43aeafe20",
+  "label": "FAIL",
+  "severity": "主线",
+  "reason": "继续反复采用23错误坐标展开，并以错误正弦定理反比BE=AE sin(α+φ)/sinα建立450。正确应BE=AE sinα/sin(α+φ)。后文质疑构型但没有修复反比，故不是单纯未完成。",
+  "first_error_quote": "$BE = AE \\frac{\\sin(\\alpha+\\phi)}{\\sin \\alpha}$.",
+  "reviewed_chars": 85065,
+  "read_scope": "full_text_shared_prefix",
+  "reviewer": "Codex direct second full review",
+  "is_human_gold": false
+}
