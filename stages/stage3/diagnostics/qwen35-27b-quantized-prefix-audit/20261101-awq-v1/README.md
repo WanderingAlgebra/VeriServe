@@ -18,11 +18,11 @@
 ```bash
 /root/veriserve-vllm-env/bin/python -m stages.stage3.quantized_prefix_audit --phase check
 /root/veriserve-vllm-env/bin/python -m stages.stage3.quantized_prefix_audit --phase capacity
-/root/veriserve-vllm-env/bin/python -m stages.stage3.quantized_prefix_audit --phase first
+PYTHONPATH=. VLLM_WORKER_MULTIPROC_METHOD=spawn TOKENIZERS_PARALLELISM=false /root/veriserve-vllm-env/bin/python stages/stage3/diagnostics/qwen35-27b-quantized-prefix-audit/20261101-awq-v1/run_comparison.py
 python stages/stage3/diagnostics/qwen35-27b-quantized-prefix-audit/20261101-awq-v1/analyze.py
 ```
 
-先单独完成第4、21、34条真实短、中、最长前缀请求，三个输入长度分别728、14632、61051。必须全部完整返回可解析JSON才进入57条首轮。容量请求单独保存、单列成本，不替换首轮结果。
+先单独完成第4、21、34条真实短、中、最长前缀请求，三个输入长度分别728、14632、61051。实际三条均完整EOS、无OOM/截断；21生成了字面backspace控制token196，严格JSON解析失败，另外两条可解析。不能把格式失败等同于显存容量失败。新增显式comparison入口读取这些证据后运行全部57条，不修改初始冻结runner及容量记录，不修补21的文本，不改提示词/采样/语法约束；格式失败仍作为不可用结果保留。详见capacity_assessment.json。这不是正式格式或质量放行。
 
 采集前、每10条及阶段结束限定路径Git/LFS备份；失败停止后续采集。已有首轮记录不覆盖，进程中断的intent/response保留。需要重试时另建目录，不能用挑选重试结果替换首轮统计。
 
@@ -31,7 +31,7 @@ python stages/stage3/diagnostics/qwen35-27b-quantized-prefix-audit/20261101-awq-
 - `manifest.json`、`input_inventory.json`、`payloads.json`、`requests/`：模型身份、配置、输入长度、完整无标签输入及token请求。
 - `candidate_models.json`：候选模型的固定版本、文件大小和量化配置。官方GPTQ-Int4文件总量约30.26GB，不适合作为本卡长前缀测试的首选；所选社区版本约20.08GB。
 - `download_metadata.json`、`download_complete.json`、下载日志：下载来源与权重SHA256验证。仅下载新候选，不删除已有4B/9B模型。一个约4GB分片放在系统盘，其余放数据盘，避免填满单个文件系统。
-- `capacity/`、`first/`、`sessions/`：容量和首轮原始输出、完整token、解析状态、请求耗时、模型加载及20ms采样的全设备显存峰值。vLLM预分配KV池包含在显存中，不能将其解释为单条请求的净增量。
+- `capacity/`、`comparison/`、`sessions/`：容量和首轮原始输出、完整token、解析状态、请求耗时、模型加载及20ms采样的全设备显存峰值。vLLM预分配KV池包含在显存中，不能将其解释为单条请求的净增量。
 - `comparison.csv/json`、`summary.json`：全部57行和20题的描述性比较，缺失/异常单列。不得将同题前缀视为独立题。
 - `thinkprm_readonly.json`：ThinkPRM-14B配置与来源，只读检查，未加载或执行该模型。
 

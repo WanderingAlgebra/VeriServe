@@ -1,0 +1,12 @@
+{
+  "entrypoint_sha256": "901d91e0187877fd7093c78e90426513baaaa5d533512e410eec8a895064b0ac",
+  "explanation": "All3 full real prompts generated to EOS. Sample21 emitted literal control token196 (backspace), rejected by the unchanged strict JSON parser. Both tokenizer files have identical SHA256. No text repair, no prompt/sampling/backend change. Full57 uses comparison/ and retains format errors as unavailable; this is capacity feasibility, not format perfection or quality acceptance.",
+  "format_errors": [
+    21
+  ],
+  "full_prompt_capacity_pass": true,
+  "oom": false,
+  "parsed": 2,
+  "total": 3,
+  "truncated": false
+}
