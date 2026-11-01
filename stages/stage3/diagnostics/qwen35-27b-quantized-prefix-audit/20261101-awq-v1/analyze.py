@@ -31,7 +31,7 @@ def main():
     rows=[];new_records=[];old_records=[];matrix=Counter();by_question=defaultdict(list)
     for ref in labels:
         i=ref['source_index'];p=RUN/'comparison'/f'{i:03}.json'
-        r=read(p) if p.exists() else dict(status='not_run',judgment=None)
+        r=read(p) if p.exists() else dict(status='in_progress' if p.with_suffix('.intent.json').exists() else 'not_run',judgment=None)
         old=read(BASE/'first'/f'{i:03}'/'attempt_01.json');old_records.append(old)
         if p.exists():new_records.append(r)
         verdict=(r.get('judgment') or {}).get('verdict','UNAVAILABLE')

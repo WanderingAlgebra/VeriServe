@@ -1,0 +1,18 @@
+{
+  "context_output_capacity": 66325,
+  "error": "Stopped after prolonged generation without a returned response; token count and partial text unavailable. Separate bounded full57 followup created.",
+  "finish_reason": null,
+  "generated_ids": null,
+  "index": 27,
+  "input_tokens": 15595,
+  "judgment": null,
+  "max_tokens": null,
+  "output_tokens": null,
+  "phase": "comparison",
+  "raw_output": null,
+  "request_seconds": 526.5923149585724,
+  "review_key": "17a1a58710e8d9abc59aa225a4ad273c3859333a4fce10c73c44d94fabca261f",
+  "seed": 974732711731321020,
+  "status": "technical_interruption",
+  "timing_note": "Approximate intent-file timestamp to engine-shutdown log timestamp"
+}

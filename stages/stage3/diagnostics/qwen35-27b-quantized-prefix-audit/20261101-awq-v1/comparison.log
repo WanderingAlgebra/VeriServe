@@ -72,3 +72,40 @@ BACKUP comparison-10-complete cb4571e6ba003c679f70c764db3f4fecfcdce311
 {"index": 18, "status": "completed", "output_tokens": 307, "request_seconds": 44.32874245475978, "device_peak_bytes": 31897288704} PASS
 {"index": 19, "status": "completed", "output_tokens": 184, "request_seconds": 55.11410300154239, "device_peak_bytes": 31897288704} PASS
 {"index": 20, "status": "completed", "output_tokens": 212, "request_seconds": 22.349215606227517, "device_peak_bytes": 31897288704} PASS
+BACKUP comparison-20-complete d0ff0bd5188ece4879425a92a8b57551224c5af3
+{"index": 21, "status": "format_error", "output_tokens": 248, "request_seconds": 30.585125220008194, "device_peak_bytes": 31897288704} None
+{"index": 22, "status": "format_error", "output_tokens": 214, "request_seconds": 30.56767847109586, "device_peak_bytes": 31897288704} None
+{"index": 23, "status": "completed", "output_tokens": 180, "request_seconds": 21.653773311525583, "device_peak_bytes": 31897288704} PASS
+{"index": 24, "status": "completed", "output_tokens": 235, "request_seconds": 46.02620894089341, "device_peak_bytes": 31897288704} PASS
+{"index": 25, "status": "completed", "output_tokens": 195, "request_seconds": 45.12435755878687, "device_peak_bytes": 31897288704} PASS
+{"index": 26, "status": "completed", "output_tokens": 225, "request_seconds": 23.765770186670125, "device_peak_bytes": 31897288704} PASS
+Traceback (most recent call last):
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage3/diagnostics/qwen35-27b-quantized-prefix-audit/20261101-awq-v1/run_comparison.py", line 23, in <module>
+    audit.execute('comparison')
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage3/quantized_prefix_audit.py", line 179, in execute
+    response=model.generate([{'prompt_token_ids':req['input_ids']}],params,use_tqdm=False)[0]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 500, in generate
+    return self._run_completion(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 1651, in _run_completion
+    return self._run_engine(use_tqdm=use_tqdm, output_type=output_type)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 1861, in _run_engine
+    step_outputs = self.llm_engine.step()
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/llm_engine.py", line 295, in step
+    outputs = self.engine_core.get_output()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 790, in get_output
+    outputs = self.outputs_queue.get()
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/queue.py", line 171, in get
+    self.not_empty.wait()
+  File "/root/miniconda3/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+KeyboardInterrupt
+(EngineCore pid=410599) INFO 11-01 15:14:16 [core.py:1238] Shutdown initiated (timeout=0)
+(EngineCore pid=410599) INFO 11-01 15:14:16 [core.py:1243] Aborting 1 requests
+(EngineCore pid=410599) INFO 11-01 15:14:16 [core.py:1261] Shutdown complete
+[rank0]:[W1101 15:14:17.528571189 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

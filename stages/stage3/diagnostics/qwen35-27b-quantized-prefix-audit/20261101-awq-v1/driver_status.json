@@ -1,5 +1,7 @@
 {
-  "entrypoint": "run_comparison.py",
-  "note": "Initial download watcher was stopped to reconnect last range. Verified download then capacity and comparison launched explicitly.",
-  "status": "RUNNING_COMPARISON"
+  "completed_returned_requests": 26,
+  "followup": "20261101-awq-v2-cap4096",
+  "not_a_math_verdict": true,
+  "status": "STOPPED_LONG_RUNNING_REQUEST",
+  "stopped_at_index": 27
 }
