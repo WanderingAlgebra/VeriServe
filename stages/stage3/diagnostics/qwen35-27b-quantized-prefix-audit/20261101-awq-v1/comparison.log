@@ -61,3 +61,14 @@ WARNING 11-01 14:51:27 [nixl_utils.py:44] NIXL agent config is not available
 {"index": 8, "status": "completed", "output_tokens": 181, "request_seconds": 20.46324359625578, "device_peak_bytes": 31897288704} PASS
 {"index": 9, "status": "completed", "output_tokens": 169, "request_seconds": 20.466160364449024, "device_peak_bytes": 31897288704} PASS
 {"index": 10, "status": "completed", "output_tokens": 164, "request_seconds": 22.642705673351884, "device_peak_bytes": 31897288704} PASS
+BACKUP comparison-10-complete cb4571e6ba003c679f70c764db3f4fecfcdce311
+{"index": 11, "status": "completed", "output_tokens": 174, "request_seconds": 42.66772878635675, "device_peak_bytes": 31897288704} PASS
+{"index": 12, "status": "completed", "output_tokens": 219, "request_seconds": 59.32844277191907, "device_peak_bytes": 31897288704} PASS
+{"index": 13, "status": "completed", "output_tokens": 179, "request_seconds": 19.149884809739888, "device_peak_bytes": 31897288704} PASS
+{"index": 14, "status": "completed", "output_tokens": 193, "request_seconds": 25.014259507879615, "device_peak_bytes": 31897288704} PASS
+{"index": 15, "status": "completed", "output_tokens": 181, "request_seconds": 26.832557356916368, "device_peak_bytes": 31897288704} PASS
+{"index": 16, "status": "completed", "output_tokens": 190, "request_seconds": 27.826861133798957, "device_peak_bytes": 31897288704} PASS
+{"index": 17, "status": "completed", "output_tokens": 277, "request_seconds": 59.67302010487765, "device_peak_bytes": 31897288704} PASS
+{"index": 18, "status": "completed", "output_tokens": 307, "request_seconds": 44.32874245475978, "device_peak_bytes": 31897288704} PASS
+{"index": 19, "status": "completed", "output_tokens": 184, "request_seconds": 55.11410300154239, "device_peak_bytes": 31897288704} PASS
+{"index": 20, "status": "completed", "output_tokens": 212, "request_seconds": 22.349215606227517, "device_peak_bytes": 31897288704} PASS
