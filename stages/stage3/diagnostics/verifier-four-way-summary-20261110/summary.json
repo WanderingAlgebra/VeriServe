@@ -1,0 +1,37 @@
+{
+  "prefixes": 57,
+  "questions": 20,
+  "counts": {
+    "GPT6.1Sol": {
+      "FAIL": 27,
+      "PASS": 30
+    },
+    "Codex（第二轮）": {
+      "FAIL": 24,
+      "PASS": 33
+    },
+    "9B（结构化）": {
+      "PASS": 52,
+      "FAIL": 5
+    },
+    "27B AWQ 4-bit": {
+      "PASS": 54,
+      "UNAVAILABLE": 3
+    }
+  },
+  "gpt61sol_codex_disagreements": [
+    3,
+    11,
+    12,
+    14,
+    50
+  ],
+  "twentyseven_unavailable": [
+    21,
+    22,
+    27
+  ],
+  "original_labels_changed": false,
+  "new_model_calls": false,
+  "expert_gold": false
+}

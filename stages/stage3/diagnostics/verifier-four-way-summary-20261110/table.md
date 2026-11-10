@@ -1,0 +1,83 @@
+# 四套验证判定总表（57条前缀，20道原题）
+
+PASS＝通过，FAIL＝未通过。格式错误/截断＝没有有效数学判决，不能当作PASS或FAIL。所有结果按review_key及样本身份对齐，未重新判题、未修改标签。
+
+|结果来源|PASS|FAIL|无有效判决|
+|---|---:|---:|---:|
+|GPT6.1Sol|30|27|0|
+|Codex（第二轮）|33|24|0|
+|9B（结构化）|52|5|0|
+|27B AWQ 4-bit|54|0|3|
+
+## 逐条结果
+
+|编号|题号|类型|GPT6.1Sol|Codex第二轮|9B结构化|27B 4-bit|
+|---:|---:|---|---|---|---|---|
+|1|1|中途|FAIL|FAIL|PASS|PASS|
+|2|1|中途|PASS|PASS|PASS|PASS|
+|3|1|终点|FAIL|PASS|PASS|PASS|
+|4|2|中途|PASS|PASS|PASS|PASS|
+|5|2|中途|PASS|PASS|PASS|PASS|
+|6|2|终点|PASS|PASS|PASS|PASS|
+|7|3|中途|PASS|PASS|PASS|PASS|
+|8|3|中途|PASS|PASS|PASS|PASS|
+|9|3|终点|PASS|PASS|PASS|PASS|
+|10|4|中途|FAIL|FAIL|PASS|PASS|
+|11|4|中途|FAIL|PASS|PASS|PASS|
+|12|4|终点|FAIL|PASS|PASS|PASS|
+|13|5|中途|FAIL|FAIL|PASS|PASS|
+|14|5|中途|FAIL|PASS|PASS|PASS|
+|15|5|终点|FAIL|FAIL|PASS|PASS|
+|16|6|中途|FAIL|FAIL|PASS|PASS|
+|17|6|中途|FAIL|FAIL|PASS|PASS|
+|18|7|中途|FAIL|FAIL|PASS|PASS|
+|19|7|中途|FAIL|FAIL|PASS|PASS|
+|20|8|中途|FAIL|FAIL|PASS|PASS|
+|21|8|中途|FAIL|FAIL|PASS|格式错误|
+|22|8|终点|PASS|PASS|PASS|格式错误|
+|23|9|中途|FAIL|FAIL|PASS|PASS|
+|24|9|中途|FAIL|FAIL|PASS|PASS|
+|25|9|终点|FAIL|FAIL|PASS|PASS|
+|26|10|中途|PASS|PASS|PASS|PASS|
+|27|10|中途|PASS|PASS|PASS|截断|
+|28|10|终点|PASS|PASS|PASS|PASS|
+|29|11|中途|PASS|PASS|PASS|PASS|
+|30|11|中途|PASS|PASS|PASS|PASS|
+|31|11|终点|PASS|PASS|PASS|PASS|
+|32|12|中途|FAIL|FAIL|FAIL|PASS|
+|33|12|中途|FAIL|FAIL|PASS|PASS|
+|34|12|终点|FAIL|FAIL|FAIL|PASS|
+|35|13|中途|PASS|PASS|PASS|PASS|
+|36|13|中途|PASS|PASS|PASS|PASS|
+|37|13|终点|PASS|PASS|PASS|PASS|
+|38|14|中途|PASS|PASS|PASS|PASS|
+|39|14|中途|PASS|PASS|PASS|PASS|
+|40|14|终点|PASS|PASS|PASS|PASS|
+|41|15|中途|PASS|PASS|PASS|PASS|
+|42|15|中途|FAIL|FAIL|PASS|PASS|
+|43|15|终点|PASS|PASS|PASS|PASS|
+|44|16|中途|FAIL|FAIL|PASS|PASS|
+|45|16|中途|PASS|PASS|PASS|PASS|
+|46|16|终点|PASS|PASS|PASS|PASS|
+|47|17|中途|PASS|PASS|PASS|PASS|
+|48|17|中途|FAIL|FAIL|PASS|PASS|
+|49|17|终点|PASS|PASS|PASS|PASS|
+|50|18|中途|PASS|FAIL|FAIL|PASS|
+|51|18|中途|FAIL|FAIL|PASS|PASS|
+|52|18|终点|FAIL|FAIL|PASS|PASS|
+|53|19|中途|FAIL|FAIL|FAIL|PASS|
+|54|19|中途|FAIL|FAIL|FAIL|PASS|
+|55|20|中途|PASS|PASS|PASS|PASS|
+|56|20|中途|PASS|PASS|PASS|PASS|
+|57|20|终点|PASS|PASS|PASS|PASS|
+
+## 来源与限制
+
+- GPT6.1Sol：2026-10-30完成的`full-57-v3`完整汇总，含独立保存的技术重试/续跑结果，不混用pilot标签。
+- Codex：`full-review-v2-20261101`第二轮全文复核，33 PASS、24 FAIL；不是旧版36 PASS、21 FAIL。
+- 9B：`20261030-unbounded-v2/first`结构化首轮，52 PASS、5 FAIL；不是更早的39 PASS、18 UNCERTAIN版本。
+- 27B：`20261101-awq-v2-cap4096/comparison`完整57条运行，非Thinking、AWQ 4-bit、4096输出token上限。21、22格式错误，27输出截断。
+- GPT6.1Sol与Codex标签不同的编号：3、11、12、14、50。此处只展示既有分歧，不作新的裁定。
+- 这些均为模型判断，Codex仅是暂定对照；PASS数量多不表示模型更准确，同题前缀也不是独立原题。
+
+CSV：[verdicts.csv](verdicts.csv)；完整来源：[sources.json](sources.json)。
