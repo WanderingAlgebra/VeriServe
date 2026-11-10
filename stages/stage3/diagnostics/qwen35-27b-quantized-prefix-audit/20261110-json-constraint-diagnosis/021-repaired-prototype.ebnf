@@ -1,0 +1,26 @@
+basic_escape ::= ["\\/bfnrt] | "u" [A-Fa-f0-9] [A-Fa-f0-9] [A-Fa-f0-9] [A-Fa-f0-9]
+basic_string_sub ::= ("\"" | [^\0-\x1f\"\\\r\n] basic_string_sub | "\\" basic_escape basic_string_sub) (= [ \n\t]* [,}\]:])
+basic_any ::= basic_number | basic_string | basic_boolean | basic_null | basic_array | basic_object
+basic_integer ::= ("0" | "-"? [1-9] [0-9]*)
+basic_number ::= "-"? ("0" | [1-9] [0-9]*) ("." [0-9]+)? ([eE] [+-]? [0-9]+)?
+basic_string ::= ["] basic_string_sub
+basic_boolean ::= "true" | "false"
+basic_null ::= "null"
+basic_array ::= (("[" [ \n\t]* basic_any ([ \n\t]* "," [ \n\t]* basic_any)* [ \n\t]* "]") | ("[" [ \n\t]* "]"))
+basic_object ::= ("{" [ \n\t]* basic_string [ \n\t]* ":" [ \n\t]* basic_any ([ \n\t]* "," [ \n\t]* basic_string [ \n\t]* ":" [ \n\t]* basic_any)* [ \n\t]* "}") | "{" [ \n\t]* "}"
+root_case_0_prop_0 ::= "\"" ([^\0-\x1f"\\] | "\\" basic_escape){1,} "\""
+root_case_0_prop_2 ::= "\"\""
+root_case_0_prop_3 ::= "\"PASS\""
+root_case_0_part_2 ::= [ \n\t]* "," [ \n\t]* "\"verdict\"" [ \n\t]* ":" [ \n\t]* root_case_0_prop_3 ""
+root_case_0_part_1 ::= [ \n\t]* "," [ \n\t]* "\"hint\"" [ \n\t]* ":" [ \n\t]* root_case_0_prop_2 root_case_0_part_2
+root_case_0_part_0 ::= [ \n\t]* "," [ \n\t]* "\"first_error_step\"" [ \n\t]* ":" [ \n\t]* basic_null root_case_0_part_1
+root_case_0 ::= "{" [ \n\t]* (("\"diagnosis\"" [ \n\t]* ":" [ \n\t]* root_case_0_prop_0 root_case_0_part_0)) [ \n\t]* "}"
+root_case_1_prop_0 ::= "\"" ([^\0-\x1f"\\] | "\\" basic_escape){1,} "\""
+root_case_1_prop_1 ::= ("1") | ("2") | ("3") | ("4") | ("5") | ("6") | ("7") | ("8") | ("9") | ("10") | ("11") | ("12") | ("13") | ("14") | ("15") | ("16") | ("17") | ("18") | ("19") | ("20") | ("21") | ("22") | ("23") | ("24") | ("25") | ("26") | ("27") | ("28") | ("29") | ("30") | ("31") | ("32") | ("33") | ("34") | ("35") | ("36") | ("37") | ("38")
+root_case_1_prop_2 ::= "\"" ([^\0-\x1f"\\] | "\\" basic_escape){1,} "\""
+root_case_1_prop_3 ::= "\"FAIL\""
+root_case_1_part_2 ::= [ \n\t]* "," [ \n\t]* "\"verdict\"" [ \n\t]* ":" [ \n\t]* root_case_1_prop_3 ""
+root_case_1_part_1 ::= [ \n\t]* "," [ \n\t]* "\"hint\"" [ \n\t]* ":" [ \n\t]* root_case_1_prop_2 root_case_1_part_2
+root_case_1_part_0 ::= [ \n\t]* "," [ \n\t]* "\"first_error_step\"" [ \n\t]* ":" [ \n\t]* root_case_1_prop_1 root_case_1_part_1
+root_case_1 ::= "{" [ \n\t]* (("\"diagnosis\"" [ \n\t]* ":" [ \n\t]* root_case_1_prop_0 root_case_1_part_0)) [ \n\t]* "}"
+root ::= root_case_0 | root_case_1

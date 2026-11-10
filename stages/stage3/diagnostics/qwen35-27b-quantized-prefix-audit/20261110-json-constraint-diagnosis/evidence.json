@@ -1,0 +1,154 @@
+{
+  "versions": {
+    "vllm": "0.20.0",
+    "xgrammar": "0.2.3",
+    "transformers": "5.19.0"
+  },
+  "tokenizer_type": "Qwen3_5Tokenizer",
+  "vocab_type": "VocabType.BYTE_LEVEL",
+  "token196_grammar_bytes": "b'\\x08'",
+  "token196_actual_decode": "'\\x08'",
+  "minimal_cases": {
+    "plain_string": {
+      "plain": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      },
+      "empty": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      },
+      "raw_backspace": {
+        "xgrammar_accepts": false,
+        "strict_json_valid": false
+      },
+      "raw_tab": {
+        "xgrammar_accepts": false,
+        "strict_json_valid": false
+      },
+      "escaped_backslash": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      },
+      "escaped_quote": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      },
+      "escaped_newline": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      }
+    },
+    "minLength1": {
+      "plain": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      },
+      "empty": {
+        "xgrammar_accepts": false,
+        "strict_json_valid": true
+      },
+      "raw_backspace": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": false
+      },
+      "raw_tab": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": false
+      },
+      "escaped_backslash": {
+        "xgrammar_accepts": false,
+        "strict_json_valid": true
+      },
+      "escaped_quote": {
+        "xgrammar_accepts": false,
+        "strict_json_valid": true
+      },
+      "escaped_newline": {
+        "xgrammar_accepts": false,
+        "strict_json_valid": true
+      }
+    },
+    "repaired_minLength1": {
+      "plain": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      },
+      "empty": {
+        "xgrammar_accepts": false,
+        "strict_json_valid": true
+      },
+      "raw_backspace": {
+        "xgrammar_accepts": false,
+        "strict_json_valid": false
+      },
+      "raw_tab": {
+        "xgrammar_accepts": false,
+        "strict_json_valid": false
+      },
+      "escaped_backslash": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      },
+      "escaped_quote": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      },
+      "escaped_newline": {
+        "xgrammar_accepts": true,
+        "strict_json_valid": true
+      }
+    }
+  },
+  "original_saved_output_replays": [
+    {
+      "index": 21,
+      "record_sha256": "6c8cb11826603a2c4e8f2630ba9de81e92160204d7ed9af0b15cc38194f98627",
+      "request_sha256": "60204c1f775671c52cc2281f970aee062587b3ca371306495d9952bbcda877b9",
+      "replay": {
+        "original": {
+          "backspace_token_allowed_by_bitmask": true,
+          "rejected_at": null,
+          "terminated": true
+        },
+        "repaired_prototype": {
+          "backspace_token_allowed_by_bitmask": false,
+          "rejected_at": {
+            "position": 107,
+            "token": 196
+          },
+          "terminated": false
+        }
+      },
+      "strict_json_error": "Invalid control character at: line 2 column 394 (char 395)"
+    },
+    {
+      "index": 22,
+      "record_sha256": "b78dea94232141761df337b49a7a0ed43c1eb3f176b370e70781da2da5a2597e",
+      "request_sha256": "d8763bd930c9c9d4f56b155e6a811f5b3e096ab108d11cb56bd4ed0ab8243aa8",
+      "replay": {
+        "original": {
+          "backspace_token_allowed_by_bitmask": true,
+          "rejected_at": null,
+          "terminated": true
+        },
+        "repaired_prototype": {
+          "backspace_token_allowed_by_bitmask": false,
+          "rejected_at": {
+            "position": 99,
+            "token": 196
+          },
+          "terminated": false
+        }
+      },
+      "strict_json_error": "Invalid control character at: line 2 column 386 (char 387)"
+    }
+  ],
+  "root_cause": "xgrammar0.2.3 length-constrained string production omits C0 exclusion and JSON escapes",
+  "production_environment_modified": false,
+  "old_results_modified": false,
+  "new_gpu_calls": 0,
+  "repair_status": "Only CPU grammar/mask prototype verified; not installed or GPU-retested",
+  "upstream_issue": "https://github.com/mlc-ai/xgrammar/issues/800",
+  "script_sha256": "aa381f1040938a2b26d07c5b780ed6026a7308dc63e152713a39891ae59712b4"
+}
