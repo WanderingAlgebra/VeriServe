@@ -6,6 +6,8 @@
 
 已完成 LFS push、Git push 和远端提交号核对。全新的临时仓库从官方 origin 取回 `6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795`，40 个已提交的 ThinkPRM 诊断文件逐字节一致；该仓库没有 Git alternates，不共享本地对象。从空的临时 LFS 目录实际下载了 `probe_C.npz`（788 bytes），SHA-256 与远端 LFS 指针一致。完整记录见 [backup_restore.json](backup_restore.json)。真实前缀采集的备份前置条件已满足；数学核查和最终接口问题仍未解决。
 
+新对照材料已在 `be47d1032496b609f322d98bf1f0d16186872594` 中完成 LFS/Git 推送，随后从远端独立取回，新诊断目录 60 个文件、执行脚本及 Stage 3 README 共 62 个文件逐字节一致，见 [backup_current.json](backup_current.json)。这次备份还遇到直连波动，以及原仓库旧 `http.proxy` 覆盖可用环境代理的问题。最终逐命令显式使用 `git -c http.proxy="$HTTPS_PROXY" -c http.version=HTTP/1.1`，并设置 `GODEBUG=http2client=0`，保留 TLS/LFS 校验，完成实际推送和取回。原有配置未修改，排查时的临时中继未用于最终传输且已清理。后续备份应以实际 Git/LFS 请求成功为准，不能仅凭网页返回 200 判断可用。
+
 模型与上一轮相同，为官方 `launch/ThinkPRM-14B`，revision `1d1b415037cccf826fab6cc1b02c1dac199c0c0f`，复用已校验的六片 BF16 原始权重。环境为 vLLM 0.20.0、BitsAndBytes 0.50.2、PyTorch 2.11.0、Transformers 5.19.0、llguidance 1.3.0。
 
 两个精度使用完全相同的八份 prompt token、顺序、greedy 参数和种子 20261110。正文使用原模型卡模板及 assistant 后缀，不增加 JSON 字段说明或判错指导；最终输出仍由 `deepseek_r1 + guidance` 的同一三字段 Schema 约束。标签和具体错误判据只在外部 [rubric](compact-final/rubric.json)，不传给模型。主指标先评 `</think>` 前的正文是否指出实际错误，再检查最终 JSON。
