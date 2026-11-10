@@ -101,10 +101,18 @@ def main():
             interrupted_timing_is_approximate=True,
             old_partial_predictions_not_merged_into_this_run=True)
         summary['real_capacity_cost']=costs([read(p) for p in (prior/'capacity').glob('*.json') if p.stem.isdigit()])
+        summary['capacity_cost']=summary['real_capacity_cost']
+        summary['capacity_cost_accounting']='Reused3 prior capacity requests, counted once in overall experiment cost; not new calls in this57-run.'
         summary['prior_model_loads']=[dict(session=p.parent.name,**read(p)) for p in (prior/'sessions').glob('*/engine.json')]
         summary['identical_tokens_on_overlapping_returned_requests']=[r['index'] for r in prior_records
             if r.get('generated_ids') is not None and (RUN/'comparison'/f'{r["index"]:03}.json').exists()
             and read(RUN/'comparison'/f'{r["index"]:03}.json').get('generated_ids')==r['generated_ids']]
+        summary['nine_b_reference_matches']=sum(r['nine_b']==r['provisional_codex'] for r in rows)
+        summary['nine_b_confusion_matrix']={g:{v:sum(r['provisional_codex']==g and r['nine_b']==v for r in rows)
+                                               for v in ['PASS','FAIL']} for g in ['PASS','FAIL']}
+        summary['nine_b_question_equal_weight_match_fraction']=statistics.mean(
+            statistics.mean(r['nine_b']==r['provisional_codex'] for r in rows if r['unique_id']==qid)
+            for qid in by_question)
         save(RUN/'summary.json',summary)
     save(RUN/'fail_outputs.json',[x for x in rows if x['twentyseven_b']=='FAIL'])
     def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()

@@ -1,33 +1,43 @@
 {
   "planned_prefixes": 57,
+  "attempted": 57,
   "original_questions": 20,
-  "completed": 20,
+  "completed": 54,
   "status_counts": {
-    "completed": 20,
-    "not_run": 37
+    "completed": 54,
+    "format_error": 2,
+    "truncation": 1
   },
   "verdict_counts": {
-    "PASS": 20,
-    "UNAVAILABLE": 37
+    "PASS": 54,
+    "UNAVAILABLE": 3
   },
   "confusion_matrix": {
     "PASS": {
-      "PASS": 11,
+      "PASS": 31,
       "FAIL": 0,
-      "UNAVAILABLE": 22
+      "UNAVAILABLE": 2
     },
     "FAIL": {
-      "PASS": 9,
+      "PASS": 23,
       "FAIL": 0,
-      "UNAVAILABLE": 15
+      "UNAVAILABLE": 1
     }
   },
   "agreement": {
-    "numerator": 11,
+    "numerator": 31,
     "denominator": 57,
     "fraction": null
   },
+  "successful_reference_matches_over_all_planned": {
+    "numerator": 31,
+    "denominator": 57,
+    "fraction": 0.543859649122807,
+    "meaning": "Operational successful matching fraction; unavailable is not a successful match, not converted to PASS or FAIL."
+  },
   "question_equal_weight_agreement": null,
+  "question_equal_weight_successful_match_fraction": 0.5166666666666666,
+  "question_equal_weight_successful_match_policy": "All20 questions equally weighted, prefixes within question equally weighted; unavailable is not a successful match.",
   "old_19_recovered": [],
   "old_19_still_pass": [
     1,
@@ -38,10 +48,7 @@
     17,
     18,
     19,
-    20
-  ],
-  "old_19_unavailable": [
-    21,
+    20,
     23,
     24,
     25,
@@ -52,8 +59,17 @@
     51,
     52
   ],
+  "old_19_unavailable": [
+    21
+  ],
   "new_sample_false_alarms": [],
-  "old_5_regressed": [],
+  "old_5_regressed": [
+    32,
+    34,
+    50,
+    53,
+    54
+  ],
   "all_new_fail": [],
   "nine_b_cost": {
     "records": 57,
@@ -82,42 +98,54 @@
     "model_load_seconds": 35.76634441688657
   },
   "twentyseven_b_cost": {
-    "records": 20,
+    "records": 57,
     "request_seconds": {
-      "n": 20,
-      "total": 606.630501515232,
-      "mean": 30.3315250757616,
-      "median": 25.809775083325803,
-      "maximum": 60.750538176856935
+      "n": 57,
+      "total": 2106.9689742755145,
+      "mean": 36.964367969745865,
+      "median": 26.679472990334034,
+      "maximum": 393.8425590097904
     },
     "output_tokens": {
-      "n": 20,
-      "total": 3738,
-      "mean": 186.9,
-      "median": 186.0,
-      "maximum": 307
+      "n": 57,
+      "total": 15132,
+      "mean": 265.4736842105263,
+      "median": 193,
+      "maximum": 4096
     },
     "input_tokens": {
-      "n": 20,
-      "total": 423657,
-      "mean": 21182.85,
-      "median": 13096.5,
-      "maximum": 58557
+      "n": 57,
+      "total": 1160677,
+      "mean": 20362.754385964912,
+      "median": 14632,
+      "maximum": 61051
     },
-    "peak_device_bytes": 31897288704
+    "peak_device_bytes": 31903580160
   },
   "capacity_cost": {
-    "records": 0,
+    "records": 3,
     "request_seconds": {
-      "n": 0
+      "n": 3,
+      "total": 101.5375143326819,
+      "mean": 33.845838110893965,
+      "median": 31.41647293884307,
+      "maximum": 55.03752134088427
     },
     "output_tokens": {
-      "n": 0
+      "n": 3,
+      "total": 525,
+      "mean": 175,
+      "median": 157,
+      "maximum": 248
     },
     "input_tokens": {
-      "n": 0
+      "n": 3,
+      "total": 76411,
+      "mean": 25470.333333333332,
+      "median": 14632,
+      "maximum": 61051
     },
-    "peak_device_bytes": 0
+    "peak_device_bytes": 31695962112
   },
   "labels_are_provisional": true,
   "independent_expert_gold": false,
@@ -185,6 +213,7 @@
     },
     "peak_device_bytes": 31695962112
   },
+  "capacity_cost_accounting": "Reused3 prior capacity requests, counted once in overall experiment cost; not new calls in this57-run.",
   "prior_model_loads": [
     {
       "session": "20261101T064619191836Z",
@@ -220,9 +249,12 @@
     20,
     4,
     5,
+    24,
     6,
     7,
+    25,
     8,
+    26,
     9,
     10,
     11,
@@ -231,6 +263,21 @@
     14,
     15,
     16,
-    17
-  ]
+    17,
+    21,
+    22,
+    23
+  ],
+  "nine_b_reference_matches": 38,
+  "nine_b_confusion_matrix": {
+    "PASS": {
+      "PASS": 33,
+      "FAIL": 0
+    },
+    "FAIL": {
+      "PASS": 19,
+      "FAIL": 5
+    }
+  },
+  "nine_b_question_equal_weight_match_fraction": 0.65
 }
