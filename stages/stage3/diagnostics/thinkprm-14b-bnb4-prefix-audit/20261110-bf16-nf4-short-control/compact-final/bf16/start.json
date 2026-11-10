@@ -1,0 +1,36 @@
+{
+  "config": {
+    "dtype": "bfloat16",
+    "enable_chunked_prefill": true,
+    "enable_prefix_caching": false,
+    "enforce_eager": true,
+    "generation_config": "vllm",
+    "gpu_memory_utilization": 0.97,
+    "kv_cache_memory_bytes": 805306368,
+    "load_format": "safetensors",
+    "max_model_len": 2164,
+    "max_num_batched_tokens": 256,
+    "max_num_seqs": 1,
+    "model": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+    "quantization": null,
+    "structured_outputs_config": {
+      "backend": "guidance",
+      "disable_any_whitespace": true,
+      "enable_in_reasoning": false,
+      "reasoning_parser": "deepseek_r1"
+    },
+    "tokenizer": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f"
+  },
+  "sampling": {
+    "frequency_penalty": 0.0,
+    "max_tokens": 2048,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "repetition_penalty": 1.0,
+    "seed": 20261110,
+    "temperature": 0.0,
+    "top_k": 0,
+    "top_p": 1.0
+  },
+  "started_utc": "2026-11-10T10:11:04.545319+00:00"
+}

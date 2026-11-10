@@ -12,6 +12,8 @@
 
 2026-11-10 的 [ThinkPRM-14B 试跑](diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/report.md)已实际完成 vLLM BitsAndBytes NF4 4-bit 加载，`deepseek_r1 + guidance` 可分离核查正文与最终合法 JSON，但合成短题的明确除法错误仍被判 PASS。57 条输入已重算长度，最长 55,699 token；最长真实前缀和 17 条小测尚未执行，远端 Git/LFS 503 也阻止源样本采集。本轮不扩到 57 条，技术接口通过不作为检错质量通过。
 
+同日后续的[备份恢复与 BF16/NF4 短题对照](diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-bf16-nf4-short-control/report.md)已将 `6b8dc5e` 推送并从独立目录取回，Git/LFS 访问恢复。BF16 在 2,164-token 短上下文中成功运行；固定四组正确/错误版本的正文检错均为 3/4、正确前缀误报均为 0/4，两精度都漏掉原除法错误。最终合法 JSON 且 EOS 分别为 7/8 与 4/8，仍有正文检错而最终 PASS 及最终字符串重复截断。本轮固定对照已结束，未据此放行真实前缀采集。
+
 ## 新实验：Qwen3.5 原生 Thinking 的同题 HIGH/LOW
 
 2026-10-14，新 Stage2 已通过 8/10 可解析的完整预跑并进入正式采集，见 [Stage2 验收记录](../stage2/runs/v2-20261013-78a47750b3b9/smoke_acceptance_audit.json)。新 B 尚未拟合，两个验证器候选尚未完成本轮完整开发比较和独立人工核验；真实 pilot 与正式 HIGH/LOW 均未启动。

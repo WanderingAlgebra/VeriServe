@@ -1,0 +1,13 @@
+{
+  "results": {
+    "False": {
+      "valid": true,
+      "whitespace_loop": true
+    },
+    "True": {
+      "valid": true,
+      "whitespace_loop": false
+    }
+  },
+  "scope": "CPU replay only; affects final JSON grammar, not reasoning mask."
+}

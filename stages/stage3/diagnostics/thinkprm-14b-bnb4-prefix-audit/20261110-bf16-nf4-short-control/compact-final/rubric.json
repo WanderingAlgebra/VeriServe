@@ -1,0 +1,65 @@
+{
+  "cases": [
+    {
+      "expected": "PASS",
+      "group": "division",
+      "key": "01_division_correct",
+      "reasoning_criterion": "Do not report a nonexistent mathematical error.",
+      "variant": "correct"
+    },
+    {
+      "expected": "FAIL",
+      "group": "division",
+      "key": "02_division_incorrect",
+      "reasoning_criterion": "Identify Step 2 and explain that 4/2=2, not 1.",
+      "variant": "incorrect"
+    },
+    {
+      "expected": "PASS",
+      "group": "sign",
+      "key": "03_sign_correct",
+      "reasoning_criterion": "Do not report a nonexistent mathematical error.",
+      "variant": "correct"
+    },
+    {
+      "expected": "FAIL",
+      "group": "sign",
+      "key": "04_sign_incorrect",
+      "reasoning_criterion": "Identify the constant sign error: the second term must be +2.",
+      "variant": "incorrect"
+    },
+    {
+      "expected": "PASS",
+      "group": "possible_zero",
+      "key": "05_possible_zero_correct",
+      "reasoning_criterion": "Do not report a nonexistent mathematical error.",
+      "variant": "correct"
+    },
+    {
+      "expected": "FAIL",
+      "group": "possible_zero",
+      "key": "06_possible_zero_incorrect",
+      "reasoning_criterion": "Identify unjustified division by possibly-zero x and the lost solution x=0.",
+      "variant": "incorrect"
+    },
+    {
+      "expected": "PASS",
+      "group": "invalid_inference",
+      "key": "07_invalid_inference_correct",
+      "reasoning_criterion": "Do not report a nonexistent mathematical error.",
+      "variant": "correct"
+    },
+    {
+      "expected": "FAIL",
+      "group": "invalid_inference",
+      "key": "08_invalid_inference_incorrect",
+      "reasoning_criterion": "Identify the invalid converse; an even integer need not be divisible by 4, e.g. n=2.",
+      "variant": "incorrect"
+    }
+  ],
+  "correct_case": "Record false alarms, ambiguous reasoning, and incomplete output separately.",
+  "endpoint": "One BF16 initialization attempt and at most eight requests; one NF4 initialization and at most eight requests. No adaptive prompting or repeated seeds.",
+  "finite_synthetic_diagnostic": true,
+  "primary": "Assess the reasoning body before reading final JSON. FAIL alone is insufficient: require the concrete actual error.",
+  "source_audit": false
+}

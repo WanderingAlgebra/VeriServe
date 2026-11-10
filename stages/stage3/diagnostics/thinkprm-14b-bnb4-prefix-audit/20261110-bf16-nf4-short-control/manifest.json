@@ -1,0 +1,101 @@
+{
+  "changes_from_previous_trial": "Short context, prefill256, output2048, fixed KV768MiB. Original division cases retained; no source-data collection.",
+  "config": {
+    "dtype": "bfloat16",
+    "enable_chunked_prefill": true,
+    "enable_prefix_caching": false,
+    "enforce_eager": true,
+    "generation_config": "vllm",
+    "gpu_memory_utilization": 0.97,
+    "kv_cache_memory_bytes": 805306368,
+    "max_model_len": 2164,
+    "max_num_batched_tokens": 256,
+    "max_num_seqs": 1,
+    "model": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+    "structured_outputs_config": {
+      "backend": "guidance",
+      "enable_in_reasoning": false,
+      "reasoning_parser": "deepseek_r1"
+    },
+    "tokenizer": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f"
+  },
+  "created_utc": "2026-11-10T10:05:30.371840+00:00",
+  "hardware": "name, memory.total [MiB], memory.free [MiB], driver_version\nNVIDIA GeForce RTX 4080 SUPER, 32760 MiB, 32230 MiB, 595.71.05\n",
+  "helper_sha256": "97d2305da64a75ce68cd5acf37242551329ce12d7777c8326bde0d702f33717d",
+  "implementation_sha256": "a8d892d1114cd9caf5af16ff1bd9f20da1edfe3e0726babedfb7bdec10f10600",
+  "inventory": [
+    {
+      "input_tokens": 108,
+      "key": "01_division_correct",
+      "request_sha256": "831a196a93bfc0c8d5fdf89540e55291949faf620458ab18fa62a09ddda47581"
+    },
+    {
+      "input_tokens": 108,
+      "key": "02_division_incorrect",
+      "request_sha256": "cfd6eb44a74875eac68b7dfc66ada404118882ae79fde5eb1862390429392581"
+    },
+    {
+      "input_tokens": 96,
+      "key": "03_sign_correct",
+      "request_sha256": "9948df46a61de265f4bebfddf49e4f8f484ee5bdc8eb6bbc3cac51c0d119ad1b"
+    },
+    {
+      "input_tokens": 96,
+      "key": "04_sign_incorrect",
+      "request_sha256": "0f2369a563a91bd1b8d89b4fbd4b7df5663331fe4dc76d3fba8fe140ea33b2c9"
+    },
+    {
+      "input_tokens": 107,
+      "key": "05_possible_zero_correct",
+      "request_sha256": "db16c8edc421f1718b07a0cdfd76156c3ef1fdde1fd1621b3b0ac887af17586c"
+    },
+    {
+      "input_tokens": 104,
+      "key": "06_possible_zero_incorrect",
+      "request_sha256": "31ef4df93774d5f0acb0bfd230ebb16c949546bbe41cbe8a87a1ec80df7f5704"
+    },
+    {
+      "input_tokens": 110,
+      "key": "07_invalid_inference_correct",
+      "request_sha256": "94e219c0c8ecf740c72353055f6a5bbfed74be5ab4a6a337e69210d6cb0bb375"
+    },
+    {
+      "input_tokens": 116,
+      "key": "08_invalid_inference_incorrect",
+      "request_sha256": "c7802431acbac0053b5f11e7e67d7d06ebad801f6b1e1b7708656255e1bd4c7b"
+    }
+  ],
+  "memory": "Fixed 768 MiB BF16 KV cache for both precisions; explicit KV bytes override utilization for KV allocation.",
+  "model": "launch/ThinkPRM-14B",
+  "precisions": {
+    "bf16": {
+      "load_format": "safetensors",
+      "quantization": null
+    },
+    "nf4": {
+      "load_format": "bitsandbytes",
+      "quantization": "bitsandbytes"
+    }
+  },
+  "prompt": "Original model-card template; no added JSON instructions. Same final-only guidance Schema for both precisions.",
+  "revision": "1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "rubric_sha256": "c1cddd3880859478ddca45dfd7169a2a4f5fa125a5f3ecc88abe446bcf3cb8bf",
+  "sampling": {
+    "frequency_penalty": 0.0,
+    "max_tokens": 2048,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "repetition_penalty": 1.0,
+    "seed": 20261110,
+    "temperature": 0.0,
+    "top_k": 0,
+    "top_p": 1.0
+  },
+  "versions": {
+    "bitsandbytes": "0.50.2",
+    "llguidance": "1.3.0",
+    "torch": "2.11.0",
+    "transformers": "5.19.0",
+    "vllm": "0.20.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "change": "Only final JSON flexible whitespace disabled; all other common engine and sampling configuration unchanged.",
+  "reasoning_comparison": [
+    {
+      "key": "01_division_correct",
+      "new_end_index": 216,
+      "old_end_index": 216,
+      "reasoning_equal_through_end": true
+    },
+    {
+      "key": "02_division_incorrect",
+      "new_end_index": 162,
+      "old_end_index": 162,
+      "reasoning_equal_through_end": true
+    }
+  ],
+  "same_prompts": true,
+  "same_sampling": true,
+  "source_versions_preserved": true
+}

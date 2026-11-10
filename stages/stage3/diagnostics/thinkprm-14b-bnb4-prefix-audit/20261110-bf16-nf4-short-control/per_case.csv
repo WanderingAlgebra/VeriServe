@@ -1,0 +1,17 @@
+precision,key,group,expected,body_assessment,body_verdict,actual_error_detected,false_alarm,body_completed,final_status,final_verdict,eos,input_tokens,output_tokens,reasoning_tokens,seconds,device_peak_bytes
+bf16,01_division_correct,division,PASS,NO_FALSE_ALARM,PASS,,False,True,completed,PASS,True,108,320,216,18.32318553235382,31708545024
+bf16,02_division_incorrect,division,FAIL,ACTUAL_ERROR_MISSED,PASS,False,,True,completed,PASS,True,108,238,162,11.736865235492587,31708545024
+bf16,03_sign_correct,sign,PASS,NO_FALSE_ALARM,PASS,,False,True,completed,PASS,True,96,201,132,9.909223394468427,31710642176
+bf16,04_sign_incorrect,sign,FAIL,ACTUAL_ERROR_LOCALIZED,FAIL,True,,True,completed,PASS,True,96,263,113,12.950203210115433,31710642176
+bf16,05_possible_zero_correct,possible_zero,PASS,NO_FALSE_ALARM,PASS,,False,True,completed,PASS,True,107,326,215,16.056605293415487,31710642176
+bf16,06_possible_zero_incorrect,possible_zero,FAIL,ACTUAL_ERROR_LOCALIZED,FAIL,True,,True,completed,PASS,True,104,353,252,17.372467338107526,31710642176
+bf16,07_invalid_inference_correct,invalid_inference,PASS,NO_FALSE_ALARM,PASS,,False,True,completed,PASS,True,110,240,139,11.829528078436852,31710642176
+bf16,08_invalid_inference_incorrect,invalid_inference,FAIL,ACTUAL_ERROR_LOCALIZED,FAIL,True,,True,output_truncated,,False,116,2048,214,101.06426565069705,31710642176
+nf4,01_division_correct,division,PASS,NO_FALSE_ALARM,PASS,,False,True,completed,PASS,True,108,363,109,25.023705773986876,12842565632
+nf4,02_division_incorrect,division,FAIL,ACTUAL_ERROR_MISSED,PASS,False,,True,output_truncated,,False,108,2048,109,126.78371914476156,12842565632
+nf4,03_sign_correct,sign,PASS,NO_FALSE_ALARM,PASS,,False,True,output_truncated,,False,96,2048,174,126.89491336233914,12846759936
+nf4,04_sign_incorrect,sign,FAIL,ACTUAL_ERROR_LOCALIZED,FAIL,True,,True,completed,PASS,True,96,441,331,27.86036673374474,12846759936
+nf4,05_possible_zero_correct,possible_zero,PASS,NO_FALSE_ALARM,PASS,,False,True,completed,PASS,True,107,564,481,34.91637702193111,12846759936
+nf4,06_possible_zero_incorrect,possible_zero,FAIL,ACTUAL_ERROR_LOCALIZED,FAIL,True,,True,completed,PASS,True,104,488,263,30.206132388673723,12846759936
+nf4,07_invalid_inference_correct,invalid_inference,PASS,NO_FALSE_ALARM,PASS,,False,True,output_truncated,,False,110,2048,173,127.24197805952281,12846759936
+nf4,08_invalid_inference_incorrect,invalid_inference,FAIL,ACTUAL_ERROR_LOCALIZED,FAIL,True,,True,output_truncated,,False,116,2048,151,127.77240199409425,12846759936

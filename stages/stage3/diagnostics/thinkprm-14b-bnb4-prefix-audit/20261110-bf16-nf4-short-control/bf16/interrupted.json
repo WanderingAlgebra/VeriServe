@@ -1,0 +1,13 @@
+{
+  "active_request_without_returned_output": "03_sign_correct",
+  "completed": [
+    "01_division_correct",
+    "02_division_incorrect"
+  ],
+  "finite_exception": "One technical-format repair only. New subconfiguration: eight inputs per precision, same prompts and sampling; no further quality-driven retries.",
+  "interrupted_at_utc": "2026-11-10T10:09:56.758702+00:00",
+  "pids": [
+    "784009"
+  ],
+  "reason": "Final JSON whitespace loop: reasoning ended, but final whitespace consumed output budget. Stop preliminary run; compact-final subconfiguration is a single technical repair."
+}

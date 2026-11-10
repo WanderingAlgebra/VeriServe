@@ -1,0 +1,17 @@
+{
+  "actual_weights": [
+    {
+      "cuda_allocated_bytes": 30443665920,
+      "cuda_reserved_bytes": 30538727424,
+      "parameter_storage_dtypes": {
+        "torch.bfloat16": 339
+      },
+      "quant_types": [],
+      "quantized_examples": [],
+      "quantized_linear_count": 0
+    }
+  ],
+  "device_peak_bytes": 31471566848,
+  "device_peak_sampling_ms": 20,
+  "load_seconds": 28.34726615063846
+}

@@ -1,0 +1,79 @@
+INFO 11-10 18:05:54 [utils.py:233] non-default args: {'tokenizer': '/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f', 'load_format': 'safetensors', 'dtype': 'bfloat16', 'max_model_len': 2164, 'enable_prefix_caching': False, 'gpu_memory_utilization': 0.97, 'kv_cache_memory_bytes': 805306368, 'max_num_batched_tokens': 256, 'max_num_seqs': 1, 'disable_log_stats': True, 'enforce_eager': True, 'enable_chunked_prefill': True, 'structured_outputs_config': StructuredOutputsConfig(backend='guidance', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='deepseek_r1', reasoning_parser_plugin='', enable_in_reasoning=False), 'generation_config': 'vllm', 'model': '/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f'}
+INFO 11-10 18:05:54 [model.py:555] Resolved architecture: Qwen2ForCausalLM
+INFO 11-10 18:05:54 [model.py:1680] Using max model len 2164
+INFO 11-10 18:05:54 [scheduler.py:239] Chunked prefill is enabled with max_num_batched_tokens=256.
+INFO 11-10 18:05:54 [vllm.py:840] Asynchronous scheduling is enabled.
+WARNING 11-10 18:05:54 [vllm.py:896] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+WARNING 11-10 18:05:54 [vllm.py:914] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+INFO 11-10 18:05:54 [kernel.py:205] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'])
+INFO 11-10 18:05:56 [vllm.py:1089] Cudagraph is disabled under eager mode
+INFO 11-10 18:05:56 [compilation.py:303] Enabled custom fusions: norm_quant, act_quant
+(EngineCore pid=784137) INFO 11-10 18:06:09 [core.py:109] Initializing a V1 LLM engine (v0.20.0) with config: model='/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f', speculative_config=None, tokenizer='/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=2164, download_dir=None, load_format=safetensors, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='guidance', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='deepseek_r1', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f, enable_prefix_caching=False, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'ir_enable_torch_wrap': False, 'splitting_ops': [], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [256], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': True, 'fuse_act_quant': True, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['vllm_c', 'native']), enable_flashinfer_autotune=True, moe_backend='auto')
+(EngineCore pid=784137) INFO 11-10 18:06:11 [nixl_utils.py:20] Setting UCX_RCACHE_MAX_UNRELEASED to '1024' to avoid a rare memory leak in UCX when using NIXL.
+(EngineCore pid=784137) WARNING 11-10 18:06:11 [nixl_utils.py:34] NIXL is not available
+(EngineCore pid=784137) WARNING 11-10 18:06:11 [nixl_utils.py:44] NIXL agent config is not available
+(EngineCore pid=784137) INFO 11-10 18:06:11 [parallel_state.py:1402] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://172.17.0.8:58291 backend=nccl
+(EngineCore pid=784137) INFO 11-10 18:06:11 [parallel_state.py:1715] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=784137) INFO 11-10 18:06:12 [gpu_model_runner.py:4777] Starting to load model /root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f...
+(EngineCore pid=784137) INFO 11-10 18:06:13 [cuda.py:368] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore pid=784137) INFO 11-10 18:06:13 [flash_attn.py:646] Using FlashAttention version 2
+(EngineCore pid=784137) INFO 11-10 18:06:13 [weight_utils.py:904] Filesystem type for checkpoints: XFS. Checkpoint size: 27.51 GiB. Available RAM: 443.39 GiB.
+(EngineCore pid=784137) INFO 11-10 18:06:13 [weight_utils.py:927] Auto-prefetch is disabled because the filesystem (XFS) is not a recognized network FS (NFS/Lustre). If you want to force prefetching, start vLLM with --safetensors-load-strategy=prefetch.
+(EngineCore pid=784137) Loading safetensors checkpoint shards:   0% Completed | 0/6 [00:00<?, ?it/s]
+(EngineCore pid=784137) Loading safetensors checkpoint shards:  17% Completed | 1/6 [00:00<00:04,  1.02it/s]
+(EngineCore pid=784137) Loading safetensors checkpoint shards:  33% Completed | 2/6 [00:02<00:04,  1.10s/it]
+(EngineCore pid=784137) Loading safetensors checkpoint shards:  50% Completed | 3/6 [00:03<00:03,  1.13s/it]
+(EngineCore pid=784137) Loading safetensors checkpoint shards:  67% Completed | 4/6 [00:04<00:02,  1.13s/it]
+(EngineCore pid=784137) Loading safetensors checkpoint shards:  83% Completed | 5/6 [00:05<00:01,  1.15s/it]
+(EngineCore pid=784137) Loading safetensors checkpoint shards: 100% Completed | 6/6 [00:06<00:00,  1.14s/it]
+(EngineCore pid=784137) Loading safetensors checkpoint shards: 100% Completed | 6/6 [00:06<00:00,  1.13s/it]
+(EngineCore pid=784137) 
+(EngineCore pid=784137) INFO 11-10 18:06:20 [default_loader.py:384] Loading weights took 6.96 seconds
+(EngineCore pid=784137) INFO 11-10 18:06:21 [gpu_model_runner.py:4879] Model loading took 27.59 GiB memory and 7.876654 seconds
+(EngineCore pid=784137) INFO 11-10 18:06:22 [gpu_worker.py:361] Initial free memory 31.22 GiB, reserved 0.75 GiB memory for KV Cache as specified by kv_cache_memory_bytes config and skipped memory profiling. This does not respect the gpu_memory_utilization config. Only use kv_cache_memory_bytes config when you want manual control of KV cache memory size. If OOM'ed, check the difference of initial free memory between the current run and the previous run where kv_cache_memory_bytes is suggested and update it correspondingly.
+(EngineCore pid=784137) INFO 11-10 18:06:22 [kv_cache_utils.py:1711] GPU KV cache size: 4,096 tokens
+(EngineCore pid=784137) INFO 11-10 18:06:22 [kv_cache_utils.py:1716] Maximum concurrency for 2,164 tokens per request: 1.88x
+(EngineCore pid=784137) INFO 11-10 18:06:22 [core.py:306] init engine (profile, create kv cache, warmup model) took 0.78 s
+(EngineCore pid=784137) WARNING 11-10 18:06:23 [serial_utils.py:79] Allowing insecure serialization using pickle due to VLLM_ALLOW_INSECURE_SERIALIZATION=1
+(EngineCore pid=784137) INFO 11-10 18:06:23 [vllm.py:840] Asynchronous scheduling is enabled.
+(EngineCore pid=784137) WARNING 11-10 18:06:23 [vllm.py:896] Enforce eager set, disabling torch.compile and CUDAGraphs. This is equivalent to setting -cc.mode=none -cc.cudagraph_mode=none
+(EngineCore pid=784137) WARNING 11-10 18:06:23 [vllm.py:914] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+(EngineCore pid=784137) INFO 11-10 18:06:23 [kernel.py:205] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['vllm_c', 'native'])
+(EngineCore pid=784137) INFO 11-10 18:06:23 [vllm.py:1089] Cudagraph is disabled under eager mode
+(EngineCore pid=784137) INFO 11-10 18:06:23 [compilation.py:303] Enabled custom fusions: norm_quant, act_quant
+WARNING 11-10 18:06:23 [serial_utils.py:79] Allowing insecure serialization using pickle due to VLLM_ALLOW_INSECURE_SERIALIZATION=1
+{"key": "01_division_correct", "precision": "bf16", "input_tokens": 108, "status": "output_truncated", "output_tokens": 2048, "reasoning_tokens": 216, "final_tokens_including_eos": 1831, "judgment": null, "finish_reason": "length", "stop_reason": null, "eos_observed": false, "reasoning_end_observed": true, "returned_prompt_ids_match": true, "seconds": 103.64839642774314, "device_peak_bytes": 31708545024, "device_peak_sampling_ms": 20}
+{"key": "02_division_incorrect", "precision": "bf16", "input_tokens": 108, "status": "output_truncated", "output_tokens": 2048, "reasoning_tokens": 162, "final_tokens_including_eos": 1885, "judgment": null, "finish_reason": "length", "stop_reason": null, "eos_observed": false, "reasoning_end_observed": true, "returned_prompt_ids_match": true, "seconds": 101.00652562826872, "device_peak_bytes": 31708545024, "device_peak_sampling_ms": 20}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage3/thinkprm_short_precision.py", line 179, in <module>
+    prepare() if args.phase=='prepare' else execute(args.phase)
+                                            ^^^^^^^^^^^^^^^^^^^
+  File "/root/project/VeriServe-step-hidden-probe/stages/stage3/thinkprm_short_precision.py", line 145, in execute
+    response=llm.generate([dict(prompt_token_ids=ids)],options,use_tqdm=False)[0]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 500, in generate
+    return self._run_completion(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 1651, in _run_completion
+    return self._run_engine(use_tqdm=use_tqdm, output_type=output_type)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 1861, in _run_engine
+    step_outputs = self.llm_engine.step()
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/llm_engine.py", line 295, in step
+    outputs = self.engine_core.get_output()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/veriserve-vllm-env/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 790, in get_output
+    outputs = self.outputs_queue.get()
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/queue.py", line 171, in get
+    self.not_empty.wait()
+  File "/root/miniconda3/lib/python3.12/threading.py", line 355, in wait
+    waiter.acquire()
+KeyboardInterrupt
+(EngineCore pid=784137) INFO 11-10 18:09:56 [core.py:1238] Shutdown initiated (timeout=0)
+(EngineCore pid=784137) INFO 11-10 18:09:56 [core.py:1243] Aborting 1 requests
+(EngineCore pid=784137) INFO 11-10 18:09:56 [core.py:1261] Shutdown complete
+[rank0]:[W1110 18:09:57.983184250 ProcessGroupNCCL.cpp:1575] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

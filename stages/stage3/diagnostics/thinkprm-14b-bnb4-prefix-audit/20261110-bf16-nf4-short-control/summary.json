@@ -1,0 +1,226 @@
+{
+  "backup_restore_status": "PUSHED_AND_INDEPENDENTLY_RESTORED",
+  "body_primary": {
+    "bf16": {
+      "actual_errors_localized": 3,
+      "actual_errors_missed": 1,
+      "ambiguous_bodies": 0,
+      "body_final_contradiction_keys": [
+        "04_sign_incorrect",
+        "06_possible_zero_incorrect"
+      ],
+      "body_final_contradictions_among_valid": 2,
+      "correct_cases": 4,
+      "false_alarms": 0,
+      "final_unavailable": 1,
+      "final_unavailable_keys": [
+        "08_invalid_inference_incorrect"
+      ],
+      "final_valid_json_with_eos": 7,
+      "final_verdict_counts_among_valid": {
+        "FAIL": 0,
+        "PASS": 7
+      },
+      "incorrect_cases": 4,
+      "interpretation_zh": "BF16正文检出符号、零除丢解和无效逆推，仍漏掉4除以2等于1的错误。最终结构化判决没有给出任何有效FAIL；符号和零除两条正文已检错却返回PASS，无效逆推一条最终响应截断。",
+      "missed_keys": [
+        "02_division_incorrect"
+      ],
+      "planned": 8,
+      "reasoning_bodies_ended": 8,
+      "reviewed": 8
+    },
+    "nf4": {
+      "actual_errors_localized": 3,
+      "actual_errors_missed": 1,
+      "ambiguous_bodies": 0,
+      "body_final_contradiction_keys": [
+        "04_sign_incorrect",
+        "06_possible_zero_incorrect"
+      ],
+      "body_final_contradictions_among_valid": 2,
+      "correct_cases": 4,
+      "false_alarms": 0,
+      "final_unavailable": 4,
+      "final_unavailable_keys": [
+        "02_division_incorrect",
+        "03_sign_correct",
+        "07_invalid_inference_correct",
+        "08_invalid_inference_incorrect"
+      ],
+      "final_valid_json_with_eos": 4,
+      "final_verdict_counts_among_valid": {
+        "FAIL": 0,
+        "PASS": 4
+      },
+      "incorrect_cases": 4,
+      "interpretation_zh": "NF4正文同样检出符号、零除丢解和无效逆推，漏掉除法错误；02的最终残缺hint中随后自行纠正，不能回填正文检错。最终格式完整且EOS的4条均为PASS；其余4条在字符串重复中截断。",
+      "missed_keys": [
+        "02_division_incorrect"
+      ],
+      "planned": 8,
+      "reasoning_bodies_ended": 8,
+      "reviewed": 8
+    }
+  },
+  "completed_utc": "2026-11-10T10:28:11.172341+00:00",
+  "conclusion": "Both BF16 and NF4 reasoning localized3/4 actual errors, missed the same division error, and falsely flagged0/4 correct prefixes. This does not isolate the arithmetic miss to NF4, establish precision equivalence, or validate long-prefix quality.",
+  "config": {
+    "dtype": "bfloat16",
+    "enable_chunked_prefill": true,
+    "enable_prefix_caching": false,
+    "enforce_eager": true,
+    "generation_config": "vllm",
+    "gpu_memory_utilization": 0.97,
+    "kv_cache_memory_bytes": 805306368,
+    "max_model_len": 2164,
+    "max_num_batched_tokens": 256,
+    "max_num_seqs": 1,
+    "model": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+    "structured_outputs_config": {
+      "backend": "guidance",
+      "disable_any_whitespace": true,
+      "enable_in_reasoning": false,
+      "reasoning_parser": "deepseek_r1"
+    },
+    "tokenizer": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f"
+  },
+  "model": "launch/ThinkPRM-14B",
+  "nf4_division_late_correction": "Reasoning missed the error; later incomplete JSON hint correctly derived4/2=2, then repeated and truncated. Not counted as reasoning detection or valid final judgment.",
+  "precisions": {
+    "bf16": {
+      "engine": {
+        "actual_weights": [
+          {
+            "cuda_allocated_bytes": 30443665920,
+            "cuda_reserved_bytes": 30538727424,
+            "parameter_storage_dtypes": {
+              "torch.bfloat16": 339
+            },
+            "quant_types": [],
+            "quantized_examples": [],
+            "quantized_linear_count": 0
+          }
+        ],
+        "device_peak_bytes": 31471566848,
+        "device_peak_sampling_ms": 20,
+        "load_seconds": 26.58599738124758
+      },
+      "final_status_counts": {
+        "completed": 7,
+        "output_truncated": 1
+      },
+      "generation_seconds": 199.24234373308718,
+      "input_tokens": 845,
+      "output_tokens": 3989,
+      "peak_bytes": 31710642176,
+      "reasoning_tokens": 1443,
+      "requests": 8
+    },
+    "nf4": {
+      "engine": {
+        "actual_weights": [
+          {
+            "cuda_allocated_bytes": 11468520960,
+            "cuda_reserved_bytes": 11672748032,
+            "parameter_storage_dtypes": {
+              "torch.bfloat16": 147,
+              "torch.uint8": 192
+            },
+            "quant_types": [
+              "nf4"
+            ],
+            "quantized_examples": [
+              {
+                "dtype": "torch.uint8",
+                "name": "model.layers.0.self_attn.qkv_proj",
+                "quant_method": "BitsAndBytesLinearMethod",
+                "quant_types": [
+                  "nf4"
+                ],
+                "shape": [
+                  18350080,
+                  1
+                ]
+              },
+              {
+                "dtype": "torch.uint8",
+                "name": "model.layers.0.self_attn.o_proj",
+                "quant_method": "BitsAndBytesLinearMethod",
+                "quant_types": [
+                  "nf4"
+                ],
+                "shape": [
+                  13107200,
+                  1
+                ]
+              },
+              {
+                "dtype": "torch.uint8",
+                "name": "model.layers.0.mlp.gate_up_proj",
+                "quant_method": "BitsAndBytesLinearMethod",
+                "quant_types": [
+                  "nf4"
+                ],
+                "shape": [
+                  70778880,
+                  1
+                ]
+              },
+              {
+                "dtype": "torch.uint8",
+                "name": "model.layers.0.mlp.down_proj",
+                "quant_method": "BitsAndBytesLinearMethod",
+                "quant_types": [
+                  "nf4"
+                ],
+                "shape": [
+                  35389440,
+                  1
+                ]
+              }
+            ],
+            "quantized_linear_count": 192
+          }
+        ],
+        "device_peak_bytes": 12605587456,
+        "device_peak_sampling_ms": 20,
+        "load_seconds": 27.868202584795654
+      },
+      "final_status_counts": {
+        "completed": 4,
+        "output_truncated": 4
+      },
+      "generation_seconds": 626.6995944790542,
+      "input_tokens": 845,
+      "output_tokens": 10048,
+      "peak_bytes": 12846759936,
+      "reasoning_tokens": 1791,
+      "requests": 8
+    }
+  },
+  "review_is_blind": false,
+  "review_is_independent_expert_gold": false,
+  "revision": "1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "sampling": {
+    "frequency_penalty": 0.0,
+    "max_tokens": 2048,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "repetition_penalty": 1.0,
+    "seed": 20261110,
+    "temperature": 0.0,
+    "top_k": 0,
+    "top_p": 1.0
+  },
+  "scope": "Four synthetic pairs only; no57-source-prefix collection or17-item audit.",
+  "status": "FIXED_16_REQUEST_COMPARISON_COMPLETE",
+  "technical_repair": "Original final-whitespace run retained: two completed BF16 outputs and a third interrupted request. One compact-final repair only, followed by exactly8 requests per precision. All further repetitions/truncations retained without retries.",
+  "versions": {
+    "bitsandbytes": "0.50.2",
+    "llguidance": "1.3.0",
+    "torch": "2.11.0",
+    "transformers": "5.19.0",
+    "vllm": "0.20.0"
+  }
+}

@@ -1,0 +1,934 @@
+{
+  "status": "PUSHED_AND_INDEPENDENTLY_RESTORED",
+  "completed_at_utc": "2026-11-10T10:05:38.813313+00:00",
+  "branch": "experiment/step-hidden-probe",
+  "commit": "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795",
+  "remote_url": "https://github.com/WanderingAlgebra/VeriServe.git",
+  "transport_repair": {
+    "cause_evidence": "Default proxy Git and LFS requests return HTTP 503; direct requests both succeed.",
+    "per_command_environment_unset": [
+      "HTTPS_PROXY",
+      "HTTP_PROXY",
+      "ALL_PROXY",
+      "https_proxy",
+      "http_proxy",
+      "all_proxy"
+    ],
+    "per_command_git_options": [
+      "-c",
+      "http.proxy="
+    ],
+    "global_git_configuration_changed": false,
+    "repository_git_configuration_changed": false,
+    "lfs_verification_disabled": false,
+    "credentials_printed": false
+  },
+  "access_checks": [
+    {
+      "mode": "default_proxy",
+      "argv": [
+        "git",
+        "ls-remote",
+        "--exit-code",
+        "origin",
+        "refs/heads/experiment/step-hidden-probe"
+      ],
+      "exit_code": 128,
+      "stderr": "fatal: unable to access 'https://github.com/WanderingAlgebra/VeriServe.git/': The requested URL returned error: 503\n"
+    },
+    {
+      "mode": "default_proxy",
+      "argv": [
+        "git",
+        "lfs",
+        "locks",
+        "--verify",
+        "--remote=origin"
+      ],
+      "exit_code": 2,
+      "stderr": "Error while retrieving locks: Server error: https://github.com/WanderingAlgebra/VeriServe.git/info/lfs/locks/verify from HTTP 503\n"
+    },
+    {
+      "mode": "direct",
+      "argv": [
+        "git",
+        "-c",
+        "http.proxy=",
+        "ls-remote",
+        "--exit-code",
+        "origin",
+        "refs/heads/experiment/step-hidden-probe"
+      ],
+      "exit_code": 0,
+      "stdout": "4f3530ab90b56c8c789bc39a1abf1fb4cc2bbd2c\trefs/heads/experiment/step-hidden-probe\n"
+    },
+    {
+      "mode": "direct",
+      "argv": [
+        "git",
+        "-c",
+        "http.proxy=",
+        "lfs",
+        "locks",
+        "--verify",
+        "--remote=origin"
+      ],
+      "exit_code": 0,
+      "stdout": ""
+    }
+  ],
+  "push_results": [
+    {
+      "mode": "direct",
+      "argv": [
+        "git",
+        "-c",
+        "http.proxy=",
+        "lfs",
+        "push",
+        "origin",
+        "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795"
+      ],
+      "exit_code": 0,
+      "stdout": ""
+    },
+    {
+      "mode": "direct",
+      "argv": [
+        "git",
+        "-c",
+        "http.proxy=",
+        "push",
+        "--porcelain",
+        "origin",
+        "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:refs/heads/experiment/step-hidden-probe"
+      ],
+      "exit_code": 0,
+      "stdout": "To https://github.com/WanderingAlgebra/VeriServe.git\n \t6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:refs/heads/experiment/step-hidden-probe\t4f3530a..6b8dc5e\nDone\n"
+    },
+    {
+      "mode": "direct",
+      "argv": [
+        "git",
+        "-c",
+        "http.proxy=",
+        "ls-remote",
+        "--exit-code",
+        "origin",
+        "refs/heads/experiment/step-hidden-probe"
+      ],
+      "exit_code": 0,
+      "stdout": "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795\trefs/heads/experiment/step-hidden-probe\n"
+    }
+  ],
+  "independent_restore": {
+    "status": "RESTORED_AND_VERIFIED",
+    "expected_commit": "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795",
+    "remote_fetched_commit": "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795",
+    "temporary_checkout": "/tmp/thinkprm-remote-restore-91kp_yea",
+    "git_objects_shared": false,
+    "git_alternates_file_exists": false,
+    "diagnostic_file_count": 40,
+    "diagnostic_files": {
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/audit17_pending.csv": {
+        "sha256": "f6adf31e95c550872bcaaa036d94bda319f8ab0520eb8656f6e4989566ab025e",
+        "bytes": 1449
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/audit17_pending.json": {
+        "sha256": "32e5f15e6e3c0566738230bdca2e5d27fb4888a4fc13ab00430fc85e416a936f",
+        "bytes": 5129
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/backup_status.json": {
+        "sha256": "d3dae89bdd85b3c6abd05682809dfa65a885422a30dc88fc91b82f432b87ea0b",
+        "bytes": 2612
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls.log": {
+        "sha256": "b6884d870d57dc0cfb7108fb483b7204652737095dd36038b82142f90631781a",
+        "bytes": 11089
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/engine.json": {
+        "sha256": "06dfbe624df1aadc4f6e79f274aa52eaa3690668bf3d83e446161bc67637c566",
+        "bytes": 1578
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_first_guidance.json": {
+        "sha256": "9dcbb8eb893666760baa3e65700b709b54fe640177429719c12251dca487fafb",
+        "bytes": 5271
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_first_guidance.request.json": {
+        "sha256": "dfb4bdedea788bd3d84d21b36f23c5798fe88ae66bf83762e824214aff3536c3",
+        "bytes": 3569
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_model_card.json": {
+        "sha256": "bd393283264d266670f5ebb77bf5c9acc5e987b072ea5257566e1eaf206b7800",
+        "bytes": 2219
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_model_card.request.json": {
+        "sha256": "211c0a0dc3ce4262fb599270e404dcbddc55beb5af182ab4031279272012859f",
+        "bytes": 1616
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_no_constraint.json": {
+        "sha256": "129f7534c47c340b59c2f7cf6f5abc52c0e850c19dc614b8c9669b912313df18",
+        "bytes": 4419
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_no_constraint.request.json": {
+        "sha256": "ddfc64adf21861787adbe6ce150685d6b0a79341c43849bfcabe9bdf8d99c576",
+        "bytes": 3570
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/manifest.json": {
+        "sha256": "420cb5ad04df8bd13694a4f3d20dcd8513b2b00520fa03de96eab9940c558141",
+        "bytes": 1213
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/cpu_backend_check.json": {
+        "sha256": "bd4b771ece1875ed2423498a3f5a3a4bfb4d512c115fbb941639e233ff04a8bc",
+        "bytes": 4857
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download.log": {
+        "sha256": "1d459b40d8b12965a3ed1f3d623679836050d4a7e42c8c86a267e731f484e296",
+        "bytes": 566
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_cleanup.json": {
+        "sha256": "f9d0d56796facfe0f05036d08ce633997642072559579dd54ff476a2a626d957",
+        "bytes": 2352
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_complete.json": {
+        "sha256": "f1610f07d03eb06c16fb4f061b42ff7c20795f7396231f0e68bd8d591a62431f",
+        "bytes": 2793
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_manifest.json": {
+        "sha256": "b333dfc0ed9c45b1b8d1df99adf81768d1e52149008d91ff75e2a17d7bfae66b",
+        "bytes": 1184
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_model.py": {
+        "sha256": "5c4677a9d1cf93e9452016a7b96e121f58d265c685e204f8eea2a57d6b973b7e",
+        "bytes": 3577
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_network_attempts.json": {
+        "sha256": "7a731045506dafb5c0eaccdb4707ec0ed1dc2127ff9856d888270acdd0f6d8e6",
+        "bytes": 2972
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_ranged.py": {
+        "sha256": "4761e111f808f2847921fb69d35db40886a8fdf408c8e91a522ec4304819ea63",
+        "bytes": 5560
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_ranges.log": {
+        "sha256": "7dbfcc1a25f0b10b4aec4b0b796242c1fec37a7aa0e6254bbf178df1357a6a62",
+        "bytes": 14274
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_verify.log": {
+        "sha256": "125de46f59e3eda482c6e6607b5a16932ceb66e7f21a53e44a8cee71f9459f21",
+        "bytes": 1849
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/engine.json": {
+        "sha256": "1fbd343a7685dd7a9436f17c42d69274e1675bc918c722d250bdf5528f45c210",
+        "bytes": 1618
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/final_schema.json": {
+        "sha256": "5ad059274cdf8af6d58b3030489c85976c188b7532bb3eca184e9031bf6f0b46",
+        "bytes": 359
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/input_inventory.json": {
+        "sha256": "1320acbeefc0d3039d406046dfec17c1c50a9f98a593d31781955e95884f758d",
+        "bytes": 21736
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/launch.log": {
+        "sha256": "5f5d53d94991dc027a7edeac7b62aa202457eb954b964339fe0c9ca933c29316",
+        "bytes": 11849
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/manifest.json": {
+        "sha256": "9f9b74db0dc15a7dee122dd08f4d0011749893ca4fcf871acf3a8ba3094a1231",
+        "bytes": 2835
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/prepare.log": {
+        "sha256": "c67162d36ad114644c2a945800a0ff71c18a255242ea8fc04efef6ef93011bfc",
+        "bytes": 588
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/prompt_instructions.txt": {
+        "sha256": "c15902f73ac32606bcce908474754f8cd97f82feae6059440dc68916481d8b34",
+        "bytes": 674
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/range_progress.json": {
+        "sha256": "c52b324a45e8565015c5a28536c36724edddba78345513feb03d87e1d9bfca0f",
+        "bytes": 61147
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/range_progress_8m.json": {
+        "sha256": "65ab6e9d47ee65b3238c6cc1444e3b087d9dca5b6282766949ceb95dfa1302e0",
+        "bytes": 426748
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/report.md": {
+        "sha256": "4208533f53f945386c0a6457050c0faf72829d83a26011a4044770b91842d3d8",
+        "bytes": 7807
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/selection.json": {
+        "sha256": "667ddd6f2903c5e4fc2821dec34cad6e9e427b69fc73a66820005893a3e95628",
+        "bytes": 630
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/summary.json": {
+        "sha256": "0c786388fc0e68972eafc15851aabe6746252e436b2496ae49053daac70a1619",
+        "bytes": 8819
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_fail.json": {
+        "sha256": "c1d27231709eb754cd3a874679b1fef12f389ea1891365bc72bfcb46ac2c0d2b",
+        "bytes": 5388
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_fail.request.json": {
+        "sha256": "0ffb437ebf9d48eeb2239633267e8b081676aca4be566cd8af68d0de7a307964",
+        "bytes": 4012
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_pass.json": {
+        "sha256": "6c07d02ed14eb5bcac1b93fd0ad5778db6f8855009af677fa7336093eb7ef721",
+        "bytes": 5384
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_pass.request.json": {
+        "sha256": "772022289173f76e24da91c64181cc845e3eb8d2e8c9a3f2c7450f231d90b648",
+        "bytes": 4012
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/tokenizer_ready.json": {
+        "sha256": "eaba28deea40acf79586af32ee8d75d4b4ca5bc38c43370368a683b156aac747",
+        "bytes": 202
+      },
+      "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/verify_download.py": {
+        "sha256": "6a50e5437f8e60154d46a74a435e4e612bbedbe1a7c5c121a760258d82fca307",
+        "bytes": 2740
+      }
+    },
+    "lfs": {
+      "path": "stages/stage2/runs/20261004-36fe9009f1f5/probe_C.npz",
+      "pointer": "version https://git-lfs.github.com/spec/v1\noid sha256:a9348171f82e7663269686202c7700c150ad36bd8c126e189906ac38fecfb099\nsize 788\n",
+      "expected_sha256": "a9348171f82e7663269686202c7700c150ad36bd8c126e189906ac38fecfb099",
+      "actual_sha256": "a9348171f82e7663269686202c7700c150ad36bd8c126e189906ac38fecfb099",
+      "expected_bytes": 788,
+      "actual_bytes": 788,
+      "storage": "/tmp/thinkprm-remote-restore-91kp_yea/.git/lfs/objects",
+      "storage_empty_before_fetch": true,
+      "object_exists_after_fetch": true,
+      "downloaded_from": "https://github.com/WanderingAlgebra/VeriServe.git/info/lfs"
+    },
+    "commands": [
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "rev-parse",
+          "FETCH_HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "update-ref",
+          "HEAD",
+          "FETCH_HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "checkout",
+          "FETCH_HEAD",
+          "--",
+          "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit",
+          "stages/stage2/runs/20261004-36fe9009f1f5/probe_C.npz"
+        ],
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "ls-tree",
+          "-r",
+          "--name-only",
+          "FETCH_HEAD",
+          "--",
+          "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit"
+        ],
+        "exit_code": 0,
+        "stdout": "stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/audit17_pending.csv\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/audit17_pending.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/backup_status.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls.log\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/engine.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_first_guidance.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_first_guidance.request.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_model_card.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_model_card.request.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_no_constraint.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_no_constraint.request.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/manifest.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/cpu_backend_check.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download.log\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_cleanup.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_complete.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_manifest.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_model.py\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_network_attempts.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_ranged.py\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_ranges.log\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_verify.log\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/engine.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/final_schema.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/input_inventory.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/launch.log\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/manifest.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/prepare.log\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/prompt_instructions.txt\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/range_progress.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/range_progress_8m.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/report.md\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/selection.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/summary.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_fail.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_fail.request.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_pass.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_pass.request.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/tokenizer_ready.json\nstages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/verify_download.py\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/audit17_pending.csv"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 1449,
+        "stdout_sha256": "f6adf31e95c550872bcaaa036d94bda319f8ab0520eb8656f6e4989566ab025e"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/audit17_pending.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 5129,
+        "stdout_sha256": "32e5f15e6e3c0566738230bdca2e5d27fb4888a4fc13ab00430fc85e416a936f"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/backup_status.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 2612,
+        "stdout_sha256": "d3dae89bdd85b3c6abd05682809dfa65a885422a30dc88fc91b82f432b87ea0b"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls.log"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 11089,
+        "stdout_sha256": "b6884d870d57dc0cfb7108fb483b7204652737095dd36038b82142f90631781a"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/engine.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 1578,
+        "stdout_sha256": "06dfbe624df1aadc4f6e79f274aa52eaa3690668bf3d83e446161bc67637c566"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_first_guidance.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 5271,
+        "stdout_sha256": "9dcbb8eb893666760baa3e65700b709b54fe640177429719c12251dca487fafb"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_first_guidance.request.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 3569,
+        "stdout_sha256": "dfb4bdedea788bd3d84d21b36f23c5798fe88ae66bf83762e824214aff3536c3"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_model_card.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 2219,
+        "stdout_sha256": "bd393283264d266670f5ebb77bf5c9acc5e987b072ea5257566e1eaf206b7800"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_model_card.request.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 1616,
+        "stdout_sha256": "211c0a0dc3ce4262fb599270e404dcbddc55beb5af182ab4031279272012859f"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_no_constraint.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 4419,
+        "stdout_sha256": "129f7534c47c340b59c2f7cf6f5abc52c0e850c19dc614b8c9669b912313df18"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/fail_no_constraint.request.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 3570,
+        "stdout_sha256": "ddfc64adf21861787adbe6ce150685d6b0a79341c43849bfcabe9bdf8d99c576"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/controls/manifest.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 1213,
+        "stdout_sha256": "420cb5ad04df8bd13694a4f3d20dcd8513b2b00520fa03de96eab9940c558141"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/cpu_backend_check.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 4857,
+        "stdout_sha256": "bd4b771ece1875ed2423498a3f5a3a4bfb4d512c115fbb941639e233ff04a8bc"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download.log"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 566,
+        "stdout_sha256": "1d459b40d8b12965a3ed1f3d623679836050d4a7e42c8c86a267e731f484e296"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_cleanup.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 2352,
+        "stdout_sha256": "f9d0d56796facfe0f05036d08ce633997642072559579dd54ff476a2a626d957"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_complete.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 2793,
+        "stdout_sha256": "f1610f07d03eb06c16fb4f061b42ff7c20795f7396231f0e68bd8d591a62431f"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_manifest.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 1184,
+        "stdout_sha256": "b333dfc0ed9c45b1b8d1df99adf81768d1e52149008d91ff75e2a17d7bfae66b"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_model.py"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 3577,
+        "stdout_sha256": "5c4677a9d1cf93e9452016a7b96e121f58d265c685e204f8eea2a57d6b973b7e"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_network_attempts.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 2972,
+        "stdout_sha256": "7a731045506dafb5c0eaccdb4707ec0ed1dc2127ff9856d888270acdd0f6d8e6"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_ranged.py"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 5560,
+        "stdout_sha256": "4761e111f808f2847921fb69d35db40886a8fdf408c8e91a522ec4304819ea63"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_ranges.log"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 14274,
+        "stdout_sha256": "7dbfcc1a25f0b10b4aec4b0b796242c1fec37a7aa0e6254bbf178df1357a6a62"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/download_verify.log"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 1849,
+        "stdout_sha256": "125de46f59e3eda482c6e6607b5a16932ceb66e7f21a53e44a8cee71f9459f21"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/engine.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 1618,
+        "stdout_sha256": "1fbd343a7685dd7a9436f17c42d69274e1675bc918c722d250bdf5528f45c210"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/final_schema.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 359,
+        "stdout_sha256": "5ad059274cdf8af6d58b3030489c85976c188b7532bb3eca184e9031bf6f0b46"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/input_inventory.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 21736,
+        "stdout_sha256": "1320acbeefc0d3039d406046dfec17c1c50a9f98a593d31781955e95884f758d"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/launch.log"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 11849,
+        "stdout_sha256": "5f5d53d94991dc027a7edeac7b62aa202457eb954b964339fe0c9ca933c29316"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/manifest.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 2835,
+        "stdout_sha256": "9f9b74db0dc15a7dee122dd08f4d0011749893ca4fcf871acf3a8ba3094a1231"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/prepare.log"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 588,
+        "stdout_sha256": "c67162d36ad114644c2a945800a0ff71c18a255242ea8fc04efef6ef93011bfc"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/prompt_instructions.txt"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 674,
+        "stdout_sha256": "c15902f73ac32606bcce908474754f8cd97f82feae6059440dc68916481d8b34"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/range_progress.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 61147,
+        "stdout_sha256": "c52b324a45e8565015c5a28536c36724edddba78345513feb03d87e1d9bfca0f"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/range_progress_8m.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 426748,
+        "stdout_sha256": "65ab6e9d47ee65b3238c6cc1444e3b087d9dca5b6282766949ceb95dfa1302e0"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/report.md"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 7807,
+        "stdout_sha256": "4208533f53f945386c0a6457050c0faf72829d83a26011a4044770b91842d3d8"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/selection.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 630,
+        "stdout_sha256": "667ddd6f2903c5e4fc2821dec34cad6e9e427b69fc73a66820005893a3e95628"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/summary.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 8819,
+        "stdout_sha256": "0c786388fc0e68972eafc15851aabe6746252e436b2496ae49053daac70a1619"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_fail.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 5388,
+        "stdout_sha256": "c1d27231709eb754cd3a874679b1fef12f389ea1891365bc72bfcb46ac2c0d2b"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_fail.request.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 4012,
+        "stdout_sha256": "0ffb437ebf9d48eeb2239633267e8b081676aca4be566cd8af68d0de7a307964"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_pass.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 5384,
+        "stdout_sha256": "6c07d02ed14eb5bcac1b93fd0ad5778db6f8855009af677fa7336093eb7ef721"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/synthetic/synthetic_pass.request.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 4012,
+        "stdout_sha256": "772022289173f76e24da91c64181cc845e3eb8d2e8c9a3f2c7450f231d90b648"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/tokenizer_ready.json"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 202,
+        "stdout_sha256": "eaba28deea40acf79586af32ee8d75d4b4ca5bc38c43370368a683b156aac747"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "6b8dc5eba237c2c264f1affa9ebbb56fe7fb6795:stages/stage3/diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/verify_download.py"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 2740,
+        "stdout_sha256": "6a50e5437f8e60154d46a74a435e4e612bbedbe1a7c5c121a760258d82fca307"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "show",
+          "FETCH_HEAD:stages/stage2/runs/20261004-36fe9009f1f5/probe_C.npz"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout_bytes": 128,
+        "stdout_sha256": "4e28230182a37c4ac8c74bff1a6c87911193f69549d2e3e971f77302ed7dc5f8"
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "lfs",
+          "fetch",
+          "--include=stages/stage2/runs/20261004-36fe9009f1f5/probe_C.npz",
+          "--exclude=",
+          "origin",
+          "FETCH_HEAD"
+        ],
+        "exit_code": 0,
+        "stdout": "fetch: Fetching reference FETCH_HEAD\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "git",
+          "-c",
+          "http.proxy=",
+          "lfs",
+          "checkout",
+          "stages/stage2/runs/20261004-36fe9009f1f5/probe_C.npz"
+        ],
+        "exit_code": 0,
+        "stdout": "Checking out LFS objects: 100% (1/1), 788 B | 0 B/s, done.\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "scope": {
+    "new_commit_created": false,
+    "unrelated_dirty_files_staged": false,
+    "source_materials_overwritten": false,
+    "new_trial_material_included_in_commit": false,
+    "note": "Only the pre-existing requested commit was pushed. This new verification record must be included in a later scoped commit by the parent agent."
+  }
+}
