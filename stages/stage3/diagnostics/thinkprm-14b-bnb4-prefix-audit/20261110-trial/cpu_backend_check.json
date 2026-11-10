@@ -1,0 +1,50 @@
+{
+  "config": {
+    "backend": "guidance",
+    "disable_additional_properties": false,
+    "disable_any_whitespace": false,
+    "enable_in_reasoning": false,
+    "reasoning_parser": "deepseek_r1",
+    "reasoning_parser_plugin": ""
+  },
+  "guidance_replay": {
+    "invalid_control": {
+      "accepted": false,
+      "error": "Parser Error: token \"\\u{8}\" doesn't satisfy the grammar; byte '\\u{8}' fails parse\n<state>\nTokens: ⟦{\"‧ver‧dict‧\":\"‧PASS‧\",\"‧di‧agnosis‧\":\"‧bad‧\\u{8}⟧\n11 tokens, 34 bytes; grm_prefix: \"\"\nFlags:\nParser: {\n  \"compute_time_us\": 0,\n  \"rows\": 8,\n  \"cached_rows\": 0,\n  \"all_items\": 8,\n  \"lexer_cost\": 3808,\n  \"slices_applied\": 0,\n  \"trie_nodes_walked\": 0,\n  \"definitive_bytes\": 35,\n  \"lexer_ops\": 0,\n  \"num_lex_errors\": 0,\n  \"num_lexemes\": 0\n}\nStop: ParserTooComplex\nError: Parser Error: token \"\\u{8}\" doesn't satisfy the grammar; byte '\\u{8}' fails parse\n</state><grammar>\n{\"grammars\":[{\"name\":\"json_schema\",\"json_schema\":{\"type\":\"object\",\"properties\":{\"verdict\":{\"type\":\"string\",\"enum\":[\"PASS\",\"FAIL\"]},\"diagnosis\":{\"type\":\"string\",\"minLength\":1},\"hint\":{\"type\":\"string\"}},\"required\":[\"verdict\",\"diagnosis\",\"hint\"],\"additionalProperties\":false,\"x-guidance\":{\"whitespace_flexible\":true}},\"lark_grammar\":null}],\"max_tokens\":null}\n</grammar>",
+      "text": "{\"verdict\":\"PASS\",\"diagnosis\":\"bad\btext\",\"hint\":\"\"}"
+    },
+    "invalid_verdict": {
+      "accepted": false,
+      "error": "Parser Error: token \"UNC\" doesn't satisfy the grammar; byte 'U' fails parse\n<state>\nTokens: ⟦{\"‧ver‧dict‧\":\"‧UNC⟧\n5 tokens, 12 bytes; grm_prefix: \"\"\nFlags:\nParser: {\n  \"compute_time_us\": 0,\n  \"rows\": 4,\n  \"cached_rows\": 0,\n  \"all_items\": 4,\n  \"lexer_cost\": 3808,\n  \"slices_applied\": 0,\n  \"trie_nodes_walked\": 0,\n  \"definitive_bytes\": 13,\n  \"lexer_ops\": 0,\n  \"num_lex_errors\": 0,\n  \"num_lexemes\": 0\n}\nStop: ParserTooComplex\nError: Parser Error: token \"UNC\" doesn't satisfy the grammar; byte 'U' fails parse\n</state><grammar>\n{\"grammars\":[{\"name\":\"json_schema\",\"json_schema\":{\"type\":\"object\",\"properties\":{\"verdict\":{\"type\":\"string\",\"enum\":[\"PASS\",\"FAIL\"]},\"diagnosis\":{\"type\":\"string\",\"minLength\":1},\"hint\":{\"type\":\"string\"}},\"required\":[\"verdict\",\"diagnosis\",\"hint\"],\"additionalProperties\":false,\"x-guidance\":{\"whitespace_flexible\":true}},\"lark_grammar\":null}],\"max_tokens\":null}\n</grammar>",
+      "text": "{\"verdict\":\"UNCERTAIN\",\"diagnosis\":\"?\",\"hint\":\"\"}"
+    },
+    "valid_backslash_quote_newline": {
+      "accepted": true,
+      "error": "",
+      "text": "{\"verdict\": \"FAIL\", \"diagnosis\": \"Fix \\\\ x; \\\"quoted\\\"\\nline\", \"hint\": \"Recompute\"}"
+    },
+    "valid_literal_unicode": {
+      "accepted": true,
+      "error": "",
+      "text": "{\"verdict\": \"FAIL\", \"diagnosis\": \"Fix α\", \"hint\": \"Recompute\"}"
+    },
+    "valid_plain": {
+      "accepted": true,
+      "error": "",
+      "text": "{\"verdict\":\"PASS\",\"diagnosis\":\"Correct\",\"hint\":\"\"}"
+    },
+    "valid_unicode_escape": {
+      "accepted": false,
+      "error": "Parser Error: token \"3\" doesn't satisfy the grammar; byte '3' fails parse\n<state>\nTokens: ⟦{\"‧ver‧dict‧\":‧ \"‧FAIL‧\",‧ \"‧di‧agnosis‧\":‧ \"‧Fix‧ \\‧u‧0‧3⟧\n17 tokens, 41 bytes; grm_prefix: \"\"\nFlags:\nParser: {\n  \"compute_time_us\": 0,\n  \"rows\": 11,\n  \"cached_rows\": 0,\n  \"all_items\": 11,\n  \"lexer_cost\": 3808,\n  \"slices_applied\": 0,\n  \"trie_nodes_walked\": 0,\n  \"definitive_bytes\": 42,\n  \"lexer_ops\": 0,\n  \"num_lex_errors\": 0,\n  \"num_lexemes\": 0\n}\nStop: ParserTooComplex\nError: Parser Error: token \"3\" doesn't satisfy the grammar; byte '3' fails parse\n</state><grammar>\n{\"grammars\":[{\"name\":\"json_schema\",\"json_schema\":{\"type\":\"object\",\"properties\":{\"verdict\":{\"type\":\"string\",\"enum\":[\"PASS\",\"FAIL\"]},\"diagnosis\":{\"type\":\"string\",\"minLength\":1},\"hint\":{\"type\":\"string\"}},\"required\":[\"verdict\",\"diagnosis\",\"hint\"],\"additionalProperties\":false,\"x-guidance\":{\"whitespace_flexible\":true}},\"lark_grammar\":null}],\"max_tokens\":null}\n</grammar>",
+      "text": "{\"verdict\": \"FAIL\", \"diagnosis\": \"Fix \\u03b1\", \"hint\": \"Recompute\"}"
+    }
+  },
+  "parser_end": 151649,
+  "parser_start": 151648,
+  "scope": "CPU only; actual GPU generation pending",
+  "split_check": [
+    "Step 1 is correct.\n",
+    "{\"verdict\":\"PASS\",\"diagnosis\":\"Correct\",\"hint\":\"\"}"
+  ],
+  "unicode_escape_note": "Guidance may restrict noncanonical unicode escapes while permitting the literal Unicode character; record replay result separately from JSON validity."
+}

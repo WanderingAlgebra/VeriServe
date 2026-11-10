@@ -1,0 +1,88 @@
+{
+  "config": {
+    "dtype": "bfloat16",
+    "enable_chunked_prefill": true,
+    "enable_prefix_caching": false,
+    "enforce_eager": true,
+    "generation_config": "vllm",
+    "gpu_memory_utilization": 0.9,
+    "load_format": "bitsandbytes",
+    "max_model_len": 63891,
+    "max_num_batched_tokens": 1024,
+    "max_num_seqs": 1,
+    "model": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+    "quantization": "bitsandbytes",
+    "structured_outputs_config": {
+      "backend": "guidance",
+      "enable_in_reasoning": false,
+      "reasoning_parser": "deepseek_r1"
+    },
+    "tokenizer": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f"
+  },
+  "created_utc": "2026-11-10T09:28:23.255211+00:00",
+  "hardware": "name, memory.total [MiB], memory.free [MiB], driver_version\nNVIDIA GeForce RTX 4080 SUPER, 32760 MiB, 32230 MiB, 595.71.05\n",
+  "implementation_sha256": "97d2305da64a75ce68cd5acf37242551329ce12d7777c8326bde0d702f33717d",
+  "json_schema": {
+    "additionalProperties": false,
+    "properties": {
+      "diagnosis": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "hint": {
+        "type": "string"
+      },
+      "verdict": {
+        "enum": [
+          "PASS",
+          "FAIL"
+        ],
+        "type": "string"
+      }
+    },
+    "required": [
+      "verdict",
+      "diagnosis",
+      "hint"
+    ],
+    "type": "object"
+  },
+  "labels_sha256": "dee9c8093828ac9bf50f77f36eb89ff11c50352a99e5cbd150929471cc912095",
+  "longest": {
+    "full_prefix_retained": true,
+    "index": 34,
+    "input_tokens": 55699,
+    "prefix_characters": 147596,
+    "prefix_sha256": "cdfa71550ae7ffb2b933a495284747c4a9792fdd10778b759f221b345dcb9310",
+    "prompt_sha256": "79441b6ff5ff698258215e80e2451981dbcf569ff9ed68ecccb87c2ed2b00946",
+    "review_key": "20f98aa51fa6d12c13dc857438abeb96bb2e862a5894c6a60dfd9702557a078f"
+  },
+  "model": "launch/ThinkPRM-14B",
+  "protocol": "Synthetic requests are interface diagnostics only. Real source capacity and 17-item audit require successful remote backup.",
+  "revision": "1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "sampling": {
+    "frequency_penalty": 0.0,
+    "max_tokens": 8192,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "repetition_penalty": 1.0,
+    "seed": 20261110,
+    "temperature": 0.0,
+    "top_k": 0,
+    "top_p": 1.0
+  },
+  "source_sha256": "d2d63c08f10addd0de706248a1a3baac00edb26faedefe994597463364376463",
+  "source_urls": [
+    "https://huggingface.co/launch/ThinkPRM-14B/tree/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+    "https://docs.vllm.ai/en/v0.20.0/features/quantization/bnb/"
+  ],
+  "versions": {
+    "bitsandbytes": "0.50.2",
+    "jsonschema": "4.26.0",
+    "llguidance": "1.3.0",
+    "torch": "2.11.0",
+    "transformers": "5.19.0",
+    "vllm": "0.20.0",
+    "xgrammar": "0.2.3"
+  }
+}

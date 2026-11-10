@@ -1,0 +1,75 @@
+{
+  "model": "launch/ThinkPRM-14B",
+  "revision": "1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "target": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "status": "completed",
+  "completed_utc": "2026-11-10T09:37:46.232711+00:00",
+  "verification_seconds": 17.165327122434974,
+  "total_weight_bytes": 29540133960,
+  "files": [
+    {
+      "file": "model-00001-of-00006.safetensors",
+      "size": 4986211280,
+      "sha256": "36b5e85dcf3193f333c84aa6360007fce6695043117d61651e651b638918a82a",
+      "official_lfs_sha256": "36b5e85dcf3193f333c84aa6360007fce6695043117d61651e651b638918a82a",
+      "tensor_count": 80,
+      "dtype_counts": {
+        "BF16": 80
+      }
+    },
+    {
+      "file": "model-00002-of-00006.safetensors",
+      "size": 4954847344,
+      "sha256": "5eb19a1ca01acf7833f278e4affabd51a8ca0cde2194f9a1ff81bf0be323b843",
+      "official_lfs_sha256": "5eb19a1ca01acf7833f278e4affabd51a8ca0cde2194f9a1ff81bf0be323b843",
+      "tensor_count": 108,
+      "dtype_counts": {
+        "BF16": 108
+      }
+    },
+    {
+      "file": "model-00003-of-00006.safetensors",
+      "size": 4954847392,
+      "sha256": "efbafe3c3f9eb6ca415f4f6d004fc2ed2e9a8fb34163ca12121952091d444cd4",
+      "official_lfs_sha256": "efbafe3c3f9eb6ca415f4f6d004fc2ed2e9a8fb34163ca12121952091d444cd4",
+      "tensor_count": 108,
+      "dtype_counts": {
+        "BF16": 108
+      }
+    },
+    {
+      "file": "model-00004-of-00006.safetensors",
+      "size": 4954847392,
+      "sha256": "4adf8d7bcb8100df0ec1772bd11f7690bf2025391b04db55eb2114ba8531933a",
+      "official_lfs_sha256": "4adf8d7bcb8100df0ec1772bd11f7690bf2025391b04db55eb2114ba8531933a",
+      "tensor_count": 108,
+      "dtype_counts": {
+        "BF16": 108
+      }
+    },
+    {
+      "file": "model-00005-of-00006.safetensors",
+      "size": 4954847392,
+      "sha256": "afb043ed82ca49c8716f16810e194381e9282c8bbb02e604af31460ffb31a919",
+      "official_lfs_sha256": "afb043ed82ca49c8716f16810e194381e9282c8bbb02e604af31460ffb31a919",
+      "tensor_count": 108,
+      "dtype_counts": {
+        "BF16": 108
+      }
+    },
+    {
+      "file": "model-00006-of-00006.safetensors",
+      "size": 4734533160,
+      "sha256": "fdf634ba565038b8748f748a89d5cd6a572774afaa6cf8a57dbc744e95884c37",
+      "official_lfs_sha256": "fdf634ba565038b8748f748a89d5cd6a572774afaa6cf8a57dbc744e95884c37",
+      "tensor_count": 67,
+      "dtype_counts": {
+        "BF16": 67
+      }
+    }
+  ],
+  "free_bytes_after": 14239100928,
+  "transport": "Immutable official repo/revision via hf-mirror.com direct HTTP Range; last 8MiB through official huggingface.co resolve with proxy. All six SHA256 values equal current official immutable LFS metadata.",
+  "free_bytes_after_cleanup": 14742470656,
+  "cleanup_record": "download_cleanup.json"
+}

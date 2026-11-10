@@ -1,0 +1,6 @@
+{
+  "model": "launch/ThinkPRM-14B",
+  "revision": "1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "target": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "status": "ready"
+}

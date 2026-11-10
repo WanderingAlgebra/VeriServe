@@ -1,0 +1,27 @@
+{
+  "model": "launch/ThinkPRM-14B",
+  "revision": "1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "target": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "started_utc": "2026-11-10T08:58:54.599693+00:00",
+  "files": {
+    ".gitattributes": 1570,
+    "README.md": 5703,
+    "config.json": 739,
+    "generation_config.json": 181,
+    "model-00001-of-00006.safetensors": 4986211280,
+    "model-00002-of-00006.safetensors": 4954847344,
+    "model-00003-of-00006.safetensors": 4954847392,
+    "model-00004-of-00006.safetensors": 4954847392,
+    "model-00005-of-00006.safetensors": 4954847392,
+    "model-00006-of-00006.safetensors": 4734533160,
+    "model.safetensors.index.json": 47472,
+    "special_tokens_map.json": 485,
+    "tokenizer.json": 11422778,
+    "tokenizer_config.json": 6763
+  },
+  "total_bytes": 29551619651,
+  "free_bytes_before": 44282605568,
+  "transport": "Immutable official repo/revision via hf-mirror.com direct HTTP Range; last 8MiB through official huggingface.co resolve with proxy. All six SHA256 values equal current official immutable LFS metadata.",
+  "status": "completed",
+  "completed_utc": "2026-11-10T09:37:46.232711+00:00"
+}

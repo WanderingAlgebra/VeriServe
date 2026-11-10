@@ -1,0 +1,31 @@
+{
+  "critical_9b_misses": [
+    18,
+    19,
+    23,
+    24,
+    25,
+    33,
+    52
+  ],
+  "generation_status": "NOT_STARTED",
+  "independent_expert_gold": false,
+  "labels": "stages/stage3/diagnostics/qwen35-9b-structured-prefix-audit/20261030-unbounded-v2/full-review-v2-20261101/labels.json",
+  "labels_are_provisional_model_review": true,
+  "original_9b_fail": [
+    32,
+    34,
+    50,
+    53,
+    54
+  ],
+  "pass_selection_new_this_trial": true,
+  "pass_selection_reason": "Short correct prefix, corrected error, and abandoned/replaced erroneous branches.",
+  "provisional_pass": [
+    4,
+    22,
+    43,
+    46,
+    49
+  ]
+}

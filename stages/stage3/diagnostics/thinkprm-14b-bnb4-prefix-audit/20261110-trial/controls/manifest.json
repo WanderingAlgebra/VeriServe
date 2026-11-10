@@ -1,0 +1,37 @@
+{
+  "base_implementation_sha256": "97d2305da64a75ce68cd5acf37242551329ce12d7777c8326bde0d702f33717d",
+  "config": {
+    "dtype": "bfloat16",
+    "enable_chunked_prefill": true,
+    "enable_prefix_caching": false,
+    "enforce_eager": true,
+    "generation_config": "vllm",
+    "gpu_memory_utilization": 0.9,
+    "load_format": "bitsandbytes",
+    "max_model_len": 63891,
+    "max_num_batched_tokens": 1024,
+    "max_num_seqs": 1,
+    "model": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+    "quantization": "bitsandbytes",
+    "structured_outputs_config": {
+      "backend": "guidance",
+      "enable_in_reasoning": false,
+      "reasoning_parser": "deepseek_r1"
+    },
+    "tokenizer": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f"
+  },
+  "implementation_sha256": "4076d9150c7e72780a8f6598643bd5ccdb3c0fd7f28ccebc232b4bd11c006c23",
+  "reason": "The synthetic incorrect division received PASS.",
+  "research_sample": false,
+  "sampling": {
+    "frequency_penalty": 0.0,
+    "max_tokens": 8192,
+    "min_p": 0.0,
+    "presence_penalty": 0.0,
+    "repetition_penalty": 1.0,
+    "seed": 20261110,
+    "temperature": 0.0,
+    "top_k": 0,
+    "top_p": 1.0
+  }
+}

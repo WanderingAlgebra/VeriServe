@@ -1,0 +1,25 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "diagnosis": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "hint": {
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "PASS",
+        "FAIL"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "verdict",
+    "diagnosis",
+    "hint"
+  ],
+  "type": "object"
+}

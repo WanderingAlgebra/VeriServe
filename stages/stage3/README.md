@@ -10,6 +10,8 @@
 
 新方案比较同一原始前缀的直接续写与单次验证后续写或返工，详见[实验方案](verification_benefit_plan.md)。它要求重新生成第一轮回答；此前基于旧 Stage2 轨迹生成的选点清单不用于本轮。本轮按用户要求允许使用模型参考标签，不要求人工确认；使用模型标签时，核验指标反映模型间一致性。独立题目核验和 32GB GPU 预跑尚未完成。
 
+2026-11-10 的 [ThinkPRM-14B 试跑](diagnostics/thinkprm-14b-bnb4-prefix-audit/20261110-trial/report.md)已实际完成 vLLM BitsAndBytes NF4 4-bit 加载，`deepseek_r1 + guidance` 可分离核查正文与最终合法 JSON，但合成短题的明确除法错误仍被判 PASS。57 条输入已重算长度，最长 55,699 token；最长真实前缀和 17 条小测尚未执行，远端 Git/LFS 503 也阻止源样本采集。本轮不扩到 57 条，技术接口通过不作为检错质量通过。
+
 ## 新实验：Qwen3.5 原生 Thinking 的同题 HIGH/LOW
 
 2026-10-14，新 Stage2 已通过 8/10 可解析的完整预跑并进入正式采集，见 [Stage2 验收记录](../stage2/runs/v2-20261013-78a47750b3b9/smoke_acceptance_audit.json)。新 B 尚未拟合，两个验证器候选尚未完成本轮完整开发比较和独立人工核验；真实 pilot 与正式 HIGH/LOW 均未启动。

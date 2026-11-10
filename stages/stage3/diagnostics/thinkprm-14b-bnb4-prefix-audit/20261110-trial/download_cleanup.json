@@ -1,0 +1,53 @@
+{
+  "completed_utc": "2026-11-10T09:38:30.751087+00:00",
+  "deleted": [
+    {
+      "path": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f/.cache/huggingface/download/lPnGVsdaF542Y6w1ufNAL-pphxo=.36b5e85dcf3193f333c84aa6360007fce6695043117d61651e651b638918a82a.97be61ad.incomplete",
+      "bytes": 40277
+    },
+    {
+      "path": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f/.cache/huggingface/download/H1O8ZB_QwtWjsrLtliP4_68j6q4=.5eb19a1ca01acf7833f278e4affabd51a8ca0cde2194f9a1ff81bf0be323b843.5a677df3.incomplete",
+      "bytes": 11628
+    },
+    {
+      "path": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f/.cache/huggingface/download/XYxS_-gMKqyeF0pSwDVvLc_63Nc=.efbafe3c3f9eb6ca415f4f6d004fc2ed2e9a8fb34163ca12121952091d444cd4.0bdc2357.incomplete",
+      "bytes": 0
+    },
+    {
+      "path": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f/.cache/huggingface/download/lPnGVsdaF542Y6w1ufNAL-pphxo=.36b5e85dcf3193f333c84aa6360007fce6695043117d61651e651b638918a82a.94fc65de.incomplete",
+      "bytes": 188743680
+    },
+    {
+      "path": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f/.cache/huggingface/download/H1O8ZB_QwtWjsrLtliP4_68j6q4=.5eb19a1ca01acf7833f278e4affabd51a8ca0cde2194f9a1ff81bf0be323b843.1e65a448.incomplete",
+      "bytes": 136314880
+    },
+    {
+      "path": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f/.cache/huggingface/download/XYxS_-gMKqyeF0pSwDVvLc_63Nc=.efbafe3c3f9eb6ca415f4f6d004fc2ed2e9a8fb34163ca12121952091d444cd4.785a0da5.incomplete",
+      "bytes": 178257920
+    },
+    {
+      "path": "/tmp/thinkprm-range-test",
+      "bytes": 1048576
+    },
+    {
+      "path": "/tmp/thinkprm-mirror-direct-test",
+      "bytes": 1048576
+    },
+    {
+      "path": "/tmp/thinkprm-mirror-direct-16m",
+      "bytes": 16777216
+    }
+  ],
+  "deleted_file_bytes": 522242753,
+  "old_empty_directory_removed": true,
+  "free_data_disk_bytes": 14742470656,
+  "free_data_disk_GiB": 13.729995727539062,
+  "formal_weights_preserved": [
+    "model-00001-of-00006.safetensors",
+    "model-00002-of-00006.safetensors",
+    "model-00003-of-00006.safetensors",
+    "model-00004-of-00006.safetensors",
+    "model-00005-of-00006.safetensors",
+    "model-00006-of-00006.safetensors"
+  ]
+}

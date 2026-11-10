@@ -1,0 +1,40 @@
+{
+  "status": "FAILED",
+  "checked_at_utc": "2026-11-10T08:56:40Z",
+  "checked_at_asia_shanghai": "2026-11-10T16:56:40+08:00",
+  "branch": "experiment/step-hidden-probe",
+  "local_head": "5d39a736df6603273c75cad140ede12b8c2e7acb",
+  "reason": "Parallel remote Git/LFS recheck before ThinkPRM diagnostic trial and any source-sample collection",
+  "commands": [
+    {
+      "argv": ["git", "ls-remote", "--exit-code", "origin", "refs/heads/experiment/step-hidden-probe"],
+      "exit_code": 128,
+      "output": "fatal: unable to access 'https://github.com/WanderingAlgebra/VeriServe.git/': The requested URL returned error: 503\n"
+    },
+    {
+      "argv": ["git", "lfs", "push", "origin", "HEAD"],
+      "exit_code": 2,
+      "output": "Remote \"origin\" does not support the LFS locking API. Consider disabling it with:\n  $ git config lfs.https://github.com/WanderingAlgebra/VeriServe.git/info/lfs.locksverify false\nFatal error: Server error: https://github.com/WanderingAlgebra/VeriServe.git/info/lfs/locks/verify from HTTP 503\n\nErrors logged to /root/project/VeriServe/.git/lfs/logs/20261110T165639.994215764.log\nUse `git lfs logs last` to view the log.\n",
+      "log_file": "/root/project/VeriServe/.git/lfs/logs/20261110T165639.994215764.log"
+    },
+    {
+      "argv": ["git", "push", "--porcelain", "origin", "HEAD:refs/heads/experiment/step-hidden-probe"],
+      "exit_code": 128,
+      "output": "fatal: unable to access 'https://github.com/WanderingAlgebra/VeriServe.git/': The requested URL returned error: 503\n"
+    }
+  ],
+  "scope": {
+    "new_commit_created": false,
+    "preexisting_dirty_files_staged": false,
+    "pushed_revision": "Existing local HEAD only; no successful push confirmed",
+    "transport_configuration_changed": false
+  },
+  "protocol": {
+    "reference": "stages/stage3/README.md:29",
+    "rule": "新 Qwen3.5 实验在配对请求前要求 Git/LFS 远端备份成功；验证器 smoke、开发和核验在启动前、每题结束及人工审阅文件导出后备份参考记录与验证结果。备份失败保留本地材料并停止后续采集，恢复时先重试备份。审阅输出目录须位于仓库内。",
+    "existing_implementation": "stages/stage3/quantized_prefix_audit_bounded.py:146 calls backup before capacity/first model initialization",
+    "source_sample_longest_and_17_sample_collection": "STOPPED_BEFORE_REQUIRED_REMOTE_BACKUP",
+    "independent_synthetic_interface_diagnostics": "Not counted as research smoke, development, audit, or source-sample collection",
+    "cpu_only_token_length_inventory": "Does not collect model responses"
+  }
+}

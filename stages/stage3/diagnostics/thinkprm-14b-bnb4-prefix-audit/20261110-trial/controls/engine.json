@@ -1,0 +1,68 @@
+{
+  "actual_quantization": [
+    {
+      "cuda_allocated_bytes": 30099662848,
+      "cuda_reserved_bytes": 30293360640,
+      "parameter_storage_dtypes": {
+        "torch.bfloat16": 147,
+        "torch.uint8": 192
+      },
+      "quant_types": [
+        "nf4"
+      ],
+      "quantized_examples": [
+        {
+          "dtype": "torch.uint8",
+          "name": "model.layers.0.self_attn.qkv_proj",
+          "quant_method": "BitsAndBytesLinearMethod",
+          "quant_types": [
+            "nf4"
+          ],
+          "shape": [
+            18350080,
+            1
+          ]
+        },
+        {
+          "dtype": "torch.uint8",
+          "name": "model.layers.0.self_attn.o_proj",
+          "quant_method": "BitsAndBytesLinearMethod",
+          "quant_types": [
+            "nf4"
+          ],
+          "shape": [
+            13107200,
+            1
+          ]
+        },
+        {
+          "dtype": "torch.uint8",
+          "name": "model.layers.0.mlp.gate_up_proj",
+          "quant_method": "BitsAndBytesLinearMethod",
+          "quant_types": [
+            "nf4"
+          ],
+          "shape": [
+            70778880,
+            1
+          ]
+        },
+        {
+          "dtype": "torch.uint8",
+          "name": "model.layers.0.mlp.down_proj",
+          "quant_method": "BitsAndBytesLinearMethod",
+          "quant_types": [
+            "nf4"
+          ],
+          "shape": [
+            35389440,
+            1
+          ]
+        }
+      ],
+      "quantized_linear_count": 192
+    }
+  ],
+  "device_peak_bytes": 31224102912,
+  "seconds": 32.624464825727046
+}

@@ -1,0 +1,262 @@
+{
+  "attribution": "Not parser, final JSON backend, or output truncation in these observed failures. Model vs quantization/runtime cause remains unisolated without BF16 or another implementation control.",
+  "audit17": {
+    "executed": 0,
+    "metrics": {
+      "critical_error_detection": null,
+      "error_detection": null,
+      "error_localization": null,
+      "false_alarm": null,
+      "feedback_usability": null,
+      "no_valid_verdict": null
+    },
+    "selected": 17
+  },
+  "blockers": [
+    "REMOTE_GIT_LFS_HTTP_503",
+    "SYNTHETIC_CRITICAL_DIVISION_ERROR_MISSED"
+  ],
+  "controls": {
+    "fail_first_guidance": {
+      "device_peak_bytes": 31605784576,
+      "eos_observed": true,
+      "final_output": "{ \"verdict\": \"PASS\", \"diagnosis\": \"No errors found in the steps.\", \"hint\": \"The solution is correctly solved in two steps: subtracting 3 from both sides and then dividing by 2.\" }",
+      "finish_reason": "stop",
+      "input_tokens": 238,
+      "output_tokens": 278,
+      "seconds": 20.536518226377666,
+      "status": "completed",
+      "stop_reason": null
+    },
+    "fail_model_card": {
+      "device_peak_bytes": 31605784576,
+      "eos_observed": true,
+      "final_output": "\nIs the solution correct? Yes",
+      "finish_reason": "stop",
+      "input_tokens": 108,
+      "output_tokens": 118,
+      "seconds": 7.391709253191948,
+      "status": "model_card_control",
+      "stop_reason": null
+    },
+    "fail_no_constraint": {
+      "device_peak_bytes": 31605784576,
+      "eos_observed": true,
+      "final_output": "\nIs the solution correct? Yes",
+      "finish_reason": "stop",
+      "input_tokens": 238,
+      "output_tokens": 237,
+      "seconds": 14.877134043723345,
+      "status": "invalid_final_json: Expecting value: line 2 column 1 (char 1)",
+      "stop_reason": null
+    }
+  },
+  "created_utc": "2026-11-10T09:44:18.694975+00:00",
+  "download": {
+    "cleanup_record": "download_cleanup.json",
+    "completed_utc": "2026-11-10T09:37:46.232711+00:00",
+    "files": [
+      {
+        "dtype_counts": {
+          "BF16": 80
+        },
+        "file": "model-00001-of-00006.safetensors",
+        "official_lfs_sha256": "36b5e85dcf3193f333c84aa6360007fce6695043117d61651e651b638918a82a",
+        "sha256": "36b5e85dcf3193f333c84aa6360007fce6695043117d61651e651b638918a82a",
+        "size": 4986211280,
+        "tensor_count": 80
+      },
+      {
+        "dtype_counts": {
+          "BF16": 108
+        },
+        "file": "model-00002-of-00006.safetensors",
+        "official_lfs_sha256": "5eb19a1ca01acf7833f278e4affabd51a8ca0cde2194f9a1ff81bf0be323b843",
+        "sha256": "5eb19a1ca01acf7833f278e4affabd51a8ca0cde2194f9a1ff81bf0be323b843",
+        "size": 4954847344,
+        "tensor_count": 108
+      },
+      {
+        "dtype_counts": {
+          "BF16": 108
+        },
+        "file": "model-00003-of-00006.safetensors",
+        "official_lfs_sha256": "efbafe3c3f9eb6ca415f4f6d004fc2ed2e9a8fb34163ca12121952091d444cd4",
+        "sha256": "efbafe3c3f9eb6ca415f4f6d004fc2ed2e9a8fb34163ca12121952091d444cd4",
+        "size": 4954847392,
+        "tensor_count": 108
+      },
+      {
+        "dtype_counts": {
+          "BF16": 108
+        },
+        "file": "model-00004-of-00006.safetensors",
+        "official_lfs_sha256": "4adf8d7bcb8100df0ec1772bd11f7690bf2025391b04db55eb2114ba8531933a",
+        "sha256": "4adf8d7bcb8100df0ec1772bd11f7690bf2025391b04db55eb2114ba8531933a",
+        "size": 4954847392,
+        "tensor_count": 108
+      },
+      {
+        "dtype_counts": {
+          "BF16": 108
+        },
+        "file": "model-00005-of-00006.safetensors",
+        "official_lfs_sha256": "afb043ed82ca49c8716f16810e194381e9282c8bbb02e604af31460ffb31a919",
+        "sha256": "afb043ed82ca49c8716f16810e194381e9282c8bbb02e604af31460ffb31a919",
+        "size": 4954847392,
+        "tensor_count": 108
+      },
+      {
+        "dtype_counts": {
+          "BF16": 67
+        },
+        "file": "model-00006-of-00006.safetensors",
+        "official_lfs_sha256": "fdf634ba565038b8748f748a89d5cd6a572774afaa6cf8a57dbc744e95884c37",
+        "sha256": "fdf634ba565038b8748f748a89d5cd6a572774afaa6cf8a57dbc744e95884c37",
+        "size": 4734533160,
+        "tensor_count": 67
+      }
+    ],
+    "free_bytes_after": 14239100928,
+    "free_bytes_after_cleanup": 14742470656,
+    "model": "launch/ThinkPRM-14B",
+    "revision": "1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+    "status": "completed",
+    "target": "/root/autodl-tmp/thinkprm-14b/1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+    "total_weight_bytes": 29540133960,
+    "transport": "Immutable official repo/revision via hf-mirror.com direct HTTP Range; last 8MiB through official huggingface.co resolve with proxy. All six SHA256 values equal current official immutable LFS metadata.",
+    "verification_seconds": 17.165327122434974
+  },
+  "engine": {
+    "device_peak_bytes": 31226200064,
+    "device_peak_sampling_ms": 20,
+    "load_seconds": 44.758597114123404,
+    "quantization_evidence": [
+      {
+        "cuda_allocated_bytes": 30099662848,
+        "cuda_reserved_bytes": 30293360640,
+        "parameter_storage_dtypes": {
+          "torch.bfloat16": 147,
+          "torch.uint8": 192
+        },
+        "quant_types": [
+          "nf4"
+        ],
+        "quantized_examples": [
+          {
+            "dtype": "torch.uint8",
+            "name": "model.layers.0.self_attn.qkv_proj",
+            "quant_method": "BitsAndBytesLinearMethod",
+            "quant_types": [
+              "nf4"
+            ],
+            "shape": [
+              18350080,
+              1
+            ]
+          },
+          {
+            "dtype": "torch.uint8",
+            "name": "model.layers.0.self_attn.o_proj",
+            "quant_method": "BitsAndBytesLinearMethod",
+            "quant_types": [
+              "nf4"
+            ],
+            "shape": [
+              13107200,
+              1
+            ]
+          },
+          {
+            "dtype": "torch.uint8",
+            "name": "model.layers.0.mlp.gate_up_proj",
+            "quant_method": "BitsAndBytesLinearMethod",
+            "quant_types": [
+              "nf4"
+            ],
+            "shape": [
+              70778880,
+              1
+            ]
+          },
+          {
+            "dtype": "torch.uint8",
+            "name": "model.layers.0.mlp.down_proj",
+            "quant_method": "BitsAndBytesLinearMethod",
+            "quant_types": [
+              "nf4"
+            ],
+            "shape": [
+              35389440,
+              1
+            ]
+          }
+        ],
+        "quantized_linear_count": 192
+      }
+    ]
+  },
+  "guidance_control": {
+    "end_index_guidance": 228,
+    "end_index_no_constraint": 228,
+    "first_difference_index": 229,
+    "reasoning_ids_equal_through_end": true
+  },
+  "input_token_summary": {
+    "max": 55699,
+    "median": 12906,
+    "min": 305
+  },
+  "longest": {
+    "full_prefix_retained": true,
+    "index": 34,
+    "input_tokens": 55699,
+    "prefix_characters": 147596,
+    "prefix_sha256": "cdfa71550ae7ffb2b933a495284747c4a9792fdd10778b759f221b345dcb9310",
+    "prompt_sha256": "79441b6ff5ff698258215e80e2451981dbcf569ff9ed68ecccb87c2ed2b00946",
+    "review_key": "20f98aa51fa6d12c13dc857438abeb96bb2e862a5894c6a60dfd9702557a078f"
+  },
+  "longest_source_generation": "NOT_STARTED",
+  "primary": {
+    "synthetic_fail": {
+      "device_peak_bytes": 31605784576,
+      "eos_observed": true,
+      "final_tokens_including_eos": 49,
+      "finish_reason": "stop",
+      "input_tokens": 238,
+      "judgment": {
+        "diagnosis": "No errors found in the steps.",
+        "hint": "The solution is correctly solved in two steps: subtracting 3 from both sides and then dividing by 2.",
+        "verdict": "PASS"
+      },
+      "output_tokens": 278,
+      "reasoning_tokens": 228,
+      "returned_prompt_ids_match": true,
+      "seconds": 17.193134644068778,
+      "status": "completed",
+      "stop_reason": null
+    },
+    "synthetic_pass": {
+      "device_peak_bytes": 31605784576,
+      "eos_observed": true,
+      "final_tokens_including_eos": 49,
+      "finish_reason": "stop",
+      "input_tokens": 238,
+      "judgment": {
+        "diagnosis": "No errors found in the steps.",
+        "hint": "The solution is correctly solved in two steps: subtracting 3 from both sides and then dividing by 2.",
+        "verdict": "PASS"
+      },
+      "output_tokens": 278,
+      "reasoning_tokens": 228,
+      "returned_prompt_ids_match": true,
+      "seconds": 21.676358710043132,
+      "status": "completed",
+      "stop_reason": null
+    }
+  },
+  "recommendation": "Do not expand to57. Fix backup access and establish reliable error detection before source-data collection.",
+  "source_prefix_count": 57,
+  "status": "STOPPED_BEFORE_SOURCE_AUDIT",
+  "weight_loading": "ACTUAL_NF4_4BIT_CONFIRMED"
+}

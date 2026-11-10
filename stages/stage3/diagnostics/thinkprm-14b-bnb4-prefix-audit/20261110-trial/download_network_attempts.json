@@ -1,0 +1,62 @@
+{
+  "model": "launch/ThinkPRM-14B",
+  "revision": "1d1b415037cccf826fab6cc1b02c1dac199c0c0f",
+  "attempts": [
+    {
+      "transport": "huggingface_hub Xet, default proxy",
+      "result": "Stopped after roughly two minutes without meaningful file growth; initial incomplete files stayed 40 KiB, 12 KiB and zero bytes. No explicit network exception was returned."
+    },
+    {
+      "transport": "huggingface_hub HTTP, default proxy, three concurrent shard streams",
+      "result": "Download grew but throughput was too low; stopped and retained output in download.log."
+    },
+    {
+      "transport": "Official resolve HTTP Range, default proxy, 16 concurrent streams",
+      "measured_seconds": 30.000622044317424,
+      "allocated_bytes_before": 14680064,
+      "allocated_bytes_after": 162533376,
+      "bytes_per_second": 4928341.545104918,
+      "result": "Stopped to use faster direct transport."
+    },
+    {
+      "transport": "huggingface.co direct without proxy",
+      "result": "curl failed to connect on port 443 after 10213 ms; HTTP status 000."
+    },
+    {
+      "transport": "Official final CDN URL direct without proxy, 16 MiB Range",
+      "http_status": 206,
+      "bytes": 16777216,
+      "seconds": 7.020722147077322,
+      "bytes_per_second": 2389669.8178546573
+    },
+    {
+      "transport": "hf-mirror.com official immutable repo/revision direct without proxy, 16 MiB Range",
+      "http_status": 206,
+      "bytes": 16777216,
+      "bytes_per_second": 4468573,
+      "result": "Selected for ranged download. Every completed shard must match SHA256 from official huggingface.co LFS metadata."
+    },
+    {
+      "transport": "hf-mirror.com direct without proxy, 64 concurrent Range streams, resumed existing sparse extents",
+      "measured_seconds": 30.00043130852282,
+      "allocated_bytes_before": 1673531392,
+      "allocated_bytes_after": 2170560512,
+      "bytes_per_second": 16567399.144651597,
+      "MiB_per_second": 15.799903053905103,
+      "result": "Selected stable configuration; estimated remaining 27.5 minutes at measurement time."
+    },
+    {
+      "transport": "hf-mirror.com direct, 64 workers, 8 MiB ranges for remaining sparse holes",
+      "result": "After 64 MiB transfers entered a long tail, retained all received data and used a separate 8 MiB progress journal. This completed all but one final range; already written extents were not downloaded again."
+    },
+    {
+      "transport": "Official huggingface.co resolve through the default proxy for the last 8 MiB range",
+      "file": "model-00006-of-00006.safetensors",
+      "start": 3388997632,
+      "end_inclusive": 3397386239,
+      "bytes": 8388608,
+      "seconds": 6.908434702083468,
+      "result": "Completed. Stopped the remaining network thread after all sparse holes reached EOF, then independently verified all six full SHA256 values and BF16 tensor headers before renaming weights. See download_complete.json and download_verify.log."
+    }
+  ]
+}
